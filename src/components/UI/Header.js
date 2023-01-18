@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from "react";
-import classNames from 'classnames'
+import classNames from 'classnames';
+import logo from "../../assets/CLASSWOOD_Logo.png" ;
 export default function Header() {
     const [careerDrop, setCareerDrop] = useState(false);
     const [featureDrop, setFeatureDrop] = useState(false);
@@ -22,13 +23,13 @@ export default function Header() {
     }, [])
   return (
       <nav className={"sticky top-0 z-50 " + classes } style={{position: "sticky"}} id="navbar">
-        <div className=" mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="px-2 mx-auto sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               {/* <!-- Mobile menu button--> */}
               <button
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -37,7 +38,7 @@ export default function Header() {
                 <svg
                     onClick={()=>setmenuDrop(prev=>!prev)}
 
-                  className="block h-6 w-6"
+                  className="block w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -53,7 +54,7 @@ export default function Header() {
                 </svg>
 
                 <svg
-                  className="hidden h-6 w-6"
+                  className="hidden w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -69,20 +70,20 @@ export default function Header() {
                 </svg>
               </button>
             </div>
-            <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-              <div className="flex-shrink-0 flex items-center">
+            <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
+              <div className="flex items-center flex-shrink-0">
                 <img
-                  className="mx-auto h-6 w-auto mb-4"
-                  src="../../assets/logo.webp"
+                  className="w-auto h-6 mx-auto mb-4"
+                  src={logo}
                   alt="Classwood"
                 />
               </div>
               <div className="hidden sm:flex sm:ml-6 ">
-                <div className="flex space-x-4 links items-center justify-center">
+                <div className="flex items-center justify-center space-x-4 links">
                   <a
                     href="#"
                     id="homelink"
-                    className=" bg-black  text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="px-3 py-2 text-sm font-medium text-white bg-black rounded-md "
                     aria-current="page"
                   >
                     Home
@@ -93,7 +94,7 @@ export default function Header() {
                         setCareerDrop(false);
                         setFeatureDrop(prev=>!prev)}}
                     id="homelink"
-                    className=" hover:bg-black  hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white"
                     aria-current="page"
                   >
                     Our Features
@@ -105,7 +106,7 @@ export default function Header() {
                         setCareerDrop(prev=>!prev)}}
                     
                     id="homelink"
-                    className=" hover:bg-black  hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white"
                     aria-current="page"
                   >
                     {" "}
@@ -115,7 +116,7 @@ export default function Header() {
                   <a
                     href="#feature"
                     id="featurelink"
-                    className=" hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium active:bg-black active:text-white"
+                    className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white active:bg-black active:text-white"
                   >
                     Features
                   </a>
@@ -123,14 +124,14 @@ export default function Header() {
                   <a
                     href="#about"
                     id="aboutlink"
-                    className="  hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white"
                   >
                     About Us
                   </a>
 
                   <a
                     href="#"
-                    className=" hover:bg-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white"
                   >
                     Help
                   </a>
@@ -138,7 +139,7 @@ export default function Header() {
               </div>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <div className="ml-3 relative">
+              <div className="relative ml-3">
                 {/* <a
                   className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
                   href="{%url 'dashboard'%}"
@@ -154,13 +155,13 @@ export default function Header() {
 
                 <a
                   className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
-                  href="{%url 'school_signup'%}"
+                  href="/"
                 >
                   Get started
                 </a>
                 <a
                   className="hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
-                  href="{%url 'login'%}"
+                  href="/"
                 >
                   Login
                 </a>
@@ -169,30 +170,30 @@ export default function Header() {
           </div>
         </div>
 
-        <div className="sm:hidden hidden bg-white" id="mobile-menu">
+        <div className="hidden bg-white sm:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <a
               href="#"
-              className="bg-black  text-white block px-3 py-2 rounded-md text-base font-medium"
+              className="block px-3 py-2 text-base font-medium text-white bg-black rounded-md"
               aria-current="page"
             >
               Home
             </a>
             <a
               href="#"
-              className="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              className="block px-3 py-2 text-base font-medium text-black rounded-md hover:bg-black hover:text-white"
             >
               Features
             </a>
             <a
               href="#"
-              className="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              className="block px-3 py-2 text-base font-medium text-black rounded-md hover:bg-black hover:text-white"
             >
               About Us
             </a>
             <a
               href="#"
-              className="text-black hover:bg-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              className="block px-3 py-2 text-base font-medium text-black rounded-md hover:bg-black hover:text-white"
             >
               Help
             </a>
@@ -206,13 +207,13 @@ export default function Header() {
             {/* {% else %} */}
             <a
               className="flex width-full text-white bg-black border-4 border-black hover:bg-transparent hover:text-black  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0  mb-4 "
-              href="{%url 'school_signup'%}"
+              href="/"
             >
               Get started
             </a>
             <a
               className="flex width-full text-black hover:text-white border-4 border-black bg-transparent hover:bg-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 "
-              href="{%url 'login'%}"
+              href="/"
             >
               Login
             </a>
@@ -220,7 +221,7 @@ export default function Header() {
           </div>
         </div>
       <div className={featureDrop ? 'h-72' : 'hidden ' } id="featuredrop">
-   <div className= "flex bg-white h-20 items-center justify-start mt-20 flex-wrap mx-auto">
+   <div className= "flex flex-wrap items-center justify-start h-20 mx-auto mt-20 bg-white">
 
    <div className="flex flex-row w-[30%] mx-4 px-4">
       
@@ -270,7 +271,7 @@ export default function Header() {
 </div>
 </div>
 <div className={careerDrop ? 'h-72' : 'hidden' }  id="careerdrop">
-   <div className="flex bg-white h-20 items-center justify-start mt-20 flex-wrap mx-auto">
+   <div className="flex flex-wrap items-center justify-start h-20 mx-auto mt-20 bg-white">
 
    <div className="flex flex-row w-[30%] mx-4 px-4">
       

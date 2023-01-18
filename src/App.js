@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
+import StudentDashboard from "./components/Student/Dashboard"
 import "./App.css";
 export default function App() {
   return (
@@ -16,7 +17,7 @@ export default function App() {
      
         <Routes>
         <Route path='/about' element={<About/>} />
-        <Route path='/users' element={<Users/>} />
+        <Route path='/student/dashboard' element={<StudentDashboard/>} />
         <Route path='/' element={<LandingPage/>} />
         </Routes>
       </div>
