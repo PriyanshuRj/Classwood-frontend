@@ -64,13 +64,8 @@ export default function Features() {
                     viewBox="0 0 64 64"
                     width="64"
                     height="64"
+                    className="w-full h-full"
                     preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      transform: "translate3d(0px, 0px, 0px)",
-                      contentVisibility: "visible",
-                    }}
                   >
                     <defs>
                       <clipPath id="__lottie_element_10">
@@ -85,12 +80,12 @@ export default function Features() {
                         clip-path="url(#__lottie_element_12)"
                         transform="matrix(1,0,0,1,0.000003814697265625,-0.0000057220458984375)"
                         opacity="1"
-                        style={{ display: "block" }}
+                        className="block"
                       >
                         <g
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g
                             opacity="1"
@@ -195,7 +190,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,32,32)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                             <path
@@ -281,12 +276,7 @@ export default function Features() {
                     width="64"
                     height="64"
                     preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      transform: "translate3d(0px, 0px, 0px)",
-                      contentVisibility: "visible",
-                    }}
+                 className="w-full h-full"
                   >
                     <defs>
                       <clipPath id="__lottie_element_22">
@@ -301,12 +291,12 @@ export default function Features() {
                         clip-path="url(#__lottie_element_24)"
                         transform="matrix(1,0,0,1,0,0)"
                         opacity="1"
-                        style={{ display: "block" }}
+                        className="block"
                       >
                         <g
                           transform="matrix(1,0,0,1,32,32)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                             <path
@@ -329,7 +319,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,32,32)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                             <path
@@ -346,7 +336,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g
                             opacity="1"
@@ -546,12 +536,7 @@ export default function Features() {
                     width="64"
                     height="64"
                     preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      transform: "translate3d(0px, 0px, 0px)",
-                      contentVisibility: "visible",
-                    }}
+                 className="w-full h-full"
                   >
                     <defs>
                       <clipPath id="__lottie_element_37">
@@ -569,12 +554,12 @@ export default function Features() {
                         clip-path="url(#__lottie_element_39)"
                         transform="matrix(1,0,0,1,0,0)"
                         opacity="1"
-                        style={{ display: "block" }}
+                        className="block"
                       >
                         <g
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g
                             opacity="1"
@@ -606,12 +591,12 @@ export default function Features() {
                           clip-path="url(#__lottie_element_43)"
                           transform="matrix(0.06800000369548798,0,0,0.06800000369548798,20.966999053955078,5.091999053955078)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g
                             transform="matrix(1.5,0,0,1.5,256,257.8599853515625)"
                             opacity="1"
-                            style={{ display: "block" }}
+                            className="block"
                           >
                             <g opacity="1" transform="matrix(1,0,0,1,0,-3)">
                               <path
@@ -624,7 +609,7 @@ export default function Features() {
                           <g
                             transform="matrix(1,0,0,1,256,256)"
                             opacity="1"
-                            style={{ display: "block" }}
+                            className="block"
                           >
                             <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                               <path
@@ -686,12 +671,7 @@ export default function Features() {
                     width="64"
                     height="64"
                     preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      transform: "translate3d(0px, 0px, 0px)",
-                      contentVisibility: "visible",
-                    }}
+                 className="w-full h-full"
                   >
                     <defs>
                       <clipPath id="__lottie_element_56">
@@ -706,12 +686,12 @@ export default function Features() {
                         clip-path="url(#__lottie_element_58)"
                         transform="matrix(1,0,0,1,0,0)"
                         opacity="1"
-                        style={{ display: "block" }}
+                        className="block"
                       >
                         <g
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,32,34.5)">
                             <path
@@ -799,7 +779,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,32,32)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                             <path
@@ -816,7 +796,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,32,16.125)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                             <path
@@ -833,7 +813,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,32,24.125)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                             <path
@@ -894,12 +874,7 @@ export default function Features() {
                     width="64"
                     height="64"
                     preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      transform: "translate3d(0px, 0px, 0px)",
-                      contentVisibility: "visible",
-                    }}
+                 className="w-full h-full"
                   >
                     <defs>
                       <clipPath id="__lottie_element_74">
@@ -914,12 +889,12 @@ export default function Features() {
                         clip-path="url(#__lottie_element_76)"
                         transform="matrix(1,0,0,1,0,0)"
                         opacity="1"
-                        style={{ display: "block" }}
+                        className="block"
                       >
                         <g
                           transform="matrix(1,0,0,1,32,32)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g
                             opacity="1"
@@ -945,7 +920,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,32.5,31.5)">
                             <path
@@ -958,7 +933,7 @@ export default function Features() {
                         <g
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,32,32)">
                             <path
@@ -1045,12 +1020,8 @@ export default function Features() {
                     width="64"
                     height="64"
                     preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      transform: "translate3d(0px, 0px, 0px)",
-                      contentVisibility: "visible",
-                    }}
+                    
+                 className="w-full h-full"
                   >
                     <defs>
                       <clipPath id="__lottie_element_89">
@@ -1068,12 +1039,12 @@ export default function Features() {
                         clip-path="url(#__lottie_element_91)"
                         transform="matrix(1,0,0,1,0,0)"
                         opacity="1"
-                        style={{ display: "block" }}
+                        className="block"
                       >
                         <g
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g opacity="1" transform="matrix(1,0,0,1,31.5,28)">
                             <path
@@ -1109,12 +1080,12 @@ export default function Features() {
                           clip-path="url(#__lottie_element_95)"
                           transform="matrix(1,0,0,1,0,0)"
                           opacity="1"
-                          style={{ display: "block" }}
+                          className="block"
                         >
                           <g
                             transform="matrix(1.1071399450302124,0,0,1.0965299606323242,32,32)"
                             opacity="1"
-                            style={{ display: "block" }}
+                            className="block"
                           >
                             <g opacity="1" transform="matrix(1,0,0,1,0,0)">
                               <path
@@ -1131,7 +1102,7 @@ export default function Features() {
                           <g
                             transform="matrix(1,0,0,1,29.875,34.125)"
                             opacity="1"
-                            style={{ display: "block" }}
+                            className="block"
                           >
                             <g
                               opacity="1"
