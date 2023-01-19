@@ -74,7 +74,7 @@ export default function Header() {
           <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
             <div className="flex items-center flex-shrink-0">
               <img
-                className="w-auto h-6 mx-auto mb-4"
+                className="w-auto h-6 mx-auto"
                 src={logo}
                 alt="Classwood"
               />
