@@ -1,12 +1,12 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 export default function Sidebar() {
   return (
      <div className="w-full pb-10 mt-12 text-gray-800 border-b-2 gap-y-2">
     <div className="flex w-full">
-      <a
+      <Link
         className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-        href="/"
+        to="/student/dashboard"
       >
         <svg
           width="24"
@@ -32,12 +32,12 @@ export default function Sidebar() {
         </svg>
 
         <span className="ml-4 text-xl font-medium">Dashboard</span>
-      </a>
+      </Link>
     </div>
     <div className="flex w-full">
-      <a
+      <Link
         className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-        href="/"
+        to="/student/subject"
       >
         <svg
           width="24"
@@ -63,12 +63,12 @@ export default function Sidebar() {
         </svg>
 
         <span className="ml-4 text-xl font-medium">My Cource</span>
-      </a>
+      </Link>
     </div>
     <div className="flex w-full">
-      <a
+      <Link
         className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-        href="{% url 'dashboard' %}"
+        to="/student/test"
       >
         <svg
           width="24"
@@ -94,12 +94,12 @@ export default function Sidebar() {
         </svg>
 
         <span className="ml-4 text-xl font-medium">Text/Exam</span>
-      </a>
+      </Link>
     </div>
     <div className="flex w-full">
-      <a
+      <Link
         className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-        href="{% url 'dashboard' %}"
+        to="{% url 'dashboard' %}"
       >
         <svg
           width="24"
@@ -125,12 +125,12 @@ export default function Sidebar() {
         </svg>
 
         <span className="ml-4 text-xl font-medium">Message</span>
-      </a>
+      </Link>
     </div>
     <div className="flex w-full">
-      <a
+      <Link
         className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-        href="{% url 'dashboard' %}"
+        to="{% url 'dashboard' %}"
       >
         <svg
           width="24"
@@ -156,12 +156,12 @@ export default function Sidebar() {
         </svg>
 
         <span className="ml-4 text-xl font-medium">Fee Payment</span>
-      </a>
+      </Link>
     </div>
     <div className="flex w-full">
-      <a
+      <Link
         className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-        href="{% url 'dashboard' %}"
+        to="{% url 'dashboard' %}"
       >
         <svg
           width="24"
@@ -187,7 +187,7 @@ export default function Sidebar() {
         </svg>
 
         <span className="ml-4 text-xl font-medium">Administration</span>
-      </a>
+      </Link>
     </div>
   </div>
   )
