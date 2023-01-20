@@ -8,6 +8,7 @@ import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/Student/Dashboard";
 import StudentSubjects from "./components/Student/Subjects";
 import StudentTest from './components/Student/Test';
+import StudentFees from './components/Student/FeesPayment';
 import "./App.css";
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path='/student/subject' element={<StudentSubjects/>} />
         <Route path='/student/dashboard' element={<Dashboard/>} />
         <Route path='/student/test' element={<StudentTest/>} />
+        <Route path='/student/fees' element={<StudentFees/>} />
         <Route path='/' element={<LandingPage/>} />
         </Routes>
       </div>
