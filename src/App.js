@@ -1,16 +1,13 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
-import LandingPage from "./components/LandingPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 
+import Login from "./pages/login";
 // Student Pages Imports
 import StudentDashboard from "./components/Student/Dashboard";
 import StudentSubjects from "./components/Student/Subjects";
-import StudentTest from './components/Student/Test';
-import StudentFees from './components/Student/FeesPayment';
+import StudentTest from "./components/Student/Test";
+import StudentFees from "./components/Student/FeesPayment";
 
 // School Pages Imports
 import SchoolDashboard from "./components/School/Dashboard";
@@ -19,21 +16,18 @@ export default function App() {
   return (
     <Router>
       <div>
-     
-
-     
         <Routes>
+          <Route path="/login" element={<Login />} />
 
           {/* Students links  */}
-        <Route path='/student/dashboard' element={<StudentDashboard/>} />
-        <Route path='/student/subject' element={<StudentSubjects/>} />
-        <Route path='/student/test' element={<StudentTest/>} />
-        <Route path='/student/fees' element={<StudentFees/>} />
+          <Route path="/student/dashboard" element={<StudentDashboard />} />
+          <Route path="/student/subject" element={<StudentSubjects />} />
+          <Route path="/student/test" element={<StudentTest />} />
+          <Route path="/student/fees" element={<StudentFees />} />
 
-        {/* School Links */}
-        <Route path='/school/dashboard' element={<SchoolDashboard/>} />
-
-        <Route path='/' element={<LandingPage/>} />
+          {/* School Links */}
+          <Route path="/school/dashboard" element={<SchoolDashboard />} />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>
     </Router>

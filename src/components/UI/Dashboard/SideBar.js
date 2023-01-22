@@ -1,14 +1,17 @@
 import React from "react";
 import logo from "../../../assets/CLASSWOOD_Logo.png";
-import StudentSidebar from "../../Student/sidebar";
-export default function SideBar() {
+import StudentSidebar from "../../Student/Sidebar";
+export default function SideBar({children}) {
+  console.log("child",children)
   return (
     <div className="flex flex-col justify-between w-full h-full pt-10">
       <div className="flex items-center justify-center w-full px-10 py-4 bg-black rounded-full">
         <img className="w-auto h-8 " src={logo} alt="Classwood logo" />
       </div>
       <div className="flex flex-col justify-between w-full h-full">
-      <StudentSidebar />
+      {/* <StudentSidebar /> */}
+      {children}
+      
 
         <div className="mt-8 text-gray-800">
           <div className="z-50">

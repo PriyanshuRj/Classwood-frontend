@@ -3,19 +3,23 @@ import { Link } from "react-router-dom";
 import {
   FiHome,
   FiBookOpen,
+  FiFileText,
   FiEdit3,
   FiSend,
   FiCreditCard,
   FiBriefcase,
 } from "react-icons/fi";
-export default function Sidebar() {
+import SideBar from "../UI/Dashboard/SideBar";
+export default function SchoolSidebar() {
   return (
+    <SideBar>
+
     <div className="w-full pb-10 mt-12 text-gray-800 border-b-2 gap-y-2">
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
           to="/student/dashboard"
-        >
+          >
           <FiHome className=" text-[#5F6368] w-6 h-6" />
 
           <span className="ml-4 text-xl font-medium">Dashboard</span>
@@ -26,16 +30,16 @@ export default function Sidebar() {
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
           to="/student/subject"
         >
-          <FiBookOpen className=" text-[#5F6368] w-6 h-6" />
+          <FiFileText className=" text-[#5F6368] w-6 h-6" />
 
-          <span className="ml-4 text-xl font-medium">My Cource</span>
+          <span className="ml-4 text-xl font-medium">Create Notice</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
           to="/student/test"
-        >
+          >
           <FiEdit3 className=" text-[#5F6368] w-6 h-6" />
 
           <span className="ml-4 text-xl font-medium">Text/Exam</span>
@@ -45,7 +49,7 @@ export default function Sidebar() {
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
           to="/"
-        >
+          >
           <FiSend className=" text-[#5F6368] w-6 h-6" />
 
           <span className="ml-4 text-xl font-medium">Message</span>
@@ -55,7 +59,7 @@ export default function Sidebar() {
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
           to="/student/fees"
-        >
+          >
           <FiCreditCard className=" text-[#5F6368] w-6 h-6" />
 
           <span className="ml-4 text-xl font-medium">Fee Payment</span>
@@ -65,12 +69,13 @@ export default function Sidebar() {
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
           to="{% url 'dashboard' %}"
-        >
+          >
           <FiBriefcase className=" text-[#5F6368] w-6 h-6" />
 
           <span className="ml-4 text-xl font-medium">Administration</span>
         </Link>
       </div>
     </div>
+          </SideBar>
   );
 }

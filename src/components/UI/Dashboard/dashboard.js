@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SideBar from "./SideBar";
-import StudentDashboard from "../../Student/Dashboard";
+// import SideBar from "../../Student/Sidebar";
+import SideBar from "../../School/Sidebar";
 export default function Dashboard({children}) {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   return (

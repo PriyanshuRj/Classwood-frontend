@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
+import {Link} from "react-router-dom";
 import logo from "../../assets/CLASSWOOD_Logo.png";
 export default function Header() {
   const [careerDrop, setCareerDrop] = useState(false);
@@ -81,16 +82,16 @@ export default function Header() {
             </div>
             <div className="hidden sm:flex sm:ml-6 ">
               <div className="flex items-center justify-center space-x-4 links">
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   id="homelink"
                   className="px-3 py-2 text-sm font-medium text-white bg-black rounded-md "
                   aria-current="page"
                 >
                   Home
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   onClick={() => {
                     setCareerDrop(false);
                     setFeatureDrop((prev) => !prev);
@@ -100,9 +101,9 @@ export default function Header() {
                   aria-current="page"
                 >
                   Our Features
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="#"
                   onClick={() => {
                     setFeatureDrop(false);
                     setCareerDrop((prev) => !prev);
@@ -113,60 +114,60 @@ export default function Header() {
                 >
                   {" "}
                   Career
-                </a>
+                </Link>
 
-                <a
-                  href="#feature"
+                <Link
+                  to="#feature"
                   id="featurelink"
                   className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white active:bg-black active:text-white"
                 >
                   Features
-                </a>
+                </Link>
 
-                <a
-                  href="#about"
+                <Link
+                  to="#about"
                   id="aboutlink"
                   className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white"
                 >
                   About Us
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="px-3 py-2 text-sm font-medium rounded-md hover:bg-black hover:text-white"
                 >
                   Help
-                </a>
+                </Link>
               </div>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="relative ml-3">
-              {/* <a
+              {/* <Link
                   className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
-                  href="{%url 'dashboard'%}"
+                  to="{%url 'dashboard'%}"
                 >
                   Dashboard
-                </a>
-                <a
+                </Link>
+                <Link
                   className="hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
-                  href="{%url 'logout'%}"
+                  to="{%url 'logout'%}"
                 >
                   Logout
-                </a> */}
+                </Link> */}
 
-              <a
+              <Link
                 className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
-                href="/"
+                to="/"
               >
                 Get started
-              </a>
-              <a
+              </Link>
+              <Link
                 className="hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
-                href="/"
+                to="/login"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -174,51 +175,51 @@ export default function Header() {
 
       <div className="hidden bg-white sm:hidden" id="mobile-menu">
         <div className="px-2 pt-2 pb-3 space-y-1">
-          <a
-            href="#"
+          <Link
+            to="#"
             className="block px-3 py-2 text-base font-medium text-white bg-black rounded-md"
             aria-current="page"
           >
             Home
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="#"
             className="block px-3 py-2 text-base font-medium text-black rounded-md hover:bg-black hover:text-white"
           >
             Features
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="#"
             className="block px-3 py-2 text-base font-medium text-black rounded-md hover:bg-black hover:text-white"
           >
             About Us
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="#"
             className="block px-3 py-2 text-base font-medium text-black rounded-md hover:bg-black hover:text-white"
           >
             Help
-          </a>
+          </Link>
           {/* {% if user.is_authenticated %} */}
-          <a
-            href="{%url 'logout'%}"
+          <Link
+            to="{%url 'logout'%}"
             className="hidden sm:inline-flex text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
           >
             Logout
-          </a>
+          </Link>
           {/* {% else %} */}
-          <a
+          <Link
             className="flex width-full text-white bg-black border-4 border-black hover:bg-transparent hover:text-black  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0  mb-4 "
-            href="/"
+            to="/"
           >
             Get started
-          </a>
-          <a
+          </Link>
+          <Link
             className="flex width-full text-black hover:text-white border-4 border-black bg-transparent hover:bg-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 "
-            href="/"
+            to="/login"
           >
             Login
-          </a>
+          </Link>
           {/* {% endif %} */}
         </div>
       </div>
