@@ -46,7 +46,7 @@ export default function StudentSidebar() {
         <div className="flex w-full">
           <Link
             className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-            to="/"
+            to="/student/message"
           >
             <FiSend className=" text-[#5F6368] w-6 h-6" />
 

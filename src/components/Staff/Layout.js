@@ -6,7 +6,7 @@ export default function StudentDashboard({children}) {
   return (
     <Dashboard>
 
-    <div className="flex flex-col w-full h-screen">
+    <div className="w-full h-screen">
       <DashHeader />
       {/* <!-- Navbar end --> */}
 

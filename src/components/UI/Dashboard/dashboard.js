@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-// import SideBar from "../../Student/Sidebar";
-import SideBar from "../../School/Sidebar";
+import StudentSideBar from "../../Student/Sidebar";
+import SchoolSideBar from "../../School/Sidebar";
+import StaffSideBar from "../../Staff/Sidebar";
 export default function Dashboard({children}) {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   return (
@@ -48,7 +49,7 @@ export default function Dashboard({children}) {
             } w-full h-full lg:flex`}
             id="inner"
           >
-            <SideBar />
+            {localStorage.getItem("UserType")==="School" ?  <SchoolSideBar /> :  localStorage.getItem("UserType")==="Student" ? <StudentSideBar />: <StaffSideBar />}
           </div>
         </aside>
         <main
