@@ -29,7 +29,7 @@ export default function Student() {
           </div>
           <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
             <IoMdAddCircleOutline className="mr-2" />
-            Add New Staff
+            Add New Student
           </button>
         </div>
 
@@ -37,22 +37,22 @@ export default function Student() {
           CLass 12 Student
         </p>
         <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
-          <ProfileCard />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
+          <ProfileCard name={"student 1"} id={12345} Stclass={"112"} grade={"A"} />
         </div>
       </div>
     </Layout>
