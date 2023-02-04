@@ -12,7 +12,7 @@ export default function Student() {
       {openProfile !== -1 ? <ProfileSideBar setOpenProfile={setOpenProfile} /> : undefined}
       
       <div className="px-0 md:px-10">
-        <div className="flex justify-between my-4">
+        <div className="flex flex-col items-center justify-between my-4 md:flex-row">
           <div className="flex flex-row ">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
               <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -31,7 +31,7 @@ export default function Student() {
               Fliter
             </button>
           </div>
-          <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
+          <button className="flex items-center px-4 py-1 mt-4 font-medium text-white bg-indigo-600 rounded-md md:mt-0">
             <IoMdAddCircleOutline className="mr-2" />
             Add New Staff
           </button>
