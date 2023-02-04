@@ -58,7 +58,7 @@ body{
       }
 
       .open-dash {
-          width: 20rem !important;
+          width: 21rem !important;
           padding: 2.5rem;
 
           -webkit-transition: width 0.2s linear;

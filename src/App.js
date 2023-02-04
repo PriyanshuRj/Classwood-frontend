@@ -12,7 +12,8 @@ import StudentFees from "./components/Student/FeesPayment";
 import StudentChat from "./components/Student/Message";
 // School Pages Imports
 import SchoolDashboard from "./components/School/Dashboard";
-
+import AllStaff from "./components/School/staff";
+import AllStudent from "./components/School/student";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import "./App.css";
@@ -32,6 +33,8 @@ export default function App() {
 
           {/* School Links */}
           <Route path="/school/dashboard" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <SchoolDashboard />} />
+          <Route path="/school/students" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllStudent />} />
+          <Route path="/school/staff" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllStaff />} />
           <Route path="/staff/dashboard" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffDashboard />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>

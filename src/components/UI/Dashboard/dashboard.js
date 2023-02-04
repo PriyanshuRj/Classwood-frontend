@@ -37,8 +37,8 @@ export default function Dashboard({children}) {
           </svg>
         </div>
         <aside
-          className={`fixed top-0 left-0 z-10 flex flex-col items-center h-screen overflow-y-scroll  bg-[#F6F8FE]  dash  lg:flex lg:w-80 lg:p-10 lg:px-4 ${
-            sideBarOpen ? "w-80" : undefined
+          className={`fixed top-0 left-0 z-10 flex flex-col items-center h-screen overflow-y-scroll  bg-[#F6F8FE]  dash  lg:flex lg:w-[21rem] lg:p-10 lg:px-4 ${
+            sideBarOpen ? "w-[21rem]" : undefined
           }`}
           style={{ overflowY: "scroll", minHeight: "100%" }}
           id="side-bar"
@@ -53,7 +53,7 @@ export default function Dashboard({children}) {
           </div>
         </aside>
         <main
-          className="flex-1 bg-[#F6FBFC] lg:ml-80"
+          className="flex-1 bg-[#F6FBFC] lg:ml-[21rem]"
           style={{ maxWidth: "100%", minHeight: "100vh" }}
         >
           {children}

@@ -7,8 +7,10 @@ import {
   FiEdit3,
   FiSend,
   FiCreditCard,
+  
   FiBriefcase,
 } from "react-icons/fi";
+import {HiOutlineUserGroup} from "react-icons/hi";
 import SideBar from "../UI/Dashboard/SideBar";
 export default function SchoolSidebar() {
   return (
@@ -18,7 +20,7 @@ export default function SchoolSidebar() {
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-          to="/student/dashboard"
+          to="/school/dashboard"
           >
           <FiHome className=" text-[#5F6368] w-6 h-6" />
 
@@ -33,6 +35,16 @@ export default function SchoolSidebar() {
           <FiFileText className=" text-[#5F6368] w-6 h-6" />
 
           <span className="ml-4 text-xl font-medium">Create Notice</span>
+        </Link>
+      </div>
+      <div className="flex w-full">
+        <Link
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          to="/student/subject"
+        >
+          <FiBookOpen className=" text-[#5F6368] w-6 h-6" />
+
+          <span className="ml-4 text-xl font-medium">All Cources</span>
         </Link>
       </div>
       <div className="flex w-full">
@@ -58,11 +70,31 @@ export default function SchoolSidebar() {
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-          to="/student/fees"
+          to="/school/students"
+          >
+          <HiOutlineUserGroup className=" text-[#5F6368] w-6 h-6" />
+
+          <span className="ml-4 text-xl font-medium">Student Management</span>
+        </Link>
+      </div>
+      <div className="flex w-full">
+        <Link
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          to="/school/staff"
+          >
+          <HiOutlineUserGroup className=" text-[#5F6368] w-6 h-6" />
+
+          <span className="ml-4 text-xl font-medium">Staff Management</span>
+        </Link>
+      </div>
+      <div className="flex w-full">
+        <Link
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          to="/school/fees"
           >
           <FiCreditCard className=" text-[#5F6368] w-6 h-6" />
 
-          <span className="ml-4 text-xl font-medium">Fee Payment</span>
+          <span className="ml-4 text-xl font-medium">Fee Management</span>
         </Link>
       </div>
       <div className="flex w-full">

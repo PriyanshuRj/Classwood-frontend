@@ -4,7 +4,7 @@ export default function Login() {
   const [email,setEmail] = useState("");
   const [password, setPassword] = useState("");
   const login =()=>{
-    localStorage.setItem("UserType","Student");
+    localStorage.setItem("UserType","School");
   }
   return (
     <body className="bg-white">
