@@ -157,13 +157,13 @@ export default function Header() {
                 </Link> */}
 
               <Link
-                className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
-                to="/"
+                className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-none focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
+                to="/register"
               >
                 Get started
               </Link>
               <Link
-                className="hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
+                className="hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-none focus:outline-none focus:ring-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
                 to="/login"
               >
                 Login

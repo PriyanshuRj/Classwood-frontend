@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 
 import Login from "./pages/login";
+import Register from './pages/Register';
 import NotAuthorized from "./components/NotAuthorized";
 // Student Pages Imports
 import StudentDashboard from "./components/Student/Dashboard";
@@ -23,6 +24,7 @@ export default function App() {
       <div>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Students links  */}
           <Route path="/student/dashboard" element={localStorage.getItem("UserType")!=="Student"? <NotAuthorized /> : <StudentDashboard />} />

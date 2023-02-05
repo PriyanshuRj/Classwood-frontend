@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email,setEmail] = useState("");
@@ -13,18 +14,18 @@ export default function Login() {
           <div className="hidden lg:flex flex-col justify-between bg-[#ffe85c] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
             <div className="flex items-center justify-start space-x-3">
               <span className="w-8 h-8 bg-black rounded-full"></span>
-              <a href="#" className="text-xl font-medium">
-                Brand
-              </a>
+              <Link href="/" className="text-xl font-medium">
+                Classwood
+              </Link>
             </div>
             <div className="space-y-5">
               <h1 className="font-extrabold lg:text-3xl xl:text-5xl xl:leading-snug">
                 Enter your account and discover new experiences
               </h1>
               <p className="text-lg">You do not have an account?</p>
-              <button className="flex-none inline-block px-4 py-3 font-medium text-white bg-black border-2 border-black rounded-lg">
+              <Link to="/register" className="flex-none inline-block px-4 py-3 font-medium text-white bg-black border-2 border-black rounded-lg">
                 Create account here
-              </button>
+              </Link>
             </div>
             <p className="font-medium">© 2022 Company</p>
           </div>
@@ -33,15 +34,15 @@ export default function Login() {
             <div className="flex items-center justify-between w-full py-4 lg:hidden">
               <div className="flex items-center justify-start space-x-3">
                 <span className="w-6 h-6 bg-black rounded-full"></span>
-                <a href="#" className="text-lg font-medium">
-                  Brand
-                </a>
+                <Link to="/" className="text-lg font-medium">
+                  Classwood
+                </Link>
               </div>
               <div className="flex items-center space-x-2">
                 <span>Not a member? </span>
-                <a href="/" className="underline font-medium text-[#070eff]">
+                <Link href="/register" className="underline font-medium text-[#070eff]">
                   Sign up now
-                </a>
+                </Link>
               </div>
             </div>
             <div className="flex flex-col justify-center flex-1 max-w-md space-y-5">
