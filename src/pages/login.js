@@ -1,14 +1,33 @@
-import React,{useState, useEffect} from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import {API_URL} from '../helpers/URL';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const [email,setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login =()=>{
-    localStorage.setItem("UserType","School");
+  let navigate = useNavigate();
+  const login = async () => {
+    try{
+    
+      const res = await axios.post(API_URL + "login/", {
+        email:email,
+        password:password
+      });
+      console.log(res.data.user_type        )
+      if(res.status===200){
+        localStorage.setItem("UserType",res.data.user_type);
+        navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
+        
+      }
+      console.log(res);
+    }
+    catch(e){
+      console.warn(e);
+    }
   }
   return (
-    <body className="bg-white">
+    <div className="bg-white">
       <div className="flex min-h-screen">
         <div className="flex flex-row w-full">
           <div className="hidden lg:flex flex-col justify-between bg-[#ffe85c] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
@@ -79,6 +98,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </body>
+    </div>
   );
 }

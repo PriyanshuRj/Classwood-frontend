@@ -15,6 +15,8 @@ import StudentChat from "./components/Student/Message";
 import SchoolDashboard from "./components/School/Dashboard";
 import AllStaff from "./components/School/staff";
 import AllStudent from "./components/School/student";
+import AllSubjects from "./components/School/AllSubjects"
+import SchoolClassroom from "./components/School/Classroom";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import "./App.css";
@@ -37,6 +39,11 @@ export default function App() {
           <Route path="/school/dashboard" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <SchoolDashboard />} />
           <Route path="/school/students" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllStudent />} />
           <Route path="/school/staff" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllStaff />} />
+          <Route path="/school/classroom" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <SchoolClassroom />} />
+          <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllSubjects />} />
+
+
+          {/* Staff Links */}
           <Route path="/staff/dashboard" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffDashboard />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>

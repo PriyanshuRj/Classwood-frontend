@@ -10,6 +10,7 @@ import {
   
   FiBriefcase,
 } from "react-icons/fi";
+import {BiChalkboard} from 'react-icons/bi';
 import {HiOutlineUserGroup} from "react-icons/hi";
 import SideBar from "../UI/Dashboard/SideBar";
 export default function SchoolSidebar() {
@@ -40,7 +41,17 @@ export default function SchoolSidebar() {
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
-          to="/student/subject"
+          to="/school/classroom"
+        >
+          <BiChalkboard className=" text-[#5F6368] w-6 h-6" />
+
+          <span className="ml-4 text-xl font-medium">Classroom</span>
+        </Link>
+      </div>
+      <div className="flex w-full">
+        <Link
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          to="/school/subject"
         >
           <FiBookOpen className=" text-[#5F6368] w-6 h-6" />
 
