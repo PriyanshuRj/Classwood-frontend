@@ -4,7 +4,7 @@ import ProfileCard from "../UI/Cards/ProfileCard";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
-import ProfileSideBar from "../UI/ProfileSideBar";
+import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
 export default function Student() {
   const [openProfile, setOpenProfile] = useState(-1);
   return (

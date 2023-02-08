@@ -2,14 +2,16 @@ import React, {useState} from 'react'
 import Layout from "./Layout";
 import SubjectCard from '../UI/Cards/SubjectCard';
 import { FiFilter } from "react-icons/fi";
+import UploadSyllabusSidebar from '../UI/SideBars/UploadSyllabusSidebar';
 import { AiOutlineSearch, AiOutlineUpload } from "react-icons/ai";
 const tabs = [
     "All Classes","Senior Secondary", "Secondary","Primary","Middle", "Pre Primary"];
 export default function AllSubjects() {
+    const [openUpload, setOpenUpload] = useState(false);
     const [tabState, setTabState] = useState(0);
   return (
       <Layout>
-
+{openUpload !== false ? <UploadSyllabusSidebar setOpenUpload={setOpenUpload} /> : undefined}
 <div className="px-0 md:px-10">
         <div className="flex justify-between my-4">
           <div className="flex flex-row ">
@@ -30,7 +32,7 @@ export default function AllSubjects() {
               Fliter
             </button>
           </div>
-          <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
+          <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md" onClick={()=> setOpenUpload(true)}>
             <AiOutlineUpload className="w-6 h-6 mr-2" />
             Upload Syllabus
           </button>
