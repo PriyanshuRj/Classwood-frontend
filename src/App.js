@@ -17,6 +17,7 @@ import AllStaff from "./components/School/staff";
 import AllStudent from "./components/School/student";
 import AllSubjects from "./components/School/AllSubjects"
 import SchoolClassroom from "./components/School/Classroom";
+import StartPay from "./components/School/StartPay";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import "./App.css";
@@ -36,11 +37,11 @@ export default function App() {
           <Route path="/student/fees" element={localStorage.getItem("UserType")!=="Student"? <NotAuthorized /> : <StudentFees />} />
 
           {/* School Links */}
-          <Route path="/school/dashboard" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <SchoolDashboard />} />
-          <Route path="/school/students" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllStudent />} />
-          <Route path="/school/staff" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllStaff />} />
-          <Route path="/school/classroom" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <SchoolClassroom />} />
-          <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : <AllSubjects />} />
+          <Route path="/school/dashboard" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolDashboard /> : <StartPay />} />
+          <Route path="/school/students" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllStudent /> : <StartPay />} />
+          <Route path="/school/staff" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllStaff /> : <StartPay />} />
+          <Route path="/school/classroom" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolClassroom /> : <StartPay />} />
+          <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllSubjects /> : <StartPay />} />
 
 
           {/* Staff Links */}

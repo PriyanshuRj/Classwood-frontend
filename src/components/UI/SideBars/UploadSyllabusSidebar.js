@@ -1,11 +1,5 @@
 import React, {useState} from "react";
-import { GoPrimitiveDot, GoLocation } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
-import { BsBriefcase } from "react-icons/bs";
-import { MdOutlineSchool } from "react-icons/md";
-import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar} from "react-icons/ai";
-import {HiOutlineCake} from "react-icons/hi";
-import {FiEdit2} from "react-icons/fi";
 import SelectionDropdown from "../SelectionDropdown";
 const inputList = [
     {
