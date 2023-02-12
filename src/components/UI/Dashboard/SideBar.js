@@ -1,8 +1,16 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+
 import logo from "../../../assets/CLASSWOOD_Logo.png";
-import StudentSidebar from "../../Student/Sidebar";
 export default function SideBar({children}) {
   console.log("child",children)
+  let navigate = useNavigate();
+
+  const Logout = ()=>{
+    localStorage.removeItem("UserType");
+    navigate(`/`);
+
+  }
   return (
     <div className="flex flex-col justify-between w-full h-full pt-10">
       <div className="flex items-center justify-center w-full px-10 py-4 bg-black rounded-full">
@@ -16,9 +24,9 @@ export default function SideBar({children}) {
         <div className="mt-8 text-gray-800">
           <div className="z-50">
             <div className="flex w-full my-8">
-              <a
+              <span
                 className="flex items-center justify-center w-full p-4 text-xl text-center text-white duration-300 ease-in-out bg-black rounded-full hover:bg-opacity-80 hover:bg-gray-100 hover:text-red-800"
-                href="{% url 'logout' %}"
+                onClick={()=> Logout()}
               >
                 <svg
                   width="24"
@@ -50,8 +58,8 @@ export default function SideBar({children}) {
                   />
                 </svg>
 
-                <span className="ml-4 text-xl font-medium">Logout</span>
-              </a>
+                <span  className="ml-4 text-xl font-medium">Logout</span>
+              </span>
             </div>
           </div>
         </div>

@@ -3,7 +3,9 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { GoPrimitiveDot } from "react-icons/go";
 export default function ProfileCard(props) {
   return (
-    <div className="border-[1px] border-gray-400 rounded-lg flex flex-col p-4 w-full" onClick={()=> props.setOpenProfile(0)}>
+    <div className="border-[1px] border-gray-400 rounded-lg flex flex-col p-4 w-full" onClick={()=> {
+      props.setDataOfStaff(props.allData)
+      props.setOpenProfile(0)}}>
       <div className="flex flex-row justify-between border-b-[1px] border-gray-200 pb-2 border-dotted">
         <div className="flex flex-col">
           <img

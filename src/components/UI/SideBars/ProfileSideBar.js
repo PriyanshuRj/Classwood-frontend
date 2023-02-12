@@ -6,9 +6,10 @@ import { MdOutlineSchool } from "react-icons/md";
 import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar} from "react-icons/ai";
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
-export default function ProfileSideBar({setOpenProfile}) {
+export default function ProfileSideBar({setOpenProfile, data}) {
+  console.log("STaff Data", data)
   return (
-    <div className="fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-96">
+    <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
       <div onClick={()=>setOpenProfile(-1)} className="absolute p-2 bg-gray-200 rounded-full top-8 left-8">
         <RxCross1 />
       </div>
@@ -16,9 +17,9 @@ export default function ProfileSideBar({setOpenProfile}) {
       <div className="flex flex-col items-center justify-center w-full">
         <img
           className="object-cover w-16 h-16 mb-2 rounded-full"
-          src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+          src={data.profile_pic ? data.profile_pic : "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"}
         />
-        <span className="font-semibold text-md ">Jogorta Mana</span>
+        <span className="font-semibold text-md ">J{data.first_name + " " + data.last_name}</span>
         <span className="text-gray-400"> id: 1111</span>
         <span className="flex items-center text-green-500">
           <GoPrimitiveDot className="w-4 h-4 mr-2" /> Present
@@ -28,7 +29,7 @@ export default function ProfileSideBar({setOpenProfile}) {
         <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
           <BsBriefcase className="w-6 h-6 mb-2 text-indigo-800" />
           <span className="mb-2 font-semibold text-md">Role</span>
-          <span>Class Teacher</span>
+          <span>{data.is_class_teacher ? "Class Teacher" : "Not A Class Teacher"}</span>
         </div>
         <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
           <MdOutlineSchool className="w-6 h-6 mb-2 text-indigo-800" />
@@ -42,21 +43,21 @@ export default function ProfileSideBar({setOpenProfile}) {
           <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Phone Number</span>
-            <span>+ 91-9878654511</span>
+            <span>{data.mobile_number}</span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">
           <BsBriefcase className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center ">
             <span className="mb-1 font-semibold text-gray-800 text-md">Email Address</span>
-            <span>jygotramasxr@gmail.com</span>
+            <span>{data.contact_email}</span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">
           <HiOutlineCake className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Date of Birth</span>
-            <span>20 Feb 2001</span>
+            <span>{data.date_of_birth}</span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">
@@ -73,7 +74,7 @@ export default function ProfileSideBar({setOpenProfile}) {
           <AiOutlineCalendar className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Date of Joining</span>
-            <span> 10-01-2022</span>
+            <span> {data.date_of_joining}</span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">

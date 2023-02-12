@@ -8,13 +8,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function SelectionDropdown({inputList, labelTitle, DivWidth}) {
-  const [selected, setSelected] = useState(inputList[0])
+export default function SelectionDropdown({inputList, labelTitle, DivWidth, selected, setSelected}) {
 
   return (
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
-        <div className='flex flex-col items-start'>
+        <div className={`flex flex-col items-start w-${DivWidth}`}>
           <Listbox.Label className="block text-sm font-medium text-gray-700">{labelTitle}</Listbox.Label>
           <div className="relative w-full mt-1">
             <Listbox.Button className={`relative w-${DivWidth} py-2 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-default focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm`}>

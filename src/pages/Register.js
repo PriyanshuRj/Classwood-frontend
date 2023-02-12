@@ -71,7 +71,7 @@ export default function Register() {
         });
 
         if (LoginRes.status === 200) {
-          localStorage.setItem("UserType", LoginRes.data.user_type);
+          await localStorage.setItem("UserType", LoginRes.data.user_type);
           navigate(`/${LoginRes.data.user_type.toLowerCase()}/dashboard`);
         }
         console.log("response returned", LoginRes);

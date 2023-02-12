@@ -1,15 +1,39 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Layout from "./Layout";
 import ProfileCard from "../UI/Cards/ProfileCard";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
+import AddStaff from "../UI/SideBars/AddStaff";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
+import axios from "axios";
+import {API_URL} from "../../helpers/URL";
+
 export default function Student() {
   const [openProfile, setOpenProfile] = useState(-1);
+  const [openAddProfile, setOpenAddProfile] = useState(false);
+  const [allStaff, setAllStaff] = useState([]);
+  const [dataOfStaff, setDataOfStaff] = useState({});
+  async function getStaff(){
+    const token = localStorage.getItem("token");
+
+    const res  = await axios.get(API_URL + 'list/staff/',{
+      headers: {
+        "Authorization": `Bearer ${token}` 
+       }
+      })
+      setAllStaff(res.data)
+      console.log(allStaff)
+  }
+  useEffect(()=>{
+ 
+    getStaff()
+   
+  },[])
   return (
     <Layout>
-      {openProfile !== -1 ? <ProfileSideBar setOpenProfile={setOpenProfile} /> : undefined}
+      {openProfile !== -1 ? <ProfileSideBar data={dataOfStaff} setOpenProfile={setOpenProfile} /> : undefined}
+      {openAddProfile ? <AddStaff setOpenAddProfile={setOpenAddProfile} /> : undefined}
       
       <div className="px-0 md:px-10">
         <div className="flex flex-col items-center justify-between my-4 md:flex-row">
@@ -31,7 +55,9 @@ export default function Student() {
               Fliter
             </button>
           </div>
-          <button className="flex items-center px-4 py-1 mt-4 font-medium text-white bg-indigo-600 rounded-md md:mt-0">
+          <button 
+          onClick={()=> setOpenAddProfile(true)}
+          className="flex items-center px-4 py-1 mt-4 font-medium text-white bg-indigo-600 rounded-md md:mt-0">
             <IoMdAddCircleOutline className="mr-2" />
             Add New Staff
           </button>
@@ -41,22 +67,11 @@ export default function Student() {
           CLass 12 Student
         </p>
         <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
-          <ProfileCard name={"staff 1"} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile}/>
+          {allStaff.map((e,i)=>{
+            console.log(e)
+          return <ProfileCard name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
+          
+          })}
         </div>
       </div>
     </Layout>

@@ -65,6 +65,9 @@ const inputList = [
   ]
 export default function UploadSyllabusSidebar({setOpenUpload}) {
   const [subjectImage, setSubjectImage] = useState(null);
+  const [schoolClass, setClass] = useState(inputList[0])
+  const [section, setSection] = useState(inputList[0])
+  const [subject, setSubject] = useState(inputList[0])
   return (
     <div className="fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">
       <div onClick={()=>setOpenUpload(false)} className="absolute p-2 bg-gray-200 rounded-full cursor-pointer top-8 left-8">
@@ -76,10 +79,10 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
       </div>
       <div className="flex flex-col mx-8 mt-8 ">
         <div className="flex flex-row justify-between mb-8">
-            <SelectionDropdown inputList={inputList} labelTitle="Class*" DivWidth="[13.5rem]" />
-            <SelectionDropdown inputList={inputList} labelTitle="Selection*" DivWidth="[13.5rem]"  />
+            <SelectionDropdown inputList={inputList} labelTitle="Class*" DivWidth="[13.5rem]" selected={schoolClass} setSelected={setClass} />
+            <SelectionDropdown inputList={inputList} labelTitle="Selection*" DivWidth="[13.5rem]" selected={section} setSelected={setSection} />
         </div>
-        <SelectionDropdown inputList={inputList} labelTitle="Subject" DivWidth="full"  />
+        <SelectionDropdown inputList={inputList} labelTitle="Subject" DivWidth="full"  selected={subject} setSelected={setSubject}/>
         <div className="flex items-center justify-center w-full mt-8">
           <label
             htmlFor="dropzone-file"

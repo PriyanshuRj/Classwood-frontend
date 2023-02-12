@@ -14,9 +14,12 @@ export default function Login() {
         email:email,
         password:password
       });
-      console.log(res.data.user_type        )
+      console.log(res.data  )
       if(res.status===200){
         localStorage.setItem("UserType",res.data.user_type);
+        localStorage.setItem("Payed", true);
+        localStorage.setItem("token", res.data.tokens.access);
+
         navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
         
       }
@@ -59,7 +62,7 @@ export default function Login() {
               </div>
               <div className="flex items-center space-x-2">
                 <span>Not a member? </span>
-                <Link href="/register" className="underline font-medium text-[#070eff]">
+                <Link to="/register" className="underline font-medium text-[#070eff]">
                   Sign up now
                 </Link>
               </div>
