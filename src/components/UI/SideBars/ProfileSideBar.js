@@ -6,7 +6,7 @@ import { MdOutlineSchool } from "react-icons/md";
 import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar} from "react-icons/ai";
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
-export default function ProfileSideBar({setOpenProfile, data}) {
+export default function ProfileSideBar({setOpenProfile, data, setStaffData, setOpenAddProfile}) {
   console.log("STaff Data", data)
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
@@ -95,7 +95,12 @@ export default function ProfileSideBar({setOpenProfile, data}) {
       </div>
       <div className="mx-4 my-4">
 
-      <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-100 rounded-md">
+      <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-100 rounded-md" onClick={()=>{
+        setStaffData(data);
+        setOpenAddProfile(true)
+        setOpenProfile(-1)
+
+      }}>
               <FiEdit2 className="mr-2" />
               Edit Staff
             </button>

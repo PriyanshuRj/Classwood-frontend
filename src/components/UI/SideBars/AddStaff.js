@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {  GoLocation } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
 import { BsFillPersonFill, BsFillCalendar2DateFill, BsBriefcase } from "react-icons/bs";
@@ -19,7 +19,7 @@ const inputList = [
     }
    
   ]
-export default function AddStaff({setOpenAddProfile}) {
+export default function AddStaff({setOpenAddProfile, staffData}) {
     const [profileImage, setProfileImage] = useState(null);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -29,6 +29,28 @@ export default function AddStaff({setOpenAddProfile}) {
     const [address, setAddress] = useState("");
     const [dob, setDOB]  =useState("");
     const [email, setEmail] = useState("");
+
+    useEffect(()=> {
+      if(staffData){
+        console.log(staffData)
+        setFirstName(staffData.first_name);
+        setLastName(staffData.last_name);
+        setEmail(staffData.contact_email);
+        setDateOfJoining(staffData.date_of_joining);
+        setDOB(staffData.date_of_birth);
+        setMobileNo(staffData.mobile_number);
+        setAddress(staffData.address)
+        setGender(staffData.gender==="2" ? {
+          id: 2,
+          name: 'Female'
+          
+        } : {
+          id: 1,
+          name: 'Male'
+        })
+
+      }
+    },[])
     const submit = async ()=>{
       if(firstName.length === 0 || lastName.length === 0 || dateOfJoining.length===0){
         alert("Fill complete Details", firstName, lastName, dateOfJoining)
@@ -48,7 +70,7 @@ export default function AddStaff({setOpenAddProfile}) {
             profile_pic: profileImage,
             first_name: firstName,
             last_name: lastName,
-            gender : "2",
+            gender : gender==="Male" ? "1" : "2",
             mobile_number: mobileNO.toString(10),
             contact_email: email,
             date_of_joining: dateOfJoining
@@ -76,7 +98,7 @@ export default function AddStaff({setOpenAddProfile}) {
 
       <div className="flex flex-col items-center justify-center w-full">
         <p className="mt-8 mb-8 text-2xl font-semibold">
-            Input Staff Details
+            {!staffData? "Add New Staff" : "Edit Staff"}
             </p>
       </div>
     
@@ -187,6 +209,7 @@ export default function AddStaff({setOpenAddProfile}) {
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Date of Birth</span>
             <input
+            value={dob}
           onChange={(e)=> setDOB(e.target.value)}
           type="date"
           placeholder="Phone No"
@@ -200,7 +223,6 @@ export default function AddStaff({setOpenAddProfile}) {
             <span className="mb-1 font-semibold text-gray-800 text-md">Address</span>
             <textarea
   
-  type="date"
   onChange={(e)=> setAddress(e.target.value)}
   placeholder="Address"
   className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
@@ -216,6 +238,7 @@ export default function AddStaff({setOpenAddProfile}) {
           onChange={e=>setDateOfJoining(e.target.value)}
           
           type="date"
+          value={dateOfJoining}
           placeholder="Phone No"
           className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px] mb-4"
         />

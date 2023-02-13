@@ -14,6 +14,7 @@ export default function Student() {
   const [openAddProfile, setOpenAddProfile] = useState(false);
   const [allStaff, setAllStaff] = useState([]);
   const [dataOfStaff, setDataOfStaff] = useState({});
+  const [staffData, setStaffData] = useState(null);
   async function getStaff(){
     const token = localStorage.getItem("token");
 
@@ -32,8 +33,8 @@ export default function Student() {
   },[])
   return (
     <Layout>
-      {openProfile !== -1 ? <ProfileSideBar data={dataOfStaff} setOpenProfile={setOpenProfile} /> : undefined}
-      {openAddProfile ? <AddStaff setOpenAddProfile={setOpenAddProfile} /> : undefined}
+      {openProfile !== -1 ? <ProfileSideBar setOpenAddProfile={setOpenAddProfile} setStaffData={setStaffData} data={dataOfStaff} setOpenProfile={setOpenProfile} /> : undefined}
+      {openAddProfile ? <AddStaff staffData={staffData} setOpenAddProfile={setOpenAddProfile} /> : undefined}
       
       <div className="px-0 md:px-10">
         <div className="flex flex-col items-center justify-between my-4 md:flex-row">
@@ -56,7 +57,11 @@ export default function Student() {
             </button>
           </div>
           <button 
-          onClick={()=> setOpenAddProfile(true)}
+          onClick={()=> {
+            setStaffData(null)
+            setOpenAddProfile(true)
+            }
+          }
           className="flex items-center px-4 py-1 mt-4 font-medium text-white bg-indigo-600 rounded-md md:mt-0">
             <IoMdAddCircleOutline className="mr-2" />
             Add New Staff
@@ -69,7 +74,7 @@ export default function Student() {
         <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allStaff.map((e,i)=>{
             console.log(e)
-          return <ProfileCard name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
+          return <ProfileCard  name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
           
           })}
         </div>
