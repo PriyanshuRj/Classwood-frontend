@@ -18,9 +18,11 @@ import AllStudent from "./components/School/student";
 import AllSubjects from "./components/School/AllSubjects"
 import SchoolClassroom from "./components/School/Classroom";
 import StartPay from "./components/School/StartPay";
+import AddClass from "./components/School/AddClass";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import "./App.css";
+
 export default function App() {
   return (
     <Router>
@@ -42,6 +44,7 @@ export default function App() {
           <Route path="/school/staff" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllStaff /> : <StartPay />} />
           <Route path="/school/classroom" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolClassroom /> : <StartPay />} />
           <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllSubjects /> : <StartPay />} />
+          <Route path="/school/addclass" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AddClass /> : <StartPay />} />
 
 
           {/* Staff Links */}

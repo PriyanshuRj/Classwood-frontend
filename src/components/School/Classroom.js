@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Layout from "./Layout";
+import { Link } from 'react-router-dom';
 import ClassroomCard from '../UI/Cards/ClassroomCard';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
@@ -31,10 +32,10 @@ export default function Classroom() {
               Fliter
             </button>
           </div>
-          <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
+          <Link to="/school/addclass" className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
             <IoMdAddCircleOutline className="mr-2" />
-            Create Custom Class
-          </button>
+             Add Class
+          </Link>
         </div>
 
         <p className="my-4 mt-8 text-xl font-semibold">

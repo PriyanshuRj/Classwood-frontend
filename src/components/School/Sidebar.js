@@ -17,105 +17,105 @@ export default function SchoolSidebar() {
   return (
     <SideBar>
 
-    <div className="w-full pb-10 mt-12 text-gray-800 border-b-2 gap-y-2">
+    <div className="w-full pb-10 mt-12 text-gray-200 border-b-2 gap-y-2">
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/school/dashboard"
           >
-          <FiHome className=" text-[#5F6368] w-6 h-6" />
+          <FiHome className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Dashboard</span>
+          <span className="ml-4 text-lg font-medium">Dashboard</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/student/subject"
         >
-          <FiFileText className=" text-[#5F6368] w-6 h-6" />
+          <FiFileText className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Create Notice</span>
+          <span className="ml-4 text-lg font-medium">Create Notice</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500"
           to="/school/classroom"
         >
-          <BiChalkboard className=" text-[#5F6368] w-6 h-6" />
+          <BiChalkboard className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Classroom</span>
+          <span className="ml-4 text-lg font-medium">Classroom</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/school/subject"
         >
-          <FiBookOpen className=" text-[#5F6368] w-6 h-6" />
+          <FiBookOpen className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">All Cources</span>
+          <span className="ml-4 text-lg font-medium">All Cources</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/student/test"
           >
-          <FiEdit3 className=" text-[#5F6368] w-6 h-6" />
+          <FiEdit3 className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Text/Exam</span>
+          <span className="ml-4 text-lg font-medium">Text/Exam</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/"
           >
-          <FiSend className=" text-[#5F6368] w-6 h-6" />
+          <FiSend className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Message</span>
+          <span className="ml-4 text-lg font-medium">Message</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/school/students"
           >
-          <HiOutlineUserGroup className=" text-[#5F6368] w-6 h-6" />
+          <HiOutlineUserGroup className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Student Management</span>
+          <span className="ml-4 text-lg font-medium">Student Management</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/school/staff"
           >
-          <HiOutlineUserGroup className=" text-[#5F6368] w-6 h-6" />
+          <HiOutlineUserGroup className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Staff Management</span>
+          <span className="ml-4 text-lg font-medium">Staff Management</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="/school/fees"
           >
-          <FiCreditCard className=" text-[#5F6368] w-6 h-6" />
+          <FiCreditCard className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Fee Management</span>
+          <span className="ml-4 text-lg font-medium">Fee Management</span>
         </Link>
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out rounded hover:bg-opacity-70 hover:bg-gray-100 hover:text-gray-800"
+          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
           to="{% url 'dashboard' %}"
           >
-          <FiBriefcase className=" text-[#5F6368] w-6 h-6" />
+          <FiBriefcase className="w-6 h-6 " />
 
-          <span className="ml-4 text-xl font-medium">Administration</span>
+          <span className="ml-4 text-lg font-medium">Administration</span>
         </Link>
       </div>
     </div>

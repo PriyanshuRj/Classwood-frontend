@@ -1,0 +1,133 @@
+import React, { useEffect, useState } from "react";
+import SelectionDropdown from "../../UI/SelectionDropdown";
+import { useSelector, useDispatch } from "react-redux";
+import { GrNext } from "react-icons/gr";
+import { CgAdd } from "react-icons/cg";
+import {
+  addNewClassSubjectsTecher,
+  addNewClassSubjectsName,
+  addAWholeSubject,
+} from "../../../store/classroomSlice";
+export default function Page2({ inputList, setPageState }) {
+  const subjects = useSelector((state) => state.classroom.addClassSubject);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      addNewClassSubjectsTecher({
+        id: 0,
+        value: inputList[0],
+      })
+    );
+  }, []);
+
+  const selectTeacher = (value, id) => {
+    dispatch(
+      addNewClassSubjectsTecher({
+        id: id - 1,
+        value: value,
+      })
+    );
+  };
+
+  const setSubjectName = (value, id) => {
+    dispatch(
+      addNewClassSubjectsName({
+        id: id,
+        value: value,
+      })
+    );
+  };
+  const addNewSubjectInputs = () => {
+    dispatch(
+      addAWholeSubject({
+        teacher: inputList[0],
+        subjectname: "",
+      })
+    );
+  };
+  return (
+    <div className="flex flex-col h-full mx-4">
+      <span className="text-xl font-semibold py-4 border-b-[1px]">
+        Create New Class
+      </span>
+
+      <div className="flex flex-row justify-between my-8 ">
+        <div className="flex flex-row items-center justify-center">
+          <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-indigo-600 border-2 border-indigo-600 rounded-full text-md">
+            1
+          </span>
+          <span className="ml-2 font-semibold text-indigo-600 text-md">
+            {" "}
+            Class Detail
+          </span>
+        </div>
+        <div className="flex flex-row items-center justify-center">
+          <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-gray-700 border-2 border-gray-700 rounded-full text-md">
+            2
+          </span>
+          <span className="ml-2 font-semibold text-gray-700 text-md">
+            {" "}
+            Subject Detail
+          </span>
+        </div>
+        <div className="flex flex-row items-center justify-center">
+          <span className="flex items-center justify-center w-6 h-6 text-gray-500 bg-white border-2 border-gray-500 rounded-full text-md">
+            3
+          </span>
+          <span className="ml-2 font-semibold text-gray-500 text-md">
+            {" "}
+            Student Detail
+          </span>
+        </div>
+      </div>
+      {subjects.map((subject, index) => {
+        return (
+          <div key={index} className="flex flex-col mt-10">
+            <div className="flex flex-row w-full">
+              <div className="flex flex-col w-full px-8">
+                <label className="mb-4 text-lg font-semibold text-gray-800">
+                  Subject*
+                </label>
+                <input
+                  value={subject.subjectname}
+                  type="text"
+                  onChange={(e) => setSubjectName(e.target.value, index)}
+                  placeholder="Subject"
+                  className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
+                />
+              </div>
+              <div className="flex flex-col w-full px-8">
+                <label className="mb-4 text-lg font-semibold text-gray-800">
+                  Teacher*
+                </label>
+                <SelectionDropdown
+                  id={index + 1}
+                  inputList={inputList}
+                  labelTitle=""
+                  DivWidth="full"
+                  selected={subject.teacher}
+                  setSelected={selectTeacher}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      })}
+
+      <span
+        onClick={() => addNewSubjectInputs()}
+        className="flex flex-row items-center px-4 py-2 mt-4 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer hover:bg-gray-200 hover:text-indigo-500 w-max"
+      >
+        {" "}
+        <CgAdd className="mr-2" /> Add new Subject
+      </span>
+      <button
+        onClick={() => setPageState(3)}
+        className="flex items-center justify-center py-4 mx-8 mt-16 text-gray-800 duration-300 bg-gray-200 rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"
+      >
+        Save and Next <GrNext className="ml-2" />
+      </button>
+    </div>
+  );
+}

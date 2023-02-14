@@ -13,7 +13,7 @@ export default function SideBar({children}) {
   }
   return (
     <div className="flex flex-col justify-between w-full h-full pt-10">
-      <div className="flex items-center justify-center w-full px-10 py-4 bg-black rounded-full">
+      <div className="flex items-center justify-center w-full px-10 py-4 bg-black rounded-full bg-opacity-30">
         <img className="w-auto h-8 " src={logo} alt="Classwood logo" />
       </div>
       <div className="flex flex-col justify-between w-full h-full">

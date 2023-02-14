@@ -7,14 +7,19 @@ import { AiOutlineSearch } from "react-icons/ai";
 import AddStaff from "../UI/SideBars/AddStaff";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
 import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux'
+import {  addAllStaff } from '../../store/staffSlice'
 import {API_URL} from "../../helpers/URL";
 
 export default function Student() {
   const [openProfile, setOpenProfile] = useState(-1);
   const [openAddProfile, setOpenAddProfile] = useState(false);
-  const [allStaff, setAllStaff] = useState([]);
   const [dataOfStaff, setDataOfStaff] = useState({});
   const [staffData, setStaffData] = useState(null);
+
+  const staff = useSelector((state) => state.staff.allStaff)
+  const dispatch = useDispatch()
+
   async function getStaff(){
     const token = localStorage.getItem("token");
 
@@ -23,8 +28,7 @@ export default function Student() {
         "Authorization": `Bearer ${token}` 
        }
       })
-      setAllStaff(res.data)
-      console.log(allStaff)
+      dispatch(addAllStaff(res.data))
   }
   useEffect(()=>{
  
@@ -72,7 +76,7 @@ export default function Student() {
           CLass 12 Student
         </p>
         <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {allStaff.map((e,i)=>{
+          {staff.map((e,i)=>{
             console.log(e)
           return <ProfileCard  name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
           
