@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import logo from "../../../assets/CLASSWOOD_Logo.png";
 export default function SideBar({children}) {
-  console.log("child",children)
   let navigate = useNavigate();
 
   const Logout = ()=>{

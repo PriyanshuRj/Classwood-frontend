@@ -25,28 +25,28 @@ export default function Register() {
 
   const register = async () => {
     localStorage.setItem("UserType", "School");
-    console.log(
-      "email",
-      email,
-      "password",
-      password,
-      "schoolAdress",
-      schoolAdress,
-      "schoolCity",
-      schoolCity,
-      "schoolLogo",
-      schoolLogo,
-      "schoolName",
-      schoolName,
-      "schoolPhoneNo",
-      schoolPhoneNo,
-      "schoolZipcode",
-      schoolZipcode,
-      "schoolWebsite",
-      schoolWebsite,
-      "dateOfStablishment",
-      dateOfStablishment
-    );
+    // console.log(
+    //   "email",
+    //   email,
+    //   "password",
+    //   password,
+    //   "schoolAdress",
+    //   schoolAdress,
+    //   "schoolCity",
+    //   schoolCity,
+    //   "schoolLogo",
+    //   schoolLogo,
+    //   "schoolName",
+    //   schoolName,
+    //   "schoolPhoneNo",
+    //   schoolPhoneNo,
+    //   "schoolZipcode",
+    //   schoolZipcode,
+    //   "schoolWebsite",
+    //   schoolWebsite,
+    //   "dateOfStablishment",
+    //   dateOfStablishment
+    // );
     try {
       const res = await axios.post(API_URL + "signup/", {
         user: {
@@ -72,9 +72,12 @@ export default function Register() {
 
         if (LoginRes.status === 200) {
           await localStorage.setItem("UserType", LoginRes.data.user_type);
+        localStorage.setItem("token", res.data.tokens.access);
+        localStorage.setItem("Payed", true);
+
           navigate(`/${LoginRes.data.user_type.toLowerCase()}/dashboard`);
         }
-        console.log("response returned", LoginRes);
+        // console.log("response returned", LoginRes);
         setPageState(0);
       }
     } catch (e) {

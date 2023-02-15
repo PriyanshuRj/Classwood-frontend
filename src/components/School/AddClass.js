@@ -22,7 +22,6 @@ export default function AddClass() {
 useEffect(()=>{
   if(!staff || staff.length===0)
   getAllSchoolData(dispatch)
-  console.log("this is staff",staff)
   if(staff.length) setClassTeacher(staff[0])
   if(staff.length) setSubClassTeacher(staff[0])
  
@@ -45,8 +44,8 @@ const propogateToPage3 = async (val) =>{
 const addClass = async () =>{
   try {
     const token = localStorage.getItem("token");
-    console.log(token);
-    
+    // console.log(token);
+    // console.log(staff[0].school , classTitle, classSection, classTeacher.user.id, subClassTeacher.user.id)
     const res = await axios.post(
       API_URL + "list/classroom/",
       {
@@ -61,13 +60,28 @@ const addClass = async () =>{
           Authorization: `Bearer ${token}`,
         },
       }
-    );
-
-    console.log(res);
-    if (res.status === 201) {
-      alert("Reacher added");
-      console.log("response returned", res);
+    )
+    if(res.status===201){
+        console.log(res)
+        for(let subject of subjects){
+          console.log(res.data.id, subject.subjectname ,"teacher : ",subject.teacher.user.id ,"School : ",staff[0].school)
+          let resp = axios.post(API_URL + "staff/subject/",{
+            name:subject.subjectname,
+            // subject_pic: null,
+            school : staff[0].school,
+            teacher : subject.teacher.user.id,
+            classroom : res.data.data.id
+          },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            }
+          )            
+        }
     }
+
+ 
   } catch (e) {
     console.warn("Error :::::::", e);
   }

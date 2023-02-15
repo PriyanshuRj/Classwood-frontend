@@ -7,7 +7,6 @@ import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar} from "r
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
 export default function ProfileSideBar({setOpenProfile, data, setStaffData, setOpenAddProfile}) {
-  console.log("STaff Data", data)
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
       <div onClick={()=>setOpenProfile(-1)} className="absolute p-2 bg-gray-200 rounded-full top-8 left-8">
@@ -19,7 +18,7 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
           className="object-cover w-16 h-16 mb-2 rounded-full"
           src={data.profile_pic ? data.profile_pic : "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"}
         />
-        <span className="font-semibold text-md ">J{data.first_name + " " + data.last_name}</span>
+        <span className="font-semibold text-md ">{data.first_name + " " + data.last_name}</span>
         <span className="text-gray-400"> id: 1111</span>
         <span className="flex items-center text-green-500">
           <GoPrimitiveDot className="w-4 h-4 mr-2" /> Present

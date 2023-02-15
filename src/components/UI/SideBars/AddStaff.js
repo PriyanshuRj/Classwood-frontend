@@ -13,6 +13,7 @@ import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addAllStaff } from "../../../store/staffSlice";
+import {getAllSchoolData} from "../../School/helpers/dataFetcher";
 const inputList = [
   {
     id: 1,
@@ -36,7 +37,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (staffData) {
-      console.log(staffData);
+      // console.log(staffData);
       setFirstName(staffData.first_name);
       setLastName(staffData.last_name);
       setEmail(staffData.contact_email);
@@ -57,42 +58,32 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
       );
     }
   }, []);
-  async function getStaff() {
-    const token = localStorage.getItem("token");
 
-    const res = await axios.get(API_URL + "list/staff/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    dispatch(addAllStaff(res.data));
-  }
   const submit = async () => {
     if (!staffData) {
-      console.log("new user");
       if (
         firstName.length === 0 ||
         lastName.length === 0 ||
         dateOfJoining.length === 0
       ) {
         alert("Fill complete Details", firstName, lastName, dateOfJoining);
-        console.log(
-          "Fill complete Details",
-          firstName,
-          lastName,
-          dateOfJoining
-        );
+        // console.log(
+        //   "Fill complete Details",
+        //   firstName,
+        //   lastName,
+        //   dateOfJoining
+        // );
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
         alert("Invalid email address");
       } else {
         try {
           const token = localStorage.getItem("token");
-          console.log(token);
+          // console.log(token);
 
           const res = await axios.post(
             API_URL + "list/staff/",
             {
-              profile_pic: profileImage,
+              // profile_pic: profileImage,
               first_name: firstName,
               last_name: lastName,
               gender: gender === "Male" ? "1" : "2",
@@ -109,7 +100,6 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
             }
           );
 
-          console.log(res);
           if (res.status === 201) {
             alert("Reacher added");
             console.log("response returned", res);
@@ -119,25 +109,24 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         }
       }
     } else {
-      console.log("Data here");
       if (
         firstName.length === 0 ||
         lastName.length === 0 ||
         dateOfJoining.length === 0
       ) {
         alert("Fill complete Details", firstName, lastName, dateOfJoining);
-        console.log(
-          "Fill complete Details",
-          firstName,
-          lastName,
-          dateOfJoining
-        );
+        // console.log(
+        //   "Fill complete Details",
+        //   firstName,
+        //   lastName,
+        //   dateOfJoining
+        // );
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
         alert("Invalid email address");
       } else {
         try {
           const token = localStorage.getItem("token");
-          console.log(token);
+          // console.log(token);
 
           const res = await axios.put(
             API_URL + "list/staff/" + staffData.user.id + "/",
@@ -160,17 +149,16 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
             }
           );
 
-          console.log("Updated staff", res);
           if (res.status === 201) {
             alert("Reacher added");
-            console.log("response returned", res);
+            // console.log("response returned", res);
           }
         } catch (e) {
           console.warn("Error :::::::", e);
         }
       }
     }
-    getStaff();
+    getAllSchoolData(dispatch);
   };
 
   return (

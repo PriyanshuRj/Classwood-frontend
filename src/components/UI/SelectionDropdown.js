@@ -12,7 +12,6 @@ export default function SelectionDropdown({inputList, labelTitle, DivWidth, sele
 
   return (
     <Listbox value={selected} onChange={async (value)=>{
-      console.log("inside : ", id, value)
       id ? setSelected(value, id) : setSelected(value)
       
       }}>

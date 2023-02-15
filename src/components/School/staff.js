@@ -68,7 +68,6 @@ export default function Student() {
         </p>
         <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {staff.map((e,i)=>{
-            console.log(e)
           return <ProfileCard key={i} name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
           
           })}

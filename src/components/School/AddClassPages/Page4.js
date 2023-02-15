@@ -99,7 +99,6 @@ export default function Page4({
             </thead>
             <tbody>
               {subjects.map((subject, index) => {
-                console.log(subject);
                 return (
                   <tr key={index} className="bg-white border-b ">
                     <th
