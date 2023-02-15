@@ -6,10 +6,10 @@ import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import AddStaff from "../UI/SideBars/AddStaff";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
-import axios from "axios";
+
+import {getAllSchoolData} from "./helpers/dataFetcher";
 import { useSelector, useDispatch } from 'react-redux'
-import {  addAllStaff } from '../../store/staffSlice'
-import {API_URL} from "../../helpers/URL";
+
 
 export default function Student() {
   const [openProfile, setOpenProfile] = useState(-1);
@@ -20,19 +20,10 @@ export default function Student() {
   const staff = useSelector((state) => state.staff.allStaff)
   const dispatch = useDispatch()
 
-  async function getStaff(){
-    const token = localStorage.getItem("token");
 
-    const res  = await axios.get(API_URL + 'list/staff/',{
-      headers: {
-        "Authorization": `Bearer ${token}` 
-       }
-      })
-      dispatch(addAllStaff(res.data))
-  }
   useEffect(()=>{
- 
-    getStaff()
+    if(!staff || staff.length===0)
+    getAllSchoolData(dispatch)
    
   },[])
   return (
@@ -78,7 +69,7 @@ export default function Student() {
         <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {staff.map((e,i)=>{
             console.log(e)
-          return <ProfileCard  name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
+          return <ProfileCard key={i} name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
           
           })}
         </div>

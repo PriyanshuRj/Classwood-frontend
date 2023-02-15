@@ -8,7 +8,9 @@ import {
   addNewClassSubjectsName,
   addAWholeSubject,
 } from "../../../store/classroomSlice";
-export default function Page2({ inputList, setPageState }) {
+import TeacherDropdown from "../helpers/TeacherDropDown";
+
+export default function Page2({  setPageState,staff }) {
   const subjects = useSelector((state) => state.classroom.addClassSubject);
   const dispatch = useDispatch();
 
@@ -16,10 +18,10 @@ export default function Page2({ inputList, setPageState }) {
     dispatch(
       addNewClassSubjectsTecher({
         id: 0,
-        value: inputList[0],
+        value: staff[0],
       })
     );
-  }, []);
+  }, [staff]);
 
   const selectTeacher = (value, id) => {
     dispatch(
@@ -41,7 +43,7 @@ export default function Page2({ inputList, setPageState }) {
   const addNewSubjectInputs = () => {
     dispatch(
       addAWholeSubject({
-        teacher: inputList[0],
+        teacher: staff[0],
         subjectname: "",
       })
     );
@@ -101,9 +103,9 @@ export default function Page2({ inputList, setPageState }) {
                 <label className="mb-4 text-lg font-semibold text-gray-800">
                   Teacher*
                 </label>
-                <SelectionDropdown
+                <TeacherDropdown
                   id={index + 1}
-                  inputList={inputList}
+                  inputList={staff}
                   labelTitle=""
                   DivWidth="full"
                   selected={subject.teacher}

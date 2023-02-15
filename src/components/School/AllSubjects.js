@@ -15,16 +15,16 @@ export default function AllSubjects() {
 <div className="px-0 md:px-10">
         <div className="flex justify-between my-4">
           <div className="flex flex-row ">
-            <div class="relative text-gray-600 focus-within:text-gray-400 mr-4">
-              <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+            <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                 <AiOutlineSearch />
               </span>
               <input
                 type="search"
                 name="q"
-                class="py-2 text-sm rounded-md pl-10 focus:outline-none bg-white text-gray-900"
+                className="py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
                 placeholder="Search a staff member"
-                autocomplete="off"
+                autoComplete="off"
               />
             </div>
             <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-200 rounded-md">
@@ -43,7 +43,7 @@ export default function AllSubjects() {
         </p>
         <div className='flex flex-row w-full mb-4 border-b-2'>
             {tabs.map((tab,index)=>{
-                return <span key={tab} className={`mx-4 font-semibold text-gray-400 ${tabState===index? 'text-indigo-600 border-b-2 border-indigo-600' : undefined}`} onClick={()=> setTabState(index)}>
+                return <span key={index} className={`mx-4 font-semibold text-gray-400 ${tabState===index? 'text-indigo-600 border-b-2 border-indigo-600' : undefined}`} onClick={()=> setTabState(index)}>
                 {tab}
             </span>
             })}

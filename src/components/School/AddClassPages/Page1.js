@@ -1,8 +1,8 @@
 import React from "react";
 import SelectionDropdown from "../../UI/SelectionDropdown";
 import { GrNext } from "react-icons/gr";
+import TeacherDropdown from "../helpers/TeacherDropDown";
 export default function Page1({
-  inputList,
   classTeacher,
   setClassTeacher,
   subClassTeacher,
@@ -12,6 +12,7 @@ export default function Page1({
   setClassTitle,
   classSection,
   setClassSection,
+  staff
 }) {
   return (
     <div className="flex flex-col h-full mx-4">
@@ -82,8 +83,8 @@ export default function Page1({
             <label className="mb-4 text-lg font-semibold text-gray-800">
               Class Teacher
             </label>
-            <SelectionDropdown
-              inputList={inputList}
+            <TeacherDropdown
+              inputList={staff}
               labelTitle=""
               DivWidth="full"
               selected={classTeacher}
@@ -94,8 +95,8 @@ export default function Page1({
             <label className="mb-4 text-lg font-semibold text-gray-800">
               Secondary Class Teacher
             </label>
-            <SelectionDropdown
-              inputList={inputList}
+            <TeacherDropdown
+              inputList={staff}
               labelTitle=""
               DivWidth="full"
               selected={subClassTeacher}

@@ -8,6 +8,7 @@ export default function Page4({
   subClassTeacher,
   classSection,
   classTitle,
+  addClass
 }) {
   const subjects = useSelector((state) => state.classroom.addClassSubject);
 
@@ -68,13 +69,13 @@ export default function Page4({
             <span className="text-lg font-semibold text-gray-500">
               CLASS TEACHER
             </span>
-            <span className="text-black text-md">{classTeacher.name}</span>
+            <span className="text-black text-md">{classTeacher.first_name + " " + classTeacher.last_name}</span>
           </div>
           <div className="flex flex-col justify-start">
             <span className="text-lg font-semibold text-gray-500">
               SUB CLASS TEACHER
             </span>
-            <span className="text-black text-md">{subClassTeacher.name}</span>
+            <span className="text-black text-md">{subClassTeacher.first_name + " " + subClassTeacher.last_name}</span>
           </div>
         </div>
       </div>
@@ -82,16 +83,16 @@ export default function Page4({
         <span className="mb-4 text-xl font-semibold text-black">Subjects</span>
 
         <div className="relative w-full overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400  border-[1px] rounded-2xl">
+            <thead className="text-xs text-lg text-gray-600 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 rounded-t-2xl">
               <tr>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-sm">
                   SNo.
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-sm">
                   Subject
                 </th>
-                <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-6 py-3 text-sm">
                   Teacher
                 </th>
               </tr>
@@ -100,7 +101,7 @@ export default function Page4({
               {subjects.map((subject, index) => {
                 console.log(subject);
                 return (
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <tr key={index} className="bg-white border-b ">
                     <th
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -111,7 +112,7 @@ export default function Page4({
                       {subject.subjectname}
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                      {subject.teacher.name}
+                      {subject.teacher.first_name + " " +  subject.teacher.last_name}
                     </td>
                   </tr>
                 );
@@ -128,7 +129,7 @@ export default function Page4({
           <FiEdit2 className="mr-2" /> Edit
         </button>
         <button
-          onClick={() => setPageState(4)}
+          onClick={() => addClass()}
           className="flex items-center font-semibold w-2/5 justify-center py-4 mx-8 mt-16 text-white duration-300 bg-[#4F46E5] rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"
         >
           Submit
