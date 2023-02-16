@@ -9,11 +9,10 @@ import { FiEdit2 } from "react-icons/fi";
 import {MdSubject} from "react-icons/md";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
-export default function ClassroomSideBar({ setOpen, setOpenSidebar, data }) {
-  const [subjects, setSubjects] = useState([]);
+export default function ClassroomSideBar({ setOpen, setOpenSidebar, data, setOpenAddStudent, setSubjects, subjects }) {
   async function fetchSubjects() {
     const token = localStorage.getItem("token");
-
+    console.log("data : ", data.id)
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -26,9 +25,10 @@ export default function ClassroomSideBar({ setOpen, setOpenSidebar, data }) {
   }
   useEffect(() => {
     fetchSubjects();
-  }, []);
+  }, [data]);
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
+      
         
       <div
         onClick={() => setOpenSidebar(-1)}
@@ -37,15 +37,13 @@ export default function ClassroomSideBar({ setOpen, setOpenSidebar, data }) {
         <RxCross1 />
       </div>
 
-      <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center w-full mt-8">
  
-        <span className="font-semibold text-md ">
+        <span className="text-2xl font-semibold ">
           {data.class_name + " " + data.section_name}
         </span>
-        <span className="text-gray-400"> id: 1111</span>
-        <span className="flex items-center text-green-500">
-          <GoPrimitiveDot className="w-4 h-4 mr-2" /> Present
-        </span>
+        <span className="mt-2 text-gray-400">Class Teacher: 1111</span>
+        
       </div>
       <div className="flex flex-row justify-around mt-4 border-b-[1px] border-gray-200 pb-4 mx-4">
         <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
@@ -110,6 +108,19 @@ export default function ClassroomSideBar({ setOpen, setOpenSidebar, data }) {
           Add Subject
         </button>
       </div>
+      <div className="flex items-center justify-center w-full">
+
+      <button
+          className="flex items-center px-4 py-1 mx-4 mb-8 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
+          onClick={() => {
+            setOpenAddStudent(true)
+            setOpenSidebar(-1)
+          }}
+          >
+          <MdSubject className="mr-2" />
+          Add Student
+        </button>
+          </div>
     </div>
   );
 }

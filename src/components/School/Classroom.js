@@ -8,6 +8,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import AddSubject from "./AddSubject";
+import AddStudent from "../UI/SideBars/AddStudent";
 
 import ClassroomSideBar from "../UI/SideBars/classroomSidebar";
 const tabs = [
@@ -20,7 +21,10 @@ const tabs = [
 ];
 export default function Classroom() {
   const [openSidebar, setOpenSidebar] = useState(-1);
+  const [selectedClass, setSelectedClass] = useState(-1);
   const [isOpen, setOpen] = useState(false);
+  const [openAddStudent, setOpenAddStudent] = useState(false);
+  const [subjects, setSubjects] = useState([]);
 
   const [tabState, setTabState] = useState(0);
   const dispatch = useDispatch();
@@ -32,18 +36,21 @@ export default function Classroom() {
 
   return (
     <Layout>
-      {isOpen ? <AddSubject setOpen={setOpen} classroom={classrooms[openSidebar]} /> : undefined}
-
+      {isOpen ? <AddSubject setOpen={setOpen} classroom={classrooms[openSidebar]}  /> : undefined}
+      {openAddStudent ? <AddStudent subjects={subjects} classroom={classrooms[selectedClass]}  setOpenAddProfile={setOpenAddStudent} /> : undefined}
       {openSidebar !== -1 ? (
         <ClassroomSideBar
+        subjects={subjects}
+        setSubjects={setSubjects}
           setOpen={setOpen}
           setOpenSidebar={setOpenSidebar}
           data={classrooms[openSidebar]}
+          setOpenAddStudent={setOpenAddStudent}
         />
       ) : undefined}
 
-      <div className="px-0 md:px-10">
-        <div className="flex justify-between my-4">
+      <div className="px-4  md:px-10">
+        <div className="flex flex-col justify-between my-4 md:flex-row">
           <div className="flex flex-row ">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
               <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -64,7 +71,7 @@ export default function Classroom() {
           </div>
           <Link
             to="/school/addclass"
-            className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md"
+            className="flex items-center justify-between px-4 py-1 mx-8 mt-4 font-medium text-white bg-indigo-600 rounded-md md:m-0"
           >
             <IoMdAddCircleOutline className="mr-2" />
             Add Class
@@ -96,6 +103,7 @@ export default function Classroom() {
                 key={index}
                 classData={classData}
                 index={index}
+                setSelectedClass={setSelectedClass}
                 setOpenSidebar={setOpenSidebar}
               />
             );

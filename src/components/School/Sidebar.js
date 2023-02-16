@@ -31,7 +31,7 @@ export default function SchoolSidebar() {
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
-          to="/student/subject"
+          to="/school/addnoice"
         >
           <FiFileText className="w-6 h-6 " />
 
