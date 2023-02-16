@@ -10,7 +10,6 @@ import {MdSubject} from "react-icons/md";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
 export default function ClassroomSideBar({ setOpen, setOpenSidebar, data }) {
-  console.log(data);
   const [subjects, setSubjects] = useState([]);
   async function fetchSubjects() {
     const token = localStorage.getItem("token");
@@ -23,11 +22,9 @@ export default function ClassroomSideBar({ setOpen, setOpenSidebar, data }) {
         classroom: data.id,
       },
     });
-    console.log(classroomSubjects);
     setSubjects(classroomSubjects.data);
   }
   useEffect(() => {
-    console.log(data);
     fetchSubjects();
   }, []);
   return (

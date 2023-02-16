@@ -6,7 +6,7 @@ import {
   BsFillCalendar2DateFill,
   BsBriefcase,
 } from "react-icons/bs";
-import { AiOutlinePhone } from "react-icons/ai";
+import { AiOutlinePhone, AiFillBank } from "react-icons/ai";
 import { HiOutlineCake } from "react-icons/hi";
 import SelectionDropdown from "../SelectionDropdown";
 import { API_URL } from "../../../helpers/URL";
@@ -34,6 +34,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
   const [address, setAddress] = useState("");
   const [dob, setDOB] = useState("");
   const [email, setEmail] = useState("");
+  const [acountNo, setAcountNo] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     if (staffData) {
@@ -45,6 +46,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
       setDOB(staffData.date_of_birth);
       setMobileNo(staffData.mobile_number);
       setAddress(staffData.address);
+      setAcountNo(staffData.account_no)
       setGender(
         staffData.gender === "2"
           ? {
@@ -61,29 +63,34 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
 
   const submit = async () => {
     if (!staffData) {
+    console.log("new staff adding")
+
       if (
         firstName.length === 0 ||
         lastName.length === 0 ||
-        dateOfJoining.length === 0
+        dateOfJoining.length === 0 ||
+        acountNo.length === 0
       ) {
-        alert("Fill complete Details", firstName, lastName, dateOfJoining);
+        alert("Fill complete Details");
         // console.log(
         //   "Fill complete Details",
         //   firstName,
         //   lastName,
         //   dateOfJoining
         // );
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      } 
+      else if(mobileNO < 1000000000) alert("Mobile no should be atleast 10 digits")
+      else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
         alert("Invalid email address");
       } else {
         try {
           const token = localStorage.getItem("token");
-          // console.log(token);
+          console.log(token);
 
           const res = await axios.post(
             API_URL + "list/staff/",
             {
-              // profile_pic: profileImage,
+              profile_pic: profileImage,
               first_name: firstName,
               last_name: lastName,
               gender: gender === "Male" ? "1" : "2",
@@ -91,7 +98,9 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               contact_email: email,
               date_of_joining: dateOfJoining,
               date_of_birth: dob,
-              address : address
+              address : address,
+              account_no : acountNo
+
             },
             {
               headers: {
@@ -99,7 +108,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               },
             }
           );
-
+            console.log("This is the response : ", res)
           if (res.status === 201) {
             alert("Reacher added");
             console.log("response returned", res);
@@ -131,7 +140,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           const res = await axios.put(
             API_URL + "list/staff/" + staffData.user.id + "/",
             {
-              // profile_pic: profileImage,
+              profile_pic: profileImage,
               first_name: firstName,
               last_name: lastName,
               gender: gender === "Male" ? "1" : "2",
@@ -140,7 +149,8 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               date_of_joining: dateOfJoining,
               school: staffData.school,
               date_of_birth: dob,
-              address : address
+              address : address,
+              account_no : acountNo
             },
             {
               headers: {
@@ -206,11 +216,11 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                   ></path>
                 </svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="text-xl font-semibold"> Subject Image</span>
+                  <span className="text-xl font-semibold"> {profileImage ? profileImage.name : "Subject Image"}</span>
                 </p>
 
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="font-semibold">Click to upload</span>
+                  <span className="font-semibold">{profileImage ? "Click to Change" : "Click to upload"}</span>
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   SVG, PNG, JPG or GIF (MAX. 800x400px)
@@ -220,7 +230,9 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                 id="dropzone-file"
                 type="file"
                 className="hidden"
-                onChange={(e) => setProfileImage(e.target.files[0])}
+                onChange={(e) => {
+                  console.log("This is my file : ", e.target.files[0])
+                  setProfileImage(e.target.files[0])}}
               />
             </label>
           </div>
@@ -296,6 +308,21 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               value={email}
               type="text"
               placeholder="Email"
+              className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-4">
+          <AiFillBank className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center ">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Account Number
+            </span>
+            <input
+              onChange={(e) => setAcountNo(e.target.value)}
+              value={acountNo}
+              type="text"
+              placeholder="Acount No"
               className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
             />
           </div>

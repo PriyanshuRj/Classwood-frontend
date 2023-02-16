@@ -12,7 +12,6 @@ export default function TeacherDropdown({inputList, labelTitle, DivWidth, select
 
   return (
     <Listbox value={selected} onChange={async (value)=>{
-      console.log("inside : ", id, value)
       id ? setSelected(value, id) : setSelected(value)
       
       }} >
