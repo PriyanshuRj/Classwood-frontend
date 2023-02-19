@@ -13,6 +13,7 @@ import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addAllStaff } from "../../../store/staffSlice";
+import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
 const inputList = [
   {
@@ -36,6 +37,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
   const [email, setEmail] = useState("");
   const [acountNo, setAcountNo] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (staffData) {
       // console.log(staffData);
@@ -136,22 +138,22 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         try {
           const token = localStorage.getItem("token");
           // console.log(token);
+          const formData = new FormData();
+          formData.append("profile_pic", profileImage);
+          formData.append("first_name", firstName);
+          formData.append("last_name", lastName);
+          formData.append("gender", gender === "Male" ? "1" : "2");
+          formData.append("mobile_number", mobileNO.toString(10));
+          formData.append("contact_email", email);
+          formData.append("date_of_joining", dateOfJoining);
+          formData.append("school", staffData.school);
+          formData.append("date_of_birth", dob);
+          formData.append("address", address);
+          formData.append("account_no", acountNo);
 
           const res = await axios.put(
             API_URL + "list/staff/" + staffData.user.id + "/",
-            {
-              profile_pic: profileImage,
-              first_name: firstName,
-              last_name: lastName,
-              gender: gender === "Male" ? "1" : "2",
-              mobile_number: mobileNO.toString(10),
-              contact_email: email,
-              date_of_joining: dateOfJoining,
-              school: staffData.school,
-              date_of_birth: dob,
-              address : address,
-              account_no : acountNo
-            },
+            formData,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -168,11 +170,11 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         }
       }
     }
-    getAllSchoolData(dispatch);
+    getAllSchoolData(dispatch, navigate);
   };
 
   return (
-    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem]">
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white md:w-[30rem]">
       <div
         onClick={() => setOpenAddProfile(false)}
         className="absolute p-2 bg-gray-200 rounded-full top-8 left-8"
@@ -248,7 +250,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               value={firstName}
               type="text"
               placeholder="First Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -263,7 +265,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               value={lastName}
               type="text"
               placeholder="Last Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -278,13 +280,13 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               value={mobileNO}
               type="number"
               placeholder="Phone No"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
         <div className="flex flex-row items-center mt-2 mb-4">
           <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center w-[350px] ">
+          <div className="flex flex-col items-start justify-center w-[300px] sm:w-[350px] ">
             <span className="mb-1 font-semibold text-gray-800 text-md">
               Gender
             </span>
@@ -308,7 +310,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               value={email}
               type="text"
               placeholder="Email"
-              className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
             />
           </div>
         </div>
@@ -323,7 +325,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               value={acountNo}
               type="text"
               placeholder="Acount No"
-              className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
             />
           </div>
         </div>
@@ -338,7 +340,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               onChange={(e) => setDOB(e.target.value)}
               type="date"
               placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px] mb-4"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
             />
           </div>
         </div>
@@ -351,7 +353,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
             <textarea
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Address"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -367,7 +369,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               type="date"
               value={dateOfJoining}
               placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px] mb-4"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
             />
           </div>
         </div>

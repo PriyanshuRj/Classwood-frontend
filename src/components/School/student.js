@@ -22,9 +22,11 @@ export default function Student() {
                 autoComplete="off"
               />
             </div>
-            <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-200 rounded-md">
-              <FiFilter className="mr-2" />
-              Fliter
+            <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
+              <FiFilter className="sm:mr-2" />
+              <span className="hidden sm:flex">
+                Fliter
+                </span>
             </button>
           </div>
           <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">

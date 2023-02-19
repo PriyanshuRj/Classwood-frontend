@@ -6,7 +6,7 @@ import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import AddStaff from "../UI/SideBars/AddStaff";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
-
+import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "./helpers/dataFetcher";
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -19,11 +19,11 @@ export default function Student() {
 
   const staff = useSelector((state) => state.staff.allStaff)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
 
   useEffect(()=>{
     if(!staff || staff.length===0)
-    getAllSchoolData(dispatch)
+    getAllSchoolData(dispatch, navigate)
    
   },[])
   return (
@@ -46,9 +46,11 @@ export default function Student() {
                 autoComplete="off"
               />
             </div>
-            <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-200 rounded-md">
-              <FiFilter className="mr-2" />
-              Fliter
+            <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
+              <FiFilter className="sm:mr-2" />
+              <span className="hidden sm:flex">
+                Fliter
+                </span>
             </button>
           </div>
           <button 
@@ -63,11 +65,12 @@ export default function Student() {
           </button>
         </div>
 
-        <p className="my-4 mt-8 text-xl font-semibold">
-          CLass 12 Student
+        <p className="my-4 mt-8 ml-2 text-xl font-semibold">
+          All Staff
         </p>
-        <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mb-8  grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {staff.map((e,i)=>{
+            console.log("ee", e)
           return <ProfileCard key={i} name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
           
           })}

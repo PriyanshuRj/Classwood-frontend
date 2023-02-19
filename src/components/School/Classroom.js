@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import AddSubject from "./AddSubject";
 import AddStudent from "../UI/SideBars/AddStudent";
+import { useNavigate } from "react-router-dom";
 
 import ClassroomSideBar from "../UI/SideBars/classroomSidebar";
 const tabs = [
@@ -28,10 +29,11 @@ export default function Classroom() {
 
   const [tabState, setTabState] = useState(0);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const classrooms = useSelector((state) => state.classroom.allClasses);
   useEffect(() => {
-    if (!classrooms || classrooms.length === 0) getAllSchoolData(dispatch);
+    if (!classrooms || classrooms.length === 0) getAllSchoolData(dispatch, navigate);
   }, []);
 
   return (
@@ -49,7 +51,7 @@ export default function Classroom() {
         />
       ) : undefined}
 
-      <div className="px-4  md:px-10">
+      <div className="px-4 md:px-10">
         <div className="flex flex-col justify-between my-4 md:flex-row">
           <div className="flex flex-row ">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
@@ -59,14 +61,16 @@ export default function Classroom() {
               <input
                 type="search"
                 name="q"
-                className="py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
-                placeholder="Search a staff member"
+                className="py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none w-[280px] sm:w-[320px]"
+                placeholder="Search a class"
                 autoComplete="off"
               />
             </div>
-            <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-200 rounded-md">
-              <FiFilter className="mr-2" />
-              Fliter
+            <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
+              <FiFilter className="sm:mr-2" />
+              <span className="hidden sm:flex">
+                Fliter
+                </span>
             </button>
           </div>
           <Link
@@ -79,7 +83,7 @@ export default function Classroom() {
         </div>
 
         <p className="my-4 mt-8 text-xl font-semibold">All CLassroom</p>
-        <div className="flex flex-row w-full mb-4 border-b-2">
+        <div className="flex-row hidden w-full mb-4 border-b-2 md:flex">
           {tabs.map((tab, index) => {
             return (
               <span
@@ -96,7 +100,7 @@ export default function Classroom() {
             );
           })}
         </div>
-        <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="mb-10 grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {classrooms.map((classData, index) => {
             return (
               <ClassroomCard

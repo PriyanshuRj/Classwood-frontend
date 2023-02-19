@@ -63,9 +63,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -76,8 +76,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -105,9 +105,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -118,8 +118,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -145,9 +145,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -158,8 +158,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -185,9 +185,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -198,8 +198,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -225,9 +225,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -238,8 +238,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -265,9 +265,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -278,8 +278,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -305,9 +305,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -318,8 +318,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -345,9 +345,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -358,8 +358,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -385,9 +385,9 @@ export default function Offering() {
                       <path
                         d="M6.17804 10.5459L8.36195 12.7299L13.8217 7.27008"
                         stroke="white"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <defs>
                         <linearGradient
@@ -398,8 +398,8 @@ export default function Offering() {
                           y2="3.24598"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#CEE9C1" />
-                          <stop offset="1" stop-color="#83C8DE" />
+                          <stop stopColor="#CEE9C1" />
+                          <stop offset="1" stopColor="#83C8DE" />
                         </linearGradient>
                       </defs>
                     </svg>

@@ -7,9 +7,11 @@ import Page4 from './AddClassPages/Page4';
 import { useDispatch, useSelector } from 'react-redux';
 import {getAllSchoolData} from "./helpers/dataFetcher";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../helpers/URL';
 export default function AddClass() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [classTeacher, setClassTeacher] = useState("");
   const [subClassTeacher, setSubClassTeacher] = useState("");
   const [classTitle, setClassTitle] = useState("");
@@ -21,7 +23,7 @@ export default function AddClass() {
 
 useEffect(()=>{
   if(!staff || staff.length===0)
-  getAllSchoolData(dispatch)
+  getAllSchoolData(dispatch, navigate)
   if(staff.length) setClassTeacher(staff[0])
   if(staff.length) setSubClassTeacher(staff[0])
  

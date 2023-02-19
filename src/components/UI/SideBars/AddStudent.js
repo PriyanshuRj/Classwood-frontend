@@ -14,6 +14,7 @@ import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { addAllStaff } from "../../../store/staffSlice";
+import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
 const inputList = [
   {
@@ -44,10 +45,11 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
   const [rollNo, setRollNo] = useState("");
   const dispatch = useDispatch();
   const [studentSubjects, setStudentSubjects] = useState([]);
-  const staff = useSelector((state) => state.staff.allStaff)
+  const staff = useSelector((state) => state.staff.allStaff);
+  const navigate = useNavigate();
   useEffect(()=>{
     if(!staff || staff.length===0)
-    getAllSchoolData(dispatch)
+    getAllSchoolData(dispatch, navigate)
    
    
   },[staff])
@@ -203,7 +205,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={firstName}
               type="text"
               placeholder="First Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -218,7 +220,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={lastName}
               type="text"
               placeholder="Last Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -233,7 +235,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={fatherName}
               type="text"
               placeholder="Father's Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -248,7 +250,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={motherName}
               type="text"
               placeholder="Mother's Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -263,7 +265,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={mobileNO}
               type="number"
               placeholder="Phone No"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -278,13 +280,13 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={parentMobileNO}
               type="number"
               placeholder="Parental Phone No"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
         <div className="flex flex-row items-center mt-2 mb-4">
           <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center w-[350px] ">
+          <div className="flex flex-col items-start justify-center w-[300px] sm:w-[350px] ">
             <span className="mb-1 font-semibold text-gray-800 text-md">
               Gender
             </span>
@@ -308,7 +310,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={email}
               type="text"
               placeholder="Email"
-              className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
             />
           </div>
         </div>
@@ -323,7 +325,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={admissionNo}
               type="text"
               placeholder="Admission Number"
-              className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
             />
           </div>
         </div>
@@ -338,7 +340,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={rollNo}
               type="text"
               placeholder="Roll Number"
-              className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
             />
           </div>
         </div>
@@ -353,7 +355,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               value={acountNo}
               type="text"
               placeholder="Acount No"
-              className="flex px-3 py-2 font-medium w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
             />
           </div>
         </div>
@@ -368,7 +370,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               onChange={(e) => setDOB(e.target.value)}
               type="date"
               placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px] mb-4"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
             />
           </div>
         </div>
@@ -381,7 +383,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
             <textarea
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Address"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px]"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
           </div>
         </div>
@@ -397,7 +399,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               type="date"
               value={dateOfAdmission}
               placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[350px] mb-4"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
             />
           </div>
         </div>
