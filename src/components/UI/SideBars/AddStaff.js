@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoLocation } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
+import { setWarningToast, setSuccessToast } from "../../../store/userStateSlice";
 import {
   BsFillPersonFill,
   BsFillCalendar2DateFill,
@@ -73,7 +74,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         dateOfJoining.length === 0 ||
         acountNo.length === 0
       ) {
-        alert("Fill complete Details");
+        dispatch(setWarningToast("Fill complete Details"));
         // console.log(
         //   "Fill complete Details",
         //   firstName,
@@ -81,29 +82,33 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         //   dateOfJoining
         // );
       } 
-      else if(mobileNO < 1000000000) alert("Mobile no should be atleast 10 digits")
+      else if(mobileNO < 1000000000) dispatch(setWarningToast("Mobile no should be atleast 10 digits"))
       else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-        alert("Invalid email address");
-      } else {
+        dispatch(setWarningToast("Invalid email address"));
+      } 
+      else if(!profileImage){
+        dispatch(setWarningToast("Please select a profile picture"));
+
+      }
+      else {
         try {
           const token = localStorage.getItem("token");
           console.log(token);
-
+          const formData = new FormData();
+          formData.append("profile_pic", profileImage);
+          formData.append("first_name", firstName);
+          formData.append("last_name", lastName);
+          formData.append("gender", gender === "Male" ? "1" : "2");
+          formData.append("mobile_number", mobileNO.toString(10));
+          formData.append("contact_email", email);
+          formData.append("date_of_joining", dateOfJoining);
+          // formData.append("school", staffData.school);
+          formData.append("date_of_birth", dob);
+          formData.append("address", address);
+          formData.append("account_no", acountNo);
           const res = await axios.post(
             API_URL + "list/staff/",
-            {
-              profile_pic: profileImage,
-              first_name: firstName,
-              last_name: lastName,
-              gender: gender === "Male" ? "1" : "2",
-              mobile_number: mobileNO.toString(10),
-              contact_email: email,
-              date_of_joining: dateOfJoining,
-              date_of_birth: dob,
-              address : address,
-              account_no : acountNo
-
-            },
+            formData,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -112,7 +117,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           );
             console.log("This is the response : ", res)
           if (res.status === 201) {
-            alert("Reacher added");
+            dispatch(setSuccessToast("Staff added SUccessfully"));
             console.log("response returned", res);
           }
         } catch (e) {
@@ -125,7 +130,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         lastName.length === 0 ||
         dateOfJoining.length === 0
       ) {
-        alert("Fill complete Details", firstName, lastName, dateOfJoining);
+        dispatch(setWarningToast("Fill complete Details"));
         // console.log(
         //   "Fill complete Details",
         //   firstName,
@@ -133,8 +138,13 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         //   dateOfJoining
         // );
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-        alert("Invalid email address");
-      } else {
+        dispatch(setWarningToast("Invalid email address"));
+      } 
+      else if(!profileImage){
+        dispatch(setWarningToast("Please select a profile picture"));
+
+      }
+      else {
         try {
           const token = localStorage.getItem("token");
           // console.log(token);
@@ -162,7 +172,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           );
 
           if (res.status === 201) {
-            alert("Reacher added");
+            dispatch(setSuccessToast("Staff Updated added"));
             // console.log("response returned", res);
           }
         } catch (e) {

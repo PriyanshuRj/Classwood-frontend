@@ -1,7 +1,11 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-
+import { useSelector,useDispatch } from "react-redux";
+import { loginUser } from "./store/userStateSlice";
+import SuccessToast from "./components/UI/SuccessToast";
+import WarningToast from "./components/UI/WarningToast";
+import { setSuccessToast } from "./store/userStateSlice";
 import Login from "./pages/login";
 import Register from './pages/Register';
 import NotAuthorized from "./components/NotAuthorized";
@@ -25,8 +29,26 @@ import StaffDashboard from "./components/Staff/Dashboard";
 import "./App.css";
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  const UserType = useSelector((state) => state.user.UserType)
+  useEffect(()=>{
+
+    console.log("user : ",localStorage.getItem("UserType"), UserType);
+    if(localStorage.getItem("UserType")){
+      // dispatch(loginUser(localStorage.getItem("UserType")))
+    }
+    if(UserType){
+      dispatch(setSuccessToast("Loged in successfully"));
+
+      
+    }
+  },[UserType])
+  
   return (
     <Router>
+      <SuccessToast />
+      <WarningToast />
       <div>
         <Routes>
           <Route path="/login" element={<Login />} />

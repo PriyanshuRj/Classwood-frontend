@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { loginUser, setWarningToast, setSuccessToast } from "../store/userStateSlice";
 
 import { API_URL } from "../helpers/URL";
 import EmailTab from "../components/Register/EmailTab";
@@ -9,6 +11,7 @@ import AddressDetailTab from "../components/Register/AddressDetailTab";
 import OtherDetailTab from "../components/Register/OtherDetailTab";
 export default function Register() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,22 +51,48 @@ export default function Register() {
     //   dateOfStablishment
     // );
     try {
-      const res = await axios.post(API_URL + "signup/", {
-        user: {
-          email: email,
-          password: password,
-        },
-        school_name: schoolName,
-        school_phone: schoolPhoneNo.toString(),
-        school_address: schoolAdress,
-        school_city: schoolCity,
-        school_state: schoolState,
-        school_zipcode: schoolZipcode.toString(),
-        school_logo: schoolLogo,
-        school_website: schoolWebsite,
-        date_of_establishment: dateOfStablishment,
-      });
-      console.log(res)
+      if(schoolName.length===0 || schoolAdress.length===0 || schoolCity.length===0 || !schoolLogo || schoolPhoneNo<1000000000 || schoolState.length===0){
+        dispatch(setWarningToast("Fill Complete Details Please"))
+      }
+      else {
+
+        const formData = new FormData();
+        formData.append("userData",JSON.stringify({
+        email: email,
+        password: password,
+      }));
+      formData.append("school_name", schoolName);
+      formData.append("school_phone", schoolPhoneNo.toString());
+      formData.append("school_address", schoolAdress);
+      formData.append("school_city", schoolCity);
+      formData.append("school_state", schoolState);
+      formData.append("school_zipcode", schoolZipcode.toString());
+      formData.append("school_logo", schoolLogo);
+      formData.append("school_website", schoolWebsite);
+      formData.append("date_of_establishment", dateOfStablishment);
+      for (const pair of formData.entries()) {
+        console.log(`${pair[0]}, ${pair[1]}`);
+      }
+      const res = await axios.post(API_URL + "signup/", 
+      // {
+        //   user: {
+          //     email: email,
+          //     password: password,
+          //   },
+          //   school_name: schoolName,
+          //   school_phone: schoolPhoneNo.toString(),
+          //   school_address: schoolAdress,
+          //   school_city: schoolCity,
+          //   school_state: schoolState,
+          //   school_zipcode: schoolZipcode.toString(),
+          //   school_logo: schoolLogo,
+          //   school_website: schoolWebsite,
+          //   date_of_establishment: dateOfStablishment,
+          // }
+          formData
+          );
+          console.log(res)
+        }
       if (res.status === 201) {
         const LoginRes = await axios.post(API_URL + "login/", {
           email: email,
@@ -74,6 +103,7 @@ export default function Register() {
           await localStorage.setItem("UserType", LoginRes.data.user_type);
         localStorage.setItem("token", res.data.tokens.access);
         localStorage.setItem("Payed", true);
+        dispatch(loginUser(res.data.user_type))
 
           navigate(`/${LoginRes.data.user_type.toLowerCase()}/dashboard`);
         }

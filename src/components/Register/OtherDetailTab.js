@@ -1,5 +1,6 @@
 import React from "react";
-
+import {setWarningToast} from "../../store/userStateSlice";
+import { useDispatch } from "react-redux";
 export default function OtherDetailTab({
   schoolLogo,
   setSchoolLogo,
@@ -11,6 +12,7 @@ export default function OtherDetailTab({
   setSchoolPhoneNo,
   register,
 }) {
+  const dispatch = useDispatch();
   function onRegister(){
     const re = new RegExp('/', 'g');
     const re2 = new RegExp('-','g');
@@ -20,10 +22,10 @@ export default function OtherDetailTab({
     if(dateOfStablishment.length===0 || schoolPhoneNo===null
       // || schoolLogo===null || schoolWebsite.length===0 
       ){
-      alert("Fill Details completely !");
+      dispatch(setWarningToast("Fill Details completely !"));
     }
-    else if(Phoneno.length < 10 ) alert("Enter complete phone number");
-    else if((dateOfStablishment.match(re) && dateOfStablishment.match(re).length <2) || (dateOfStablishment.match(re2) && dateOfStablishment.match(re2).length < 2)) alert('Please fill date properly')
+    else if(Phoneno.length < 10 ) dispatch(setWarningToast("Enter complete phone number"));
+    else if((dateOfStablishment.match(re) && dateOfStablishment.match(re).length <2) || (dateOfStablishment.match(re2) && dateOfStablishment.match(re2).length < 2)) dispatch(setWarningToast('Please fill date properly'))
     else {
       register();
     }

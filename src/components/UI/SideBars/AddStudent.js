@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAllStaff } from "../../../store/staffSlice";
 import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
+import { setSuccessToast, setWarningToast } from "../../../store/userStateSlice";
 const inputList = [
   {
     id: 1,
@@ -72,7 +73,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
         dateOfAdmission.length === 0 ||
         acountNo.length === 0
       ) {
-        alert("Fill complete Details");
+        dispatch(setWarningToast("Fill complete Details"));
         // console.log(
         //   "Fill complete Details",
         //   firstName,
@@ -80,9 +81,9 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
         //   dateOfAdmission
         // );
       } 
-      else if(mobileNO < 1000000000) alert("Mobile no should be atleast 10 digits")
+      else if(mobileNO < 1000000000) dispatch(setWarningToast("Mobile no should be atleast 10 digits"))
       else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-        alert("Invalid email address");
+        dispatch(setWarningToast("Invalid email address"));
       } else {
         try {
           const token = localStorage.getItem("token");
@@ -118,7 +119,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
           );
             console.log("This is the response :  ", res)
           if (res.status === 201) {
-            alert("Reacher added");
+            dispatch(setSuccessToast("Reacher added"));
             console.log("response returned", res);
           }
         } catch (e) {

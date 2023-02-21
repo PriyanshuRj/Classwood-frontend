@@ -1,5 +1,6 @@
 import React from "react";
-
+import {setWarningToast} from "../../store/userStateSlice";
+import { useDispatch } from "react-redux";
 export default function AddressDetailTab({
   setPageState,
   setSchoolAddress,
@@ -13,12 +14,13 @@ export default function AddressDetailTab({
   schoolName,
   setSchoolName,
 }) {
+  const dispatch = useDispatch();
   function onNextClick(){
     const ZipCode = schoolZipcode.toString(10);
     if(schoolName.length===0 || schoolAdress.length===0 || schoolCity.length===0 || schoolState.length===0 || schoolZipcode===null){
-      alert("Fill Details completely !");
+      dispatch(setWarningToast("Fill Details completely !"));
     }
-    else if(ZipCode.length < 6 ) alert("Enter complete zipcode");
+    else if(ZipCode.length < 6 ) dispatch(setWarningToast("Enter complete zipcode"))
     else setPageState(2);
 
 

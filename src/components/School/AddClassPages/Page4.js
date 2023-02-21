@@ -48,7 +48,7 @@ export default function Page4({
         </div>
       </div>
 
-      <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
+      <div className="flex flex-col items-start justify-center w-full p-2 pt-2 sm:p-8">
         <span className="mb-4 text-xl font-semibold text-black">
           Class Detail
         </span>
@@ -79,7 +79,7 @@ export default function Page4({
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
+      <div className="flex flex-col items-start justify-center w-full p-2 pt-2 sm:p-8">
         <span className="mb-4 text-xl font-semibold text-black">Subjects</span>
 
         <div className="relative w-full overflow-x-auto">

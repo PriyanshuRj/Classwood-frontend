@@ -4,6 +4,7 @@ import Page1 from './AddClassPages/Page1';
 import Page2 from './AddClassPages/Page2';
 import Page3 from './AddClassPages/Page3';
 import Page4 from './AddClassPages/Page4';
+import { setSuccessToast, setWarningToast } from '../../store/userStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import {getAllSchoolData} from "./helpers/dataFetcher";
 import axios from 'axios';
@@ -30,14 +31,14 @@ useEffect(()=>{
 },[staff])
 const propogateToPage2 = (val) =>{
   if(classTitle.length===0 || classSection.length===0){
-    alert("Please Fill Complete Details")
+    dispatch(setWarningToast("Please Fill Complete Details"))
   }
   else setPageState(val);
 }
 const propogateToPage3 = async (val) =>{
   for(var subject of subjects) {
     if(subject.subjectname.length===0){
-      alert("Please fill names of subject properly !");
+      dispatch(setWarningToast("Please fill names of subject properly !"));
       return;
     }
   }
@@ -63,8 +64,17 @@ const addClass = async () =>{
         },
       }
     )
-    if(res.status===201){
+    console.log("added", res)         
+    if(res.status===200 && res.data.message==='Class Teacher Already Assigned'){
+      dispatch(setWarningToast("Teacher already assigned as Classteacher"))
+    }
+    else if(res.status===200 && res.data.non_field_errors[0]
+      ==='The fields class_name, section_name, school must make a unique set.'){
+      dispatch(setWarningToast("Class and section should be unique"))
+    }
+    else if(res.status===201){
         console.log(res)
+        dispatch(setSuccessToast("classroom Created successfully"))
         for(let subject of subjects){
           console.log(res.data.id, subject.subjectname ,"teacher : ",subject.teacher.user.id ,"School : ",staff[0].school)
           let resp = axios.post(API_URL + "staff/subject/",{
@@ -79,7 +89,7 @@ const addClass = async () =>{
                 Authorization: `Bearer ${token}`,
               }
             }
-          )            
+          )   
         }
     }
 

@@ -1,8 +1,29 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {TfiBlackboard} from 'react-icons/tfi';
 import { BiDotsVerticalRounded } from "react-icons/bi";
-
+import axios from 'axios'
+import { API_URL } from '../../../helpers/URL';
 export default function ClassroomCard({classData, setOpenSidebar, index, setSelectedClass}) {
+  async function getStudents (){
+    const token = localStorage.getItem("token");
+    
+    let res = await axios.get(API_URL + "staff/student/",{
+      
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        classroom: classData.id,
+      },
+    
+  })
+  console.log("res : ",res);
+  }
+  useEffect(()=>{
+
+    console.log("Data", classData);
+    getStudents()
+  },[])
   return (
     <div className='flex flex-col p-4 bg-white rounded-xl' onClick={()=> {
       setSelectedClass(index)

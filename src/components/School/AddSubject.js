@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setWarningToast } from '../../store/userStateSlice';
 import axios from 'axios';
 import { API_URL } from '../../helpers/URL';
 import TeacherDropdown from './helpers/TeacherDropDown'
 export default function AddSubject({setOpen, classroom}) {
+    const dispatch = useDispatch();
     const [subjectName, setSubjectName] = useState("");
     const [subjectImage, setSubjectImage] = useState(null);
     const staff = useSelector((state) => state.staff.allStaff);
@@ -13,8 +15,8 @@ export default function AddSubject({setOpen, classroom}) {
     const token = localStorage.getItem("token");
         console.log(subjectImage)
         try{
-          if(subjectName.length===0) alert("Please give the subject a Name");
-          else if(!subjectImage) alert("Please select a Image");
+          if(subjectName.length===0) dispatch(setWarningToast("Please give the subject a Name"));
+          else if(!subjectImage) dispatch(setWarningToast("Please select a Image"));
           else {
 
             const formData = new FormData();

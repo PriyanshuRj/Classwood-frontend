@@ -1,12 +1,14 @@
 import React from 'react'
-
+import {setWarningToast} from "../../store/userStateSlice";
+import { useDispatch } from "react-redux";
 export default function EmailTab({email, password, setEmail, setPassword, setPageState}) {
+  const dispatch = useDispatch();
     function goToNextPage(){
         if(email.length===0 || password.length<8){
-            alert("Please fill details completely !");
+            dispatch(setWarningToast("Please fill details completely !"));
         }
         else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)){
-            alert('Invalid email address')
+          dispatch(setWarningToast('Invalid email address'))
         }
         else setPageState(1);
     }

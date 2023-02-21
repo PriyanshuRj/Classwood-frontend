@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const classroomSlice = createSlice({
-  name: 'counter',
+  name: 'classroom',
   initialState: {
     allClasses: [],
     addClassSubject : [{
