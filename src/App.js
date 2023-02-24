@@ -2,10 +2,10 @@ import React,{useEffect, useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import { useSelector,useDispatch } from "react-redux";
-import { loginUser } from "./store/userStateSlice";
+import { loginUser } from "./store/genralUser";
 import SuccessToast from "./components/UI/SuccessToast";
 import WarningToast from "./components/UI/WarningToast";
-import { setSuccessToast } from "./store/userStateSlice";
+import { setSuccessToast } from "./store/genralUser";
 import Login from "./pages/login";
 import Register from './pages/Register';
 import NotAuthorized from "./components/NotAuthorized";
@@ -24,8 +24,11 @@ import SchoolClassroom from "./components/School/Classroom";
 import StartPay from "./components/School/StartPay";
 import AddClass from "./components/School/AddClass";
 import AddNotice from "./components/School/AddNotice";
+import TestResult from "./components/School/Exam/TestResult";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
+import StaffAllClassrooms from "./components/Staff/classroom";
+import SingleClassStudents from "./components/Staff/Students";
 import "./App.css";
 
 export default function App() {
@@ -69,9 +72,12 @@ export default function App() {
           <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllSubjects /> : <StartPay />} />
           <Route path="/school/addclass" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AddClass /> : <StartPay />} />
           <Route path="/school/addnoice" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AddNotice /> : <StartPay />} />
+          <Route path="/school/test" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <TestResult /> : <StartPay />} />
 
           {/* Staff Links */}
           <Route path="/staff/dashboard" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffDashboard />} />
+          <Route path="/staff/classroom" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffAllClassrooms />} />
+          <Route path="/staff/students" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <SingleClassStudents />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>

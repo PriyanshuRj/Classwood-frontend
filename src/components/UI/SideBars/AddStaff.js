@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoLocation } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
-import { setWarningToast, setSuccessToast } from "../../../store/userStateSlice";
+import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
 import {
   BsFillPersonFill,
   BsFillCalendar2DateFill,
@@ -13,7 +13,7 @@ import SelectionDropdown from "../SelectionDropdown";
 import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addAllStaff } from "../../../store/staffSlice";
+import { addAllStaff } from "../../../store/School/staffSlice";
 import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
 const inputList = [

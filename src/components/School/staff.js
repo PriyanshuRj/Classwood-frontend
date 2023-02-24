@@ -31,7 +31,7 @@ export default function Student() {
       {openProfile !== -1 ? <ProfileSideBar setOpenAddProfile={setOpenAddProfile} setStaffData={setStaffData} data={dataOfStaff} setOpenProfile={setOpenProfile} /> : undefined}
       {openAddProfile ? <AddStaff staffData={staffData} setOpenAddProfile={setOpenAddProfile} /> : undefined}
       
-      <div className="px-0 md:px-10">
+      <div className="w-full px-0 md:px-10">
         <div className="flex flex-col items-center justify-between my-4 md:flex-row">
           <div className="flex flex-row ">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
@@ -68,13 +68,18 @@ export default function Student() {
         <p className="my-4 mt-8 ml-2 text-xl font-semibold">
           All Staff
         </p>
+        {staff.length==0 ? <div className="flex items-center justify-center w-full h-96">
+
+<span>No Staff Till Now Add Staff Members</span>
+          </div> : 
         <div className="mb-8  grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {staff.map((e,i)=>{
             
-          return <ProfileCard key={i} name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
-          
+            return <ProfileCard key={i} name={e.first_name + " " + e.last_name} allData={e} setDataOfStaff={setDataOfStaff} id={12345} StclassName={"112"} grade={"A"} setOpenProfile={setOpenProfile} />
+            
           })}
         </div>
+           }
       </div>
     </Layout>
   );

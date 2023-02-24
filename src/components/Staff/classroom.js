@@ -1,53 +1,34 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import { Link } from "react-router-dom";
 import ClassroomCard from "../UI/Cards/ClassroomCard";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllSchoolData } from "./helpers/dataFetcher";
-import AddSubject from "./AddSubject";
-import AddStudent from "../UI/SideBars/AddStudent";
-import { useNavigate } from "react-router-dom";
-
+import { getAllImportantData } from "./helper/getData";
 import ClassroomSideBar from "../UI/SideBars/classroomSidebar";
-const tabs = [
-  "All Classes",
-  "Senior Secondary",
-  "Secondary",
-  "Primary",
-  "Middle",
-  "Pre Primary",
-];
+
 export default function Classroom() {
   const [openSidebar, setOpenSidebar] = useState(-1);
   const [selectedClass, setSelectedClass] = useState(-1);
-  const [isOpen, setOpen] = useState(false);
-  const [openAddStudent, setOpenAddStudent] = useState(false);
   const [subjects, setSubjects] = useState([]);
 
-  const [tabState, setTabState] = useState(0);
   const dispatch = useDispatch();
-  let navigate = useNavigate();
-  const staff = useSelector((state)=> state.staff.allStaff)
-  const classrooms = useSelector((state) => state.classroom.allClasses);
-  useEffect(() => {
-    if (!classrooms || classrooms.length === 0) getAllSchoolData(dispatch, navigate);
-  }, []);
+  const classrooms = useSelector((state) => state.staffUser.AllClassroom);
+    useEffect(()=>{
+        if(!classrooms.length){
+            getAllImportantData(dispatch);
+        }
+    },[])
 
   return (
     <Layout>
-      {isOpen ? <AddSubject setOpen={setOpen} classroom={classrooms[openSidebar]}  /> : undefined}
-      {openAddStudent ? <AddStudent subjects={subjects} classroom={classrooms[selectedClass]}  setOpenAddProfile={setOpenAddStudent} /> : undefined}
+     
       {openSidebar !== -1 ? (
         <ClassroomSideBar
         subjects={subjects}
         setSubjects={setSubjects}
-          setOpen={setOpen}
           setOpenSidebar={setOpenSidebar}
           data={classrooms[openSidebar]}
-          setOpenAddStudent={setOpenAddStudent}
         />
       ) : undefined}
 
@@ -73,39 +54,14 @@ export default function Classroom() {
                 </span>
             </button>
           </div>
-          <Link
-            to="/school/addclass"
-            className="flex items-center justify-between px-4 py-1 mx-8 mt-4 font-medium text-white bg-indigo-600 rounded-md md:m-0"
-          >
-            <IoMdAddCircleOutline className="mr-2" />
-            Add Class
-          </Link>
+          
         </div>
 
         <p className="my-4 mt-8 text-xl font-semibold">All CLassroom</p>
-        <div className="flex-row hidden w-full mb-4 border-b-2 md:flex">
-          {tabs.map((tab, index) => {
-            return (
-              <span
-                key={index}
-                className={`mx-4 font-semibold text-gray-400 ${
-                  tabState === index
-                    ? "text-indigo-600 border-b-2 border-indigo-600"
-                    : undefined
-                }`}
-                onClick={() => setTabState(index)}
-              >
-                {tab}
-              </span>
-            );
-          })}
-        </div>
-        {staff.length == 0 ? <div className="flex items-center justify-center w-full h-96">
+        
+        { classrooms.length == 0 ? <div className="flex items-center justify-center w-full h-96">
 
-<span>No Staff Till First Add Staff Members</span>
-          </div>  : classrooms.length == 0 ? <div className="flex items-center justify-center w-full h-96">
-
-<span>No Classroom Created Create A Classroom</span>
+<span>No Classroom Assigned</span>
           </div>  :<div className="mb-10 grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {classrooms.map((classData, index) => {
             return (

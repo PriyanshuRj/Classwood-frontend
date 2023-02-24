@@ -13,10 +13,10 @@ import SelectionDropdown from "../SelectionDropdown";
 import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addAllStaff } from "../../../store/staffSlice";
+import { addAllStaff } from "../../../store/School/staffSlice";
 import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
-import { setSuccessToast, setWarningToast } from "../../../store/userStateSlice";
+import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
 const inputList = [
   {
     id: 1,
@@ -117,9 +117,12 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               },
             }
           );
-            console.log("This is the response :  ", res)
+            console.log("This is the response :  ", res);
+            if(res.status===200 && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
+              dispatch(setWarningToast("Admission Number must be unique"));
+            }
           if (res.status === 201) {
-            dispatch(setSuccessToast("Reacher added"));
+            dispatch(setSuccessToast("Student Added Successfully"));
             console.log("response returned", res);
           }
         } catch (e) {

@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setSuccessToast } from '../../store/userStateSlice';
+import { setSuccessToast } from '../../store/genralUser';
 export default function SuccessToast() {
     const dispatch = useDispatch();
     const successToast = useSelector((state)=> state.user.successToast);

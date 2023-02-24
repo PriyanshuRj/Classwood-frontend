@@ -1,5 +1,5 @@
 import React from 'react'
-import {setWarningToast} from "../../store/userStateSlice";
+import {setWarningToast} from "../../store/genralUser";
 import { useDispatch } from "react-redux";
 export default function EmailTab({email, password, setEmail, setPassword, setPageState}) {
   const dispatch = useDispatch();

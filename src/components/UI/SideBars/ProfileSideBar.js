@@ -6,7 +6,7 @@ import { MdOutlineSchool } from "react-icons/md";
 import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar} from "react-icons/ai";
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
-export default function ProfileSideBar({setOpenProfile, data, setStaffData, setOpenAddProfile}) {
+export default function ProfileSideBar({setOpenProfile, data, setStaffData, setOpenAddProfile, profileType}) {
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
       <div onClick={()=>setOpenProfile(-1)} className="absolute p-2 bg-gray-200 rounded-full top-8 left-8">
@@ -33,7 +33,7 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
         <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
           <MdOutlineSchool className="w-6 h-6 mb-2 text-indigo-800" />
           <span className="mb-2 font-semibold text-md">Class Assigned</span>
-          <span>12th A</span>
+          <span>{profileType==="student" ? data.classroom : "10 - C"}</span>
         </div>
       </div>
       <div className="flex flex-col mx-4 mt-4">
@@ -42,7 +42,7 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
           <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Phone Number</span>
-            <span>{data.mobile_number}</span>
+            <span>{profileType==="student" ? data.parent_mobile_number : data.mobile_number}</span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">
@@ -63,7 +63,7 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
           <GoLocation className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Address</span>
-            <span> P jagarta Ready Nagar, Gatachini , Hydrabad, Telangana 2001021</span>
+            <span>{data.address}</span>
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
         <div className="flex flex-row items-center mt-2">
           <AiOutlineCalendar className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">Date of Joining</span>
-            <span> {data.date_of_joining}</span>
+            <span className="mb-1 font-semibold text-gray-800 text-md">{profileType==="student" ? "Date of Admisssion" : "Date of Joining"}</span>
+            <span> { profileType==="student" ? data.date_of_admission : data.date_of_joining}</span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">

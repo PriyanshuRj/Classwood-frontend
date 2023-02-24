@@ -7,7 +7,7 @@ import {
   addNewClassSubjectsTecher,
   addNewClassSubjectsName,
   addAWholeSubject,
-} from "../../../store/classroomSlice";
+} from "../../../store/School/classroomSlice";
 import TeacherDropdown from "../helpers/TeacherDropDown";
 
 export default function Page2({  setPageState,staff }) {

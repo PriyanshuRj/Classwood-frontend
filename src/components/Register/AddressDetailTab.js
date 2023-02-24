@@ -1,5 +1,5 @@
 import React from "react";
-import {setWarningToast} from "../../store/userStateSlice";
+import {setWarningToast} from "../../store/genralUser";
 import { useDispatch } from "react-redux";
 export default function AddressDetailTab({
   setPageState,
@@ -14,6 +14,7 @@ export default function AddressDetailTab({
   schoolName,
   setSchoolName,
 }) {
+ 
   const dispatch = useDispatch();
   function onNextClick(){
     const ZipCode = schoolZipcode.toString(10);

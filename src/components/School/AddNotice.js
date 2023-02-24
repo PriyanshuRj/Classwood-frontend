@@ -1,9 +1,40 @@
 import React, { useState } from "react";
 import Layout from "./Layout";
+import axios from 'axios'
+import { useDispatch } from "react-redux";
+import { API_URL } from "../../helpers/URL";
+import { setWarningToast, setSuccessToast } from "../../store/genralUser";
 export default function AddNotice() {
-  const [noticeImage, addNoticeImage] = useState(null);
+  const dispatch = useDispatch();
+  const [noticeImage, addNoticeImage] = useState([]);
   const [title, setTitle] = useState("");
-  const [contnet, setContent] = useState("");
+  const [content, setContent] = useState("");
+  async function submit(){
+    if(!noticeImage){
+      dispatch(setWarningToast("Notice files Missing"));
+    }
+    else if(title.length==0 || content.length===0){
+      dispatch(setWarningToast("Complete all the Details"));
+
+    }
+    else{
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", content);
+      console.log(noticeImage)
+      const Attachments = Array.from(noticeImage)
+      Attachments.forEach((item) => formData.append("attachments", item));
+      const res =  await axios.post(API_URL + "list/notice/",formData,{
+        
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        
+      })
+      console.log("response : ", res);
+    }
+  }
   return (
     <Layout>
       <div className="flex flex-col">
@@ -24,7 +55,7 @@ export default function AddNotice() {
             Content
           </label>
           <textarea
-            value={contnet}
+            value={content}
             type="text"
             onChange={(e) => setContent(e.target.value)}
             placeholder="Content"
@@ -59,13 +90,13 @@ export default function AddNotice() {
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                   <span className="text-xl font-semibold">
                     {" "}
-                    {noticeImage ? noticeImage.name : "Subject Image"}
+                    {noticeImage.length>0 ? "Files Selected": "Subject Image"}
                   </span>
                 </p>
 
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                   <span className="font-semibold">
-                    {noticeImage ? "Click to Change" : "Click to upload"}
+                    {noticeImage.length>0 ? "Click to Change" : "Click to upload"}
                   </span>
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -75,9 +106,10 @@ export default function AddNotice() {
               <input
                 id="dropzone-file"
                 type="file"
+                multiple="multiple"
                 className="hidden"
                 onChange={(e) => {
-                  addNoticeImage(e.target.files[0]);
+                  addNoticeImage(e.target.files);
                 }}
               />
             </label>
@@ -85,7 +117,7 @@ export default function AddNotice() {
         </div>
         <div className="flex w-full p-6 border-t border-gray-200 rounded-b">
           <button
-            onClick={() => console.log("here")}
+            onClick={() => submit()}
             type="button"
             className="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >

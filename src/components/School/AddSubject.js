@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setWarningToast } from '../../store/userStateSlice';
+import { setWarningToast } from '../../store/genralUser';
 import axios from 'axios';
 import { API_URL } from '../../helpers/URL';
 import TeacherDropdown from './helpers/TeacherDropDown'

@@ -1,5 +1,5 @@
-import {  addAllStaff } from '../../../store/staffSlice';
-import {addAllClassroom} from "../../../store/classroomSlice"
+import {  addAllStaff } from '../../../store/School/staffSlice';
+import {addAllClassroom} from "../../../store/School/classroomSlice"
 import {API_URL} from "../../../helpers/URL";
 import axios from "axios";
 
@@ -12,7 +12,6 @@ export async function getAllSchoolData( dispatch, navigate){
           "Authorization": `Bearer ${token}` 
         }
       })
-      console.log("staff", resStaff)
       
       const resClassroom  = await axios.get(API_URL + 'list/classroom/',{
         headers: {

@@ -6,6 +6,8 @@ export const userSlice = createSlice({
     UserType : "",
     successToast : "",
     warningToast : "",
+    classStudents : [],
+    notices : []
   },
   reducers: {
     loginUser: (state, action) => {
@@ -17,11 +19,17 @@ export const userSlice = createSlice({
     },
     setWarningToast : (state, action)=>{
         state.warningToast = action.payload
-    }
+    },
+    setClassStudents : (state, action) =>{
+        state.classStudents = action.payload
+      },
+      setNotice : (state, action) =>{
+        state.notices = action.payload
+      }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { loginUser, setSuccessToast, setWarningToast } = userSlice.actions
+export const { loginUser, setSuccessToast, setWarningToast, setClassStudents, setNotice } = userSlice.actions
 
 export default userSlice.reducer

@@ -3,22 +3,16 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../helpers/URL";
 import { useNavigate } from "react-router-dom";
-import { loginUser, setWarningToast } from "../store/userStateSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { loginUser, setWarningToast } from "../store/genralUser";
+import { useDispatch } from "react-redux";
+import { getAllDatatForStaffUser } from "../components/Staff/helper/getData";
 export default function Login() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const warningToast = useSelector((state)=> state.user.waringToast)
-  // const [warningToast, setWarningToast] = useState("");
+  
   let navigate = useNavigate();
-  // useEffect(() => {
-  //   if (warningToast.length) {
-  //     setTimeout(function removewarning() {
-  //       dispatch(setWarningToast(""));
-  //     }, 3000);
-  //   }
-  // }, [warningToast]);
+ 
   const login = async () => {
     try {
       const res = await axios.post(API_URL + "login/", {
@@ -31,8 +25,12 @@ export default function Login() {
         dispatch(setWarningToast(res.data.message));
       } else if (res.status === 200) {
         localStorage.setItem("UserType", res.data.user_type);
-        dispatch(loginUser(res.data.user_type))
-        localStorage.setItem("Payed", true);
+        dispatch(loginUser(res.data.user_type));
+        if(res.data.user_type==="School") localStorage.setItem("Payed", true);
+        if(res.data.user_type === "Staff"){
+          getAllDatatForStaffUser(dispatch);
+        }
+        
         localStorage.setItem("token", res.data.tokens.access);
 
         // setTimeout(function removewarning() {

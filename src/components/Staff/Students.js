@@ -6,12 +6,24 @@ import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 import { API_URL } from "../../helpers/URL";
+import { useSelector, useDispatch } from "react-redux";
+import { setClassStudents } from "../../store/genralUser";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
 export default function Student() {
-  const [students, setStudents] = useState([]);
+    const students = useSelector((state) => state.user.classStudents);
+  const staff = useSelector((state) => state.staffUser.staffData);
+    const [canMark, setCanMark] = useState([]);
+    const dispatch = useDispatch();
+    useEffect(() =>{
+        if(staff.first_name){
+
+            let markable = staff.sub_incharge_of.map((x) => x);
+            markable.push(staff.incharge_of)
+            setCanMark(markable)
+        }
+    },[staff])
   const [singleStudent, setDataOfStudent] = useState({});
   const [openProfile, setOpenProfile] = useState(-1);
-  const [openAddProfile, setOpenAddProfile] = useState(false);
   async function getStudents (){
     const token = localStorage.getItem("token");
     
@@ -19,19 +31,24 @@ export default function Student() {
       
       headers: {
         Authorization: `Bearer ${token}`,
-      }    
+      },
+      params: {
+        classroom: localStorage.getItem("classId"),
+      },
+    
   })
   
-  setStudents(res.data)
-  console.log("status",res)
+  dispatch(setClassStudents(res.data))
   }
-  useEffect(()=>{
-    getStudents();
-  },[])
+ useEffect(()=>{
+    if(!students.length){
+        getStudents()
+    }
+ },[])
+
   return (
     <Layout>
       <div className="px-0 md:px-10">
-      {openProfile !== -1 ? <ProfileSideBar profileType="student" setOpenAddProfile={setOpenAddProfile} setStaffData={setDataOfStudent} data={singleStudent} setOpenProfile={setOpenProfile} /> : undefined}
 
         <div className="flex justify-between my-4">
           <div className="flex flex-row ">
@@ -54,20 +71,22 @@ export default function Student() {
                 </span>
             </button>
           </div>
-          <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
-            <IoMdAddCircleOutline className="mr-2" />
-            Add New Student
-          </button>
+          
         </div>
 
         <p className="my-4 mt-8 text-xl font-semibold">
-          CLass 12 Student
+          CLass {localStorage.getItem("className")} Student
         </p>
+        {students.length === 0 ? <div className="flex items-center justify-center w-full h-96">
+          <span className="text-lg font-medium">This Class Don't Have Students yet</span>
+        </div> : 
         <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {students.map((student,index)=>{
-            return <ProfileCard key={index} name={student.first_name + " " + student.last_name} allData={student} setDataOfStaff={setDataOfStudent} id={student.roll_no} StclassName={student.classroom} grade={"A"} setOpenProfile={setOpenProfile} />
+            console.log(student)
+            return <ProfileCard attendance={student.month_attendance} school={student.school} key={index} studentId={student.user.id} classTeacherOff={canMark} name={student.first_name + " " + student.last_name} allData={student} setDataOfStaff={setDataOfStudent} id={student.roll_no} StclassName={student.classroom} grade={"A"} setOpenProfile={setOpenProfile} />
           })}
         </div>
+        }
       </div>
     </Layout>
   );

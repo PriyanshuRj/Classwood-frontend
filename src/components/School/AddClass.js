@@ -4,7 +4,7 @@ import Page1 from './AddClassPages/Page1';
 import Page2 from './AddClassPages/Page2';
 import Page3 from './AddClassPages/Page3';
 import Page4 from './AddClassPages/Page4';
-import { setSuccessToast, setWarningToast } from '../../store/userStateSlice';
+import { setSuccessToast, setWarningToast } from '../../store/genralUser';
 import { useDispatch, useSelector } from 'react-redux';
 import {getAllSchoolData} from "./helpers/dataFetcher";
 import axios from 'axios';

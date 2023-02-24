@@ -8,7 +8,9 @@ import {
   FiSend,
   FiCreditCard,
   FiBriefcase,
+  FiUser
 } from "react-icons/fi";
+import { BiChalkboard } from "react-icons/bi";
 import SideBar from "../UI/Dashboard/SideBar";
 export default function SchoolSidebar() {
   return (
@@ -18,7 +20,7 @@ export default function SchoolSidebar() {
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500"
-          to="/student/dashboard"
+          to="/staff/dashboard"
           >
           <FiHome className=" text-[#5F6368] w-6 h-6" />
 
@@ -28,11 +30,11 @@ export default function SchoolSidebar() {
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500"
-          to="/student/subject"
+          to="/staff/classroom"
         >
-          <FiFileText className=" text-[#5F6368] w-6 h-6" />
+          <BiChalkboard className="text-[#5F6368] w-6 h-6 " />
 
-          <span className="ml-4 text-lg font-medium">Create Notice</span>
+          <span className="ml-4 text-lg font-medium">Classroom</span>
         </Link>
       </div>
       <div className="flex w-full">

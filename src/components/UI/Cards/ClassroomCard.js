@@ -2,8 +2,12 @@ import React, {useState, useEffect} from 'react'
 import {TfiBlackboard} from 'react-icons/tfi';
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import axios from 'axios'
+import { setClassStudents } from "../../../store/genralUser";
+import { useDispatch, useSelector } from 'react-redux';
 import { API_URL } from '../../../helpers/URL';
-export default function ClassroomCard({classData, setOpenSidebar, index, setSelectedClass}) {
+export default function ClassroomCard({classData, setOpenSidebar, index, setSelectedClass, setSubjects, subjects}) {
+  const [students, setStudents] = useState([]);
+  const dispatch = useDispatch();
   async function getStudents (){
     const token = localStorage.getItem("token");
     
@@ -17,15 +21,31 @@ export default function ClassroomCard({classData, setOpenSidebar, index, setSele
       },
     
   })
-  console.log("res : ",res);
+  
+  setStudents(res.data)
+  }
+  async function fetchSubjects() {
+    const token = localStorage.getItem("token");
+    const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        classroom: classData.id,
+      },
+    });
+    setSubjects(classroomSubjects.data);
   }
   useEffect(()=>{
 
-    console.log("Data", classData);
     getStudents()
-  },[])
+    fetchSubjects()
+  },[classData])
   return (
     <div className='flex flex-col p-4 bg-white rounded-xl' onClick={()=> {
+      localStorage.setItem("classId", classData.id)
+      localStorage.setItem("className",classData.class_name + " " + classData.section_name)
+      dispatch(setClassStudents(students))
       setSelectedClass(index)
       setOpenSidebar(index)}}>
         <div className='flex flex-row items-center justify-between'>
@@ -38,18 +58,18 @@ export default function ClassroomCard({classData, setOpenSidebar, index, setSele
         <div className='flex flex-row items-center justify-between mt-6 text-sm'>
 
         <span className='font-semibold text-gray-500'> TOTAL SUBJECT </span>
-        <span className='font-semibold text-gray-500'>5</span>
+        <span className='font-semibold text-gray-500'>{subjects.length}</span>
         </div>
         <div className='flex flex-row items-center justify-between mt-1 text-sm'>
 
         <span className='font-semibold text-gray-500'> TEACHER ASSIGNED </span>
-        <span className='font-semibold text-gray-500'>5</span>
+        <span className='font-semibold text-gray-500'>{subjects.length}</span>
         </div>
 
         <div className='flex flex-row items-center justify-between mt-5 text-sm'>
 
 <span className='font-semibold text-gray-500'> STUDENTS </span>
-<span className='font-semibold text-gray-500'>{classData.strength}</span>
+<span className='font-semibold text-gray-500'>{students.length}</span>
 </div>
 
 

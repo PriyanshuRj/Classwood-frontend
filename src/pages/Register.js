@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { loginUser, setWarningToast, setSuccessToast } from "../store/userStateSlice";
+import { loginUser, setWarningToast, setSuccessToast } from "../store/genralUser";
 
 import { API_URL } from "../helpers/URL";
 import EmailTab from "../components/Register/EmailTab";
@@ -51,16 +51,16 @@ export default function Register() {
     //   dateOfStablishment
     // );
     try {
-      if(schoolName.length===0 || schoolAdress.length===0 || schoolCity.length===0 || !schoolLogo || schoolPhoneNo<1000000000 || schoolState.length===0){
-        dispatch(setWarningToast("Fill Complete Details Please"))
-      }
-      else {
+      
+      
 
         const formData = new FormData();
-        formData.append("userData",JSON.stringify({
-        email: email,
-        password: password,
-      }));
+      //   formData.append("userData",JSON.stringify({
+      //   email: email,
+      //   password: password,
+      // }));
+      formData.append("user.email", email)
+      formData.append("user.password", password)
       formData.append("school_name", schoolName);
       formData.append("school_phone", schoolPhoneNo.toString());
       formData.append("school_address", schoolAdress);
@@ -70,9 +70,7 @@ export default function Register() {
       formData.append("school_logo", schoolLogo);
       formData.append("school_website", schoolWebsite);
       formData.append("date_of_establishment", dateOfStablishment);
-      for (const pair of formData.entries()) {
-        console.log(`${pair[0]}, ${pair[1]}`);
-      }
+     
       const res = await axios.post(API_URL + "signup/", 
       // {
         //   user: {
@@ -91,25 +89,30 @@ export default function Register() {
           // }
           formData
           );
-          console.log(res)
+          console.log(res);
+          if(res.status===200){
+            if(res.data.user && res.data.user.email){
+              dispatch(setWarningToast("Account with this email already exists."))
+            }
+          }
+          if (res.status === 201) {
+            const LoginRes = await axios.post(API_URL + "login/", {
+              email: email,
+              password: password,
+            });
+            console.log("Res : ",LoginRes)
+            if (LoginRes.status === 200) {
+              localStorage.setItem("UserType", LoginRes.data.user_type);
+              localStorage.setItem("token", LoginRes.data.tokens.access);
+              localStorage.setItem("Payed", true);
+              dispatch(loginUser(res.data.user_type))
+              
+              navigate(`/${LoginRes.data.user_type.toLowerCase()}/dashboard`);
+            }
+            console.log("response returned", LoginRes);
+            setPageState(0);
         }
-      if (res.status === 201) {
-        const LoginRes = await axios.post(API_URL + "login/", {
-          email: email,
-          password: password,
-        });
-
-        if (LoginRes.status === 200) {
-          await localStorage.setItem("UserType", LoginRes.data.user_type);
-        localStorage.setItem("token", res.data.tokens.access);
-        localStorage.setItem("Payed", true);
-        dispatch(loginUser(res.data.user_type))
-
-          navigate(`/${LoginRes.data.user_type.toLowerCase()}/dashboard`);
-        }
-        // console.log("response returned", LoginRes);
-        setPageState(0);
-      }
+      
     } catch (e) {
       console.warn("Error :::::::", e);
     }

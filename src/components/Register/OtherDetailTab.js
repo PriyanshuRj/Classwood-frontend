@@ -1,5 +1,5 @@
 import React from "react";
-import {setWarningToast} from "../../store/userStateSlice";
+import {setWarningToast} from "../../store/genralUser";
 import { useDispatch } from "react-redux";
 export default function OtherDetailTab({
   schoolLogo,
@@ -17,14 +17,18 @@ export default function OtherDetailTab({
     const re = new RegExp('/', 'g');
     const re2 = new RegExp('-','g');
     const Phoneno = schoolPhoneNo.toString(10);
-
+    console.log("website ", schoolWebsite.substring(0,12));
     // matching the pattern
-    if(dateOfStablishment.length===0 || schoolPhoneNo===null
+    if(dateOfStablishment.length===0
       // || schoolLogo===null || schoolWebsite.length===0 
       ){
       dispatch(setWarningToast("Fill Details completely !"));
     }
     else if(Phoneno.length < 10 ) dispatch(setWarningToast("Enter complete phone number"));
+    else if(schoolWebsite && schoolWebsite.substring(0,12) !== "https://www."){
+dispatch(setWarningToast("Website not in proper format"))
+console.log("the web", schoolWebsite.substring(0,12))
+    }
     else if((dateOfStablishment.match(re) && dateOfStablishment.match(re).length <2) || (dateOfStablishment.match(re2) && dateOfStablishment.match(re2).length < 2)) dispatch(setWarningToast('Please fill date properly'))
     else {
       register();
@@ -84,11 +88,11 @@ export default function OtherDetailTab({
                 ></path>
               </svg>
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="text-xl font-semibold"> School Logo </span>
+                <span className="text-xl font-semibold"> {schoolLogo ?  schoolLogo.name : "School Logo"} </span>
               </p>
 
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">Click to upload</span>
+                <span className="font-semibold">{schoolLogo ? "Click to change" : "Click to upload"}</span>
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 SVG, PNG, JPG or GIF (MAX. 800x400px)
