@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { GoPrimitiveDot } from "react-icons/go";
 import axios from "axios";
@@ -8,48 +8,51 @@ import { formatDate } from "../../../helpers/helperFunctions";
 import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
 export default function ProfileCard(props) {
   const [today, setToday] = useState(0);
-  useEffect(()=>{
+  useEffect(() => {
     const date = new Date();
-    console.log(date.getDate() , props.attendance);
     setToday(date.getDate());
-  },[])
-  const dispatch = useDispatch()
+  }, []);
+  const dispatch = useDispatch();
 
-  async function markAttendance(val){
+  async function markAttendance(val) {
     const token = localStorage.getItem("token");
-    try{
-
+    try {
       const date = new Date();
-      console.log(formatDate(date), val, props.studentId, props.school, localStorage.getItem("classId"))
-      const res = await axios.post(API_URL + "staff/attendance/",{
-        date: formatDate(date),
-        present: val,
-        student: props.studentId,
-        classroom: localStorage.getItem("classId"),
-        school:props.school
-
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const res = await axios.post(
+        API_URL + "staff/attendance/",
+        {
+          date: formatDate(date),
+          present: val,
+          student: props.studentId,
+          classroom: localStorage.getItem("classId"),
+          school: props.school,
         },
-      }
-
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.status === 201)
+        dispatch(setSuccessToast("Attendance Marked Succesfully"));
+      if (
+        res.status === 200 &&
+        res.data.non_field_errors[0] ===
+          "The fields student, date must make a unique set."
       )
-      console.log("resp", res);
-      if(res.status===201) dispatch(setSuccessToast("Attendance Marked Succesfully"));
-      if(res.status===200 && res.data.non_field_errors[0]==='The fields student, date must make a unique set.') dispatch(setWarningToast("Attendance marked for the day"))
-    } catch(e){
-      console.warn("Error ::: ", e)
+        dispatch(setWarningToast("Attendance marked for the day"));
+    } catch (e) {
+      console.warn("Error ::: ", e);
     }
   }
   return (
-    <div className="border-[1px] border-gray-400 rounded-lg flex flex-col p-4 w-full" onClick={()=> {
-        props.setDataOfStaff(props.allData)
-        props.setOpenProfile(0)
-      }
-    }
-      >
+    <div
+      className="border-[1px] bg-gray-50 border-gray-400 rounded-lg flex flex-col p-4 w-full"
+      onClick={() => {
+        props.setDataOfStaff(props.allData);
+        props.setOpenProfile(0);
+      }}
+    >
       <div className="flex flex-row justify-between border-b-[1px] border-gray-200 pb-2 border-dotted">
         <div className="flex flex-col">
           <img
@@ -62,11 +65,17 @@ export default function ProfileCard(props) {
         </div>
         <div className="flex flex-col items-end justify-between">
           <BiDotsVerticalRounded className="w-8 h-8" />
-          { JSON.parse(props.attendance)[today-1]===1 ?  <span className="flex items-center text-green-500">
-            <GoPrimitiveDot className="w-4 h-4 mr-2" /> Present
-          </span> : JSON.parse(props.attendance)[today-1]===2 ?<span className="flex items-center text-red-500">
-            <GoPrimitiveDot className="w-4 h-4 mr-2" /> Absent
-          </span> : <span className="text-red-500">Attendance Due</span>}
+          {JSON.parse(props.attendance)[today - 1] === 1 ? (
+            <span className="flex items-center text-green-500">
+              <GoPrimitiveDot className="w-4 h-4 mr-2" /> Present
+            </span>
+          ) : JSON.parse(props.attendance)[today - 1] === 2 ? (
+            <span className="flex items-center text-red-500">
+              <GoPrimitiveDot className="w-4 h-4 mr-2" /> Absent
+            </span>
+          ) : (
+            <span className="text-red-500">Attendance Due</span>
+          )}
         </div>
       </div>
       <div className="flex flex-row justify-between mt-2 text-gray-700">
@@ -79,28 +88,26 @@ export default function ProfileCard(props) {
           <span>{props.grade}</span>
         </div>
       </div>
-     { props.classTeacherOff.includes(props.StclassName) ?  <div className="flex flex-col">
-
-      <span className="mt-4 mb-4 font-medium text-md">Mark Attendence</span>
-      <div className="flex flex-row justify-between">
-      <button
-      onClick={()=> markAttendance(true)}
+      {props.classTeacherOff.includes(props.StclassName) ? (
+        <div className="flex flex-col">
+          <span className="mt-4 mb-4 font-medium text-md">Mark Attendence</span>
+          <div className="flex flex-row justify-between">
+            <button
+              onClick={() => markAttendance(true)}
               className="flex items-center px-4 py-1 mx-4 text-sm font-medium text-white duration-300 ease-in-out bg-green-600 rounded-md hover:bg-green-800"
-              >
-             Present
+            >
+              Present
             </button>
-        <button className="">
-          
-        </button>
-        <button
-      onClick={()=> markAttendance(false)}
-
+            <button className=""></button>
+            <button
+              onClick={() => markAttendance(false)}
               className="flex items-center px-4 py-1 mx-4 font-medium text-white duration-300 ease-in-out bg-red-600 rounded-md hover:bg-red-800"
-              >
-          Abesnt
-        </button>
-      </div>
-             </div> : undefined}
+            >
+              Abesnt
+            </button>
+          </div>
+        </div>
+      ) : undefined}
     </div>
   );
 }

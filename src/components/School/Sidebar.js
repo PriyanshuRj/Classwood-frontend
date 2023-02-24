@@ -17,10 +17,10 @@ export default function SchoolSidebar() {
   return (
     <SideBar>
 
-    <div className="w-full pb-10 mt-12 text-gray-200 border-b-2 gap-y-2">
+    <div className="w-full pb-10 mt-12 text-gray-200 gap-y-2">
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/school/dashboard"
           >
           <FiHome className="w-6 h-6 " />
@@ -30,7 +30,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/school/addnoice"
         >
           <FiFileText className="w-6 h-6 " />
@@ -40,7 +40,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500"
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
           to="/school/classroom"
         >
           <BiChalkboard className="w-6 h-6 " />
@@ -50,7 +50,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/school/subject"
         >
           <FiBookOpen className="w-6 h-6 " />
@@ -60,7 +60,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/school/test"
           >
           <FiEdit3 className="w-6 h-6 " />
@@ -70,7 +70,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/"
           >
           <FiSend className="w-6 h-6 " />
@@ -80,7 +80,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/school/students"
           >
           <HiOutlineUserGroup className="w-6 h-6 " />
@@ -90,7 +90,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/school/staff"
           >
           <HiOutlineUserGroup className="w-6 h-6 " />
@@ -100,7 +100,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="/school/fees"
           >
           <FiCreditCard className="w-6 h-6 " />
@@ -110,7 +110,7 @@ export default function SchoolSidebar() {
       </div>
       <div className="flex w-full">
         <Link
-          className="flex items-center justify-start w-full p-4 text-center duration-300 ease-in-out mx-4 rounded hover:bg-[opacity-70] hover:bg-gray-500 "
+          className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
           to="{% url 'dashboard' %}"
           >
           <FiBriefcase className="w-6 h-6 " />
