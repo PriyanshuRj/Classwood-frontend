@@ -81,6 +81,10 @@ export default function SchoolSidebar() {
       <div className="flex w-full">
         <Link
           className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
+          onClick={()=>{
+            localStorage.removeItem("classId")
+            localStorage.removeItem("className")
+          }}
           to="/school/students"
           >
           <HiOutlineUserGroup className="w-6 h-6 " />

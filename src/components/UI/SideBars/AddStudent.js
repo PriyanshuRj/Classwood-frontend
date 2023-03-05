@@ -59,19 +59,19 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
     for(var i of subjects){
         subs.push(i.id)
     }
-    console.log("subs", subs)
+    console.log("subs", subs, subjects)
     setStudentSubjects(subs);
     console.log(studentSubjects)
-  },[])
-  console.log("classes :  ", classroom)
+  },[subjects])
   const submit = async () => {
-    console.log("new staff adding")
+    console.log("new student adding")
 
       if (
         firstName.length === 0 ||
         lastName.length === 0 ||
         dateOfAdmission.length === 0 ||
-        acountNo.length === 0
+        acountNo.length === 0 ||
+        !profileImage
       ) {
         dispatch(setWarningToast("Fill complete Details"));
         // console.log(
@@ -84,7 +84,8 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
       else if(mobileNO < 1000000000) dispatch(setWarningToast("Mobile no should be atleast 10 digits"))
       else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
         dispatch(setWarningToast("Invalid email address"));
-      } else {
+      } 
+      else {
         try {
           const token = localStorage.getItem("token");
           console.log(token);
@@ -105,6 +106,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
           formData.append("account_no", acountNo);
           formData.append("school", staff[0].school);
           formData.append("classroom", classroom.id);
+          console.log("subjects : ",studentSubjects)
           studentSubjects.forEach((item) => formData.append("subjects", item))
         //   formData.append("subjects", );
           formData.append("admission_no", admissionNo);
@@ -177,7 +179,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
                   ></path>
                 </svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="text-xl font-semibold"> {profileImage ? profileImage.name :  "Subject Image"}</span>
+                  <span className="text-xl font-semibold"> {profileImage ? profileImage.name :  "Student Profile Image"}</span>
                 </p>
 
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">

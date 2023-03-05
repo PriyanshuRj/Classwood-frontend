@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setWarningToast } from '../../store/genralUser';
 import axios from 'axios';
 import { API_URL } from '../../helpers/URL';
-import TeacherDropdown from './helpers/TeacherDropDown'
+import TeacherDropdown from './helpers/TeacherDropDown';
+import { setSuccessToast } from '../../store/genralUser';
 export default function AddSubject({setOpen, classroom}) {
     const dispatch = useDispatch();
     const [subjectName, setSubjectName] = useState("");
@@ -40,7 +41,8 @@ export default function AddSubject({setOpen, classroom}) {
                 }
               }
               )
-              console.log("res : ", resp)            
+              console.log("res : ", resp);
+              if(resp.status===201) dispatch(setSuccessToast("Subject Added Successfully"))      
             }
           }catch(e){
             console.warn("Error  ::::::::", e.msg)

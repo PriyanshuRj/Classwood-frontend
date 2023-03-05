@@ -31,7 +31,8 @@ export default function AddNotice() {
             Authorization: `Bearer ${token}`,
           }
         
-      })
+      });
+      if(res.status===201) dispatch(setSuccessToast("Notice Added Successfully"))
       console.log("response : ", res);
     }
   }

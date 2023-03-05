@@ -101,7 +101,7 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
 
       }}>
               <FiEdit2 className="mr-2" />
-              Edit Staff
+              {profileType === "student" ? "Edit Student" : "Edit Staff"}
             </button>
       </div>
     </div>

@@ -9,32 +9,39 @@ import { FiEdit2 } from "react-icons/fi";
 import { MdSubject } from "react-icons/md";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
+import { useSelector } from "react-redux";
+import { IoMdAddCircleOutline } from "react-icons/io";
 export default function ClassroomSideBar({
   setOpen,
   setOpenSidebar,
   data,
   setOpenAddStudent,
   setSubjects,
-  subjects,
 }) {
+  console.log(data)
+  const [classSubjects, setClassSubject] = useState([]);
+
+  const students = useSelector((state) => state.user.classStudents);
+  console.log(data)
   async function fetchSubjects() {
     const token = localStorage.getItem("token");
-    console.log("data : ", data.id);
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       params: {
-        classroom: data.id,
+        classroom: localStorage.getItem("classId"),
       },
     });
-    setSubjects(classroomSubjects.data);
+    console.log(  classroomSubjects.data)
+    setClassSubject(classroomSubjects.data);
   }
-  // useEffect(() => {
-  //   fetchSubjects();
-  // }, [data]);
+  useEffect(() => {
+    fetchSubjects();
+  }, [data]);
   return (
-    <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
+    <div className="fixed top-0 right-0 z-50 flex flex-col justify-between h-full pt-8 overflow-y-scroll bg-white w-96">
+     <div>
       <div
         onClick={() => setOpenSidebar(-1)}
         className="absolute p-2 bg-gray-200 rounded-full top-8 left-8"
@@ -46,14 +53,13 @@ export default function ClassroomSideBar({
         <span className="text-2xl font-semibold ">
           {data.class_name + " " + data.section_name}
         </span>
-        <span className="mt-2 text-gray-400">Class Teacher: 1111</span>
       </div>
       <div className="flex flex-row justify-around mt-4 border-b-[1px] border-gray-200 pb-4 mx-4">
         <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
           <BsBriefcase className="w-6 h-6 mb-2 text-indigo-800" />
-          <span className="mb-2 font-semibold text-md">Role</span>
+          <span className="mb-2 font-semibold text-md">Class Teacher</span>
           <span>
-            {data.is_class_teacher ? "Class Teacher" : "Not A Class Teacher"}
+            {/* {classTeacherName} */}
           </span>
         </div>
         <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
@@ -64,7 +70,7 @@ export default function ClassroomSideBar({
       </div>
       <div className="flex flex-col mx-4 mt-4">
         <p className="mb-4 text-xl font-semibold text-gray-800">Subjects</p>
-        {subjects.map((subject, index) => {
+        {classSubjects.map((subject, index) => {
           return (
             <div
               key={index}
@@ -93,6 +99,10 @@ export default function ClassroomSideBar({
           );
         })}
       </div>
+      </div>
+      <div>
+        
+     
       {localStorage.getItem("UserType") === "School" ? (
         <div>
           <div className="flex flex-row justify-between mx-4 my-4">
@@ -111,22 +121,35 @@ export default function ClassroomSideBar({
                 setOpen(true);
               }}
             >
-              <MdSubject className="mr-2" />
+              <IoMdAddCircleOutline className="mr-2" />
               Add Subject
             </button>
           </div>
           <div className="flex items-center justify-center w-full">
             <button
-              className="flex items-center px-4 py-1 mx-4 mb-8 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
+              className="flex items-center px-4 py-1 mx-4 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
               onClick={() => {
+                setSubjects(classSubjects)
                 setOpenAddStudent(true);
                 setOpenSidebar(-1);
               }}
             >
-              <MdSubject className="mr-2" />
+              <IoMdAddCircleOutline className="mr-2" />
               Add Student
             </button>
+            
           </div>
+          <div className="flex items-center justify-center w-full mt-4">
+          <Link
+          to="/school/students"
+            className="flex items-center justify-center w-full px-4 py-1 mx-4 mb-8 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
+            onClick={() => {
+              setOpenSidebar(-1);
+            }}
+          >
+            All Students
+          </Link>
+        </div>
         </div>
       ) : (
         <div className="flex items-center justify-center w-full mt-8">
@@ -142,6 +165,7 @@ export default function ClassroomSideBar({
           </Link>
         </div>
       )}
+       </div>
     </div>
   );
 }

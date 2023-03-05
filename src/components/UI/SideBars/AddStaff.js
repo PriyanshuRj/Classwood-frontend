@@ -228,7 +228,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                   ></path>
                 </svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span className="text-xl font-semibold"> {profileImage ? profileImage.name : "Subject Image"}</span>
+                  <span className="text-xl font-semibold"> {profileImage ? profileImage.name : "Staff profile Image"}</span>
                 </p>
 
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
