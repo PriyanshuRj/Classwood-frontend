@@ -26,14 +26,8 @@ export default function AddSubject({setOpen, classroom}) {
             formData.append("school", staff[0].school);
             formData.append("teacher", subjectTeacher.user.id);
             formData.append("classroom", classroom.id);
-            let resp =await axios.post(API_URL + "staff/subject/",
-            // {
-              //     name: subjectName,
-              //     subject_pic: subjectImage,
-              //     school : staff[0].school,
-              //     teacher : subjectTeacher.user.id,
-              //     classroom : classroom.id
-              //   },
+            let resp = await axios.post(API_URL + "staff/subject/",
+
               formData,
               {
                 headers: {
