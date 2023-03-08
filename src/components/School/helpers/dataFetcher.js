@@ -4,6 +4,7 @@ import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 
 export async function getAllSchoolData(dispatch, navigate) {
+  console.log("called")
   const token = localStorage.getItem("token");
   try {
     const resStaff = await axios.get(API_URL + "list/staff/", {
