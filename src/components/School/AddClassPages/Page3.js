@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { GrNext } from "react-icons/gr";
 import { CgAdd } from "react-icons/cg";
-export default function Page3({ setPageState }) {
-  const [CSVFile, setCSVFile] = useState(null);
-
+import { setWarningToast } from "../../../store/genralUser";
+import { useDispatch } from "react-redux";
+export default function Page3({ setPageState, CSVFile, setCSVFile }) {
+  const dispatch = useDispatch();
+  const goToNextPage = () =>{
+    if(CSVFile) setPageState(4);
+    else dispatch(setWarningToast("Please Select A CSV File"));
+  }
   const addNewStudent = () => {};
   return (
     <div className="flex flex-col h-full mx-4">
@@ -67,11 +72,11 @@ export default function Page3({ setPageState }) {
                 ></path>
               </svg>
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="text-xl font-semibold">Student CSV</span>
+                <span className="text-xl font-semibold">{CSVFile ? CSVFile.name : "Student CSV"}</span>
               </p>
 
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">Click to upload</span>
+                <span className="font-semibold">{CSVFile ? "Change File" : "Click to upload" }</span>
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Only CSV format allowed
