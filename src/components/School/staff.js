@@ -85,7 +85,6 @@ export default function Student() {
         ) : (
           <div className="mb-8  grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {staff.filter(filterStaff).map((e, i) => {
-              console.log(e)
               return (
                 <ProfileCard
                   key={i}
