@@ -24,7 +24,7 @@ import SchoolClassroom from "./components/School/Classroom";
 import StartPay from "./components/School/StartPay";
 import AddClass from "./components/School/AddClass";
 import AddNotice from "./components/School/AddNotice";
-import TestResult from "./components/School/Exam/TestResult";
+import TestResult from "./components/School/Exam/main";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import StaffAllClassrooms from "./components/Staff/classroom";

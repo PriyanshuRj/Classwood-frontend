@@ -18,6 +18,7 @@ export default function AddClass() {
   const [classTitle, setClassTitle] = useState("");
   const [classSection, setClassSection] = useState("");
   const [pageState, setPageState] = useState(1);
+  const [CSVFile, setCSVFile] = useState(null);
 
   const staff = useSelector((state) => state.staff.allStaff);
   const subjects = useSelector((state) => state.classroom.addClassSubject);
@@ -74,18 +75,9 @@ export default function AddClass() {
       ) {
         dispatch(setWarningToast("Class and section should be unique"));
       } else if (res.status === 201) {
-        console.log(res);
         dispatch(setSuccessToast("classroom Created successfully"));
         for (let subject of subjects) {
-          console.log(
-            res.data.id,
-            subject.subjectname,
-            "teacher : ",
-            subject.teacher.user.id,
-            "School : ",
-            staff[0].school
-          );
-          let resp = axios.post(
+          let resp = await axios.post(
             API_URL + "staff/subject/",
             {
               name: subject.subjectname,
@@ -100,6 +92,23 @@ export default function AddClass() {
               },
             }
           );
+          console.log("resp",resp);
+          if(resp.status=== 201){
+          const formData = new FormData();
+          formData.append("school", staff[0].school);
+          formData.append("classroom", resp.data.data.id);
+          formData.append("csv_file", CSVFile);
+            const studentRes = await axios.post(
+              API_URL + "staff/student/",
+              formData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            console.log("Response", studentRes)
+          }
         }
       }
     } catch (e) {
@@ -125,7 +134,9 @@ export default function AddClass() {
         ) : pageState === 2 ? (
           <Page2 staff={staff} setPageState={propogateToPage3} />
         ) : pageState === 3 ? (
-          <Page3 setPageState={setPageState} />
+          <Page3 setPageState={setPageState} 
+          CSVFile={CSVFile} setCSVFile={setCSVFile}
+          />
         ) : (
           <Page4
             setPageState={setPageState}
