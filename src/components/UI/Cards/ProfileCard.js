@@ -1,29 +1,56 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { Menu, Transition } from "@headlessui/react";
 import { GoPrimitiveDot } from "react-icons/go";
 import axios from "axios";
-import { API_URL } from "../../../helpers/URL";
 import { useDispatch } from "react-redux";
+
+import { API_URL } from "../../../helpers/URL";
 import { formatDate } from "../../../helpers/helperFunctions";
 import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
-import { Menu, Transition } from "@headlessui/react";
+import PopUpMenu from "../PopUpMenu";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function ProfileCard(props) {
+  const dispatch = useDispatch();
+
   const [today, setToday] = useState(0);
   const [attendanceState, setAttendanceState] = useState(0);
+
+  function viewProfile(){
+    props.setDataOfStaff(props.allData);
+    props.setOpenProfile(0);
+  }
+  function EditProfile(){
+    props.setOpenProfile(0);
+
+  }
+  function DeleteProfile(){
+    props.setOpenProfile(0);
+
+  }
+  const ProfilePopUpMenu = [{
+    title : "View Profile",
+    function : viewProfile
+  },
+{
+  title : "Edit Profile",
+  function : EditProfile
+}];
+const deleteFunction = {
+  title :"Delete Function",
+  function : DeleteProfile
+}
   useEffect(() => {
     const date = new Date();
     setToday(date.getDate());
   }, []);
+
   useEffect(() => {
     if (props.type === "student")
       setAttendanceState(JSON.parse(props.attendance)[today - 1]);
   }, [today]);
-  const dispatch = useDispatch();
+
 
   async function markAttendance(val) {
     const token = localStorage.getItem("token");
@@ -44,7 +71,7 @@ export default function ProfileCard(props) {
           },
         }
       );
-      console.log("res :: ", res);
+      console.log("res : ", res);
       if (res.status === 201)
         dispatch(setSuccessToast("Attendance Marked Succesfully"));
       setAttendanceState(val ? 2 : 1);
@@ -53,8 +80,8 @@ export default function ProfileCard(props) {
         res.status === 200 &&
         res.data.non_field_errors[0] ===
           "The fields student, date must make a unique set."
-      )
-        dispatch(setWarningToast("Attendance marked for the day"));
+      )dispatch
+        (setWarningToast("Attendance marked for the day"));
     } catch (e) {
       console.warn("Error ::: ", e);
     }
@@ -72,78 +99,8 @@ export default function ProfileCard(props) {
           <span className="text-gray-400"> id: {props.id}</span>
         </div>
         <div className="flex flex-col items-end justify-between">
-          <Menu as="div" className="relative inline-block text-left">
-            <div>
-              <Menu.Button className="inline-flex justify-center w-full text-sm font-semibold text-gray-900 ">
-                <BiDotsVerticalRounded className="w-6 h-6" />
-              </Menu.Button>
-            </div>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <span
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                        onClick={() => {
-                          props.setDataOfStaff(props.allData);
-                          props.setOpenProfile(0);
-                        }}
-                      >
-                        View Profile
-                      </span>
-                    )}
-                  </Menu.Item>
-
-                  <Menu.Item>
-                    {({ active }) => (
-                      <span
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Edit Profile
-                      </span>
-                    )}
-                  </Menu.Item>
-                  <div className="border-t-[1px]">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          type="submit"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-red-500"
-                              : "text-red-400",
-                            "block w-full px-4 py-2 text-left text-sm text-medium"
-                          )}
-                        >
-                          Delete Class
-                        </button>
-                      )}
-                    </Menu.Item>
-                  </div>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          <PopUpMenu menuList={ProfilePopUpMenu} deleteFunction={deleteFunction} />
+         
           {props.type === "student" ? (
             attendanceState === 2 ? (
               <span className="flex items-center text-green-500">
