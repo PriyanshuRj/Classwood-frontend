@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import Layout from "./Layout";
 import axios from 'axios'
+
+import Layout from "./Layout";
 import { useDispatch } from "react-redux";
 import { API_URL } from "../../helpers/URL";
 import { setWarningToast, setSuccessToast } from "../../store/genralUser";
+
 export default function AddNotice() {
+  
   const dispatch = useDispatch();
   const [noticeImage, addNoticeImage] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  
   async function submit(){
     if(!noticeImage){
       dispatch(setWarningToast("Notice files Missing"));
@@ -16,8 +20,7 @@ export default function AddNotice() {
     else if(title.length==0 || content.length===0){
       dispatch(setWarningToast("Complete all the Details"));
 
-    }
-    else{
+    } else{
       const token = localStorage.getItem("token");
       const formData = new FormData();
       formData.append("title", title);
@@ -26,11 +29,9 @@ export default function AddNotice() {
       const Attachments = Array.from(noticeImage)
       Attachments.forEach((item) => formData.append("attachments", item));
       const res =  await axios.post(API_URL + "list/notice/",formData,{
-        
           headers: {
             Authorization: `Bearer ${token}`,
           }
-        
       });
       if(res.status===201) dispatch(setSuccessToast("Notice Added Successfully"))
       console.log("response : ", res);
