@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import AddSubject from "./AddSubject";
-import AddStudent from "../UI/SideBars/AddStudent";
+import AddStudent from "../UI/SideBars/AddStudentSidebar";
 import ClassroomCard from "../UI/Cards/ClassroomCard";
 import Layout from "./Layout";
 import ClassroomSideBar from "../UI/SideBars/classroomSidebar";
