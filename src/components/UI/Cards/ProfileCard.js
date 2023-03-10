@@ -25,8 +25,27 @@ export default function ProfileCard(props) {
     props.setOpenProfile(0);
 
   }
-  function DeleteProfile(){
-    props.setOpenProfile(0);
+  async function DeleteProfile(){
+    
+    console.log("Delete called")
+    const token = localStorage.getItem("token");
+    if(props.type === "student"){
+
+      const res =  await axios.delete(API_URL + "staff/student/" + props.studentId + "/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("response",res);
+    }
+    else {
+      const res =  await axios.delete(API_URL + "list/staff/" + props.allData.user.id + "/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("response",res);
+    }
 
   }
   const ProfilePopUpMenu = [{
@@ -36,10 +55,16 @@ export default function ProfileCard(props) {
 {
   title : "Edit Profile",
   function : EditProfile
+},
+{
+  title :"Delete Profile",
+  function : DeleteProfile,
+  deleteType: true
 }];
 const deleteFunction = {
   title :"Delete Function",
-  function : DeleteProfile
+  function : DeleteProfile,
+  
 }
   useEffect(() => {
     const date = new Date();

@@ -94,7 +94,6 @@ export default function Student() {
         {students.length !== 0 ? (
           <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {students.filter(fliterStudents).map((student, index) => {
-              console.log(student);
               return (
                 <ProfileCard
                   type="student"

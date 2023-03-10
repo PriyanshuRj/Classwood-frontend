@@ -17,8 +17,8 @@ import StudentFees from "./components/Student/FeesPayment";
 import StudentChat from "./components/Student/Message";
 // School Pages Imports
 import SchoolDashboard from "./components/School/Dashboard";
-import AllStaff from "./components/School/staff";
-import AllStudent from "./components/School/student";
+import AllStaff from "./components/School/Staff";
+import AllStudent from "./components/School/Student";
 import AllSubjects from "./components/School/AllSubjects"
 import SchoolClassroom from "./components/School/Classroom";
 import StartPay from "./components/School/StartPay";

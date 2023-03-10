@@ -33,9 +33,16 @@ export default function ClassroomCard({
     // props.setOpenProfile(0);
 
   }
-  function deleteClass(){
+  async function deleteClass(){
     // props.setOpenProfile(0);
-
+    console.log("Delete called")
+    const token = localStorage.getItem("token");
+    const res =  await axios.delete(API_URL + "list/classroom/" + classData.id + "/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("response",res);
   }
   function viewStudentDetails(){
     localStorage.setItem("classId", classData.id);
@@ -56,7 +63,13 @@ export default function ClassroomCard({
 {
   title : "Edit Class",
   function : editClass
-}];
+},
+{
+  title : "Delete Class",
+  function : deleteClass,
+  deleteType:true
+}
+];
 const deleteFunction = {
   title :"Delete Function",
   function : deleteClass

@@ -35,6 +35,7 @@ export default function PopUpMenu({menuList, deleteFunction}) {
                       active
                         ? "bg-gray-100 text-gray-900"
                         : "text-gray-700",
+                        listItem.deleteType ? "text-red-400 border-t-[1px]" :"",
                       "block px-4 py-2 text-sm"
                     )}
                     onClick={() => {
@@ -62,24 +63,7 @@ export default function PopUpMenu({menuList, deleteFunction}) {
          
 
           
-          <div className="border-t-[1px]">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                onClick={deleteFunction.function()}
-                  type="submit"
-                  className={classNames(
-                    active
-                      ? "bg-gray-100 text-red-500"
-                      : "text-red-400",
-                    "block w-full px-4 py-2 text-left text-sm text-medium"
-                  )}
-                >
-                  {deleteFunction.title}
-                </button>
-              )}
-            </Menu.Item>
-          </div>
+          
         </div>
       </Menu.Items>
     </Transition>

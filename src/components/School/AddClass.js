@@ -98,8 +98,9 @@ export default function AddClass() {
           console.log("resp",resp);
           if(resp.status=== 201){
           const formData = new FormData();
+          console.log(staff[0].school,  res.data.data.id)
           formData.append("school", staff[0].school);
-          formData.append("classroom", resp.data.data.id);
+          formData.append("classroom", res.data.data.id);
           formData.append("csv_file", CSVFile);
             const studentRes = await axios.post(
               API_URL + "staff/student/",
