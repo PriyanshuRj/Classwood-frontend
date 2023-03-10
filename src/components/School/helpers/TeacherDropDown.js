@@ -1,8 +1,6 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -12,9 +10,7 @@ export default function TeacherDropdown({inputList, labelTitle, DivWidth, select
 
   return (
     <Listbox value={selected} onChange={async (value)=>{
-      id ? setSelected(value, id) : setSelected(value)
-      
-      }} >
+      id ? setSelected(value, id) : setSelected(value)}} >
       {({ open }) => (
         <div className={`flex flex-col items-start w-${DivWidth}`}>
           <Listbox.Label className="block text-sm font-medium text-gray-700">{labelTitle}</Listbox.Label>
@@ -27,7 +23,6 @@ export default function TeacherDropdown({inputList, labelTitle, DivWidth, select
                 <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
               </span>
             </Listbox.Button>
-
             <Transition
               show={open}
               as={Fragment}

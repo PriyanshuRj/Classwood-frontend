@@ -20,6 +20,7 @@ export async function getAllSchoolData(dispatch, navigate) {
     });
     dispatch(addAllStaff(resStaff.data));
     dispatch(addAllClassroom(resClassroom.data));
+    
   } catch (e) {
     console.log("error : ", e);
     if (e.respons && e.response.status === 401) {

@@ -2,18 +2,14 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function ClassDropDown({inputList, labelTitle, DivWidth, selected, setSelected, id}) {
-
   return (
     <Listbox value={selected} onChange={async (value)=>{
       id ? setSelected(value, id) : setSelected(value)
-      
       }} >
       {({ open }) => (
         <div className={`flex flex-col items-start w-${DivWidth} mx-4`}>
