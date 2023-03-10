@@ -3,7 +3,7 @@ import { GrNext } from "react-icons/gr";
 import { CgAdd } from "react-icons/cg";
 import { setWarningToast } from "../../../store/genralUser";
 import { useDispatch } from "react-redux";
-export default function Page3({ setPageState, CSVFile, setCSVFile }) {
+export default function StudentDetailPage({ setPageState, CSVFile, setCSVFile }) {
   const dispatch = useDispatch();
   const goToNextPage = () =>{
     if(CSVFile) setPageState(4);

@@ -2,7 +2,7 @@ import React from "react";
 import SelectionDropdown from "../../UI/SelectionDropdown";
 import { GrNext } from "react-icons/gr";
 import TeacherDropdown from "../helpers/TeacherDropDown";
-export default function Page1({
+export default function ClassDetailPage({
   classTeacher,
   setClassTeacher,
   subClassTeacher,

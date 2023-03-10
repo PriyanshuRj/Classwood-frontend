@@ -10,7 +10,7 @@ import {
 } from "../../../store/School/classroomSlice";
 import TeacherDropdown from "../helpers/TeacherDropDown";
 
-export default function Page2({  setPageState,staff }) {
+export default function SubjectDetailPage({  setPageState,staff }) {
   const subjects = useSelector((state) => state.classroom.addClassSubject);
   const dispatch = useDispatch();
 

@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import Page1 from "./AddClassPages/Page1";
-import Page2 from "./AddClassPages/Page2";
-import Page3 from "./AddClassPages/Page3";
-import Page4 from "./AddClassPages/Page4";
+import ClassDetailPage from "./AddClassPages/ClassDetailPage";
+import SubjectDetailPage from "./AddClassPages/SubjectDetailPage";
+import StudentDetailPage from "./AddClassPages/StudentDetailPage";
+import OverviewPage from "./AddClassPages/OverviewPage";
 import { setSuccessToast, setWarningToast } from "../../store/genralUser";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import { API_URL } from "../../helpers/URL";
+
 export default function AddClass() {
   
   const dispatch = useDispatch();
@@ -121,7 +122,7 @@ export default function AddClass() {
     <Layout>
       {staff.length ? (
         pageState === 1 ? (
-          <Page1
+          <ClassDetailPage
             staff={staff}
             classTeacher={classTeacher}
             setClassTeacher={setClassTeacher}
@@ -134,13 +135,13 @@ export default function AddClass() {
             setPageState={propogateToPage2}
           />
         ) : pageState === 2 ? (
-          <Page2 staff={staff} setPageState={propogateToPage3} />
+          <SubjectDetailPage staff={staff} setPageState={propogateToPage3} />
         ) : pageState === 3 ? (
-          <Page3 setPageState={setPageState} 
+          <StudentDetailPage setPageState={setPageState} 
           CSVFile={CSVFile} setCSVFile={setCSVFile}
           />
         ) : (
-          <Page4
+          <OverviewPage
             setPageState={setPageState}
             classTeacher={classTeacher}
             subClassTeacher={subClassTeacher}

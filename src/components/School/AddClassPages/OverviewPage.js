@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function Page4({
+export default function OverviewPage({
   setPageState,
   classTeacher,
   subClassTeacher,
