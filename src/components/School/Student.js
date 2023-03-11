@@ -42,6 +42,12 @@ export default function Student() {
       setStudents(res.data);
     }
   }
+  function removeStudent(student){
+    const finalStudents = students.filter(function rmvStudent(stnd){
+      return stnd.user.id !== student.user.id
+    });
+    setStudents(finalStudents);
+  }
   useEffect(() => {
     getStudents();
   }, []);
@@ -108,6 +114,7 @@ export default function Student() {
                   StclassName={student.classroom}
                   grade={"A"}
                   setOpenProfile={setOpenProfile}
+                  removeStudent={removeStudent}
                 />
               );
             })}

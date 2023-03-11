@@ -4,7 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { GoPrimitiveDot } from "react-icons/go";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-
+import { removeStaffMember } from "../../../store/School/staffSlice";
 import { API_URL } from "../../../helpers/URL";
 import { formatDate } from "../../../helpers/helperFunctions";
 import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
@@ -37,6 +37,9 @@ export default function ProfileCard(props) {
         },
       });
       console.log("response",res);
+      if(res.status==204){
+        props.removeStudent(props.allData);
+      }
     }
     else {
       const res =  await axios.delete(API_URL + "list/staff/" + props.allData.user.id + "/", {
@@ -45,6 +48,10 @@ export default function ProfileCard(props) {
         },
       });
       console.log("response",res);
+      if(res.status===204 ){
+        console.log("here");
+        dispatch(removeStaffMember(props.allData))
+      }
     }
 
   }

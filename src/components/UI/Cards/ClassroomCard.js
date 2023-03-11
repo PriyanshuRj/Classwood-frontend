@@ -5,21 +5,19 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
-
+import { removeClass } from "../../../store/School/classroomSlice";
 import { API_URL } from "../../../helpers/URL";
-import { setClassStudents } from "../../../store/genralUser";
 import PopUpMenu from "../PopUpMenu";
+import { setSuccessToast } from "../../../store/genralUser";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+
 export default function ClassroomCard({
   classData,
   setOpenSidebar,
   index,
   setSelectedClass,
 }) {
-
+  const dispatch = useDispatch();
   function viewClass(){
     localStorage.setItem("classId", classData.id);
     localStorage.setItem(
@@ -35,14 +33,24 @@ export default function ClassroomCard({
   }
   async function deleteClass(){
     // props.setOpenProfile(0);
-    console.log("Delete called")
-    const token = localStorage.getItem("token");
-    const res =  await axios.delete(API_URL + "list/classroom/" + classData.id + "/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log("response",res);
+    console.log("Delete called");
+    try{
+
+      const token = localStorage.getItem("token");
+      console.log(token)
+      const res =  await axios.delete(API_URL + "list/classroom/" + classData.id + "/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("response",res);
+      if(res.status===204 ){
+        dispatch(removeClass(classData));
+        dispatch(setSuccessToast("Deleted Classroom"));
+      }
+    } catch(error){
+      console.warn(error);
+    }
   }
   function viewStudentDetails(){
     localStorage.setItem("classId", classData.id);

@@ -22,11 +22,17 @@ export const classroomSlice = createSlice({
     },
     addAWholeSubject : (state, action) =>{
       state.addClassSubject.push(action.payload)
+    },
+    removeClass : (state, action) =>{
+      const classesForSchool = state.allClasses.filter(function getClass(cls){
+        return cls.id !== action.payload.id
+      });
+      state.allClasses = classesForSchool;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addAllClassroom,addNewClassSubjectsTecher, addNewClassSubjectsName, addAWholeSubject } = classroomSlice.actions
+export const { addAllClassroom,addNewClassSubjectsTecher, addNewClassSubjectsName, addAWholeSubject, removeClass } = classroomSlice.actions
 
 export default classroomSlice.reducer
