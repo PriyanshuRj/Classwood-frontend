@@ -52,6 +52,15 @@ export default function Student() {
   return (
     <Layout>
       <div className="px-0 md:px-10">
+      {openProfile !== -1 ? (
+          <ProfileSideBar
+            profileType="student"
+            // setOpenAddProfile={setOpenAddProfile}
+            setStaffData={setDataOfStudent}
+            data={singleStudent}
+            setOpenProfile={setOpenProfile}
+          />
+        ) : undefined}
         <div className="flex justify-between my-4">
           <div className="flex flex-row ">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">

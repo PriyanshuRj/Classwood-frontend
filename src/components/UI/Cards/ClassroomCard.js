@@ -10,15 +10,15 @@ import { API_URL } from "../../../helpers/URL";
 import PopUpMenu from "../PopUpMenu";
 import { setSuccessToast } from "../../../store/genralUser";
 
-
 export default function ClassroomCard({
   classData,
   setOpenSidebar,
   index,
   setSelectedClass,
 }) {
+  console.log(classData)
   const dispatch = useDispatch();
-  function viewClass(){
+  function viewClass() {
     localStorage.setItem("classId", classData.id);
     localStorage.setItem(
       "className",
@@ -27,32 +27,33 @@ export default function ClassroomCard({
     setSelectedClass(index);
     setOpenSidebar(index);
   }
-  function editClass(){
+  function editClass() {
     // props.setOpenProfile(0);
-
   }
-  async function deleteClass(){
+  async function deleteClass() {
     // props.setOpenProfile(0);
     console.log("Delete called");
-    try{
-
+    try {
       const token = localStorage.getItem("token");
-      console.log(token)
-      const res =  await axios.delete(API_URL + "list/classroom/" + classData.id + "/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("response",res);
-      if(res.status===204 ){
+      console.log(token);
+      const res = await axios.delete(
+        API_URL + "list/classroom/" + classData.id + "/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("response", res);
+      if (res.status === 204) {
         dispatch(removeClass(classData));
         dispatch(setSuccessToast("Deleted Classroom"));
       }
-    } catch(error){
+    } catch (error) {
       console.warn(error);
     }
   }
-  function viewStudentDetails(){
+  function viewStudentDetails() {
     localStorage.setItem("classId", classData.id);
     localStorage.setItem(
       "className",
@@ -60,28 +61,29 @@ export default function ClassroomCard({
     );
     setSelectedClass(index);
   }
-  const ClassroomPopUpData = [{
-    title : "View Class Details",
-    function : viewClass
-  },
-  {
-    title:"View Class Student",
-    function : viewStudentDetails
-  },
-{
-  title : "Edit Class",
-  function : editClass
-},
-{
-  title : "Delete Class",
-  function : deleteClass,
-  deleteType:true
-}
-];
-const deleteFunction = {
-  title :"Delete Function",
-  function : deleteClass
-}
+  const ClassroomPopUpData = [
+    {
+      title: "View Class Details",
+      function: viewClass,
+    },
+    {
+      title: "View Class Student",
+      function: viewStudentDetails,
+    },
+    {
+      title: "Edit Class",
+      function: editClass,
+    },
+    {
+      title: "Delete Class",
+      function: deleteClass,
+      deleteType: true,
+    },
+  ];
+  const deleteFunction = {
+    title: "Delete Function",
+    function: deleteClass,
+  };
 
   return (
     <div className="flex flex-col p-4 bg-white rounded-xl">
@@ -94,8 +96,10 @@ const deleteFunction = {
             {classData.class_name + " " + classData.section_name}
           </span>
         </div>
-        <PopUpMenu menuList={ClassroomPopUpData} deleteFunction={deleteFunction} />
-       
+        <PopUpMenu
+          menuList={ClassroomPopUpData}
+          deleteFunction={deleteFunction}
+        />
       </div>
       <div className="flex flex-row items-center justify-between mt-6 text-sm">
         <span className="font-semibold text-gray-500"> TOTAL SUBJECT </span>

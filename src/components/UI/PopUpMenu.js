@@ -28,7 +28,7 @@ export default function PopUpMenu({menuList, deleteFunction}) {
       <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <div className="py-1">
             {menuList.map((listItem, index)=>{
-                return  <Menu.Item key={index}>
+                return (localStorage.getItem("UserType")==="Staff" && listItem.deleteType) ? undefined : <Menu.Item key={index}>
                 {({ active }) => (
                   listItem.title!=="View Class Student" ? <span
                     className={classNames(
@@ -44,7 +44,7 @@ export default function PopUpMenu({menuList, deleteFunction}) {
                   >
                     {listItem.title}
                   </span> : <Link
-                  to="/school/students"
+                  to={localStorage.getItem("UserType")==="School" ? "/school/students" : "/staff/students"}
                     className={classNames(
                       active
                         ? "bg-gray-100 text-gray-900"

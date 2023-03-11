@@ -27,7 +27,7 @@ import AddNotice from "./components/School/AddNotice";
 import TestResult from "./components/School/Exam/main";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
-import StaffAllClassrooms from "./components/Staff/classroom";
+import StaffAllClassrooms from "./components/Staff/Classroom";
 import SingleClassStudents from "./components/Staff/Students";
 import "./App.css";
 
