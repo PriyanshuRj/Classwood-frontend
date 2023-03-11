@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "./Layout";
 import SubjectCard from "../UI/Cards/SubjectCard";
-import { FiFilter } from "react-icons/fi";
+import { FiFilter, FiMoreHorizontal } from "react-icons/fi";
 import UploadSyllabusSidebar from "../UI/SideBars/UploadSyllabusSidebar";
 import { AiOutlineSearch, AiOutlineUpload } from "react-icons/ai";
 const tabs = [
@@ -15,6 +15,8 @@ const tabs = [
 export default function AllSubjects() {
   const [openUpload, setOpenUpload] = useState(false);
   const [tabState, setTabState] = useState(0);
+  const [viewState, setViewState] = useState("grid");
+  const allSujects = [{}, {}, {}, {}, {}, {}];
   return (
     <Layout>
       {openUpload !== false ? (
@@ -66,21 +68,50 @@ export default function AllSubjects() {
                 autoComplete="off"
               />
             </div>
+            <div className="flex flex-row justify-between w-full">
+
             <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
               <FiFilter className="sm:mr-2" />
               <span className="hidden sm:flex">Fliter</span>
             </button>
+            </div>
+            <div className="flex flex-row p-1 rounded-md bg-slate-100">
+            <span className={`px-2 pl-4 py-2  ${viewState==='grid' ?'bg-white pr-4 font-semibold' : undefined} rounded-md`} onClick={()=> setViewState('grid')}>
+              Grid
+            </span>
+            <span className={`px-2 pr-4 py-2 ${viewState==='list' ?'bg-white pl-4 font-semibold' : undefined} rounded-md`} onClick={()=> setViewState('list')}>
+              List
+            </span>
+            </div>
           </div>
           
-        <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <SubjectCard />
-          <SubjectCard />
-          <SubjectCard />
-          <SubjectCard />
-          <SubjectCard />
-          <SubjectCard />
-          <SubjectCard />
+        {viewState==='grid' ? <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {allSujects.map((subject, index)=>{
+          
+          return <SubjectCard key={index}/>
+          })}
+         
+        </div> 
+: 
+        <div className="border-2 rounded-md">
+
+        <div className="grid w-full grid-cols-4 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
+          <span>SUBJECTS</span>
+          <span>CLASS LECTURES</span>
+          <span>VIDEO LECTURES</span>
+          <span>ACTIONS</span>
+
         </div>
+        {allSujects.map((subject, index)=>{
+          return <div className="grid w-full grid-cols-4 p-2 py-4 font-semibold text-gray-800 bg-white border-b-2">
+          <span>Physics</span>
+          <span>12</span>
+          <span>44</span>
+          <FiMoreHorizontal className="flex justify-center w-6 h-6"/>
+
+        </div>
+        })}
+        </div>}
       </div>
     </Layout>
   );

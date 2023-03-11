@@ -7,7 +7,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
-export default function PopUpMenu({menuList, deleteFunction}) {
+export default function PopUpMenu({menuList}) {
   return (
     <Menu as="div" className="relative inline-block text-left">
     <div>
