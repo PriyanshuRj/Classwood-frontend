@@ -12,6 +12,8 @@ export default function ClassroomRow({
   setOpenSidebar,
   index,
   setSelectedClass,
+  setOpenEditClassroom,
+  setSelectedClassroom
 }) {
   console.log(classData);
   const dispatch = useDispatch();
@@ -25,7 +27,8 @@ export default function ClassroomRow({
     setOpenSidebar(index);
   }
   function editClass() {
-    // props.setOpenProfile(0);
+    setSelectedClassroom(index);
+    setOpenEditClassroom(true);
   }
   async function deleteClass() {
     // props.setOpenProfile(0);

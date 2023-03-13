@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import AddSubject from "./AddSubject";
+import EditClassroom from "./EditClassModal";
 import AddStudent from "../UI/SideBars/AddStudentSidebar";
 import ClassroomCard from "../UI/Cards/ClassroomCard";
 import ClassroomRow from "../UI/Rows/ClassroomRow";
@@ -25,8 +26,10 @@ export default function Classroom() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [openEditClassroom, setOpenEditClassroom] = useState(false);
   const [viewState, setViewState] = useState("grid");
   const [openSidebar, setOpenSidebar] = useState(-1);
+  const [selectedClassroom, setSelectedClassroom] = useState(-1);
   const [selectedClass, setSelectedClass] = useState(-1);
   const [isOpen, setOpen] = useState(false);
   const [openAddStudent, setOpenAddStudent] = useState(false);
@@ -49,14 +52,17 @@ export default function Classroom() {
 
   return (
     <Layout>
+      {openEditClassroom ?
+      <EditClassroom setOpen={setOpenEditClassroom} classroom={classrooms.filter(fliterClassroom)[selectedClassroom]} />
+      : undefined}
       {isOpen ? (
-        <AddSubject setOpen={setOpen} classroom={classrooms[openSidebar]} />
+        <AddSubject setOpen={setOpen} classroom={classrooms.filter(fliterClassroom)[openSidebar]} />
       ) : undefined}
 
       {openAddStudent ? (
         <AddStudent
           subjects={subjects}
-          classroom={classrooms[selectedClass]}
+          classroom={classrooms.filter(fliterClassroom)[selectedClass]}
           setOpenAddProfile={setOpenAddStudent}
         />
       ) : undefined}
@@ -66,7 +72,7 @@ export default function Classroom() {
           setSubjects={setSubjects}
           setOpen={setOpen}
           setOpenSidebar={setOpenSidebar}
-          data={classrooms[openSidebar]}
+          data={classrooms.filter(fliterClassroom)[openSidebar]}
           setOpenAddStudent={setOpenAddStudent}
         />
       ) : undefined}
@@ -157,6 +163,8 @@ export default function Classroom() {
                   index={index}
                   setSelectedClass={setSelectedClass}
                   setOpenSidebar={setOpenSidebar}
+                  setSelectedClassroom={setSelectedClassroom}
+                  setOpenEditClassroom={setOpenEditClassroom}
                 />
               );
             })}
@@ -170,14 +178,16 @@ export default function Classroom() {
             <span>Students</span>
             <span>Actions</span>
           </div>
-          {classrooms.map((classData, index) => {
+          {classrooms.filter(fliterClassroom).map((classData, index) => {
             return (
               <ClassroomRow
                 key={index}
                 classData={classData}
                 index={index}
+                setSelectedClassroom={setSelectedClassroom}
                 setSelectedClass={setSelectedClass}
                 setOpenSidebar={setOpenSidebar}
+                setOpenEditClassroom={setOpenEditClassroom}
               />
             );
           })}
