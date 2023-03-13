@@ -17,22 +17,17 @@ import { validateStudent } from "../../../helpers/ValidateStudent";
 import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
 import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
-const inputList = [
-  {
-    id: 1,
-    name: "Male",
-  },
-  {
-    id: 2,
-    name: "Female",
-  },
-];
+import { genderList } from "../../../helpers/inputLists";
+
 export default function AddStudent({ setOpenAddProfile, classroom, subjects, studentData }) {
     // console.log("subjects", ", subjects)
+  const staff = useSelector((state) => state.staff.allStaff);
+  const navigate = useNavigate();
+
   const [profileImage, setProfileImage] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState(inputList[0]);
+  const [gender, setGender] = useState(genderList[0]);
   const [mobileNO, setMobileNo] = useState("");
   const [dateOfAdmission, setDateOfAdmission] = useState("");
   const [address, setAddress] = useState("");
@@ -46,13 +41,10 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
   const [rollNo, setRollNo] = useState("");
   const dispatch = useDispatch();
   const [studentSubjects, setStudentSubjects] = useState([]);
-  const staff = useSelector((state) => state.staff.allStaff);
-  const navigate = useNavigate();
+
   useEffect(()=>{
     if(!staff || staff.length===0)
     getAllSchoolData(dispatch, navigate)
-   
-   
   },[staff])
   useEffect(()=>{
     if(!studentData){
@@ -351,7 +343,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               Gender
             </span>
             <SelectionDropdown
-              inputList={inputList}
+              inputList={genderList}
               labelTitle=""
               DivWidth="full"
               selected={gender}

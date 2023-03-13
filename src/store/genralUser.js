@@ -41,7 +41,8 @@ export const userSlice = createSlice({
         state.testStudents[action.payload.id].percentage = action.payload.value
       },
       updateMakrsheet : (state, action)=>{
-        state.testStudents[action.payload.id].marksheet = action.payload.value
+        console.log(action.payload.id, action.payload.value);
+        state.testStudents[action.payload.id].marksheet = action.payload.value;
       },
   },
 })

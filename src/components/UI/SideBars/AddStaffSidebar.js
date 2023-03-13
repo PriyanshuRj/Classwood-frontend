@@ -16,29 +16,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAllStaff } from "../../../store/School/staffSlice";
 import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
-const inputList = [
-  {
-    id: 1,
-    name: "Male",
-  },
-  {
-    id: 2,
-    name: "Female",
-  },
-];
+import { genderList } from "../../../helpers/inputLists";
+
 export default function AddStaff({ setOpenAddProfile, staffData }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const [profileImage, setProfileImage] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState(inputList[0]);
+  const [gender, setGender] = useState(genderList[0]);
   const [mobileNO, setMobileNo] = useState("");
   const [dateOfJoining, setDateOfJoining] = useState("");
   const [address, setAddress] = useState("");
   const [dob, setDOB] = useState("");
   const [email, setEmail] = useState("");
   const [acountNo, setAcountNo] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (staffData) {
       // console.log(staffData);
@@ -301,7 +295,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               Gender
             </span>
             <SelectionDropdown
-              inputList={inputList}
+              inputList={genderList}
               labelTitle=""
               DivWidth="full"
               selected={gender}

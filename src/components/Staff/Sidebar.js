@@ -8,76 +8,71 @@ import {
   FiSend,
   FiCreditCard,
   FiBriefcase,
-  FiUser
+  FiUser,
 } from "react-icons/fi";
 import { BiChalkboard } from "react-icons/bi";
 import SideBar from "../UI/Dashboard/SideBar";
 export default function SchoolSidebar() {
   return (
     <SideBar>
-
-    <div className="w-full pb-10 mt-12 text-gray-200 gap-y-2">
-      <div className="flex w-full">
-        <Link
-          className="flex items-center justify-start w-full p-4 mx-4 my-1 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-          to="/staff/dashboard"
+      <div className="w-full pb-10 mt-12 text-gray-200 gap-y-2">
+        <div className="flex w-full">
+          <Link
+            className="flex items-center justify-start w-full p-4 mx-4 my-1 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
+            to="/staff/dashboard"
           >
-          <FiHome className="w-6 h-6 " />
-
-          <span className="ml-4 text-lg font-medium">Dashboard</span>
-        </Link>
-      </div>
-      <div className="flex w-full">
-        <Link
-          className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-          to="/staff/classroom"
-        >
-          <BiChalkboard className="w-6 h-6 " />
-
-          <span className="ml-4 text-lg font-medium">Classroom</span>
-        </Link>
-      </div>
-      <div className="flex w-full">
-        <Link
-          className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-          to="/student/test"
+            <FiHome className="w-6 h-6 " />
+            <span className="ml-4 text-lg font-medium">Dashboard</span>
+          </Link>
+        </div>
+        <div className="flex w-full">
+          <Link
+            className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
+            to="/staff/classroom"
           >
-          <FiEdit3 className="w-6 h-6 " />
-
-          <span className="ml-4 text-lg font-medium">Text/Exam</span>
-        </Link>
-      </div>
-      <div className="flex w-full">
-        <Link
-          className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-          to="/"
+            <BiChalkboard className="w-6 h-6 " />
+            <span className="ml-4 text-lg font-medium">Classroom</span>
+          </Link>
+        </div>
+        <div className="flex w-full">
+          <Link
+            className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
+            to="/student/test"
           >
-          <FiSend className="w-6 h-6 " />
-
-          <span className="ml-4 text-lg font-medium">Message</span>
-        </Link>
-      </div>
-      <div className="flex w-full">
-        <Link
-          className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-          to="/student/fees"
+            <FiEdit3 className="w-6 h-6 " />
+            <span className="ml-4 text-lg font-medium">Text/Exam</span>
+          </Link>
+        </div>
+        <div className="flex w-full">
+          <Link
+            className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
+            to="/"
           >
-          <FiCreditCard className="w-6 h-6 " />
-
-          <span className="ml-4 text-lg font-medium">Fee Payment</span>
-        </Link>
-      </div>
-      <div className="flex w-full">
-        <Link
-          className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-          to="{% url 'dashboard' %}"
+            <FiSend className="w-6 h-6 " />
+            <span className="ml-4 text-lg font-medium">Message</span>
+          </Link>
+        </div>
+        <div className="flex w-full">
+          <Link
+            className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
+            to="/student/fees"
           >
-          <FiBriefcase className="w-6 h-6 " />
+            <FiCreditCard className="w-6 h-6 " />
 
-          <span className="ml-4 text-lg font-medium">Administration</span>
-        </Link>
+            <span className="ml-4 text-lg font-medium">Fee Payment</span>
+          </Link>
+        </div>
+        <div className="flex w-full">
+          <Link
+            className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
+            to="{% url 'dashboard' %}"
+          >
+            <FiBriefcase className="w-6 h-6 " />
+
+            <span className="ml-4 text-lg font-medium">Administration</span>
+          </Link>
+        </div>
       </div>
-    </div>
-          </SideBar>
+    </SideBar>
   );
 }

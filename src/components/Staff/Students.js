@@ -10,28 +10,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { setClassStudents } from "../../store/genralUser";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
 export default function Student() {
+  const dispatch = useDispatch();
+  
   const students = useSelector((state) => state.user.classStudents);
   const staff = useSelector((state) => state.staffUser.staffData);
+  
   const [canMark, setCanMark] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [singleStudent, setDataOfStudent] = useState({});
+  const [openProfile, setOpenProfile] = useState(-1);
+  
   function fliterStudents(student) {
     return (student.first_name + " " + student.last_name)
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
   }
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (staff.first_name) {
-      let markable = staff.sub_incharge_of.map((x) => x);
-      markable.push(staff.incharge_of);
-      setCanMark(markable);
-    }
-  }, [staff]);
-  const [singleStudent, setDataOfStudent] = useState({});
-  const [openProfile, setOpenProfile] = useState(-1);
   async function getStudents() {
     const token = localStorage.getItem("token");
-
     let res = await axios.get(API_URL + "staff/student/", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -40,9 +35,16 @@ export default function Student() {
         classroom: localStorage.getItem("classId"),
       },
     });
-
     dispatch(setClassStudents(res.data));
   }
+  
+  useEffect(() => {
+    if (staff.first_name) {
+      let markable = staff.sub_incharge_of.map((x) => x);
+      markable.push(staff.incharge_of);
+      setCanMark(markable);
+    }
+  }, [staff]);
   useEffect(() => {
     if (!students.length) {
       getStudents();
@@ -52,7 +54,7 @@ export default function Student() {
   return (
     <Layout>
       <div className="px-0 md:px-10">
-      {openProfile !== -1 ? (
+        {openProfile !== -1 ? (
           <ProfileSideBar
             profileType="student"
             // setOpenAddProfile={setOpenAddProfile}
@@ -97,12 +99,11 @@ export default function Student() {
             {students.filter(fliterStudents).map((student, index) => {
               return (
                 <ProfileCard
-                type="student"
+                  type="student"
                   attendance={student.month_attendance}
                   school={student.school}
                   key={index}
                   index={index}
-                  
                   studentId={student.user.id}
                   classTeacherOff={canMark}
                   name={student.first_name + " " + student.last_name}

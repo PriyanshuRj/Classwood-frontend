@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect,useState } from "react";
+import { useDispatch,useSelector } from "react-redux";
 import {
   updatePercentage,
   updateSubjectMarks,
@@ -22,7 +22,7 @@ export default function SingleEntry({ student, index }) {
     }
   }, [student.totalMarks, student.marks]);
   return (
-    <div className="grid grid-cols-6 gap-4 mb-2">
+    <div className="grid grid-cols-6 gap-4 mb-2" key={index}>
       <span className=" h-[50px] bg-[#F8FAFC] border-[1px] rounded-lg flex items-center justify-end px-2 text-gray-500">
         {student.roll_no}
       </span>
@@ -40,8 +40,10 @@ export default function SingleEntry({ student, index }) {
       />
       <input
         type="number"
-        onChange={(e) =>
+        onChange={(e) =>{
+      
           dispatch(updateSubjectMarks({ value: e.target.value, id: index }))
+        }
         }
         value={student.marks}
         className=" h-[50px] bg-[#F8FAFC] border-[1px] rounded-lg flex items-center justify-end px-2 text-gray-800"
@@ -59,7 +61,8 @@ export default function SingleEntry({ student, index }) {
 
       <div className="flex items-center justify-center">
         <label
-          htmlFor="dropzone-file"
+       
+          htmlFor={"dropzone-file" + index}
           className="flex flex-col items-center justify-center w-full h-[50px] border-[1px] rounded-lg cursor-pointer bg-gray-50  hover:bg-gray-100"
         >
           <div className="flex flex-row items-center justify-around w-full h-full itmes-center">
@@ -79,18 +82,22 @@ export default function SingleEntry({ student, index }) {
               ></path>
             </svg>
             <p className="text-gray-500 ">
-              <span className="">Result PDF</span>
+              <span className="">{!student.marksheet ? "Result PDF" : "Change File"}</span>
             </p>
           </div>
           <input
-            id="dropzone-file"
+          key={index}
+            id={"dropzone-file" + index}
             type="file"
-            className="hidden"
-            onChange={(e) =>
-              dispatch(updateMakrsheet({ id: index, value: e.target.files[0] }))
+            className="hidden bg-red-400 w-26"
+            onChange={(e) =>{
+              console.log(index,student);
+              dispatch(updateMakrsheet({ value: e.target.files[0],  id: index}))
             }
+          }
           />
-        </label>
+          </label>
+        
       </div>
     </div>
   );

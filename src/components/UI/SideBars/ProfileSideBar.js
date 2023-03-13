@@ -7,7 +7,6 @@ import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar, AiOutli
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
 export default function ProfileSideBar({setOpenProfile, data, setProfileData, setOpenAddProfile, profileType}) {
-  console.log(data)
   function findNoOfAbsents(str){
     let count = 0;
     for( let i = 0;i< str.length;i++) if(str[i]==="2") count++;
