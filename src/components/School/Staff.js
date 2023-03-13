@@ -13,7 +13,6 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Student() {
   const [openProfile, setOpenProfile] = useState(false);
   const [openAddProfile, setOpenAddProfile] = useState(false);
-  const [dataOfStaff, setDataOfStaff] = useState({});
   const [staffData, setStaffData] = useState(null);
   const [searchQueary, setSearchQueary] = useState("");
   const staff = useSelector((state) => state.staff.allStaff);
@@ -35,7 +34,7 @@ export default function Student() {
         <ProfileSideBar
           setOpenAddProfile={setOpenAddProfile}
           setProfileData={setStaffData}
-          data={dataOfStaff}
+          data={staffData}
           setOpenProfile={setOpenProfile}
         />
       ) : undefined}
@@ -91,11 +90,13 @@ export default function Student() {
                   index={i}
                   name={e.first_name + " " + e.last_name}
                   allData={e}
-                  setDataOfStaff={setDataOfStaff}
+                  setDataOfStaff={setStaffData}
                   id={12345}
                   incharge={e.incharge_of}
                   isIncharge={e.is_class_teacher}
                   setOpenProfile={setOpenProfile}
+                  setOpenAddProfile={setOpenAddProfile}
+                  
                 />
               );
             })}

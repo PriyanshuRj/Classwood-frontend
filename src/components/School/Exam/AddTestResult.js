@@ -59,6 +59,8 @@ export default function AddExamResult() {
   return (
     <div className="flex flex-col w-full mt-8">
       <div className="flex flex-row ">
+        <div className="mx-4 ">
+
         <ClassDropDown
           //   id={index + 1}
           inputList={classrooms}
@@ -66,7 +68,10 @@ export default function AddExamResult() {
           DivWidth="full"
           selected={selectedClass}
           setSelected={setSelectedClass}
-        />
+          />
+          </div>
+          <div className="mx-4">
+
         <SubjectDropDown
           //   id={index + 1}
           inputList={classSubjects}
@@ -74,7 +79,8 @@ export default function AddExamResult() {
           DivWidth="full"
           selected={setectedSubject}
           setSelected={setSelectedSubject}
-        />
+          />
+          </div>
       </div>
       
       {showStudents?

@@ -1,6 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { RxCross1 } from "react-icons/rx";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { API_URL } from "../../../helpers/URL";
 import SelectionDropdown from "../SelectionDropdown";
+import ClassDropDown from "../../School/helpers/ClassDropDown";
+import SubjectDropDown from "../../School/helpers/SubjectDropDown";
 const inputList = [
     {
       id: 1,
@@ -64,10 +69,35 @@ const inputList = [
     },
   ]
 export default function UploadSyllabusSidebar({setOpenUpload}) {
+  const classrooms = useSelector((state) => state.classroom.allClasses);
+  const [classSubjects, setClassSubjects] = useState([]);
+  const [setectedSubject, setSelectedSubject] = useState({
+    name: "No Subject Selected",
+  });
+  const [showStudents, setShowStudents] = useState(false);
+
+  const [selectedClass, setSelectedClass] = useState(classrooms[0]);
   const [subjectImage, setSubjectImage] = useState(null);
   const [schoolClass, setClass] = useState(inputList[0])
   const [section, setSection] = useState(inputList[0])
-  const [subject, setSubject] = useState(inputList[0])
+  const [subject, setSubject] = useState(inputList[0]);
+  useEffect(() => {
+    fetchSubjects();
+  }, [selectedClass]);
+  async function fetchSubjects() {
+    const token = localStorage.getItem("token");
+    const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        classroom: selectedClass.id,
+      },
+    });
+    setClassSubjects(classroomSubjects.data);
+    setSelectedSubject({ name: "No Subject Selected" });
+    setShowStudents(false);
+  }
   return (
     <div className="fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">
       <div onClick={()=>setOpenUpload(false)} className="absolute p-2 bg-gray-200 rounded-full cursor-pointer top-8 left-8">
@@ -75,14 +105,29 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
       </div>
       <div className="mt-10 text-lg font-semibold text-black">
 
-      <span className="mt-16 ml-8 text-lg font-semibold text-black">Create New Class</span>
+      <span className="mt-16 ml-8 text-lg font-semibold text-black">Create New Syllabus</span>
       </div>
       <div className="flex flex-col mx-8 mt-8 ">
-        <div className="flex flex-row justify-between mb-8">
-            <SelectionDropdown inputList={inputList} labelTitle="Class*" DivWidth="[13.5rem]" selected={schoolClass} setSelected={setClass} />
-            <SelectionDropdown inputList={inputList} labelTitle="Selection*" DivWidth="[13.5rem]" selected={section} setSelected={setSection} />
-        </div>
-        <SelectionDropdown inputList={inputList} labelTitle="Subject" DivWidth="full"  selected={subject} setSelected={setSubject}/>
+     <div className="mb-8">
+
+        <ClassDropDown
+          //   id={index + 1}
+          inputList={classrooms}
+          labelTitle="Class*"
+          DivWidth="full"
+          selected={selectedClass}
+          setSelected={setSelectedClass}
+          />
+          </div>
+       
+        <SubjectDropDown
+          //   id={index + 1}
+          inputList={classSubjects}
+          labelTitle="Subjects*"
+          DivWidth="full"
+          selected={setectedSubject}
+          setSelected={setSelectedSubject}
+        />
         <div className="flex items-center justify-center w-full mt-8">
           <label
             htmlFor="dropzone-file"

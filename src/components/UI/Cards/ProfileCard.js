@@ -23,7 +23,8 @@ export default function ProfileCard(props) {
   }
   function EditProfile(){
     props.setDataOfStaff(props.allData);
-    props.setOpenProfile(true);
+    props.setOpenAddProfile(true);
+
 
   }
   async function DeleteProfile(){

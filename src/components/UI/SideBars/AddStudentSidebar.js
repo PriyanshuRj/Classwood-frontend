@@ -191,7 +191,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
 
       <div className="flex flex-col items-center justify-center w-full">
         <p className="mt-8 mb-8 text-2xl font-semibold">
-          Add Student
+          {studentData ? "Edit Student" : "Add Student"}
         </p>
       </div>
 

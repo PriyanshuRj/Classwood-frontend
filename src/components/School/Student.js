@@ -123,6 +123,7 @@ export default function Student() {
                   grade={"A"}
                   setOpenProfile={setOpenProfile}
                   removeStudent={removeStudent}
+                  setOpenAddProfile={setOpenAddStudent}
                 />
               );
             })}
