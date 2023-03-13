@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../helpers/URL";
+import { useSelector, useDispatch } from "react-redux";
+import { setNotice } from "../../store/genralUser";
 const monthNames = [
   "Jan",
   "Feb",
@@ -16,7 +19,8 @@ const monthNames = [
   "Dec",
 ];
 export default function NoticePannel() {
-  const [notices, setNotice] = useState([]);
+  const dispatch = useDispatch();
+  const notices = useSelector((state) => state.user.notices);
   async function fetchNotice() {
     const token = localStorage.getItem("token");
 
@@ -25,7 +29,8 @@ export default function NoticePannel() {
         Authorization: `Bearer ${token}`,
       },
     });
-    setNotice(res.data);
+    console.log("these are notices : ", res.data)
+    dispatch(setNotice(res.data));
   }
   useEffect(() => {
     fetchNotice();
@@ -37,7 +42,7 @@ export default function NoticePannel() {
           const noticeDate = new Date(notice.date_posted);
           console.log("notices : ");
           return (
-            <a href="/">
+            <Link to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : "/student/notice"}>
               <div className="flex justify-start p-4 ">
                 <span
                   className="text-sm text-right bg-[#61C26B] rounded-full self-start w-16 h-16 mr-4 flex justify-center items-center text-white"
@@ -55,7 +60,7 @@ export default function NoticePannel() {
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           );
         })}
 

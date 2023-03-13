@@ -29,6 +29,7 @@ import TestResult from "./components/School/Exam/main";
 import StaffDashboard from "./components/Staff/Dashboard";
 import StaffAllClassrooms from "./components/Staff/Classroom";
 import SingleClassStudents from "./components/Staff/Students";
+import NoticeFullPageView from "./components/Staff/NoticeFullPageView";
 import "./App.css";
 
 export default function App() {
@@ -78,6 +79,7 @@ export default function App() {
           <Route path="/staff/dashboard" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffDashboard />} />
           <Route path="/staff/classroom" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffAllClassrooms />} />
           <Route path="/staff/students" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <SingleClassStudents />} />
+          <Route path="/staff/notice/:id" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <NoticeFullPageView />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>
