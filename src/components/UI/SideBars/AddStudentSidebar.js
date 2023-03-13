@@ -13,7 +13,7 @@ import SelectionDropdown from "../SelectionDropdown";
 import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { addAllStaff } from "../../../store/School/staffSlice";
+import { validateStudent } from "../../../helpers/ValidateStudent";
 import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
 import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
@@ -27,7 +27,7 @@ const inputList = [
     name: "Female",
   },
 ];
-export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
+export default function AddStudent({ setOpenAddProfile, classroom, subjects, studentData }) {
     // console.log("subjects", ", subjects)
   const [profileImage, setProfileImage] = useState(null);
   const [firstName, setFirstName] = useState("");
@@ -55,80 +55,134 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
    
   },[staff])
   useEffect(()=>{
-    var subs = [];
-    for(var i of subjects){
+    if(!studentData){
+
+      var subs = [];
+      for(var i of subjects){
         subs.push(i.id)
+      }
+      setStudentSubjects(subs);
     }
-    console.log("subs", subs, subjects)
-    setStudentSubjects(subs);
-    console.log(studentSubjects)
+    else {
+      console.log(studentData)
+      setFirstName(studentData.first_name);
+      setLastName(studentData.last_name);
+      setFatherName(studentData.father_name);
+      setAcountNo(studentData.parent_account_no);
+      setAddress(studentData.address);
+      setAdmissionNo(studentData.admission_no);
+      setEmail(studentData.contact_email);
+      setDOB(studentData.date_of_birth);
+      setDateOfAdmission(studentData.date_of_admission);
+      setGender(
+        studentData.gender === "2"
+          ? {
+              id: 2,
+              name: "Female",
+            }
+          : {
+              id: 1,
+              name: "Male",
+            }
+      );
+      setMotherName(studentData.mother_name);
+      setParentMobileNo(studentData.parent_mobile_number);
+      setRollNo(studentData.roll_no);
+    }
   },[subjects])
   const submit = async () => {
     console.log("new student adding")
-
-      if (
-        firstName.length === 0 ||
-        lastName.length === 0 ||
-        dateOfAdmission.length === 0 ||
-        acountNo.length === 0 ||
-        !profileImage
-      ) {
-        dispatch(setWarningToast("Fill complete Details"));
-        // console.log(
-        //   "Fill complete Details",
-        //   firstName,
-        //   lastName,
-        //   dateOfAdmission
-        // );
-      } 
-      else if(mobileNO < 1000000000) dispatch(setWarningToast("Mobile no should be atleast 10 digits"))
-      else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-        dispatch(setWarningToast("Invalid email address"));
-      } 
-      else {
-        try {
-          const token = localStorage.getItem("token");
-          console.log(token);
-          const formData = new FormData();
-          formData.append("profile_pic", profileImage);
-          formData.append("first_name", firstName);
-          formData.append("last_name", lastName);
-          formData.append("gender", gender === "Male" ? "1" :  "2");
-          formData.append("mobile_number", mobileNO.toString(10));
-          formData.append("contact_email", email);
-          formData.append("date_of_admission", dateOfAdmission);
-          formData.append("roll_no", rollNo);
-          formData.append("parent_mobile_number", parentMobileNO);
-          formData.append("father_name",fatherName);
-          formData.append("mother_name",motherName);
-          formData.append("date_of_birth", dob);
-          formData.append("address", address);
-          formData.append("account_no", acountNo);
-          formData.append("school", staff[0].school);
-          formData.append("classroom", classroom.id);
-          console.log("subjects : ",studentSubjects)
-          studentSubjects.forEach((item) => formData.append("subjects", item))
-        //   formData.append("subjects", );
-          formData.append("admission_no", admissionNo);
-          const res = await axios.post(
-            API_URL + "staff/student/",
-            formData,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+      if(studentData){
+        if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
+          try {
+            const token = localStorage.getItem("token");
+            console.log(token);
+            const formData = new FormData();
+            formData.append("profile_pic", profileImage);
+            formData.append("first_name", firstName);
+            formData.append("last_name", lastName);
+            formData.append("gender", gender === "Male" ? "1" :  "2");
+            formData.append("mobile_number", mobileNO.toString(10));
+            formData.append("contact_email", email);
+            formData.append("date_of_admission", dateOfAdmission);
+            formData.append("roll_no", rollNo);
+            formData.append("parent_mobile_number", parentMobileNO);
+            formData.append("father_name",fatherName);
+            formData.append("mother_name",motherName);
+            formData.append("date_of_birth", dob);
+            formData.append("address", address);
+            formData.append("account_no", acountNo);
+            formData.append("admission_no", admissionNo);
+            
+            const res = await axios.put(
+              API_URL + "staff/student/" + studentData.user.id + "/",
+              formData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+              console.log("This is the response :  ", res);
+              if(res.status===200 && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
+                dispatch(setWarningToast("Admission Number must be unique"));
+              }
+            if (res.status === 201) {
+              dispatch(setSuccessToast("Student Updated Successfully"));
+              console.log("response returned", res);
             }
-          );
-            console.log("This is the response :  ", res);
-            if(res.status===200 && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
-              dispatch(setWarningToast("Admission Number must be unique"));
-            }
-          if (res.status === 201) {
-            dispatch(setSuccessToast("Student Added Successfully"));
-            console.log("response returned", res);
+          } catch (e) {
+            console.warn("Error ::::::", e);
           }
-        } catch (e) {
-          console.warn("Error ::::::", e);
+        }
+      }
+      else {
+        console.log("Adding new student");
+        if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
+          try {
+            const token = localStorage.getItem("token");
+            console.log(token);
+            const formData = new FormData();
+            formData.append("profile_pic", profileImage);
+            formData.append("first_name", firstName);
+            formData.append("last_name", lastName);
+            formData.append("gender", gender === "Male" ? "1" :  "2");
+            formData.append("mobile_number", mobileNO.toString(10));
+            formData.append("contact_email", email);
+            formData.append("date_of_admission", dateOfAdmission);
+            formData.append("roll_no", rollNo);
+            formData.append("parent_mobile_number", parentMobileNO);
+            formData.append("father_name",fatherName);
+            formData.append("mother_name",motherName);
+            formData.append("date_of_birth", dob);
+            formData.append("address", address);
+            formData.append("account_no", acountNo);
+            formData.append("school", staff[0].school);
+            formData.append("classroom", classroom.id);
+            console.log("subjects : ",studentSubjects)
+            studentSubjects.forEach((item) => formData.append("subjects", item))
+          //   formData.append("subjects", );
+            formData.append("admission_no", admissionNo);
+            const res = await axios.post(
+              API_URL + "staff/student/",
+              formData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+              console.log("This is the response :  ", res);
+              if(res.status===200 && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
+                dispatch(setWarningToast("Admission Number must be unique"));
+              }
+            if (res.status === 201) {
+              dispatch(setSuccessToast("Student Added Successfully"));
+              console.log("response returned", res);
+            }
+          } catch (e) {
+            console.warn("Error ::::::", e);
+          }
         }
       }
    
@@ -387,6 +441,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects }) {
               Address
             </span>
             <textarea
+            value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Address"
               className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"

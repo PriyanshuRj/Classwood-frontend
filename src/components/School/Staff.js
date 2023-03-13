@@ -11,7 +11,7 @@ import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Student() {
-  const [openProfile, setOpenProfile] = useState(-1);
+  const [openProfile, setOpenProfile] = useState(false);
   const [openAddProfile, setOpenAddProfile] = useState(false);
   const [dataOfStaff, setDataOfStaff] = useState({});
   const [staffData, setStaffData] = useState(null);
@@ -31,10 +31,10 @@ export default function Student() {
 
   return (
     <Layout>
-      {openProfile !== -1 ? (
+      {openProfile ? (
         <ProfileSideBar
           setOpenAddProfile={setOpenAddProfile}
-          setStaffData={setStaffData}
+          setProfileData={setStaffData}
           data={dataOfStaff}
           setOpenProfile={setOpenProfile}
         />

@@ -65,7 +65,7 @@ export default function AddClass() {
           },
         }
       );
-      console.log("added", res);
+      console.log("Created Class", res);
       if (
         res.status === 200 &&
         res.data.message === "Class Teacher Already Assigned"
@@ -78,9 +78,8 @@ export default function AddClass() {
       ) {
         dispatch(setWarningToast("Class and section should be unique"));
       } else if (res.status === 201) {
-        dispatch(setSuccessToast("classroom Created successfully"));
         for (let subject of subjects) {
-          let resp = await axios.post(
+          let SubjectResponse = await axios.post(
             API_URL + "staff/subject/",
             {
               name: subject.subjectname,
@@ -95,13 +94,14 @@ export default function AddClass() {
               },
             }
           );
-          console.log("resp",resp);
-          if(resp.status=== 201){
+          console.log("Subjects Added",SubjectResponse);
+          if(SubjectResponse.status=== 201){
           const formData = new FormData();
           console.log(staff[0].school,  res.data.data.id)
           formData.append("school", staff[0].school);
           formData.append("classroom", res.data.data.id);
           formData.append("csv_file", CSVFile);
+          
             const studentRes = await axios.post(
               API_URL + "staff/student/",
               formData,
@@ -111,7 +111,13 @@ export default function AddClass() {
                 },
               }
             );
-            console.log("Response", studentRes)
+            console.log("SubjectResponseonse", studentRes);
+            if(studentRes.status===201){
+              dispatch(setSuccessToast("classroom Created successfully"));
+            }
+            else if(studentRes.status===200){
+              dispatch(setWarningToast("Classroom Created but issue in Adding Some students"))
+            }
           }
         }
       }

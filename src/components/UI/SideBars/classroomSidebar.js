@@ -18,11 +18,11 @@ export default function ClassroomSideBar({
   setOpenAddStudent,
   setSubjects,
 }) {
-  console.log(data)
+  console.log(data);
   const [classSubjects, setClassSubject] = useState([]);
-
+  const [classTeacher, setClassTeacher] = useState({});
   const students = useSelector((state) => state.user.classStudents);
-  console.log(data)
+  console.log(data);
   async function fetchSubjects() {
     const token = localStorage.getItem("token");
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
@@ -33,139 +33,129 @@ export default function ClassroomSideBar({
         classroom: localStorage.getItem("classId"),
       },
     });
-    console.log(  classroomSubjects.data)
+    console.log(classroomSubjects.data);
     setClassSubject(classroomSubjects.data);
+  }
+  async function getClassTeacher(){
+    const token = localStorage.getItem("token");
+    const Teachers = await axios.get(API_URL + "list/staff", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        classroom: localStorage.getItem("classId"),
+      },
+    });
+    console.log("Teacher :",Teachers);
+    const classroomTeacher = Teachers.data.filter((teacher)=>{
+      return teacher.user.id === data.class_teacher
+    })
+    setClassTeacher(classroomTeacher[0]);
   }
   useEffect(() => {
     fetchSubjects();
+    getClassTeacher();
   }, [data]);
   return (
     <div className="fixed top-0 right-0 z-50 flex flex-col justify-between h-full pt-8 overflow-y-scroll bg-white w-96">
-     <div>
-      <div
-        onClick={() => setOpenSidebar(-1)}
-        className="absolute p-2 bg-gray-200 rounded-full top-8 left-8"
-      >
-        <RxCross1 />
-      </div>
+      <div>
+        <div
+          onClick={() => setOpenSidebar(-1)}
+          className="absolute p-2 bg-gray-200 rounded-full top-8 left-8"
+        >
+          <RxCross1 />
+        </div>
 
-      <div className="flex flex-col items-center justify-center w-full mt-8">
-        <span className="text-2xl font-semibold ">
-          {data.class_name + " " + data.section_name}
-        </span>
-      </div>
-      <div className="flex flex-row justify-around mt-4 border-b-[1px] border-gray-200 pb-4 mx-4">
-        <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
-          <BsBriefcase className="w-6 h-6 mb-2 text-indigo-800" />
-          <span className="mb-2 font-semibold text-md">Class Teacher</span>
-          <span>
-            {/* {classTeacherName} */}
+        <div className="flex flex-col items-center justify-center w-full mt-8">
+          <span className="text-2xl font-semibold ">
+            {data.class_name + " " + data.section_name}
           </span>
         </div>
-        <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
-          <MdOutlineSchool className="w-6 h-6 mb-2 text-indigo-800" />
-          <span className="mb-2 font-semibold text-md">No. of Student</span>
-          <span>{data.strength}</span>
+        <div className="flex flex-row justify-around mt-4 border-b-[1px] border-gray-200 pb-4 mx-4">
+          <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
+            <BsBriefcase className="w-6 h-6 mb-2 text-indigo-800" />
+            <span className="mb-2 font-semibold text-md">Class Teacher</span>
+            <span>
+              {classTeacher.first_name + " " + classTeacher.last_name}
+              </span>
+          </div>
+          <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
+            <MdOutlineSchool className="w-6 h-6 mb-2 text-indigo-800" />
+            <span className="mb-2 font-semibold text-md">No. of Student</span>
+            <span>{data.strength}</span>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col mx-4 mt-4">
-        <p className="mb-4 text-xl font-semibold text-gray-800">Subjects</p>
-        {classSubjects.map((subject, index) => {
-          return (
-            <div
-              key={index}
-              className="flex flex-col px-4 py-2 m-2 bg-gray-100 rounded-lg"
-            >
-              <div className="flex flex-row items-center mt-2">
-                <BsBriefcase className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+        <div className="flex flex-col mx-4 mt-4">
+          <p className="mb-4 text-xl font-semibold text-gray-800">Subjects</p>
+          {classSubjects.map((subject, index) => {
+            return (
+              <div
+                key={index}
+                className="flex flex-col px-4 py-2 m-2 bg-gray-100 rounded-lg"
+              >
+                <div className="flex flex-row items-center mt-2">
+                  <BsBriefcase className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
 
-                <div className="flex flex-col items-start justify-center">
-                  <span className="mb-1 font-semibold text-gray-800 text-md">
-                    Subject{" "}
-                  </span>
-                  <span>{subject.name}</span>
+                  <div className="flex flex-col items-start justify-center">
+                    <span className="mb-1 font-semibold text-gray-800 text-md">
+                      Subject{" "}
+                    </span>
+                    <span>{subject.name}</span>
+                  </div>
+                </div>
+                <div className="flex flex-row items-center mt-2">
+                  <FaRegUser className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+                  <div className="flex flex-col items-start justify-center">
+                    <span className="mb-1 font-semibold text-gray-800 text-md">
+                      Teacher{" "}
+                    </span>
+                    <span>{subject.teacher}</span>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-row items-center mt-2">
-                <FaRegUser className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-                <div className="flex flex-col items-start justify-center">
-                  <span className="mb-1 font-semibold text-gray-800 text-md">
-                    Teacher{" "}
-                  </span>
-                  <span>{subject.teacher}</span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
       </div>
       <div>
-        
-     
-      {localStorage.getItem("UserType") === "School" ? (
-        <div>
-          <div className="flex flex-row justify-between mx-4 my-4">
-            <button
-              className="flex items-center px-4 py-1 font-medium text-gray-800 duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-500 hover:text-white"
-              onClick={() => {
-                setOpenSidebar(-1);
-              }}
-            >
-              <FiEdit2 className="mr-2" />
-              Edit Classroom
-            </button>
-            <button
-              className="flex items-center px-4 py-1 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              <IoMdAddCircleOutline className="mr-2" />
-              Add Subject
-            </button>
+        {localStorage.getItem("UserType") === "School" ? (
+          <div className="mb-4">
+            <div className="flex flex-row justify-between mx-4 my-4">
+              <button
+                className="flex items-center px-4 py-1 font-medium text-gray-800 duration-300 ease-in-out bg-gray-100 rounded-md hover:bg-gray-500 hover:text-white"
+                onClick={() => {
+                  setOpenSidebar(-1);
+                }}
+              >
+                <FiEdit2 className="mr-2" />
+                Edit Classroom
+              </button>
+              <button
+                className="flex items-center px-4 py-1 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
+                <IoMdAddCircleOutline className="mr-2" />
+                Add Subject
+              </button>
+            </div>
+            <div className="flex items-center justify-center w-full">
+              <button
+                className="flex items-center px-4 py-1 mx-4 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
+                onClick={() => {
+                  setSubjects(classSubjects);
+                  setOpenAddStudent(true);
+                  setOpenSidebar(-1);
+                }}
+              >
+                <IoMdAddCircleOutline className="mr-2" />
+                Add Student
+              </button>
+            </div>
           </div>
-          <div className="flex items-center justify-center w-full">
-            <button
-              className="flex items-center px-4 py-1 mx-4 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
-              onClick={() => {
-                setSubjects(classSubjects)
-                setOpenAddStudent(true);
-                setOpenSidebar(-1);
-              }}
-            >
-              <IoMdAddCircleOutline className="mr-2" />
-              Add Student
-            </button>
-            
-          </div>
-          <div className="flex items-center justify-center w-full mt-4">
-          <Link
-          to="/school/students"
-            className="flex items-center justify-center w-full px-4 py-1 mx-4 mb-8 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
-            onClick={() => {
-              setOpenSidebar(-1);
-            }}
-          >
-            All Students
-          </Link>
-        </div>
-        </div>
-      ) : (
-        <div className="flex items-center justify-center w-full mt-8">
-          <Link
-          to="/staff/students"
-            className="flex items-center px-4 py-1 mx-4 mb-8 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
-            onClick={() => {
-              setOpenSidebar(-1);
-            }}
-          >
-            <MdSubject className="mr-2" />
-            All Students
-          </Link>
-        </div>
-      )}
-       </div>
+        ) : undefined}
+      </div>
     </div>
   );
 }

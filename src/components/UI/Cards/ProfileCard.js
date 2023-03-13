@@ -19,10 +19,11 @@ export default function ProfileCard(props) {
 
   function viewProfile(){
     props.setDataOfStaff(props.allData);
-    props.setOpenProfile(0);
+    props.setOpenProfile(true);
   }
   function EditProfile(){
-    props.setOpenProfile(0);
+    props.setDataOfStaff(props.allData);
+    props.setOpenProfile(true);
 
   }
   async function DeleteProfile(){

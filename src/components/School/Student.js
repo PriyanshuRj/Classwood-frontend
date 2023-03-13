@@ -7,13 +7,13 @@ import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 import { API_URL } from "../../helpers/URL";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
+import AddStudent from "../UI/SideBars/AddStudentSidebar";
 export default function Student() {
   const [students, setStudents] = useState([]);
   const [singleStudent, setDataOfStudent] = useState({});
-  const [openProfile, setOpenProfile] = useState(-1);
+  const [openProfile, setOpenProfile] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [openAddProfile, setOpenAddProfile] = useState(false);
+  const [openAddStudent, setOpenAddStudent] = useState(false);
   function fliterStudents(student) {
     return (student.first_name + " " + student.last_name)
       .toLowerCase()
@@ -54,16 +54,24 @@ export default function Student() {
   return (
     <Layout>
       <div className="px-0 md:px-10">
-        {openProfile !== -1 ? (
+        {openProfile  ? (
           <ProfileSideBar
             profileType="student"
-            setOpenAddProfile={setOpenAddProfile}
-            setStaffData={setDataOfStudent}
+            setOpenAddProfile={setOpenAddStudent}
+            setProfileData={setDataOfStudent}
             data={singleStudent}
             setOpenProfile={setOpenProfile}
           />
         ) : undefined}
-
+        
+        {openAddStudent ? (
+        <AddStudent
+          // subjects={subjects}
+          // classroom={classrooms[selectedClass]}
+          studentData={singleStudent}
+          setOpenAddProfile={setOpenAddStudent}
+        />
+      ) : undefined}
         <div className="flex justify-between my-4">
           {localStorage.getItem("className") ? (
             <p className="text-xl font-semibold ">

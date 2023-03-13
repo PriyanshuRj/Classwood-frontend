@@ -6,7 +6,7 @@ import { MdOutlineSchool } from "react-icons/md";
 import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar, AiOutlineUser} from "react-icons/ai";
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
-export default function ProfileSideBar({setOpenProfile, data, setStaffData, setOpenAddProfile, profileType}) {
+export default function ProfileSideBar({setOpenProfile, data, setProfileData, setOpenAddProfile, profileType}) {
   console.log(data)
   function findNoOfAbsents(str){
     let count = 0;
@@ -15,7 +15,7 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
   }
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
-      <div onClick={()=>setOpenProfile(-1)} className="absolute p-2 bg-gray-200 rounded-full top-8 left-8">
+      <div onClick={()=>setOpenProfile(false)} className="absolute p-2 bg-gray-200 rounded-full top-8 left-8">
         <RxCross1 />
       </div>
 
@@ -120,9 +120,9 @@ export default function ProfileSideBar({setOpenProfile, data, setStaffData, setO
       <div className="mx-4 my-4">
 
       <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-100 rounded-md" onClick={()=>{
-        setStaffData(data);
+        setProfileData(data);
         setOpenAddProfile(true)
-        setOpenProfile(-1)
+        setOpenProfile(false)
 
       }}>
               <FiEdit2 className="mr-2" />

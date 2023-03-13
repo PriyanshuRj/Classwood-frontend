@@ -119,10 +119,10 @@ export default function Classroom() {
               <span className="hidden sm:flex">Fliter</span>
             </button>
           </div>
-          <div className="flex flex-row p-1 rounded-md bg-slate-100">
+          <div className="flex flex-row p-1 rounded-md bg-slate-100 ">
             <span
               className={`px-2 pl-4 py-2  ${
-                viewState === "grid" ? "bg-white pr-4 font-semibold" : undefined
+                viewState === "grid" ? "bg-white pr-4 font-semibold cursor-pointer" : "cursor-pointer"
               } rounded-md`}
               onClick={() => setViewState("grid")}
             >
@@ -130,7 +130,7 @@ export default function Classroom() {
             </span>
             <span
               className={`px-2 pr-4 py-2 ${
-                viewState === "list" ? "bg-white pl-4 font-semibold" : undefined
+                viewState === "list" ? "bg-white pl-4 font-semibold" : "cursor-pointer"
               } rounded-md`}
               onClick={() => setViewState("list")}
             >
