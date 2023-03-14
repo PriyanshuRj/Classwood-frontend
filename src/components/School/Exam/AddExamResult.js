@@ -54,9 +54,32 @@ export default function AddExamResult() {
   async function addResults(){
     if(showStudents){
       console.log(classStudents)
+      const formData = new FormData();
+      formData.append("student",student.user.id);
+      formData.append("classroom",selectedClass.id);
+      formData.append("subject",setectedSubject.id);
+      formData.append("score", student.marks);
+      formData.append("totalMarks",student.totalMarks);
+      formData.append("marksheet", student.marksheet);
+
+      classStudents.map((student,index)=>{
+        const res = await axios.post(API_URL + "staff/result",formData,{headers: {
+          Authorization: `Bearer ${token}`,
+        }})
+      }
+      )
     }
     else {
-      
+      const formData = new FormData();
+      formData.append("result",CSVFile);
+      formData.append("classroom",selectedClass.id);
+      formData.append("subject",setectedSubject.id);
+      const res = await axios.push(API_URL + "staff/result",{
+
+      },
+      {headers: {
+        Authorization: `Bearer ${token}`,
+      }})
     }
   }
   useEffect(() => {
