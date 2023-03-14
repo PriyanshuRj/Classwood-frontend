@@ -20,7 +20,7 @@ export default function StudentSidebar() {
           >
             <FiHome className=" text-[#5F6368] w-6 h-6" />
 
-            <span className="ml-4 text-lg font-medium">Dashboard</span>
+            <span className="ml-4 text-lg font-medium select-none">Dashboard</span>
           </Link>
         </div>
         <div className="flex w-full">
@@ -30,7 +30,7 @@ export default function StudentSidebar() {
           >
             <FiBookOpen className=" text-[#5F6368] w-6 h-6" />
 
-            <span className="ml-4 text-lg font-medium">My Cource</span>
+            <span className="ml-4 text-lg font-medium select-none">My Cource</span>
           </Link>
         </div>
         <div className="flex w-full">
@@ -40,7 +40,7 @@ export default function StudentSidebar() {
           >
             <FiEdit3 className=" text-[#5F6368] w-6 h-6" />
 
-            <span className="ml-4 text-lg font-medium">Text/Exam</span>
+            <span className="ml-4 text-lg font-medium select-none">Text/Exam</span>
           </Link>
         </div>
         <div className="flex w-full">
@@ -50,7 +50,7 @@ export default function StudentSidebar() {
           >
             <FiSend className=" text-[#5F6368] w-6 h-6" />
 
-            <span className="ml-4 text-lg font-medium">Message</span>
+            <span className="ml-4 text-lg font-medium select-none">Message</span>
           </Link>
         </div>
         <div className="flex w-full">
@@ -60,7 +60,7 @@ export default function StudentSidebar() {
           >
             <FiCreditCard className=" text-[#5F6368] w-6 h-6" />
 
-            <span className="ml-4 text-lg font-medium">Fee Payment</span>
+            <span className="ml-4 text-lg font-medium select-none">Fee Payment</span>
           </Link>
         </div>
         <div className="flex w-full">
@@ -70,7 +70,7 @@ export default function StudentSidebar() {
           >
             <FiBriefcase className=" text-[#5F6368] w-6 h-6" />
 
-            <span className="ml-4 text-lg font-medium">Administration</span>
+            <span className="ml-4 text-lg font-medium select-none">Administration</span>
           </Link>
         </div>
       </div>

@@ -16,7 +16,6 @@ export default function AddExamResult() {
   const [CSVFile, setCSVFile] = useState(null);
 
   const [classSubjects, setClassSubjects] = useState([]);
-  // const [classStudents, setClassStudent] = useState([]);
   const [showStudents, setShowStudents] = useState(false);
   const [setectedSubject, setSelectedSubject] = useState({
     name: "No Subject Selected",
@@ -51,6 +50,14 @@ export default function AddExamResult() {
   function onAddStudentClick() {
     setShowStudents(true);
     getStudents();
+  }
+  async function addResults(){
+    if(showStudents){
+      console.log(classStudents)
+    }
+    else {
+      
+    }
   }
   useEffect(() => {
     fetchSubjects();
@@ -158,15 +165,15 @@ export default function AddExamResult() {
 showStudents ? 
 <span onClick={()=>{
   setShowStudents(false);
-        }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer hover:bg-gray-200 hover:text-indigo-500 w-max">
+        }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer select-none hover:bg-gray-200 hover:text-indigo-500 w-max">
           {" "}
           <CgAdd className="mr-2" /> Use CSV
         </span> : 
       <span onClick={()=>{
 onAddStudentClick();
-      }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer hover:bg-gray-200 hover:text-indigo-500 w-max">
+      }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer select-none hover:bg-gray-200 hover:text-indigo-500 w-max">
         {" "}
-        <CgAdd className="mr-2" /> Add Individual Marks
+        <CgAdd className="mr-2 " /> Add Individual Marks
       </span>
       }
       <button

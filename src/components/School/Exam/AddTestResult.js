@@ -157,13 +157,13 @@ export default function AddExamResult() {
 showStudents ? 
 <span onClick={()=>{
   setShowStudents(false);
-        }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer hover:bg-gray-200 hover:text-indigo-500 w-max">
+        }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer select-none hover:bg-gray-200 hover:text-indigo-500 w-max">
           {" "}
           <CgAdd className="mr-2" /> Use CSV
         </span> : 
       <span onClick={()=>{
 onAddStudentClick();
-      }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer hover:bg-gray-200 hover:text-indigo-500 w-max">
+      }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer select-none hover:bg-gray-200 hover:text-indigo-500 w-max">
         {" "}
         <CgAdd className="mr-2" /> Add Individual Marks
       </span>
