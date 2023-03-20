@@ -16,7 +16,6 @@ export default function AddExamResult() {
   const [CSVFile, setCSVFile] = useState(null);
 
   const [classSubjects, setClassSubjects] = useState([]);
-  // const [classStudents, setClassStudent] = useState([]);
   const [showStudents, setShowStudents] = useState(false);
   const [setectedSubject, setSelectedSubject] = useState({
     name: "No Subject Selected",
@@ -52,14 +51,52 @@ export default function AddExamResult() {
     setShowStudents(true);
     getStudents();
   }
+  async function addResults(){
+    if(showStudents){
+      console.log(classStudents);
+      const token = localStorage.getItem("token");
+      
+
+      classStudents.map(async (student,index)=>{
+        const formData = new FormData();
+        formData.append("student",student.user.id);
+        formData.append("classroom",selectedClass.id);
+        formData.append("subject",setectedSubject.id);
+        formData.append("score", student.marks);
+        formData.append("totalMarks",student.totalMarks);
+        formData.append("marksheet", student.marksheet);
+        const res = await axios.post(API_URL + "staff/result",formData,
+        {headers: {
+          Authorization: `Bearer ${token}`,
+        }})
+      }
+      )
+    }
+    else {
+      const token = localStorage.getItem("token");
+
+      const formData = new FormData();
+      formData.append("result",CSVFile);
+      formData.append("classroom",selectedClass.id);
+      formData.append("subject",setectedSubject.id);
+      const res = await axios.push(API_URL + "staff/result",{
+
+      },
+      {headers: {
+        Authorization: `Bearer ${token}`,
+      }})
+    }
+  }
   useEffect(() => {
     fetchSubjects();
   }, [selectedClass]);
 
   return (
     <div className="flex flex-col w-full mt-8">
-      <div className="flex flex-row ">
-        <div className="mx-4 ">
+      <p className="pl-8 mb-8 text-2xl font-medium">Add Results For a Test</p>
+      <div className="flex flex-row px-4">
+        <div className="w-full mx-4">
+
 
         <ClassDropDown
           //   id={index + 1}
@@ -70,7 +107,7 @@ export default function AddExamResult() {
           setSelected={setSelectedClass}
           />
           </div>
-          <div className="mx-4">
+          <div className="w-full mx-4">
 
         <SubjectDropDown
           //   id={index + 1}
@@ -82,7 +119,6 @@ export default function AddExamResult() {
           />
           </div>
       </div>
-      
       {showStudents?
       <div className="px-8 mt-16">
         
@@ -165,7 +201,7 @@ showStudents ?
 onAddStudentClick();
       }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer select-none hover:bg-gray-200 hover:text-indigo-500 w-max">
         {" "}
-        <CgAdd className="mr-2" /> Add Individual Marks
+        <CgAdd className="mr-2 " /> Add Individual Marks
       </span>
       }
       <button

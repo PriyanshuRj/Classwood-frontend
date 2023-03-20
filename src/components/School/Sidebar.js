@@ -101,7 +101,7 @@ export default function SchoolSidebar() {
             <span className="ml-4 text-lg font-medium select-none">Fee Management</span>
           </Link>
         </div>
-        <div className="flex w-full">
+        {/* <div className="flex w-full">
           <Link
             className="flex items-center justify-start w-full p-4 mx-4 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 "
             to="{% url 'dashboard' %}"
@@ -109,7 +109,7 @@ export default function SchoolSidebar() {
             <FiBriefcase className="w-6 h-6 " />
             <span className="ml-4 text-lg font-medium select-none">Administration</span>
           </Link>
-        </div>
+        </div> */}
       </div>
     </SideBar>
   );

@@ -168,7 +168,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               if(res.status===200 && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
                 dispatch(setWarningToast("Admission Number must be unique"));
               }
-            if (res.status === 201) {
+            if (res.status === 200) {
               dispatch(setSuccessToast("Student Added Successfully"));
               console.log("response returned", res);
             }

@@ -53,23 +53,28 @@ export default function AddExamResult() {
   }
   async function addResults(){
     if(showStudents){
-      console.log(classStudents)
-      const formData = new FormData();
-      formData.append("student",student.user.id);
-      formData.append("classroom",selectedClass.id);
-      formData.append("subject",setectedSubject.id);
-      formData.append("score", student.marks);
-      formData.append("totalMarks",student.totalMarks);
-      formData.append("marksheet", student.marksheet);
+      console.log(classStudents);
+      const token = localStorage.getItem("token");
+      
 
-      classStudents.map((student,index)=>{
-        const res = await axios.post(API_URL + "staff/result",formData,{headers: {
+      classStudents.map(async (student,index)=>{
+        const formData = new FormData();
+        formData.append("student",student.user.id);
+        formData.append("classroom",selectedClass.id);
+        formData.append("subject",setectedSubject.id);
+        formData.append("score", student.marks);
+        formData.append("totalMarks",student.totalMarks);
+        formData.append("marksheet", student.marksheet);
+        const res = await axios.post(API_URL + "staff/result",formData,
+        {headers: {
           Authorization: `Bearer ${token}`,
         }})
       }
       )
     }
     else {
+      const token = localStorage.getItem("token");
+
       const formData = new FormData();
       formData.append("result",CSVFile);
       formData.append("classroom",selectedClass.id);
@@ -88,6 +93,8 @@ export default function AddExamResult() {
 
   return (
     <div className="flex flex-col w-full mt-8">
+      <p className="pl-8 mb-8 text-2xl font-medium">Add Results For a Exam</p>
+
       <div className="flex flex-row px-4">
         <div className="w-full mx-4">
 

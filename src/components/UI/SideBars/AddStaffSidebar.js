@@ -165,7 +165,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
             }
           );
 
-          if (res.status === 201) {
+          if (res.status === 200) {
             dispatch(setSuccessToast("Staff Updated added"));
             // console.log("response returned", res);
           }

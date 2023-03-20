@@ -3,72 +3,15 @@ import { RxCross1 } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
-import SelectionDropdown from "../SelectionDropdown";
 import ClassDropDown from "../../School/helpers/ClassDropDown";
 import SubjectDropDown from "../../School/helpers/SubjectDropDown";
-const inputList = [
-    {
-      id: 1,
-      name: 'Wade Cooper',
-      avatar:
-        'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 2,
-      name: 'Arlene Mccoy',
-      avatar:
-        'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 3,
-      name: 'Devon Webb',
-      avatar:
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80',
-    },
-    {
-      id: 4,
-      name: 'Tom Cook',
-      avatar:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 5,
-      name: 'Tanya Fox',
-      avatar:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 6,
-      name: 'Hellen Schmidt',
-      avatar:
-        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 7,
-      name: 'Caroline Schultz',
-      avatar:
-        'https://images.unsplash.com/photo-1568409938619-12e139227838?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 8,
-      name: 'Mason Heaney',
-      avatar:
-        'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 9,
-      name: 'Claudie Smitham',
-      avatar:
-        'https://images.unsplash.com/photo-1584486520270-19eca1efcce5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      id: 10,
-      name: 'Emil Schaefer',
-      avatar:
-        'https://images.unsplash.com/photo-1561505457-3bcad021f8ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  ]
+import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
+import { useDispatch } from "react-redux";
+
+
 export default function UploadSyllabusSidebar({setOpenUpload}) {
+  const dispatch = useDispatch();
+
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [classSubjects, setClassSubjects] = useState([]);
   const [setectedSubject, setSelectedSubject] = useState({
@@ -78,9 +21,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
 
   const [selectedClass, setSelectedClass] = useState(classrooms[0]);
   const [subjectImage, setSubjectImage] = useState(null);
-  const [schoolClass, setClass] = useState(inputList[0])
-  const [section, setSection] = useState(inputList[0])
-  const [subject, setSubject] = useState(inputList[0]);
+
   useEffect(() => {
     fetchSubjects();
   }, [selectedClass]);
@@ -98,8 +39,32 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
     setSelectedSubject({ name: "No Subject Selected" });
     setShowStudents(false);
   }
+  async function createSyllabus(){
+    try{
+      const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("classroom", selectedClass.id);
+      formData.append("syllabus", subjectImage);
+      formData.append("subject", setectedSubject.id);
+      let res = await axios.post(API_URL + "list/syllabus", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if(res.status==200){
+        dispatch(setWarningToast("Syllabus Adding Failed"));
+
+      }
+      if(res.status===201){
+        dispatch(setSuccessToast("Syllabus Added successfully"));
+      }
+        }
+    catch(error){
+      console.warn(error);
+    }
+  }
   return (
-    <div className="fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">
+    <div className="z-40 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">
       <div onClick={()=>setOpenUpload(false)} className="absolute p-2 bg-gray-200 rounded-full cursor-pointer top-8 left-8">
         <RxCross1 />
       </div>
