@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { loginUser, setWarningToast, setSuccessToast } from "../store/genralUser";
-
+import { Rings } from "react-loader-spinner";
 import { API_URL } from "../helpers/URL";
 import EmailTab from "../components/Register/EmailTab";
 import AddressDetailTab from "../components/Register/AddressDetailTab";
@@ -12,7 +12,7 @@ import OtherDetailTab from "../components/Register/OtherDetailTab";
 export default function Register() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [schoolName, setSchoolName] = useState("");
@@ -28,37 +28,12 @@ export default function Register() {
 
   const register = async () => {
     localStorage.setItem("UserType", "School");
-    // console.log(
-    //   "email",
-    //   email,
-    //   "password",
-    //   password,
-    //   "schoolAdress",
-    //   schoolAdress,
-    //   "schoolCity",
-    //   schoolCity,
-    //   "schoolLogo",
-    //   schoolLogo,
-    //   "schoolName",
-    //   schoolName,
-    //   "schoolPhoneNo",
-    //   schoolPhoneNo,
-    //   "schoolZipcode",
-    //   schoolZipcode,
-    //   "schoolWebsite",
-    //   schoolWebsite,
-    //   "dateOfStablishment",
-    //   dateOfStablishment
-    // );
+
     try {
       
-      
+      setLoading(true);
 
         const formData = new FormData();
-      //   formData.append("userData",JSON.stringify({
-      //   email: email,
-      //   password: password,
-      // }));
       formData.append("user.email", email)
       formData.append("user.password", password)
       formData.append("school_name", schoolName);
@@ -116,9 +91,24 @@ export default function Register() {
     } catch (e) {
       console.warn("Error :::::::", e);
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   return (
+    <>
+    {loading ?  
+    <div className="flex items-center justify-center w-screen h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div> :
     <div className="bg-white">
       <div className="flex min-h-screen">
         <div className="flex flex-row w-full">
@@ -202,5 +192,7 @@ export default function Register() {
         </div>
       </div>
     </div>
+    }
+    </>
   );
 }

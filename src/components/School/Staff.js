@@ -9,18 +9,21 @@ import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
 import { useNavigate } from "react-router-dom";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Rings } from "react-loader-spinner";
 export default function Student() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const [loading, setLoading] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openAddProfile, setOpenAddProfile] = useState(false);
   const [staffData, setStaffData] = useState(null);
   const [searchQueary, setSearchQueary] = useState("");
   const staff = useSelector((state) => state.staff.allStaff);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
-    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate);
+    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate,setLoading);
   }, []);
   function filterStaff(student) {
     return (student.first_name + " " + student.last_name)
@@ -30,6 +33,17 @@ export default function Student() {
 
   return (
     <Layout>
+       {loading ?  
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div> : <>
       {openProfile ? (
         <ProfileSideBar
           setOpenAddProfile={setOpenAddProfile}
@@ -102,7 +116,9 @@ export default function Student() {
             })}
           </div>
         )}
-      </div>
+      </div> 
+      </> 
+}
     </Layout>
   );
 }

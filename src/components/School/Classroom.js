@@ -4,7 +4,7 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter, FiMoreHorizontal } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Rings } from "react-loader-spinner";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import AddSubject from "./AddSubject";
 import EditClassroom from "./EditClassModal";
@@ -26,6 +26,7 @@ export default function Classroom() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [openEditClassroom, setOpenEditClassroom] = useState(false);
   const [viewState, setViewState] = useState("grid");
   const [openSidebar, setOpenSidebar] = useState(-1);
@@ -41,7 +42,7 @@ export default function Classroom() {
 
   useEffect(() => {
     if (!classrooms || classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate);
+      getAllSchoolData(dispatch, navigate,setLoading);
   }, []);
 
   function fliterClassroom(classData) {
@@ -51,7 +52,20 @@ export default function Classroom() {
   }
 
   return (
+   
     <Layout>
+       
+    {loading ?  
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div> : <>
       {openEditClassroom ?
       <EditClassroom setOpen={setOpenEditClassroom} classroom={classrooms.filter(fliterClassroom)[selectedClassroom]} />
       : undefined}
@@ -193,6 +207,9 @@ export default function Classroom() {
           })}
         </div>}
       </div>
-    </Layout>
+    </>
+    }
+    </Layout> 
+    
   );
 }

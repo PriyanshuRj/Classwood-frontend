@@ -3,7 +3,8 @@ import { addAllClassroom } from "../../../store/School/classroomSlice";
 import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 
-export async function getAllSchoolData(dispatch, navigate) {
+export async function getAllSchoolData(dispatch, navigate, setLoading) {
+  setLoading(true);
   console.log("called")
   const token = localStorage.getItem("token");
   try {
@@ -29,4 +30,6 @@ export async function getAllSchoolData(dispatch, navigate) {
       navigate(`/`);
     }
   }
+  setLoading(false);
+
 }

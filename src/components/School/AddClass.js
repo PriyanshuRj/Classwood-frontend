@@ -16,6 +16,7 @@ export default function AddClass() {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [classTeacher, setClassTeacher] = useState("");
   const [subClassTeacher, setSubClassTeacher] = useState("");
   const [classTitle, setClassTitle] = useState("");
@@ -27,7 +28,7 @@ export default function AddClass() {
   const subjects = useSelector((state) => state.classroom.addClassSubject);
 
   useEffect(() => {
-    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate);
+    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate, setLoading);
     if (staff.length) setClassTeacher(staff[0]);
     if (staff.length) setSubClassTeacher(staff[0]);
   }, [staff]);
