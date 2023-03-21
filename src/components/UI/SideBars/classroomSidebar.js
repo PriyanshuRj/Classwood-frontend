@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { FiEdit2 } from "react-icons/fi";
 import { MdSubject } from "react-icons/md";
+import { Rings } from "react-loader-spinner";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
 import { useSelector } from "react-redux";
@@ -21,9 +22,11 @@ export default function ClassroomSideBar({
   console.log(data);
   const [classSubjects, setClassSubject] = useState([]);
   const [classTeacher, setClassTeacher] = useState({});
+  const [loading, setLoading] = useState(false);
   const students = useSelector((state) => state.user.classStudents);
-  console.log(data);
+
   async function fetchSubjects() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
       headers: {
@@ -35,8 +38,10 @@ export default function ClassroomSideBar({
     });
     console.log(classroomSubjects.data);
     setClassSubject(classroomSubjects.data);
+    setLoading(false);
   }
   async function getClassTeacher(){
+    setLoading(true);
     const token = localStorage.getItem("token");
     const Teachers = await axios.get(API_URL + "list/staff", {
       headers: {
@@ -51,13 +56,27 @@ export default function ClassroomSideBar({
       return teacher.user.id === data.class_teacher
     })
     setClassTeacher(classroomTeacher[0]);
+    setLoading(false);
   }
   useEffect(() => {
     fetchSubjects();
     getClassTeacher();
   }, [data]);
+
   return (
+
     <div className="fixed top-0 right-0 z-50 flex flex-col justify-between h-full pt-8 overflow-y-scroll bg-white w-96">
+      {loading ?  
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div> : <>
       <div>
         <div
           onClick={() => setOpenSidebar(-1)}
@@ -155,7 +174,9 @@ export default function ClassroomSideBar({
             </div>
           </div>
         ) : undefined}
-      </div>
+      </div> 
+      </> 
+      }
     </div>
   );
 }

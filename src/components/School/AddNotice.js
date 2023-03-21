@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios'
-
+import { Rings } from "react-loader-spinner";
 import Layout from "./Layout";
 import { useDispatch } from "react-redux";
 import { API_URL } from "../../helpers/URL";
@@ -22,6 +22,7 @@ export default function AddNotice() {
       dispatch(setWarningToast("Complete all the Details"));
 
     } else{
+      setLoading(true);
       const token = localStorage.getItem("token");
       const formData = new FormData();
       formData.append("title", title);
@@ -34,12 +35,28 @@ export default function AddNotice() {
             Authorization: `Bearer ${token}`,
           }
       });
-      if(res.status===201) dispatch(setSuccessToast("Notice Added Successfully"))
-      console.log("response : ", res);
+      if(res.status===201) {
+        dispatch(setSuccessToast("Notice Added Successfully"))
+        setTitle("");
+        setContent("");
+        addNoticeImage(null);
+      }
     }
+    setLoading(false);
   }
   return (
     <Layout>
+      {loading ?  
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div> : <>
       <div className="flex flex-col">
         <div className="flex flex-col w-full px-8 my-4 mt-16">
           <label className="mb-4 text-xl font-semibold text-gray-800">
@@ -128,6 +145,7 @@ export default function AddNotice() {
           </button>
         </div>
       </div>
+      </> }
     </Layout>
   );
 }
