@@ -31,12 +31,12 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
       </div>
       <div className="flex flex-row justify-around mt-4 border-b-[1px] border-gray-200 pb-4 mx-4">
        
-        <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
+        <div className="flex flex-col w-40 p-4 bg-[#F8FAFC] rounded-lg">
           <MdOutlineSchool className="w-6 h-6 mb-2 text-indigo-800" />
           <span className="mb-2 font-semibold text-md">{profileType==="student" ? "Student Of" : "Class Assigned"}</span>
           <span>{profileType==="student" ? data.classroom : "10 - C"}</span>
         </div>
-        <div className="flex flex-col w-40 p-4 bg-indigo-100 rounded-lg">
+        <div className="flex flex-col w-40 p-4 bg-[#F8FAFC] rounded-lg">
           <BsBriefcase className="w-6 h-6 mb-2 text-indigo-800" />
           <span className="mb-2 font-semibold text-md">{profileType==="student" ? "No. of Subjects" : "Role"}</span>
           <span>{profileType==="student" ? data.subjects.length : data.is_class_teacher ? "Class Teacher" : "Not A Class Teacher"}</span>

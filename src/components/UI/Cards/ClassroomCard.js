@@ -91,7 +91,7 @@ export default function ClassroomCard({
   return (
     <div className="flex flex-col p-4 bg-white rounded-xl">
       <div className="flex flex-row items-center justify-between pb-2 border-b-[1px]">
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center justify-between pb-2">
           <span className="p-2 bg-indigo-200 rounded-lg">
             <TfiBlackboard className="w-4 h-4 text-indigo-600" />
           </span>
@@ -117,7 +117,7 @@ export default function ClassroomCard({
         </span>
       </div>
 
-      <div className="flex flex-row items-center justify-between mt-5 text-sm">
+      <div className="flex flex-row items-center justify-between mt-5 text-sm border-t-[1px] pt-2">
         <span className="font-semibold text-gray-500"> STUDENTS </span>
         <span className="font-semibold text-gray-500">
           {classData.strength}

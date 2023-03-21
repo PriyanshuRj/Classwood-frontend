@@ -25,7 +25,8 @@ export default function Register() {
   const [schoolPhoneNo, setSchoolPhoneNo] = useState("");
   const [dateOfStablishment, setDateOfStablishment] = useState("");
   const [pageState, setPageState] = useState(0);
-
+  const [affilationNo, setAffilationNo] = useState("");
+  const [affilationBoard, setAffilationBoard] = useState("");
   const register = async () => {
     localStorage.setItem("UserType", "School");
 
@@ -45,7 +46,8 @@ export default function Register() {
       formData.append("school_logo", schoolLogo);
       formData.append("school_website", schoolWebsite);
       formData.append("date_of_establishment", dateOfStablishment);
-     
+      formData.append("affilation_no", affilationNo);
+      formData.append("affilation_board", affilationBoard);
       const res = await axios.post(API_URL + "signup/", 
       // {
         //   user: {
@@ -112,18 +114,18 @@ export default function Register() {
     <div className="bg-white">
       <div className="flex min-h-screen">
         <div className="flex flex-row w-full">
-          <div className="hidden lg:flex flex-col justify-between bg-[#ffe85c] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
+          <div className="flex-col justify-between hidden bg-[#4F46E5] lg:flex lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
             <div className="flex items-center justify-start space-x-3">
-              <span className="w-8 h-8 bg-black rounded-full"></span>
-              <Link to="/" className="text-xl font-medium">
+              <span className="w-8 h-8 bg-white rounded-full "></span>
+              <Link to="/" className="text-xl font-medium text-white">
                 Classwood
               </Link>
             </div>
             <div className="space-y-5">
-              <h1 className="font-extrabold lg:text-3xl xl:text-5xl xl:leading-snug">
+              <h1 className="font-extrabold text-white lg:text-3xl xl:text-5xl xl:leading-snug">
                 Enter your account and discover new experiences
               </h1>
-              <p className="text-lg">Already have a account ?</p>
+              <p className="text-lg text-white">Already have a account ?</p>
               <Link
                 to="/login"
                 className="flex-none inline-block px-4 py-3 font-medium text-white bg-black border-2 border-black rounded-lg"
@@ -131,7 +133,7 @@ export default function Register() {
                 Login to existing account
               </Link>
             </div>
-            <p className="font-medium">© 2022 Company</p>
+            <p className="font-medium text-white">© 2022 Company</p>
           </div>
 
           <div className="relative flex flex-col items-center justify-center flex-1 px-10">
@@ -163,6 +165,10 @@ export default function Register() {
                 setDateOfStablishment={setDateOfStablishment}
                 schoolPhoneNo={schoolPhoneNo}
                 setSchoolPhoneNo={setSchoolPhoneNo}
+                affilationNo={affilationNo} 
+                affilationBoard={affilationBoard}
+                setAffilationBoard={setAffilationBoard}
+                setAffilationNo={setAffilationNo}
                 register={register}
               />
             ) : pageState === 1 ? (

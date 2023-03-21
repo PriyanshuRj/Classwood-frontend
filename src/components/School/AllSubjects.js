@@ -63,16 +63,16 @@ export default function AllSubjects() {
               <input
                 type="search"
                 name="q"
-                className="py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
+                className="py-3 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
                 placeholder="Search a staff member"
                 autoComplete="off"
               />
             </div>
             <div className="flex flex-row justify-between w-full">
 
-            <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
+            <button className="flex items-center px-2 py-1 font-medium text-gray-800 rounded-md border-[1px] bg-gray-50 sm:px-6 md:py-2 hover:bg-gray-600 hover:text-white ease-int-out duration-200">
               <FiFilter className="sm:mr-2" />
-              <span className="hidden sm:flex">Fliter</span>
+              <span className="hidden font-semibold text-md sm:flex">Fliter</span>
             </button>
             </div>
             <div className="flex flex-row p-1 rounded-md bg-slate-100">

@@ -10,6 +10,10 @@ export default function OtherDetailTab({
   setDateOfStablishment,
   schoolPhoneNo,
   setSchoolPhoneNo,
+  affilationNo,
+  affilationBoard,
+  setAffilationBoard,
+  setAffilationNo,
   register,
 }) {
   const dispatch = useDispatch();
@@ -59,11 +63,26 @@ console.log("the web", schoolWebsite.substring(0,12))
           placeholder="School Website"
           className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
+        <span className="font-semibold"> Date os Stablishment</span>
         <input
           type="date"
           value={dateOfStablishment}
     onChange={(e)=>setDateOfStablishment(e.target.value)}
           placeholder="Date of Establishment"
+          className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+        />
+        <input
+          type="text"
+          value={affilationNo}
+    onChange={(e)=>setAffilationNo(e.target.value)}
+          placeholder="Affilation Number"
+          className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+        />
+        <input
+          type="text"
+          value={affilationBoard}
+    onChange={(e)=>setAffilationBoard(e.target.value)}
+          placeholder="Affilation Board"
           className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         <div className="flex items-center justify-center w-full">

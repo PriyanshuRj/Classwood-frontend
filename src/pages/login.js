@@ -37,9 +37,7 @@ export default function Login() {
         }
 
         localStorage.setItem("token", res.data.tokens.access);
-
-        // setTimeout(function removewarning() {
-        // }, 3000);
+        console.log("Data",res.data)
         navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
       }
 
