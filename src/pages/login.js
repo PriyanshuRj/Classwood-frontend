@@ -8,15 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { loginUser, setWarningToast } from "../store/genralUser";
 import { useDispatch } from "react-redux";
 import { getAllDatatForStaffUser } from "../components/Staff/helper/getData";
-import { toHaveFormValues } from "@testing-library/jest-dom/dist/matchers";
 export default function Login() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(toHaveFormValues);
-  
+  const [loading, setLoading] = useState(false);
+
   let navigate = useNavigate();
- 
+
   const login = async () => {
     try {
       setLoading(true);
@@ -31,40 +30,40 @@ export default function Login() {
       } else if (res.status === 200) {
         localStorage.setItem("UserType", res.data.user_type);
         dispatch(loginUser(res.data.user_type));
-        if(res.data.user_type==="School") localStorage.setItem("Payed", true);
-        if(res.data.user_type === "Staff"){
+        if (res.data.user_type === "School")
+          localStorage.setItem("Payed", true);
+        if (res.data.user_type === "Staff") {
           getAllDatatForStaffUser(dispatch);
         }
-        
+
         localStorage.setItem("token", res.data.tokens.access);
 
         // setTimeout(function removewarning() {
         // }, 3000);
-          navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
+        navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
       }
 
       console.log(res);
     } catch (e) {
       console.warn("error ", e);
-    }
-    finally{
+    } finally {
       setLoading(false);
     }
   };
   return (
     <>
-    {loading ?  
-    <div className="flex items-center justify-center w-screen h-screen">
-
-    <Rings
+      {loading ? (
+        <div className="flex items-center justify-center w-screen h-screen">
+          <Rings
             height="220"
             width="220"
             // radius="9"
             color="rgb(30 64 175)"
-            
             ariaLabel="loading"
-          /> </div> :  <div className="bg-white">
-    
+          />{" "}
+        </div>
+      ) : (
+        <div className="bg-white">
           <div className="flex min-h-screen">
             <div className="flex flex-row w-full">
               <div className="hidden lg:flex flex-col justify-between bg-[#ffe85c] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
@@ -88,7 +87,7 @@ export default function Login() {
                 </div>
                 <p className="font-medium">© 2022 Company</p>
               </div>
-      
+
               <div className="relative flex flex-col items-center justify-center flex-1 px-4 sm:px-10">
                 <div className="flex items-center justify-between w-full py-4 lg:hidden">
                   <div className="flex items-center justify-start space-x-3">
@@ -142,9 +141,8 @@ export default function Login() {
               </div>
             </div>
           </div>
-        </div>}
-     
+        </div>
+      )}
     </>
-   
   );
 }

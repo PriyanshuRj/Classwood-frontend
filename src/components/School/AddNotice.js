@@ -12,6 +12,7 @@ export default function AddNotice() {
   const [noticeImage, addNoticeImage] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
   
   async function submit(){
     if(!noticeImage){
