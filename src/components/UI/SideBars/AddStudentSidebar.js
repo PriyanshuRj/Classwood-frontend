@@ -181,7 +181,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
   };
 
   return (
-    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem]">
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem] md:w-[55rem]">
       <div
         onClick={() => setOpenAddProfile(false)}
         className="absolute p-2 bg-gray-200 rounded-full top-8 left-8"
@@ -199,7 +199,236 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
         <p className="mb-4 text-xl font-semibold text-gray-800">
           Personal Details
         </p>
-        <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
+        
+        <div className="flex flex-col justify-between mb-4 md:flex-row">
+
+        <div className="flex flex-row items-center mt-2 mb-4">
+          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              First Name
+            </span>
+            <input
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+              type="text"
+              placeholder="First Name"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-2 mb-4">
+          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Last Name
+            </span>
+            <input
+              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+              type="text"
+              placeholder="Last Name"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
+            />
+          </div>
+        </div>
+        </div>
+        <div className="flex flex-col justify-between mb-4 md:flex-row">
+
+        <div className="flex flex-row items-center mt-2 mb-4">
+          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Fathers Name
+            </span>
+            <input
+              onChange={(e) => setFatherName(e.target.value)}
+              value={fatherName}
+              type="text"
+              placeholder="Father's Name"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-2 mb-4">
+          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Mothers Name
+            </span>
+            <input
+              onChange={(e) => setMotherName(e.target.value)}
+              value={motherName}
+              type="text"
+              placeholder="Mother's Name"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
+            />
+          </div>
+        </div>
+        </div>
+        <div className="flex flex-col justify-between mb-4 md:flex-row">
+
+        <div className="flex flex-row items-center mt-2 mb-4">
+          <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Phone Number
+            </span>
+            <input
+              onChange={(e) => setMobileNo(e.target.value)}
+              value={mobileNO}
+              type="number"
+              placeholder="Phone No"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-2 mb-4">
+          <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Parents Phone Number
+            </span>
+            <input
+              onChange={(e) => setParentMobileNo(e.target.value)}
+              value={parentMobileNO}
+              type="number"
+              placeholder="Parental Phone No"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
+            />
+          </div>
+        </div>
+        </div>
+
+        <div className="flex flex-row items-center mt-2 mb-4">
+          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center w-[300px] sm:w-[350px] md:w-full">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Gender
+            </span>
+            <SelectionDropdown
+              inputList={genderList}
+              labelTitle=""
+              DivWidth="full"
+              selected={gender}
+              setSelected={setGender}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-between mb-4 md:flex-row">
+
+        <div className="flex flex-row items-center mt-4">
+          <BsBriefcase className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center ">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Email Address
+            </span>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              type="text"
+              placeholder="Email"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-4">
+          <MdSchool className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center ">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Admission Number
+            </span>
+            <input
+              onChange={(e) => setAdmissionNo(e.target.value)}
+              value={admissionNo}
+              type="text"
+              placeholder="Admission Number"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+            />
+          </div>
+        </div>
+        </div>
+        <div className="flex flex-col justify-between mb-4 md:flex-row">
+
+        <div className="flex flex-row items-center mt-4">
+          <MdSchool className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center ">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Roll Number
+            </span>
+            <input
+              onChange={(e) => setRollNo(e.target.value)}
+              value={rollNo}
+              type="text"
+              placeholder="Roll Number"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-4">
+          <AiFillBank className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center ">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Account Number
+            </span>
+            <input
+              onChange={(e) => setAcountNo(e.target.value)}
+              value={acountNo}
+              type="text"
+              placeholder="Acount No"
+              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
+            />
+          </div>
+        </div>
+        </div>
+        <div className="flex flex-col justify-between mb-4 md:flex-row">
+
+        <div className="flex flex-row items-center mt-4">
+          <HiOutlineCake className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Date of Birth
+            </span>
+            <input
+              value={dob}
+              onChange={(e) => setDOB(e.target.value)}
+              type="date"
+              placeholder="Phone No"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
+            />
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-4">
+          <BsFillCalendar2DateFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Date of Admission
+            </span>
+            <input
+              onChange={(e) => setDateOfAdmission(e.target.value)}
+              type="date"
+              value={dateOfAdmission}
+              placeholder="Phone No"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
+            />
+          </div>
+        </div>
+        </div>
+        <div className="flex flex-row items-center mt-4 ">
+          <GoLocation className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center w-full">
+            <span className="mb-1 font-semibold text-gray-800 text-md">
+              Address
+            </span>
+            <textarea
+            value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Address"
+              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] md:w-full "
+            />
+          </div>
+        </div>
+        <div className="mt-6 flex flex-col items-start justify-center w-full p-8 md:px-0 pt-2">
           <span className="mb-4 font-semibold text-gray-800 text-md">
             Profile Picture
           </span>
@@ -246,216 +475,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             </label>
           </div>
         </div>
-        <div className="flex flex-row items-center mt-2 mb-4">
-          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              First Name
-            </span>
-            <input
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstName}
-              type="text"
-              placeholder="First Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-2 mb-4">
-          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Last Name
-            </span>
-            <input
-              onChange={(e) => setLastName(e.target.value)}
-              value={lastName}
-              type="text"
-              placeholder="Last Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-2 mb-4">
-          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Fathers Name
-            </span>
-            <input
-              onChange={(e) => setFatherName(e.target.value)}
-              value={fatherName}
-              type="text"
-              placeholder="Father's Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-2 mb-4">
-          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Mothers Name
-            </span>
-            <input
-              onChange={(e) => setMotherName(e.target.value)}
-              value={motherName}
-              type="text"
-              placeholder="Mother's Name"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-2 mb-4">
-          <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Phone Number
-            </span>
-            <input
-              onChange={(e) => setMobileNo(e.target.value)}
-              value={mobileNO}
-              type="number"
-              placeholder="Phone No"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-2 mb-4">
-          <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Parents Phone Number
-            </span>
-            <input
-              onChange={(e) => setParentMobileNo(e.target.value)}
-              value={parentMobileNO}
-              type="number"
-              placeholder="Parental Phone No"
-              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-2 mb-4">
-          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center w-[300px] sm:w-[350px] ">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Gender
-            </span>
-            <SelectionDropdown
-              inputList={genderList}
-              labelTitle=""
-              DivWidth="full"
-              selected={gender}
-              setSelected={setGender}
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-4">
-          <BsBriefcase className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center ">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Email Address
-            </span>
-            <input
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              type="text"
-              placeholder="Email"
-              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-4">
-          <MdSchool className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center ">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Admission Number
-            </span>
-            <input
-              onChange={(e) => setAdmissionNo(e.target.value)}
-              value={admissionNo}
-              type="text"
-              placeholder="Admission Number"
-              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-4">
-          <MdSchool className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center ">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Roll Number
-            </span>
-            <input
-              onChange={(e) => setRollNo(e.target.value)}
-              value={rollNo}
-              type="text"
-              placeholder="Roll Number"
-              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-4">
-          <AiFillBank className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center ">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Account Number
-            </span>
-            <input
-              onChange={(e) => setAcountNo(e.target.value)}
-              value={acountNo}
-              type="text"
-              placeholder="Acount No"
-              className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-4">
-          <HiOutlineCake className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Date of Birth
-            </span>
-            <input
-              value={dob}
-              onChange={(e) => setDOB(e.target.value)}
-              type="date"
-              placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
-            />
-          </div>
-        </div>
-        <div className="flex flex-row items-center mt-4">
-          <GoLocation className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Address
-            </span>
-            <textarea
-            value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="Address"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-row items-center mt-4">
-          <BsFillCalendar2DateFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">
-              Date of Admission
-            </span>
-            <input
-              onChange={(e) => setDateOfAdmission(e.target.value)}
-              type="date"
-              value={dateOfAdmission}
-              placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
-            />
-          </div>
-        </div>
+        
       </div>
       <div className="flex w-full px-8 mb-16">
         <button
