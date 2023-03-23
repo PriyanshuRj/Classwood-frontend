@@ -83,8 +83,8 @@ export default function OverviewPage({
         <span className="mb-4 text-xl font-semibold text-black">Subjects</span>
 
         <div className="relative w-full overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400  border-[1px] rounded-2xl">
-            <thead className="text-xs text-lg text-gray-600 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 rounded-t-2xl">
+          <table className="w-full text-sm text-left text-gray-500   border-[1px] rounded-2xl">
+            <thead className="text-xs text-lg text-gray-600 uppercase bg-gray-50   rounded-t-2xl">
               <tr>
                 <th scope="col" className="px-6 py-3 text-sm">
                   SNo.
@@ -103,14 +103,14 @@ export default function OverviewPage({
                   <tr key={index} className="bg-white border-b ">
                     <th
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                     >
                       {index}
                     </th>
-                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                       {subject.subjectname}
                     </td>
-                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                       {subject.teacher.first_name + " " +  subject.teacher.last_name}
                     </td>
                   </tr>

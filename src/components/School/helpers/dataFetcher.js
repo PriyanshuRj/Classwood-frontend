@@ -19,11 +19,33 @@ export async function getAllSchoolData(dispatch, navigate, setLoading) {
         Authorization: `Bearer ${token}`,
       },
     });
-    dispatch(addAllStaff(resStaff.data));
+    console.log(resClassroom)
+    // dispatch(addAllStaff(resStaff.data));
     dispatch(addAllClassroom(resClassroom.data));
     
   } catch (e) {
     console.log("error : ", e);
+    if (e.respons && e.response.status === 401) {
+      console.log("this is unotherized");
+      localStorage.removeItem("UserType");
+      navigate(`/`);
+    }
+  }
+  setLoading(false);
+
+}
+export async function getLatestClassroom(dispatch, navigate,setLoading){
+  setLoading(true);
+  const token = localStorage.getItem("token");
+  try {
+    const resClassroom = await axios.get(API_URL + "list/classroom/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch(addAllClassroom(resClassroom.data));
+
+  } catch (e){
     if (e.respons && e.response.status === 401) {
       console.log("this is unotherized");
       localStorage.removeItem("UserType");

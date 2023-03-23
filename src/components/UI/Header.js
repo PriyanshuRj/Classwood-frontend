@@ -173,7 +173,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="hidden bg-white sm:hidden" id="mobile-menu">
+      <div className={` ${menuDrop? " hidden" : undefined} bg-white sm:hidden  `} id="mobile-menu">
         <div className="px-2 pt-2 pb-3 space-y-1">
           <Link
             to="#"
@@ -203,7 +203,7 @@ export default function Header() {
           {/* {% if user.is_authenticated %} */}
           <Link
             to="{%url 'logout'%}"
-            className="hidden sm:inline-flex text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            className="hidden sm:inline-flex text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
           >
             Logout
           </Link>

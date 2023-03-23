@@ -34,8 +34,11 @@ export default function AddClass() {
   }, [staff]);
   const propogateToPage2 = (val) => {
     if (classTitle.length === 0 || classSection.length === 0) {
+      
       dispatch(setWarningToast("Please Fill Complete Details"));
-    } else setPageState(val);
+    } 
+    else if (classSection.length !== 1) dispatch(setWarningToast("Class section can only be of one letter"));
+    else setPageState(val);
   };
   const propogateToPage3 = async (val) => {
     for (var subject of subjects) {
@@ -115,9 +118,14 @@ export default function AddClass() {
             console.log("SubjectResponseonse", studentRes);
             if(studentRes.status===201){
               dispatch(setSuccessToast("classroom Created successfully"));
+              // getLatestClassroom(dispatch, navigate, setLoading);
+              navigate("/school/classroom");
+              
             }
             else if(studentRes.status===200){
-              dispatch(setWarningToast("Classroom Created but issue in Adding Some students"))
+              dispatch(setWarningToast("Classroom Created but issue in Adding Some students"));
+              // getLatestClassroom(dispatch, navigate, setLoading);
+              navigate("/school/classroom");
             }
           }
         }

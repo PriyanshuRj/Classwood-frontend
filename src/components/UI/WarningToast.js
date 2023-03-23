@@ -15,7 +15,7 @@ export default function WarningToast() {
     <div>{warningToast.length ? (
         <div
           id="toast-success"
-          className="fixed z-[100] flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow top-20 right-4 dark:text-gray-400 dark:bg-gray-800"
+          className="fixed z-[100] flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow top-20 right-4  dark:bg-gray-800"
           role="alert"
         >
           <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
@@ -26,7 +26,7 @@ export default function WarningToast() {
           <button
             type="button"
             onClick={() => dispatch(setWarningToast(""))}
-            className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500  dark:bg-gray-800 dark:hover:bg-gray-700"
             data-dismiss-target="#toast-success"
             aria-label="Close"
           >

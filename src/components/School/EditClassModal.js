@@ -43,15 +43,15 @@ export default function EditClassroom({ setOpen,classroom }) {
     <div className="fixed left-0 right-0 flex items-center justify-center w-full h-full bg-gray-400 z-[100] bg-opacity-40">
       <div className="z-50 p-4 md:inset-0 ">
         <div className="relative w-full h-full max-w-2xl md:h-auto">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <div className="relative bg-white rounded-lg shadow">
+            <div className="flex items-start justify-between p-4 border-b rounded-t ">
+              <h3 className="text-xl font-semibold text-gray-900 ">
                 Edit Class
               </h3>
               <button
                 onClick={() => setOpen(false)}
                 type="button"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
                 data-modal-hide="defaultModal"
               >
                 <svg
@@ -103,11 +103,11 @@ export default function EditClassroom({ setOpen,classroom }) {
                 </div>
               </div>
             </div>
-            <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
               <button
               onClick={updateClassroom}
                 type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
               >
                 Update
               </button>

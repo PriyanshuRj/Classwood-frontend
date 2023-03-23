@@ -46,15 +46,15 @@ export default function AddSubject({ setOpen, classroom }) {
     <div className="fixed left-0 right-0 flex items-center justify-center w-full h-full bg-gray-400 z-[100] bg-opacity-40">
       <div className="z-50 p-4 md:inset-0 ">
         <div className="relative w-full h-full max-w-2xl md:h-auto">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <div className="relative bg-white rounded-lg shadow ">
+            <div className="flex items-start justify-between p-4 border-b rounded-t ">
+              <h3 className="text-xl font-semibold text-gray-900 ">
                 Add New Subject
               </h3>
               <button
                 onClick={() => setOpen(false)}
                 type="button"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center  "
                 data-modal-hide="defaultModal"
               >
                 <svg
@@ -108,7 +108,7 @@ export default function AddSubject({ setOpen, classroom }) {
                   <div className="flex items-center justify-center w-full">
                     <label
                       htmlFor="dropzone-file"
-                      className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                      className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100   "
                     >
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">
                         <svg
@@ -126,21 +126,21 @@ export default function AddSubject({ setOpen, classroom }) {
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                           ></path>
                         </svg>
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <p className="mb-2 text-sm text-gray-500 ">
                           <span className="text-xl font-semibold">
                             {" "}
                             {subjectImage ? subjectImage.name : "Subject Image"}
                           </span>
                         </p>
 
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <p className="mb-2 text-sm text-gray-500 ">
                           <span className="font-semibold">
                             {subjectImage
                               ? "Click to Change"
                               : "Click to upload"}
                           </span>
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 ">
                           SVG, PNG, JPG or GIF (MAX. 800x400px)
                         </p>
                       </div>
@@ -157,11 +157,11 @@ export default function AddSubject({ setOpen, classroom }) {
                 </div>
               </div>
             </div>
-            <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
               <button
                 onClick={() => addNewSubject()}
                 type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center   "
               >
                 Upload
               </button>

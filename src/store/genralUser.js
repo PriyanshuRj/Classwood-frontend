@@ -9,6 +9,7 @@ export const userSlice = createSlice({
     classStudents : [],
     notices : [],
     testStudents: [],
+    loading: false
   },
   reducers: {
     loginUser: (state, action) => {
@@ -44,10 +45,13 @@ export const userSlice = createSlice({
         console.log(action.payload.id, action.payload.value);
         state.testStudents[action.payload.id].marksheet = action.payload.value;
       },
+      setLoading : (state, action) =>{
+        state.loading = action.payload;
+      }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { loginUser, setSuccessToast, setWarningToast, setClassStudents, setNotice, setTestStudent, updatePercentage, updateSubjectMarks, updateTotalMarks, updateMakrsheet } = userSlice.actions
+export const { setLoading, loginUser, setSuccessToast, setWarningToast, setClassStudents, setNotice, setTestStudent, updatePercentage, updateSubjectMarks, updateTotalMarks, updateMakrsheet } = userSlice.actions
 
 export default userSlice.reducer
