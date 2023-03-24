@@ -8,10 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { loginUser, setWarningToast } from "../store/genralUser";
 import { useDispatch } from "react-redux";
 import { getAllDatatForStaffUser } from "../components/Staff/helper/getData";
+
+import loginBg from "../assets/CLASSWOOD Login Cover.png";
+
 export default function Login() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [schoolName, setSchoolName] = useState("");
   const [loading, setLoading] = useState(false);
 
   let navigate = useNavigate();
@@ -37,7 +41,7 @@ export default function Login() {
         }
 
         localStorage.setItem("token", res.data.tokens.access);
-        console.log("Data",res.data)
+        console.log("Data", res.data);
         navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
       }
 
@@ -64,7 +68,70 @@ export default function Login() {
         <div className="bg-white">
           <div className="flex min-h-screen">
             <div className="flex flex-row w-full">
-              <div className="hidden lg:flex flex-col justify-between bg-[#ffe85c] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
+              <div className="relative flex flex-col items-center justify-center flex-1 px-4 sm:px-10">
+                <div className="flex items-center justify-between w-full py-4 lg:hidden"></div>
+                <div className="flex flex-col justify-center flex-1 max-w-md space-y-5">
+                  <div className="flex flex-col space-y-2 text-start">
+                    <h2 className="text-3xl font-bold md:text-4xl mb-4">
+                      Welcome Back !!
+                    </h2>
+                    <p className="text-md">
+                      We would love to welcome you to a network where school,
+                      teachers students are all connect with each other.
+                    </p>
+                  </div>
+                  <div className="flex flex-col max-w-md">
+                    <div className="flex flex-col max-w-md mt-4">
+                      <label className="font-semibold mt-2">School Name*</label>
+                      <input
+                        type="text"
+                        placeholder="School Name"
+                        value={schoolName}
+                        onChange={(e) => setSchoolName(e.target.value)}
+                        className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+                      />
+                    </div>
+                    <div className="flex flex-col max-w-md mt-4">
+                      <label className="font-semibold mt-2">Email*</label>
+                      <input
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+                      />
+                    </div>
+                    <div className="flex flex-col max-w-md mt-4">
+                      <label className="font-semibold mt-2">Password*</label>
+                      <input
+                        type="password"
+                        placeholder="********"
+                        value={password}
+                        className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => login()}
+                      className="my-8 flex items-center justify-center flex-none px-3 py-2 font-medium text-white bg-[#4F46E5] border-2 border-[#4F46E5] rounded-lg md:px-4 md:py-3"
+                    >
+                      Login
+                    </button>
+
+                    <div className="flex flex-row justify-center mt-8 items-end space-x-2 sm:items-center sm:flex-row">
+                      <span>Don't have a Account</span>
+                      <Link
+                        to="/register"
+                        className="underline font-medium text-[#070eff]"
+                      >
+                        Sign up now
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="hidden lg:flex flex-col justify-between bg-[#ffe85c] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg">
                 <div className="flex items-center justify-start space-x-3">
                   <span className="w-8 h-8 bg-black rounded-full"></span>
                   <Link href="/" className="text-xl font-medium">
@@ -78,64 +145,19 @@ export default function Login() {
                   <p className="text-lg">You do not have an account?</p>
                   <Link
                     to="/register"
-                    className="flex-none inline-block px-4 py-3 font-medium text-white bg-black border-2 border-black rounded-lg"
+                    className="flex-none inline-block px-4 py-3 font-medium text-white bg-black border-2 border-slate-200  rounded-lg"
                   >
                     Create account here
                   </Link>
                 </div>
                 <p className="font-medium">© 2022 Company</p>
-              </div>
-
-              <div className="relative flex flex-col items-center justify-center flex-1 px-4 sm:px-10">
-                <div className="flex items-center justify-between w-full py-4 lg:hidden">
-                  <div className="flex items-center justify-start space-x-3">
-                    <span className="w-6 h-6 bg-black rounded-full"></span>
-                    <Link to="/" className="text-lg font-medium">
-                      Classwood
-                    </Link>
-                  </div>
-                  <div className="flex flex-col items-end space-x-2 sm:items-center sm:flex-row">
-                    <span>Not a member? </span>
-                    <Link
-                      to="/register"
-                      className="underline font-medium text-[#070eff]"
-                    >
-                      Sign up now
-                    </Link>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-center flex-1 max-w-md space-y-5">
-                  <div className="flex flex-col space-y-2 text-center">
-                    <h2 className="text-3xl font-bold md:text-4xl">
-                      Sign in to account
-                    </h2>
-                    <p className="text-md md:text-xl">
-                      Sign up or log in to place the order,no password require!
-                    </p>
-                  </div>
-                  <div className="flex flex-col max-w-md space-y-5">
-                    <input
-                      type="text"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
-                    />
-                    <input
-                      type="password"
-                      placeholder="********"
-                      value={password}
-                      className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button
-                      onClick={() => login()}
-                      className="flex items-center justify-center flex-none px-3 py-2 font-medium text-white bg-black border-2 border-black rounded-lg md:px-4 md:py-3"
-                    >
-                      Login
-                    </button>
-                  </div>
-                </div>
+              </div> */}
+              <div className="hidden lg:flex flex-col justify-between bg-slate-200 lg:max-w-sm xl:max-w-lg">
+                <img
+                  src={loginBg}
+                  className="object-cover h-full w-full opacity-80"
+                  alt="Login image"
+                />
               </div>
             </div>
           </div>

@@ -40,51 +40,47 @@ console.log("the web", schoolWebsite.substring(0,12))
   }
   return (
     <div className="flex flex-col justify-center flex-1 max-w-md space-y-5">
-      <div className="flex flex-col space-y-2 text-center">
+      <div className="flex flex-col space-y-2 text-start">
         <h2 className="text-3xl font-bold md:text-4xl">
-          Sign up to an account
+          School Contact Details 
         </h2>
-        <p className="text-md md:text-xl">Sign up to Digitalize your school</p>
+        <p className="text-md md:text-xl">SFill up the contact details form of your school</p>
       </div>
-      <div className="flex flex-col max-w-md space-y-5">
+      <div className="flex flex-col max-w-md">
+      <div className="flex flex-col max-w-md mt-4">
+          <label className="font-semibold mt-2">School Phone Number*</label>
         <input
           type="number"
           value={schoolPhoneNo}
     onChange={(e)=>setSchoolPhoneNo(e.target.value)}
 
           placeholder="School Phone No."
-          className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+          className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
-
+</div>
+<div className="flex flex-col max-w-md mt-4">
+          <label className="font-semibold mt-2">School Website*</label>
         <input
           type="text"
           value={schoolWebsite}
     onChange={(e)=>setSchoolWebsite(e.target.value)}
           placeholder="School Website"
-          className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+          className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
-        <span className="font-semibold"> Date os Stablishment</span>
+        </div>
+        <div className="flex flex-col max-w-md mt-4">
+          <label className="font-semibold mt-2">Date of Stablishment*</label>
+       
         <input
           type="date"
           value={dateOfStablishment}
     onChange={(e)=>setDateOfStablishment(e.target.value)}
           placeholder="Date of Establishment"
-          className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+          className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
-        <input
-          type="text"
-          value={affilationNo}
-    onChange={(e)=>setAffilationNo(e.target.value)}
-          placeholder="Affilation Number"
-          className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
-        />
-        <input
-          type="text"
-          value={affilationBoard}
-    onChange={(e)=>setAffilationBoard(e.target.value)}
-          placeholder="Affilation Board"
-          className="flex px-3 py-2 font-medium border-2 border-black rounded-lg md:px-4 md:py-3 placeholder:font-normal"
-        />
+        </div>
+        <div className="flex flex-col max-w-md mt-4">
+          <label className="font-semibold mt-2">School Logo</label>
         <div className="flex items-center justify-center w-full">
           <label
             htmlFor="dropzone-file"
@@ -120,9 +116,10 @@ console.log("the web", schoolWebsite.substring(0,12))
             <input id="dropzone-file" type="file" className="hidden" onChange={(e)=> setSchoolLogo(e.target.files[0])} />
           </label>
         </div>
+        </div>
         <button
           onClick={() => onRegister()}
-          className="flex items-center justify-center flex-none px-3 py-2 font-medium text-white bg-black border-2 border-black rounded-lg md:px-4 md:py-3"
+          className="flex my-8  items-center justify-center flex-none px-3 py-2 font-medium text-white bg-[#4F46E5] border-2 border-[#4F46E5]  rounded-lg md:px-4 md:py-3"
         >
           Register
         </button>
