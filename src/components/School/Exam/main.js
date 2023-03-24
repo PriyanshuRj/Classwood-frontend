@@ -16,7 +16,7 @@ export default function TestResult() {
 
   useEffect(() => {
     if (classrooms.length === 0) getAllSchoolData(dispatch, navigate, setLoading);
-  });
+  },[]);
   return (
     <Layout>
         {loading ?  
@@ -30,7 +30,10 @@ export default function TestResult() {
             
             ariaLabel="loading"
           /> </div> : <>
-      {pageState ? (
+      {classrooms.length === 0 ? <div className="flex h-screen w-full justify-center items-center">
+
+        <span>Please Create a classroom first</span>
+      </div> : pageState ? (
         pageState === "Exam" ? (
           <AddExamResult setPageState={setPageState} />
         ) : (

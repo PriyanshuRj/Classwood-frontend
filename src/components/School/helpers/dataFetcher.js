@@ -19,8 +19,7 @@ export async function getAllSchoolData(dispatch, navigate, setLoading) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(resClassroom)
-    // dispatch(addAllStaff(resStaff.data));
+    dispatch(addAllStaff(resStaff.data));
     dispatch(addAllClassroom(resClassroom.data));
     
   } catch (e) {

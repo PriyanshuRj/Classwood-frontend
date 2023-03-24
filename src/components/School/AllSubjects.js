@@ -27,7 +27,7 @@ export default function AllSubjects() {
         <p className="text-2xl font-semibold ">All CLassroom</p>
           
           <button
-            className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md"
+            className="flex items-center px-4 py-2 font-medium text-white bg-indigo-600 rounded-md"
             onClick={() => setOpenUpload(true)}
           >
             <AiOutlineUpload className="w-6 h-6 mr-2" />
@@ -37,7 +37,7 @@ export default function AllSubjects() {
 
        
       
-        <div className="flex flex-row w-full mb-4 border-b-2">
+        {/* <div className="flex flex-row w-full mb-4 border-b-2">
           {tabs.map((tab, index) => {
             return (
               <span
@@ -53,7 +53,7 @@ export default function AllSubjects() {
               </span>
             );
           })}
-        </div>
+        </div> */}
 
         <div className="flex flex-row items-center mt-2 mb-4">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">

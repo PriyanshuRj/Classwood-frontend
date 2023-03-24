@@ -22,6 +22,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
+  const [loading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -175,7 +176,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         }
       }
     }
-    getAllSchoolData(dispatch, navigate);
+    getAllSchoolData(dispatch, navigate,setLoading);
   };
 
   return (

@@ -33,7 +33,7 @@ export default function Dashboard({children}) {
           </div>
         </aside>
         <main
-          className="flex-1 bg-[#F6FBFC] lg:ml-[21rem]"
+          className="flex-1 bga-[rgb(248,248,248)] lg:ml-[21rem]"
           style={{ maxWidth: "100%", minHeight: "100vh" }}
         >
           {children}

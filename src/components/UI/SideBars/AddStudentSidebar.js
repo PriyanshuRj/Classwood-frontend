@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { validateStudent } from "../../../helpers/ValidateStudent";
 import { useNavigate } from "react-router-dom";
 import {getAllSchoolData} from "../../School/helpers/dataFetcher";
-import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
+import { setLoading, setSuccessToast, setWarningToast } from "../../../store/genralUser";
 import { genderList } from "../../../helpers/inputLists";
 
 export default function AddStudent({ setOpenAddProfile, classroom, subjects, studentData }) {
@@ -24,6 +24,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
   const staff = useSelector((state) => state.staff.allStaff);
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -44,7 +45,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
 
   useEffect(()=>{
     if(!staff || staff.length===0)
-    getAllSchoolData(dispatch, navigate)
+    getAllSchoolData(dispatch, navigate, setLoading)
   },[staff])
   useEffect(()=>{
     if(!studentData){
