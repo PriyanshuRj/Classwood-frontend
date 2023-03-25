@@ -5,7 +5,7 @@ import {TfiBook} from 'react-icons/tfi';
 import { HiOutlineDocumentDownload } from 'react-icons/hi'
 export default function SubjectCard() {
   return (
-    <div className="flex flex-col p-4 duration-200 ease-in-out bg-white rounded-xl hover:drop-shadow-md">
+    <div className="flex flex-col p-4 duration-200 ease-in-out bg-white border rounded-xl hover:drop-shadow-md">
       <div className="flex flex-row items-center justify-between">
         <span className="text-lg font-semibold ">Physics</span>
         <BiDotsVerticalRounded className="w-6 h-6" />

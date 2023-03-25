@@ -201,14 +201,7 @@ export default function Header() {
             Help
           </Link>
           {/* {% if user.is_authenticated %} */}
-          <Link
-            to="{%url 'logout'%}"
-            className="hidden sm:inline-flex text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
-          >
-            Logout
-          </Link>
-          {/* {% else %} */}
-          <Link
+          {localStorage.getItem("UserType") ? <><Link
             className="flex width-full text-white bg-black border-4 border-black hover:bg-transparent hover:text-black  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0  mb-4 "
             to="/"
           >
@@ -219,7 +212,20 @@ export default function Header() {
             to="/login"
           >
             Login
+          </Link></> : <>
+          <Link
+            className="flex width-full text-white bg-black border-4 border-black hover:bg-transparent hover:text-black  focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0  mb-4 "
+            to= { "/" + localStorage.getItem("UserType") + "/dashboard" }
+          >
+            Dashboard
           </Link>
+          <Link
+            className="flex width-full text-black hover:text-white border-4 border-black bg-transparent hover:bg-black focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 "
+            to="/login"
+          >
+            Logout
+          </Link>
+          </>}
           {/* {% endif %} */}
         </div>
       </div>

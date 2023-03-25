@@ -149,11 +149,11 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("mother_name",motherName);
             formData.append("date_of_birth", dob);
             formData.append("address", address);
-            formData.append("account_no", acountNo);
+            formData.append("parent_account_no", acountNo);
             formData.append("school", staff[0].school);
             formData.append("classroom", classroom.id);
             console.log("subjects : ",studentSubjects)
-            studentSubjects.forEach((item) => formData.append("subjects", item))
+            // studentSubjects.forEach((item) => formData.append("subjects", item))
           //   formData.append("subjects", );
             formData.append("admission_no", admissionNo);
             const res = await axios.post(
@@ -166,7 +166,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               }
             );
               console.log("This is the response :  ", res);
-              if(res.status===200 && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
+              if(res.status===200 && res.data.non_field_errors && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
                 dispatch(setWarningToast("Admission Number must be unique"));
               }
             if (res.status === 200) {
@@ -429,14 +429,14 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             />
           </div>
         </div>
-        <div className="mt-6 flex flex-col items-start justify-center w-full p-8 md:px-0 pt-2">
+        <div className="flex flex-col items-start justify-center w-full p-8 pt-2 mt-6 md:px-0">
           <span className="mb-4 font-semibold text-gray-800 text-md">
             Profile Picture
           </span>
           <div className="flex items-center justify-center w-full">
             <label
               htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50   hover:bg-gray-100   "
+              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 "
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg

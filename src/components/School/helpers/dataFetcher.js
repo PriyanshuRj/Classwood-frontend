@@ -24,7 +24,7 @@ export async function getAllSchoolData(dispatch, navigate, setLoading) {
     
   } catch (e) {
     console.log("error : ", e);
-    if (e.respons && e.response.status === 401) {
+    if (e.response && e.response.status === 401) {
       console.log("this is unotherized");
       localStorage.removeItem("UserType");
       navigate(`/`);
