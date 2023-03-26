@@ -20,7 +20,6 @@ import { setLoading, setSuccessToast, setWarningToast } from "../../../store/gen
 import { genderList } from "../../../helpers/inputLists";
 
 export default function AddStudent({ setOpenAddProfile, classroom, subjects, studentData }) {
-    // console.log("subjects", ", subjects)
   const staff = useSelector((state) => state.staff.allStaff);
   const navigate = useNavigate();
 
@@ -48,15 +47,8 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
     getAllSchoolData(dispatch, navigate, setLoading)
   },[staff])
   useEffect(()=>{
-    if(!studentData){
 
-      var subs = [];
-      for(var i of subjects){
-        subs.push(i.id)
-      }
-      setStudentSubjects(subs);
-    }
-    else {
+    if(studentData) {
       console.log(studentData)
       setFirstName(studentData.first_name);
       setLastName(studentData.last_name);
@@ -82,14 +74,13 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
       setParentMobileNo(studentData.parent_mobile_number);
       setRollNo(studentData.roll_no);
     }
-  },[subjects])
+  },[])
   const submit = async () => {
     console.log("new student adding")
       if(studentData){
         if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
           try {
             const token = localStorage.getItem("token");
-            console.log(token);
             const formData = new FormData();
             formData.append("profile_pic", profileImage);
             formData.append("first_name", firstName);
@@ -106,7 +97,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("address", address);
             formData.append("account_no", acountNo);
             formData.append("admission_no", admissionNo);
-            
+
             const res = await axios.put(
               API_URL + "staff/student/" + studentData.user.id + "/",
               formData,
@@ -150,12 +141,15 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("date_of_birth", dob);
             formData.append("address", address);
             formData.append("parent_account_no", acountNo);
-            formData.append("school", staff[0].school);
+
             formData.append("classroom", classroom.id);
-            console.log("subjects : ",studentSubjects)
-            // studentSubjects.forEach((item) => formData.append("subjects", item))
-          //   formData.append("subjects", );
+
             formData.append("admission_no", admissionNo);
+
+            console.log("consoling form data")
+            for (var pair of formData.entries()) {
+              console.log(pair[0]+ ', ' + pair[1]); 
+          }
             const res = await axios.post(
               API_URL + "staff/student/",
               formData,

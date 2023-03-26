@@ -56,7 +56,7 @@ export default function AddExamResult() {
       console.log(classStudents);
       const token = localStorage.getItem("token");
       
-
+      
       classStudents.map(async (student,index)=>{
         const formData = new FormData();
         formData.append("student",student.user.id);
@@ -93,6 +93,7 @@ export default function AddExamResult() {
 
   return (
     <div className="flex flex-col w-full mt-8">
+      
       <p className="pl-8 mb-8 text-2xl font-medium">Add Results For a Exam</p>
 
       <div className="flex flex-row px-4">
@@ -207,7 +208,7 @@ onAddStudentClick();
       </span>
       }
       <button
-        // onClick={() => setPageState(4)}
+        onClick={() => addResults()}
         className="flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"
       >
         Upload

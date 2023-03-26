@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser, setWarningToast } from "../store/genralUser";
 import { useDispatch } from "react-redux";
 import { getAllDatatForStaffUser } from "../components/Staff/helper/getData";
-
+import { setProfileData } from "../store/genralUser";
 import loginBg from "../assets/CLASSWOOD Login Cover.png";
 
 export default function Login() {
@@ -42,6 +42,14 @@ export default function Login() {
 
         localStorage.setItem("token", res.data.tokens.access);
         console.log("Data", res.data);
+        const acountData = await  axios.get(API_URL + "/account/", 
+          {
+            headers : {
+              Authorization: `Bearer ${res.data.tokens.access}`,
+            }
+          }
+        )
+        dispatch(setProfileData(acountData.data));
         navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
       }
 

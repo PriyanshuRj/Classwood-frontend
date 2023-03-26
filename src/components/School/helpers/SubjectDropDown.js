@@ -6,10 +6,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function SubjectDropDown({inputList, labelTitle, DivWidth, selected, setSelected, id}) {
+export default function SubjectDropDown({inputList, labelTitle, DivWidth, selected, setSelected, id, type, index}) {
   return (
     <Listbox value={selected} onChange={async (value)=>{
-      id ? setSelected(value, id) : setSelected(value)
+      if(type && type==="timetable"){
+        setSelected(index, value)
+      }
+      else id ? setSelected(value, id) : setSelected(value)
       }} >
       {({ open }) => (
         <div className={`flex flex-col items-start  w-${DivWidth}  `}>
