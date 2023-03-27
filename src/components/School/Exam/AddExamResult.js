@@ -6,21 +6,24 @@ import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
 import SingleEntry from "./SingleEntry";
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Rings } from "react-loader-spinner";
 import {setTestStudent} from "../../../store/genralUser";
+
 export default function AddExamResult() {
   const dispatch = useDispatch();
   const classStudents  = useSelector((state) => state.user.testStudents);
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [selectedClass, setSelectedClass] = useState(classrooms[0]);
   const [CSVFile, setCSVFile] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const [classSubjects, setClassSubjects] = useState([]);
   const [showStudents, setShowStudents] = useState(false);
   const [setectedSubject, setSelectedSubject] = useState({
     name: "No Subject Selected",
   });
+
   async function fetchSubjects() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
       headers: {
@@ -33,9 +36,11 @@ export default function AddExamResult() {
     setClassSubjects(classroomSubjects.data);
     setSelectedSubject({ name: "No Subject Selected" });
     setShowStudents(false);
+    setLoading(false);
   }
 
   async function getStudents() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     let res = await axios.get(API_URL + "staff/student/", {
       headers: {
@@ -46,6 +51,7 @@ export default function AddExamResult() {
       },
     });
     dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));
+    setLoading(false);
   }
   function onAddStudentClick() {
     setShowStudents(true);
@@ -92,7 +98,20 @@ export default function AddExamResult() {
   }, [selectedClass]);
 
   return (
-    <div className="flex flex-col w-full mt-8">
+    <>
+    
+    {loading ? 
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div>
+    : <div className="flex flex-col w-full mt-8">
       
       <p className="pl-8 mb-8 text-2xl font-medium">Add Results For a Exam</p>
 
@@ -213,6 +232,7 @@ onAddStudentClick();
       >
         Upload
       </button>
-    </div>
+    </div>}
+    </>
   );
 }

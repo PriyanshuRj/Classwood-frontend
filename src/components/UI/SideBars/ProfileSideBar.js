@@ -12,6 +12,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
     for( let i = 0;i< str.length;i++) if(str[i]==="2") count++;
     return count
   }
+  console.log("User data", data);
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
       <div onClick={()=>setOpenProfile(false)} className="absolute p-2 bg-gray-200 rounded-full top-8 left-8">

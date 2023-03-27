@@ -31,7 +31,7 @@ export default function AttendanceCard({ classData }) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g id="Icon/Outline/present" clip-path="url(#clip0_228_14583)">
+            <g id="Icon/Outline/present" clipPath="url(#clip0_228_14583)">
               <path
                 id="Vector"
                 d="M5.99967 14.6663H9.99967C13.333 14.6663 14.6663 13.333 14.6663 9.99967V5.99967C14.6663 2.66634 13.333 1.33301 9.99967 1.33301H5.99967C2.66634 1.33301 1.33301 2.66634 1.33301 5.99967V9.99967C1.33301 13.333 2.66634 14.6663 5.99967 14.6663Z"
@@ -73,7 +73,7 @@ export default function AttendanceCard({ classData }) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_228_14590)">
+            <g clipPath="url(#clip0_228_14590)">
               <path
                 d="M5.99967 14.6663H9.99967C13.333 14.6663 14.6663 13.333 14.6663 9.99967V5.99967C14.6663 2.66634 13.333 1.33301 9.99967 1.33301H5.99967C2.66634 1.33301 1.33301 2.66634 1.33301 5.99967V9.99967C1.33301 13.333 2.66634 14.6663 5.99967 14.6663Z"
                 stroke="#FB7185"

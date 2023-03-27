@@ -79,6 +79,8 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         // );
       } 
       else if(mobileNO < 1000000000) dispatch(setWarningToast("Mobile no should be atleast 10 digits"))
+      else if(mobileNO.length > 12) dispatch(setWarningToast("Phone number should be at max 12 digits"));
+
       else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
         dispatch(setWarningToast("Invalid email address"));
       } 
@@ -121,18 +123,13 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         }
       }
     } else {
+     
       if (
         firstName.length === 0 ||
         lastName.length === 0 ||
         dateOfJoining.length === 0
       ) {
         dispatch(setWarningToast("Fill complete Details"));
-        // console.log(
-        //   "Fill complete Details",
-        //   firstName,
-        //   lastName,
-        //   dateOfJoining
-        // );
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
         dispatch(setWarningToast("Invalid email address"));
       } 
@@ -140,6 +137,8 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         dispatch(setWarningToast("Please select a profile picture"));
 
       }
+      
+      else if(mobileNO.length > 12) dispatch(setWarningToast("Phone number should be at max 12 digits"));
       else {
         try {
           const token = localStorage.getItem("token");

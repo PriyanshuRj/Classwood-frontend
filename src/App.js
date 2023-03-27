@@ -2,6 +2,7 @@ import React,{useEffect, useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import { useSelector,useDispatch } from "react-redux";
+import axios from "axios";
 import { loginUser } from "./store/genralUser";
 import SuccessToast from "./components/UI/SuccessToast";
 import WarningToast from "./components/UI/WarningToast";
@@ -27,6 +28,7 @@ import AddNotice from "./components/School/AddNotice";
 import TestResult from "./components/School/Exam/main";
 import Attendance from "./components/School/Attendance/Attendance";
 import SchoolTimetable from "./components/School/Timetable/Timetable";
+import FeesPage from "./components/School/Fees/main";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import StaffAllClassrooms from "./components/Staff/Classroom";
@@ -34,10 +36,12 @@ import SingleClassStudents from "./components/Staff/Students";
 import NoticeFullPageView from "./components/Staff/NoticeFullPageView";
 import "./App.css";
 
+import { setProfileData } from "./store/genralUser";
+import { API_URL } from "./helpers/URL";
 export default function App() {
   const dispatch = useDispatch();
 
-  const UserType = useSelector((state) => state.user.UserType)
+  const UserType = useSelector((state) => state.user.UserType);
   useEffect(()=>{
 
     console.log("user : ",localStorage.getItem("UserType"), UserType);
@@ -50,7 +54,21 @@ export default function App() {
       
     }
   },[UserType])
-  
+  useEffect(()=>{
+    if(localStorage.getItem("token")){
+      getuserCredentials();
+    }
+  },[])
+  const getuserCredentials = async () =>{
+    const acountData = await  axios.get(API_URL + "/account/", 
+    {
+      headers : {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    }
+  )
+  dispatch(setProfileData(acountData.data));
+  }
   return (
     <Router>
       <SuccessToast />
@@ -78,6 +96,7 @@ export default function App() {
           <Route path="/school/test" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <TestResult /> : <StartPay />} />
           <Route path="/school/attendence" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <Attendance /> : <StartPay />} />
           <Route path="/school/timetable" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolTimetable /> : <StartPay />} />
+          <Route path="/school/fees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <FeesPage /> : <StartPay />} />
 
           {/* Staff Links */}
           <Route path="/staff/dashboard" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffDashboard />} />

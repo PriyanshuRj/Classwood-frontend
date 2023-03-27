@@ -76,7 +76,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
     }
   },[])
   const submit = async () => {
-    console.log("new student adding")
+    console.log("submiting student form",studentData);
       if(studentData){
         if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
           try {
@@ -97,7 +97,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("address", address);
             formData.append("account_no", acountNo);
             formData.append("admission_no", admissionNo);
-
+           
             const res = await axios.put(
               API_URL + "staff/student/" + studentData.user.id + "/",
               formData,
@@ -125,7 +125,6 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
         if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
           try {
             const token = localStorage.getItem("token");
-            console.log(token);
             const formData = new FormData();
             formData.append("profile_pic", profileImage);
             formData.append("first_name", firstName);
@@ -163,9 +162,13 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               if(res.status===200 && res.data.non_field_errors && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
                 dispatch(setWarningToast("Admission Number must be unique"));
               }
-            if (res.status === 200) {
+            if (res.status === 201) {
               dispatch(setSuccessToast("Student Added Successfully"));
               console.log("response returned", res);
+            }
+            else {
+              dispatch(setWarningToast("Error in Adding Student"));
+
             }
           } catch (e) {
             console.warn("Error ::::::", e);

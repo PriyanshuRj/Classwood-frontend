@@ -9,7 +9,7 @@ import SubjectDetailPage from "./AddClassPages/SubjectDetailPage";
 import StudentDetailPage from "./AddClassPages/StudentDetailPage";
 import OverviewPage from "./AddClassPages/OverviewPage";
 import { setSuccessToast, setWarningToast } from "../../store/genralUser";
-import { getAllSchoolData } from "./helpers/dataFetcher";
+import { getAllSchoolData, getLatestClassroom } from "./helpers/dataFetcher";
 import { API_URL } from "../../helpers/URL";
 
 export default function AddClass() {
@@ -52,8 +52,7 @@ export default function AddClass() {
   const addClass = async () => {
     try {
       const token = localStorage.getItem("token");
-      // console.log(token);
-      // console.log(staff[0].school , classTitle, classSection, classTeacher.user.id, subClassTeacher.user.id)
+     
       const res = await axios.post(
         API_URL + "list/classroom/",
         {
@@ -101,7 +100,7 @@ export default function AddClass() {
           console.log("Subjects Added",SubjectResponse);
           if(SubjectResponse.status=== 201){
           const formData = new FormData();
-          console.log(staff[0].school,  res.data.data.id)
+     
           formData.append("school", staff[0].school);
           formData.append("classroom", res.data.data.id);
           formData.append("csv_file", CSVFile);
@@ -115,16 +114,16 @@ export default function AddClass() {
                 },
               }
             );
-            console.log("SubjectResponseonse", studentRes);
+            console.log("Student Response", studentRes);
             if(studentRes.status===201){
               dispatch(setSuccessToast("classroom Created successfully"));
-              // getLatestClassroom(dispatch, navigate, setLoading);
+              getLatestClassroom(dispatch, navigate, setLoading);
               navigate("/school/classroom");
               
             }
             else if(studentRes.status===200){
               dispatch(setWarningToast("Classroom Created but issue in Adding Some students"));
-              // getLatestClassroom(dispatch, navigate, setLoading);
+              getLatestClassroom(dispatch, navigate, setLoading);
               navigate("/school/classroom");
             }
           }

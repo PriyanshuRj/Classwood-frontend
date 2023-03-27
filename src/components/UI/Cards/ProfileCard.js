@@ -126,7 +126,8 @@ const deleteFunction = {
         <div className="flex flex-col">
           <img
             className="object-cover w-10 h-10 mb-2 rounded-md"
-            src={props.allData.profile_pic}
+          src={props.allData.profile_pic ? props.allData.profile_pic : "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"}
+            
           />
 
           <span className="font-semibold text-black">{props.name}</span>
