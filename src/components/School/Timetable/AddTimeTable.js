@@ -30,14 +30,15 @@ export default function AddTimetable() {
     try{
       const token = localStorage.getItem("token");
       console.log("Time Table Tows", timetableRows, "time Rows", timetableRowsTime)
-      const res = await axios.post(API_URL + "list/timetable", {
-        timetableRows : timetableRows,
-        timetableRowsTime : timetableRowsTime
+      const res = await axios.post(API_URL + "staff/timeTable/", {
+        timetable : [timetableRows,timetableRowsTime],
+        classroom : selectedClass
       },{
         headers : {
           Authorization: `Bearer ${token}`,
         }
       })
+      console.log(res)
     } catch( e ){
       console.warn(e)
     }

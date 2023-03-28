@@ -138,7 +138,7 @@ division : ["M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1"] }, {tit
                       <span className="text-gray-500 font-semibold mt-4 mx-8">Time Period*</span>
                       <div className="flex flex-row justify-between py-4 mx-8">
                         {divisionStats.map((division, index)=>{
-                          return <span onClick={()=> setDevisionState(index)} key={index} className={` ${divisionState===index ? " bg-slate-700 text-white "  : "bg-slate-200 text-gray-700 " }  w-[20%] text-center rounded-md px-4 py-2 text-md font-semibold `}>
+                          return <span onClick={()=> setDevisionState(index)} key={index} className={` ${divisionState===index ? " bg-slate-700 text-white "  : "bg-slate-200  text-gray-700 " }  w-[20%] text-center cursor-pointer  rounded-md px-4 py-2 text-md font-semibold `}>
                           {division.title}
                         </span>
                         })}
@@ -147,7 +147,7 @@ division : ["M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1"] }, {tit
                   </div>
       
          <div className="border-2 rounded-md mx-8">
-          <div className={`grid w-full grid-cols-${divisionStats[divisionState].division.length + 1} p-2 text-sm font-semibold text-gray-500 bg-slate-50`}>
+          <div className={`grid cursor-pointer w-full grid-cols-${divisionStats[divisionState].division.length + 1} p-2 text-sm font-semibold text-gray-500 bg-slate-50`}>
             <span>Fee Fields</span>
             {divisionStats[divisionState].division.map((value,key)=>{
               return <span>{value}</span>

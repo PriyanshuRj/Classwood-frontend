@@ -29,11 +29,12 @@ import TestResult from "./components/School/Exam/main";
 import Attendance from "./components/School/Attendance/Attendance";
 import SchoolTimetable from "./components/School/Timetable/Timetable";
 import FeesPage from "./components/School/Fees/main";
+import SchoolNoticeFullPageView from "./components/School/NoticeFullPageView";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import StaffAllClassrooms from "./components/Staff/Classroom";
 import SingleClassStudents from "./components/Staff/Students";
-import NoticeFullPageView from "./components/Staff/NoticeFullPageView";
+import StaffNoticeFullPageView from "./components/Staff/NoticeFullPageView";
 import "./App.css";
 
 import { setProfileData } from "./store/genralUser";
@@ -97,12 +98,14 @@ export default function App() {
           <Route path="/school/attendence" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <Attendance /> : <StartPay />} />
           <Route path="/school/timetable" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolTimetable /> : <StartPay />} />
           <Route path="/school/fees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <FeesPage /> : <StartPay />} />
+          <Route path="/school/notice/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ?  <SchoolNoticeFullPageView /> : <StartPay />} />
+
 
           {/* Staff Links */}
           <Route path="/staff/dashboard" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffDashboard />} />
           <Route path="/staff/classroom" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffAllClassrooms />} />
           <Route path="/staff/students" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <SingleClassStudents />} />
-          <Route path="/staff/notice/:id" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <NoticeFullPageView />} />
+          <Route path="/staff/notice/:id" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffNoticeFullPageView />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>

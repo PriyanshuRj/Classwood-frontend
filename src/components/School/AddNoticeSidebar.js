@@ -5,8 +5,8 @@ import Layout from "./Layout";
 import { useDispatch } from "react-redux";
 import { API_URL } from "../../helpers/URL";
 import { setWarningToast, setSuccessToast } from "../../store/genralUser";
-
-export default function AddNotice() {
+import { RxCross1 } from "react-icons/rx";
+export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
   
   const dispatch = useDispatch();
   const [noticeImage, addNoticeImage] = useState([]);
@@ -40,12 +40,19 @@ export default function AddNotice() {
         setTitle("");
         setContent("");
         addNoticeImage(null);
+        setOpenAddNoticeModal(false);
       }
     }
     setLoading(false);
   }
   return (
-    <Layout>
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem] md:w-[55rem]">
+       <div
+        onClick={() => setOpenAddNoticeModal(false)}
+        className="absolute p-2 bg-gray-200 rounded-full top-8 left-8"
+      >
+        <RxCross1 />
+      </div>
       {loading ?  
     <div className="flex items-center justify-center w-full h-screen">
 
@@ -57,8 +64,9 @@ export default function AddNotice() {
             
             ariaLabel="loading"
           /> </div> : <>
-      <div className="flex flex-col">
-        <div className="flex flex-col w-full px-8 my-4 mt-16">
+      <div className="flex flex-col mt-16">
+        <span className=" text-2xl font-semibold text-center">Add Notice</span>
+        <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Title
           </label>
@@ -146,6 +154,6 @@ export default function AddNotice() {
         </div>
       </div>
       </> }
-    </Layout>
+      </div>
   );
 }

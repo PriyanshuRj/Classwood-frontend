@@ -4,11 +4,13 @@ export const staffSlice = createSlice({
   name: 'staff',
   initialState: {
     allStaff: [],
+    noOfStaffMember : 0,
   },
   reducers: {
     addAllStaff: (state, action) => {
    
       state.allStaff = action.payload
+      state.noOfStaffMember = action.payload.length
     },
     removeStaffMember : (state, action) =>{
       console.log(action.payload);

@@ -98,7 +98,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("account_no", acountNo);
             formData.append("admission_no", admissionNo);
            
-            const res = await axios.put(
+            const res = await axios.patch(
               API_URL + "staff/student/" + studentData.user.id + "/",
               formData,
               {

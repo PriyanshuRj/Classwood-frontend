@@ -1,5 +1,6 @@
 import { addAllStaff } from "../../../store/School/staffSlice";
 import { addAllClassroom } from "../../../store/School/classroomSlice";
+import { addAllStudent } from "../../../store/School/studentSlice";
 import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 
@@ -19,8 +20,14 @@ export async function getAllSchoolData(dispatch, navigate, setLoading) {
         Authorization: `Bearer ${token}`,
       },
     });
+    const resStudent = await axios.get(API_URL + "staff/student/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     dispatch(addAllStaff(resStaff.data));
     dispatch(addAllClassroom(resClassroom.data));
+    dispatch(addAllStudent(resStudent.data));
     
   } catch (e) {
     console.log("error : ", e);

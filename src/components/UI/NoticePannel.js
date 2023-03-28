@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../../helpers/URL";
 import { useSelector, useDispatch } from "react-redux";
 import { setNotice } from "../../store/genralUser";
+import {GrNext} from "react-icons/gr";
+import {IoMdAddCircleOutline} from 'react-icons/io';
 const monthNames = [
   "Jan",
   "Feb",
@@ -18,7 +20,7 @@ const monthNames = [
   "Nov",
   "Dec",
 ];
-export default function NoticePannel() {
+export default function NoticePannel({setOpenAddNoticeModal}) {
   const dispatch = useDispatch();
   const notices = useSelector((state) => state.user.notices);
   async function fetchNotice() {
@@ -36,26 +38,36 @@ export default function NoticePannel() {
     fetchNotice();
   }, []);
   return (
-    <div>
-      <div className="md:rounded-[30px] bg-white text-black p-4 md:p-6 w-full  py-10 h-max">
+    <div className="mt-10 md:shadow-lg md:rounded-xl p-4">
+      <div className="pb-2 flex justify-between items-center border-b mx-2">
+
+<h1 className=" text-2xl font-semibold text-left">
+  Anouncement board
+</h1>
+<span
+onClick={()=> setOpenAddNoticeModal(true)}
+className={`flex flex-row text-indigo-600 items-center font-semibold cursor-pointer ${localStorage.getItem("UserType") ==="School" ? undefined : ' hidden '}`}> <IoMdAddCircleOutline className="mr-2 w-6 h-6" /> Add New </span>
+</div>
+      <div className=" bg-white text-black pt-4 md:pt-6 w-full h-max">
         {notices.map((notice, index) => {
           const noticeDate = new Date(notice.date_posted);
           console.log("notices : ");
           return (
-            <Link to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : "/student/notice"}>
-              <div className="flex justify-start p-4 ">
-                <span
-                  className="text-sm text-right bg-[#61C26B] rounded-full self-start w-16 h-16 mr-4 flex justify-center items-center text-white"
-                  style={{ width: "85px" }}
-                >
-                  {noticeDate.getDate()}
-                  <br /> {monthNames[noticeDate.getMonth()]}
-                </span>
+            <Link to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : localStorage.getItem("UserType") ==="School" ? "/school/notice/" + index :  "/student/notice" + index}>
+              <div className="flex justify-start pt-4 ">
+              <div
+                    className="text-sm text-[#76A5FF] bg-[#F0F7FD] rounded-md self-start  px-4 py-2 mr-6 flex justify-center items-center flex-col font-semibold">
+                    <span>{noticeDate.getDate()}
+                      </span>
+                      <span>{monthNames[noticeDate.getMonth()]}
+                      </span>
+                  </div>
+              
                 <div className="flex flex-col">
                   <span className="font-sans font-medium uppercase text-md sm:text-xl text-[#020410]">
                     {notice.title}
                   </span>
-                  <p className="py-4 text-xs  sm:text-sm text-[#8A8A8A]">
+                  <p className="pt-4 text-xs  sm:text-sm text-[#8A8A8A]">
                     {notice.description}
                   </p>
                 </div>
@@ -64,11 +76,14 @@ export default function NoticePannel() {
           );
         })}
 
-        <a href="/">
-          <div className="mt-4 rounded-[20px] bg-gray-200 bg-opacity-25 p-4 hover:bg-opacity-75 duration-300 ease-in-out">
-            <span className="font-sans font-medium uppercase">See All</span>
-          </div>
-        </a>
+<a href="/">
+                <div className="mt-4  border-t bg-opacity-25 pt-4 flex justify-between items-center">
+                  <span className="font-sans font-medium uppercase">
+                    View More
+                  </span>
+                  <GrNext />
+                </div>
+              </a>
       </div>
     </div>
   );

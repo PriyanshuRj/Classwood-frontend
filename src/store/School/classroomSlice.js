@@ -7,12 +7,14 @@ export const classroomSlice = createSlice({
     addClassSubject : [{
       teacher:"",
       subjectname:""
-    }]
+    }],
+    noOfClasses : 0,
   },
   reducers: {
     addAllClassroom: (state, action) => {
   
-      state.allClasses = action.payload
+      state.allClasses = action.payload;
+      state.noOfClasses = action.payload.length
     },
     addNewClassSubjectsTecher : (state, action)=>{
       state.addClassSubject[action.payload.id].teacher = action.payload.value

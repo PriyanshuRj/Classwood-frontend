@@ -4,7 +4,6 @@ import {BiNotification} from 'react-icons/bi';
 import { useSelector } from "react-redux";
 export default function DashHeader() {
   const userData = useSelector((state) => state.user.userProfileData);
-  console.log("This is user Data", userData)
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
       <p className="text-2xl font-semibold sm:text-4xl">Hello {userData.school_name}!</p>
