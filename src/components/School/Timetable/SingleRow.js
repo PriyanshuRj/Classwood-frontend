@@ -38,8 +38,8 @@ export default function SingleRow({
 
     {/* Time Table Time Frame */}
       <div className="flex flex-col justify-center items-center w-full my-2">
-        <div className="flex w-full justify-between">
-          {/* <span className="mr-2">Start : </span> */}
+        <div className="flex justify-between items-center flex-col xl:flex-row">
+          <span className="mr-2 text-sm">Start : </span>
           <div
             key={rowIndex}
             className="text-sm px-2 flex border rounded-md items-center justigy-center mb-2"
@@ -51,10 +51,10 @@ export default function SingleRow({
                 className="w-5 bg-transparent text-sm appearance-none outline-none mr-1"
                 value={rowTime.start.hour}
                 onChange={(e) => {
-                  if(e.target.value < 13)  chageTime("start", "hour", e.target.value)}}
+                  if(e.target.value < 25)  chageTime("start", "hour", e.target.value)}}
               />
 
-              <span className="text-xl mr-3"> : </span>
+              <span className="text-xl mx-3"> : </span>
               <input
                 type="number"
                 name="minutes"
@@ -63,25 +63,12 @@ export default function SingleRow({
                 onChange={(e) => {
                   if(e.target.value < 60)  chageTime("start", "minute", e.target.value)}}
               />
-              <span className="text-xl mr-3"> : </span>
-
-              <select
-                name="ampm"
-                onChange={(e) => chageTime("start", "ampm", e.target.value)}
-                className="bg-transparent text-sm appearance-none outline-none"
-              >
-                <option className="px-4 mx-4 text-sm" value="am">
-                  AM
-                </option>
-                <option className="px-4 mx-4 text-sm" value="pm">
-                  PM
-                </option>
-              </select>
+             
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-between">
-          {/* <span className="mr-2">End : </span> */}
+        <div className="flex justify-between items-center flex-col xl:flex-row">
+          <span className="mr-2 text-sm">End : </span>
           <div
             key={rowIndex}
             className="text-sm px-2 flex border rounded-md items-center justigy-center"
@@ -94,12 +81,12 @@ export default function SingleRow({
 
                 onChange={(e) => {
                   
-                  if(e.target.value < 13) chageTime("end", "hour", e.target.value)}}
+                  if(e.target.value < 25) chageTime("end", "hour", e.target.value)}}
 
                 className="w-5 bg-transparent text-sm appearance-none outline-none mr-1"
               />
 
-              <span className="text-xl mr-3"> : </span>
+              <span className="text-xl mx-3"> : </span>
               <input
                 type="number"
                 name="minutes"
@@ -109,20 +96,7 @@ export default function SingleRow({
                   if(e.target.value < 60) chageTime("end", "minute", e.target.value)}}
                 className="w-5 bg-transparent text-sm appearance-none outline-none mr-1"
               />
-              <span className="text-xl mr-3"> : </span>
-
-              <select
-                name="ampm"
-                onChange={(e) => chageTime("end", "ampm", e.target.value)}
-                className="bg-transparent text-sm appearance-none outline-none"
-              >
-                <option className="px-4 mx-4 text-sm" value="am">
-                  AM
-                </option>
-                <option className="px-4 mx-4 text-sm" value="pm">
-                  PM
-                </option>
-              </select>
+             
             </div>
           </div>
         </div>

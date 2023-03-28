@@ -10,7 +10,10 @@ import { Rings } from "react-loader-spinner";
 export default function FeesDistribution() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const divisionStats = ["Annual","Monthly", "Quartely", "Custom"]
+  const divisionStats = [{title : "Annual",
+division : []},{title : "Monthly",
+division : ["M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1"] }, {title : "Quartely", division : ["Q1", "Q2", "Q3", "Q4"]}, {title : "Custom", division : ["D1", "D2", "D3"]}];
+
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [divisionState, setDevisionState] = useState(0);
   const [selectedClass, setSelectedClass] = useState({
@@ -136,7 +139,7 @@ export default function FeesDistribution() {
                       <div className="flex flex-row justify-between py-4 mx-8">
                         {divisionStats.map((division, index)=>{
                           return <span onClick={()=> setDevisionState(index)} key={index} className={` ${divisionState===index ? " bg-slate-700 text-white "  : "bg-slate-200 text-gray-700 " }  w-[20%] text-center rounded-md px-4 py-2 text-md font-semibold `}>
-                          {division}
+                          {division.title}
                         </span>
                         })}
                         
@@ -144,12 +147,13 @@ export default function FeesDistribution() {
                   </div>
       
          <div className="border-2 rounded-md mx-8">
-          <div className="grid w-full grid-cols-5 p-2 text-sm font-semibold text-gray-500 bg-slate-50">
+          <div className={`grid w-full grid-cols-${divisionStats[divisionState].division.length + 1} p-2 text-sm font-semibold text-gray-500 bg-slate-50`}>
             <span>Fee Fields</span>
-            <span>Q1</span>
-            <span>Q2</span>
-            <span>Q3</span>
-            <span>Q4</span>
+            {divisionStats[divisionState].division.map((value,key)=>{
+              return <span>{value}</span>
+            })}
+            
+           
           </div>
           </div>
           <div

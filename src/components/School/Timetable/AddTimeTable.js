@@ -29,6 +29,7 @@ export default function AddTimetable() {
   async function uploadTimetable() {
     try{
       const token = localStorage.getItem("token");
+      console.log("Time Table Tows", timetableRows, "time Rows", timetableRowsTime)
       const res = await axios.post(API_URL + "list/timetable", {
         timetableRows : timetableRows,
         timetableRowsTime : timetableRowsTime
