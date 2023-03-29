@@ -15,19 +15,37 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
     return count
   }
   function getEmailAndPassword(){
-    let firstName = data.first_name.toLowerCase();
-    let phoneNumber = data.mobile_number
-    let dateOfJoining = new Date(data.date_of_joining)
-    if(firstName.length > 5) firstName = firstName.substring(0,5);
-    else while(firstName.length < 5) firstName += "5";
-    phoneNumber = phoneNumber.substring(phoneNumber.length - 2);
-    let month = dateOfJoining.getMonth() + 1;
-    let date = dateOfJoining.getDate() ;
-
-    if (month < 10) month = "0" + month;
-    if (date < 10) date = "0" + date;
-    const pass = firstName + date+ month + phoneNumber;
-    setPassword(pass)
+    if(profileType==="student"){
+      let firstName = data.first_name.toLowerCase();
+      let phoneNumber = data.parent_mobile_number
+      let dateOfAdmission = new Date(data.date_of_admission)
+      if(firstName.length > 5) firstName = firstName.substring(0,5);
+      else while(firstName.length < 5) firstName += "5";
+      phoneNumber = phoneNumber.substring(phoneNumber.length - 2);
+      let month = dateOfAdmission.getMonth() + 1;
+      let date = dateOfAdmission.getDate() ;
+  
+      if (month < 10) month = "0" + month;
+      if (date < 10) date = "0" + date;
+      const pass = firstName + date+ month + phoneNumber;
+      setPassword(pass)
+    }
+    else {
+      let firstName = data.first_name.toLowerCase();
+      let phoneNumber = data.mobile_number
+      let dateOfJoining = new Date(data.date_of_joining)
+      if(firstName.length > 5) firstName = firstName.substring(0,5);
+      else while(firstName.length < 5) firstName += "5";
+      phoneNumber = phoneNumber.substring(phoneNumber.length - 2);
+      let month = dateOfJoining.getMonth() + 1;
+      let date = dateOfJoining.getDate() ;
+  
+      if (month < 10) month = "0" + month;
+      if (date < 10) date = "0" + date;
+      const pass = firstName + date+ month + phoneNumber;
+      setPassword(pass)
+    }
+    
   }
   useEffect(()=>{
     getEmailAndPassword();
@@ -139,7 +157,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
           <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Login Email</span>
-            <span>{profileType==="student" ? data.parent_account_no : data.user.email} </span>
+            <span>{data.user.email} </span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">

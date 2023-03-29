@@ -17,6 +17,7 @@ import StudentSubjects from "./components/Student/Subjects";
 import StudentTest from "./components/Student/Test";
 import StudentFees from "./components/Student/FeesPayment";
 import StudentChat from "./components/Student/Message";
+import StudentNoticeFullPageView from "./components/Student/NoticeFullPageView";
 // School Pages Imports
 import SchoolDashboard from "./components/School/Dashboard";
 import AllStaff from "./components/School/Staff";
@@ -87,6 +88,7 @@ export default function App() {
           <Route path="/student/test" element={localStorage.getItem("UserType")!=="Student"? <NotAuthorized /> : <StudentTest />} />
           <Route path="/student/message" element={localStorage.getItem("UserType")!=="Student"? <NotAuthorized /> : <StudentChat />} />
           <Route path="/student/fees" element={localStorage.getItem("UserType")!=="Student"? <NotAuthorized /> : <StudentFees />} />
+          <Route path="/student/notice/:id" element={localStorage.getItem("UserType")!=="Student" ? <NotAuthorized /> : <StudentNoticeFullPageView /> } />
 
           {/* School Links */}
           <Route path="/school/dashboard" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolDashboard /> : <StartPay />} />

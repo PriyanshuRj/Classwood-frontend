@@ -53,7 +53,7 @@ className={`flex flex-row text-indigo-600 items-center font-semibold cursor-poin
           const noticeDate = new Date(notice.date_posted);
           console.log("notices : ");
           return (
-            <Link to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : localStorage.getItem("UserType") ==="School" ? "/school/notice/" + index :  "/student/notice" + index}>
+            <Link to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : localStorage.getItem("UserType") ==="School" ? "/school/notice/" + index :  "/student/notice/" + index}>
               <div className="flex justify-start pt-4 ">
               <div
                     className="text-sm text-[#76A5FF] bg-[#F0F7FD] rounded-md self-start  px-4 py-2 mr-6 flex justify-center items-center flex-col font-semibold">

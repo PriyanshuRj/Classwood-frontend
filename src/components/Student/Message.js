@@ -21,7 +21,7 @@ export default function Message() {
 
   return (
     <Layout>
-    <div className="flex flex-row h-full antialiased text-gray-800">
+    <div className="flex flex-row h-screen antialiased text-gray-800">
       <MessageSidebar selectedChat={selectedChat} setSelectedChat={setSelectedChat} chatList={chatList} />
         <div className={`flex-col w-full h-full px-4 py-6 bg-white  ${selectedChat!== -1 ? "flex":"hidden"} lg:flex`}>
           <div className="flex flex-row items-center px-6 py-4 shadow rounded-2xl">
