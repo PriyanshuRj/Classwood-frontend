@@ -1,17 +1,37 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { GoPrimitiveDot, GoLocation } from "react-icons/go";
 import { RxCross1 } from "react-icons/rx";
+import {BsFillPersonFill} from 'react-icons/bs';
 import { BsBriefcase } from "react-icons/bs";
 import { MdOutlineSchool } from "react-icons/md";
 import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar, AiOutlineUser} from "react-icons/ai";
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
 export default function ProfileSideBar({setOpenProfile, data, setProfileData, setOpenAddProfile, profileType}) {
+  const [password, setPassword] = useState("");
   function findNoOfAbsents(str){
     let count = 0;
     for( let i = 0;i< str.length;i++) if(str[i]==="2") count++;
     return count
   }
+  function getEmailAndPassword(){
+    let firstName = data.first_name.toLowerCase();
+    let phoneNumber = data.mobile_number
+    let dateOfJoining = new Date(data.date_of_joining)
+    if(firstName.length > 5) firstName = firstName.substring(0,5);
+    else while(firstName.length < 5) firstName += "5";
+    phoneNumber = phoneNumber.substring(phoneNumber.length - 2);
+    let month = dateOfJoining.getMonth() + 1;
+    let date = dateOfJoining.getDate() ;
+
+    if (month < 10) month = "0" + month;
+    if (date < 10) date = "0" + date;
+    const pass = firstName + date+ month + phoneNumber;
+    setPassword(pass)
+  }
+  useEffect(()=>{
+    getEmailAndPassword();
+  },[data])
   console.log("User data", data);
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
@@ -115,7 +135,20 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
             <span>{profileType==="student" ? data.parent_account_no : data.account_no} </span>
           </div>
         </div>
-      
+      <div className="flex flex-row items-center mt-4">
+          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">Login Email</span>
+            <span>{profileType==="student" ? data.parent_account_no : data.user.email} </span>
+          </div>
+        </div>
+        <div className="flex flex-row items-center mt-4">
+          <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">Login Password</span>
+            <span>{password} </span>
+          </div>
+        </div>
       </div>
       <div className="mx-4 my-4">
 

@@ -57,7 +57,7 @@ export default function App() {
     }
   },[UserType])
   useEffect(()=>{
-    if(localStorage.getItem("token")){
+    if(localStorage.getItem("UserType")==="School"){
       getuserCredentials();
     }
   },[])
