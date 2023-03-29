@@ -50,8 +50,9 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
       else{
         const token = localStorage.getItem("token");
         const formData = new FormData();
+        console.log(subjectImage)
         formData.append("classroom", selectedClass.id);
-        formData.append("syllabus", subjectImage);
+        formData.append("attachments", subjectImage);
         formData.append("subject", setectedSubject.id);
         formData.append("tag",  selectedClass.class_teacher )
         let res = await axios.post(API_URL + "staff/syllabus/", formData, {

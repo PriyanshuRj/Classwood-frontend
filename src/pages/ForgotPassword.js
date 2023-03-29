@@ -8,7 +8,6 @@ import { API_URL } from "../helpers/URL";
 import { useNavigate } from "react-router-dom";
 import { loginUser, setSuccessToast, setWarningToast } from "../store/genralUser";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getAllDatatForStaffUser } from "../components/Staff/helper/getData";
 import { setProfileData } from "../store/genralUser";
 import loginBg from "../assets/CLASSWOOD Login Cover.png";

@@ -13,7 +13,7 @@ import PopUpMenu from "../PopUpMenu";
 
 export default function ProfileCard(props) {
   const dispatch = useDispatch();
-
+  console.log(props);
   const [today, setToday] = useState(0);
   const [attendanceState, setAttendanceState] = useState(0);
 

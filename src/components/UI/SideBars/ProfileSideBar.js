@@ -7,6 +7,8 @@ import { MdOutlineSchool } from "react-icons/md";
 import { AiOutlinePhone, AiOutlineCalendar,AiOutlineBank ,AiOutlineStar, AiOutlineUser} from "react-icons/ai";
 import {HiOutlineCake} from "react-icons/hi";
 import {FiEdit2} from "react-icons/fi";
+import { API_URL } from "../../../helpers/URL";
+import axios from "axios";
 export default function ProfileSideBar({setOpenProfile, data, setProfileData, setOpenAddProfile, profileType}) {
   const [password, setPassword] = useState("");
   function findNoOfAbsents(str){
@@ -14,6 +16,19 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
     for( let i = 0;i< str.length;i++) if(str[i]==="2") count++;
     return count
   }
+  console.log(data)
+  async function getStaffAttandence(){
+    const token = localStorage.getItem("token");
+    let res = await axios.get(API_URL + "list/staffAttendance/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    console.log("Attendence", res)
+  }
+  useEffect(()=>{
+    getStaffAttandence();
+  })
   function getEmailAndPassword(){
     if(profileType==="student"){
       let firstName = data.first_name.toLowerCase();

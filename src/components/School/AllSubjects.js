@@ -114,9 +114,9 @@ export default function AllSubjects() {
           </div>
           
         {viewState==='grid' ? <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {allSujects.map((subject, index)=>{
+          {allSyllabus.map((subject, index)=>{
           
-          return <SubjectCard key={index}/>
+          return <SubjectCard key={index} subject={subject}/>
           })}
          
         </div> 
@@ -130,7 +130,7 @@ export default function AllSubjects() {
           <span>ACTIONS</span>
 
         </div>
-        {allSujects.map((subject, index)=>{
+        {allSyllabus.map((subject, index)=>{
           return <div className="grid w-full grid-cols-4 p-2 py-4 font-semibold text-gray-800 bg-white border-b-2">
           <span>Physics</span>
           <span>12</span>
