@@ -29,15 +29,15 @@ export default function AddressDetailTab({
 
   }
   return (
-    <div className="flex flex-col justify-center flex-1 max-w-md space-y-5">
+    <div className="flex flex-col justify-center flex-1 max-w-2xl space-y-5">
       <div className="flex flex-col space-y-2 text-start">
-        <h2 className="text-3xl font-bold md:text-4xl">
+        <h2 className="text-3xl font-bold md:text-6xl">
           School Address Details
         </h2>
-        <p className="text-md md:text-xl">Sign up to Digitalize your school</p>
+        <p className="text-md md:text-2xl">Sign up to Digitalize your school</p>
       </div>
-      <div className="flex flex-col max-w-md">
-      <div className="flex flex-col max-w-md mt-4">
+      <div className="flex flex-col max-w-2xl">
+      <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">Affilation Board*</label>
         <input
           value={affilationBoard}
@@ -47,7 +47,7 @@ export default function AddressDetailTab({
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>
-        <div className="flex flex-col max-w-md mt-4">
+        <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">Affilation Number*</label>
         <input
           value={affilationNo}
@@ -57,7 +57,7 @@ export default function AddressDetailTab({
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>
-        <div className="flex flex-col max-w-md mt-4">
+        <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">School Address*</label>
         <textarea
           value={schoolAdress}
@@ -67,7 +67,7 @@ export default function AddressDetailTab({
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>
-        <div className="flex flex-col max-w-md mt-4">
+        <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">School City*</label>
         <input
           value={schoolCity}
@@ -77,7 +77,7 @@ export default function AddressDetailTab({
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>
-        <div className="flex flex-col max-w-md mt-4">
+        <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">School State*</label>
         <input
           value={schoolState}
@@ -87,7 +87,7 @@ export default function AddressDetailTab({
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>
-        <div className="flex flex-col max-w-md mt-4">
+        <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">School Zipcode*</label>
         <input
           value={schoolZipcode}

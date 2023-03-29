@@ -10,6 +10,7 @@ import { setSuccessToast } from "./store/genralUser";
 import Login from "./pages/login";
 import Register from './pages/Register';
 import NotAuthorized from "./components/NotAuthorized";
+import ForgotPassword from "./pages/ForgotPassword";
 // Student Pages Imports
 import StudentDashboard from "./components/Student/Dashboard";
 import StudentSubjects from "./components/Student/Subjects";
@@ -61,7 +62,7 @@ export default function App() {
     }
   },[])
   const getuserCredentials = async () =>{
-    const acountData = await  axios.get(API_URL + "/account/", 
+    const acountData = await  axios.get(API_URL + "account/", 
     {
       headers : {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -78,6 +79,7 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {/* Students links  */}
           <Route path="/student/dashboard" element={localStorage.getItem("UserType")!=="Student"? <NotAuthorized /> : <StudentDashboard />} />

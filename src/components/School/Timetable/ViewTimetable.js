@@ -19,7 +19,20 @@ section_name : "No Section"});
 
   const [loading, setLoading] = useState(false);
 
+  async function getTimeTable(){
+    const token  = localStorage.getItem("token");
+    const res = await axios.get(API_URL + "staff/timeTable", {
+      
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+    })
+    console.log(res);
+  }
+  useEffect(()=>{
+  getTimeTable()
 
+  }, [])
   useEffect(() => {
     if (classrooms.length === 0)
       getAllSchoolData(dispatch, navigate, setLoading);

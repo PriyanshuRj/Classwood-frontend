@@ -5,6 +5,7 @@ import userSlice from './genralUser';
 import staffUserSlice from './Staff/UserSlice';
 import timetableSlice from './School/timetableSlice';
 import studentSlice from './School/studentSlice';
+import syllabusSlice from './School/syllabusSlice';
 export default configureStore({
   reducer: {
       staff : staffSlice,
@@ -12,6 +13,7 @@ export default configureStore({
       user : userSlice,
       staffUser : staffUserSlice,
       timetable :timetableSlice,
-      student : studentSlice
+      student : studentSlice,
+      syllabus : syllabusSlice
   },
 })

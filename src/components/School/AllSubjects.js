@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
 import SubjectCard from "../UI/Cards/SubjectCard";
+import { BsGrid, BsListUl } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
 import { FiFilter, FiMoreHorizontal } from "react-icons/fi";
 import UploadSyllabusSidebar from "../UI/SideBars/UploadSyllabusSidebar";
 import { AiOutlineSearch, AiOutlineUpload } from "react-icons/ai";
+import { getAllSchoolData } from "./helpers/dataFetcher";
+import { useNavigate } from "react-router-dom";
+import { Rings } from "react-loader-spinner";
 const tabs = [
   "All Classes",
   "Senior Secondary",
@@ -13,12 +18,33 @@ const tabs = [
   "Pre Primary",
 ];
 export default function AllSubjects() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openUpload, setOpenUpload] = useState(false);
   const [tabState, setTabState] = useState(0);
   const [viewState, setViewState] = useState("grid");
+  const [loading, setLoading] = useState(false);
+  
+  const allSyllabus = useSelector((state) => state.syllabus.allSyllabus);
+  console.log("All Sylabus", allSyllabus)
   const allSujects = [{}, {}, {}, {}, {}, {}];
+
+  useEffect(()=>{
+    if(!allSyllabus.length) getAllSchoolData(dispatch, navigate, setLoading);
+  },[])
   return (
     <Layout>
+      {loading ?  
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div> : <>
       {openUpload !== false ? (
         <UploadSyllabusSidebar setOpenUpload={setOpenUpload} />
       ) : undefined}
@@ -76,10 +102,12 @@ export default function AllSubjects() {
             </button>
             </div>
             <div className="flex flex-row p-1 rounded-md bg-slate-100">
-            <span className={`px-2 pl-4 py-2  ${viewState==='grid' ?'bg-white pr-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('grid')}>
+            <span className={`px-2 pl-4 py-2 flex items-center justify-center ${viewState==='grid' ?'bg-white pr-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('grid')}>
+            <BsGrid className="mr-2" />
               Grid
             </span>
-            <span className={`px-2 pr-4 py-2 ${viewState==='list' ?'bg-white pl-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('list')}>
+            <span className={`px-2 pr-4 py-2 flex items-center justify-center ${viewState==='list' ?'bg-white pl-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('list')}>
+            <BsListUl className="mr-2" />
               List
             </span>
             </div>
@@ -112,7 +140,7 @@ export default function AllSubjects() {
         </div>
         })}
         </div>}
-      </div>
+      </div></> }
     </Layout>
   );
 }

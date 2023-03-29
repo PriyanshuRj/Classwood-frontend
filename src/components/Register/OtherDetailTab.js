@@ -39,15 +39,15 @@ console.log("the web", schoolWebsite.substring(0,12))
     }
   }
   return (
-    <div className="flex flex-col justify-center flex-1 max-w-md space-y-5">
+    <div className="flex flex-col justify-center flex-1 max-w-2xl space-y-5">
       <div className="flex flex-col space-y-2 text-start">
-        <h2 className="text-3xl font-bold md:text-4xl">
+        <h2 className="text-3xl font-bold md:text-6xl">
           School Contact Details 
         </h2>
-        <p className="text-md md:text-xl">SFill up the contact details form of your school</p>
+        <p className="text-md md:text-2xl">Fill up the contact details form of your school</p>
       </div>
-      <div className="flex flex-col max-w-md">
-      <div className="flex flex-col max-w-md mt-4">
+      <div className="flex flex-col max-w-2xl">
+      <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">School Phone Number*</label>
         <input
           type="number"
@@ -58,7 +58,7 @@ console.log("the web", schoolWebsite.substring(0,12))
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
 </div>
-<div className="flex flex-col max-w-md mt-4">
+<div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">School Website*</label>
         <input
           type="text"
@@ -68,7 +68,7 @@ console.log("the web", schoolWebsite.substring(0,12))
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>
-        <div className="flex flex-col max-w-md mt-4">
+        <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">Date of Stablishment*</label>
        
         <input
@@ -79,7 +79,7 @@ console.log("the web", schoolWebsite.substring(0,12))
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>
-        <div className="flex flex-col max-w-md mt-4">
+        <div className="flex flex-col max-w-2xl mt-4">
           <label className="font-semibold mt-2">School Logo</label>
         <div className="flex items-center justify-center w-full">
           <label

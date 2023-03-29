@@ -2,6 +2,7 @@ import { addAllStaff } from "../../../store/School/staffSlice";
 import { addAllClassroom } from "../../../store/School/classroomSlice";
 import { addAllStudent } from "../../../store/School/studentSlice";
 import { API_URL } from "../../../helpers/URL";
+import { addAllSyllabus } from "../../../store/School/syllabusSlice";
 import axios from "axios";
 
 export async function getAllSchoolData(dispatch, navigate, setLoading) {
@@ -25,6 +26,12 @@ export async function getAllSchoolData(dispatch, navigate, setLoading) {
         Authorization: `Bearer ${token}`,
       },
     });
+    const syllabusRes = await axios.get(API_URL + "staff/syllabus/",{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    dispatch(addAllSyllabus(syllabusRes.data))
     dispatch(addAllStaff(resStaff.data));
     dispatch(addAllClassroom(resClassroom.data));
     dispatch(addAllStudent(resStudent.data));

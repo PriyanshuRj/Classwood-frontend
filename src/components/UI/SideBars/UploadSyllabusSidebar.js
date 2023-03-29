@@ -7,7 +7,7 @@ import ClassDropDown from "../../School/helpers/ClassDropDown";
 import SubjectDropDown from "../../School/helpers/SubjectDropDown";
 import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
 import { useDispatch } from "react-redux";
-
+import { Rings } from "react-loader-spinner";
 
 export default function UploadSyllabusSidebar({setOpenUpload}) {
   const dispatch = useDispatch();
@@ -17,15 +17,16 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
   const [setectedSubject, setSelectedSubject] = useState({
     name: "No Subject Selected",
   });
-  const [showStudents, setShowStudents] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [selectedClass, setSelectedClass] = useState(classrooms[0]);
   const [subjectImage, setSubjectImage] = useState(null);
 
   useEffect(() => {
     fetchSubjects();
   }, [selectedClass]);
+
   async function fetchSubjects() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
       headers: {
@@ -37,27 +38,37 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
     });
     setClassSubjects(classroomSubjects.data);
     setSelectedSubject({ name: "No Subject Selected" });
-    setShowStudents(false);
+    setLoading(false);
   }
   async function createSyllabus(){
     try{
-      const token = localStorage.getItem("token");
-      const formData = new FormData();
-      formData.append("classroom", selectedClass.id);
-      formData.append("syllabus", subjectImage);
-      formData.append("subject", setectedSubject.id);
-      let res = await axios.post(API_URL + "list/syllabus", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if(res.status==200){
-        dispatch(setWarningToast("Syllabus Adding Failed"));
-
+      console.log(selectedClass, setectedSubject);
+      if(setectedSubject.name ==="No Subject Selected"){
+        dispatch(setWarningToast("Please select a subject"));
       }
-      if(res.status===201){
-        dispatch(setSuccessToast("Syllabus Added successfully"));
+      if(!subjectImage)  dispatch(setWarningToast("Please select a syllabus file"));
+      else{
+        const token = localStorage.getItem("token");
+        const formData = new FormData();
+        formData.append("classroom", selectedClass.id);
+        formData.append("syllabus", subjectImage);
+        formData.append("subject", setectedSubject.id);
+        formData.append("tag",  selectedClass.class_teacher )
+        let res = await axios.post(API_URL + "staff/syllabus/", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res);
+        if(res.status==200){
+          dispatch(setWarningToast("Syllabus Adding Failed"));
+  
+        }
+        if(res.status===201){
+          dispatch(setSuccessToast("Syllabus Added successfully"));
+        }
       }
+     
         }
     catch(error){
       console.warn(error);
@@ -68,6 +79,17 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
       <div onClick={()=>setOpenUpload(false)} className="absolute p-2 bg-gray-200 rounded-full cursor-pointer top-8 left-8">
         <RxCross1 />
       </div>
+      {loading ?  
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div> : <>
       <div className="mt-10 text-lg font-semibold text-black">
 
       <span className="mt-16 ml-8 text-lg font-semibold text-black">Create New Syllabus</span>
@@ -128,8 +150,9 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
             <input id="dropzone-file" type="file" className="hidden" onChange={(e)=> setSubjectImage(e.target.files[0])} />
           </label>
         </div>
-          <button className="self-end w-full py-2 mt-8 font-semibold text-white bg-indigo-500 rounded-md text-md ">Submit</button>
+          <button onClick={()=> createSyllabus()} className="self-end w-full py-2 mt-8 font-semibold text-white bg-indigo-500 rounded-md text-md ">Submit</button>
       </div>
+      </> }
     </div>
   );
 }
