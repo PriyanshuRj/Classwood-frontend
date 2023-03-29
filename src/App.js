@@ -49,7 +49,7 @@ export default function App() {
 
     console.log("user : ",localStorage.getItem("UserType"), UserType);
     if(localStorage.getItem("UserType")){
-      // dispatch(loginUser(localStorage.getItem("UserType")))
+      dispatch(loginUser(localStorage.getItem("UserType")))
     }
     if(UserType){
       dispatch(setSuccessToast("Loged in successfully"));
@@ -58,6 +58,7 @@ export default function App() {
     }
   },[UserType])
   useEffect(()=>{
+    console.log(localStorage.getItem("UserType"))
     if(localStorage.getItem("UserType")==="School"){
       getuserCredentials();
     }
@@ -71,6 +72,7 @@ export default function App() {
     }
   )
   dispatch(setProfileData(acountData.data));
+  console.log("account data", acountData)
   }
   return (
     <Router>

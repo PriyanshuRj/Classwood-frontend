@@ -7,6 +7,7 @@ export default function SideBar({children}) {
 
   const Logout = ()=>{
     localStorage.removeItem("UserType");
+    localStorage.removeItem("token");
     navigate(`/`);
 
   }

@@ -133,7 +133,7 @@ export default function Message() {
               </div>
             </div>
             <div className="ml-6">
-              <button className="flex items-center justify-center w-10 h-10 text-white text-indigo-800 bg-gray-200 rounded-full hover:bg-gray-300">
+              <button className="flex items-center justify-center w-10 h-10 text-indigo-800 bg-gray-200 rounded-full hover:bg-gray-300">
                 <svg className="w-5 h-5 -mr-px transform rotate-90"
                      fill="none"
                      stroke="currentColor"

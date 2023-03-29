@@ -75,7 +75,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
     }
   }
   return (
-    <div className="z-40 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">
+    <div className="z-40 fixed top-0 right-0 pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">
       <div onClick={()=>setOpenUpload(false)} className="absolute p-2 bg-gray-200 rounded-full cursor-pointer top-8 left-8">
         <RxCross1 />
       </div>

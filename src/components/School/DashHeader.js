@@ -2,7 +2,35 @@ import React from "react";
 import {FiSettings, FiBell, FiUser} from 'react-icons/fi';
 import {BiNotification} from 'react-icons/bi';
 import { useSelector } from "react-redux";
+import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
+import { useNavigate } from "react-router-dom";
 export default function DashHeader() {
+  const navigate = useNavigate();
+
+  const Logout = ()=>{
+    localStorage.removeItem("UserType");
+    localStorage.removeItem("token");
+    navigate(`/`);
+
+  }
+
+  const viewProfile=()=>{
+    navigate(`/school/dashboard`);
+  }
+  const ClassroomPopUpData = [
+    {
+      title: "View Profile",
+      function: viewProfile,
+    },
+
+  
+    {
+      title: "logout",
+      function: Logout,
+      deleteType: true,
+    },
+  ];
+
   const userData = useSelector((state) => state.user.userProfileData);
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
@@ -16,9 +44,9 @@ export default function DashHeader() {
         </div> */}
         < BiNotification className=" h-8 w-8 min-[480px]:h-6 min-[480px]:w-6 sm:w-4 sm:h-4 md:w-10 md:h-10 text-[#5F6368]" />
         
-        <div className="ml-4 p-2 min-[480px]:p-4  md:p-4 ml-2 bg-[#D9D9D9] rounded-full">
-        <FiUser className="h-4 w-4 min-[480px]:h-6 min-[480px]:w-6 sm:w-4 sm:h-4 md:w-7 md:h-7 text-[#5F6368]" />       
-        </div>
+        
+        <ProfilePopUpMenu menuList={ClassroomPopUpData} />
+
       </div>
     </div>
   );

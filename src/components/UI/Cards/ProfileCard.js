@@ -88,38 +88,71 @@ const deleteFunction = {
 
   async function markAttendance(val) {
     const token = localStorage.getItem("token");
+    const date = new Date();
+   
     try {
-      const date = new Date();
-      const res = await axios.post(
-        API_URL + "staff/attendance/",
-        {
-          date: formatDate(date),
-          present: val,
-          student: props.studentId,
-          classroom: localStorage.getItem("classId"),
-          school: props.school,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      if(props.type==="student"){
+        const res = await axios.post(
+          API_URL + "staff/studentAttendance/",
+          {
+            date: formatDate(date),
+            present: val,
+            student: props.studentId,
+            classroom: localStorage.getItem("classId"),
+            school: props.school,
           },
-        }
-      );
-      console.log("res : ", res);
-      if (res.status === 201)
-        dispatch(setSuccessToast("Attendance Marked Succesfully"));
-      setAttendanceState(val ? 2 : 1);
-      console.log("value of attendance", attendanceState);
-      if (
-        res.status === 200 &&
-        res.data.non_field_errors[0] ===
-          "The fields student, date must make a unique set."
-      )dispatch
-        (setWarningToast("Attendance marked for the day"));
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("res : ", res);
+        if (res.status === 201)
+          dispatch(setSuccessToast("Attendance Marked Succesfully"));
+        setAttendanceState(val ? 2 : 1);
+        console.log("value of attendance", attendanceState);
+        if (
+          res.status === 200 &&
+          res.data.non_field_errors[0] ===
+            "The fields student, date must make a unique set."
+        )dispatch
+          (setWarningToast("Attendance marked for the day"));
+      }
+      else {
+        console.log(props.allData,val)
+        const res = await axios.post(
+          API_URL + "list/staffAttendance/",
+          {
+            date: formatDate(date),
+            present: val,
+            staff: props.allData.user.id,
+            school: props.allData.school,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("res : ", res);
+        if (res.status === 201)
+          dispatch(setSuccessToast("Attendance Marked Succesfully"));
+        setAttendanceState(val ? 2 : 1);
+        console.log("value of attendance", attendanceState);
+        if (
+          res.status === 200 &&
+          res.data.non_field_errors[0] ===
+            "The fields student, date must make a unique set."
+        )dispatch
+          (setWarningToast("Attendance marked for the day"));
+      }
+     
     } catch (e) {
       console.warn("Error ::: ", e);
     }
   }
+
   return (
     <div className="border-[1px]  border-gray-400 rounded-lg flex flex-col p-4 w-full">
       <div className="flex flex-row justify-between border-b-[1px] border-gray-200 pb-2 border-dotted">
@@ -174,10 +207,10 @@ const deleteFunction = {
       </div>
 
       }
-      {props.type === "student" &&
+      {(props.type === "student" &&
       localStorage.getItem("classId") &&
       (localStorage.getItem("UserType") === "School" ||
-        props.classTeacherOff.includes(props.StclassName)) ? (
+        props.classTeacherOff.includes(props.StclassName))) || props.type==="staff" ? (
         <div className="flex flex-col">
           <span className="mt-4 mb-4 font-medium text-md">Mark Attendence</span>
           <div className="flex flex-row justify-between">

@@ -32,7 +32,7 @@ export default function AddTimetable() {
       console.log("Time Table Tows", timetableRows, "time Rows", timetableRowsTime)
       const res = await axios.post(API_URL + "staff/timeTable/", {
         timetable : [timetableRows,timetableRowsTime],
-        classroom : selectedClass
+        classroom : selectedClass.id
       },{
         headers : {
           Authorization: `Bearer ${token}`,
@@ -141,7 +141,7 @@ export default function AddTimetable() {
 
           <div
         onClick={()=>addRow()}
-        className="flex cursor-pointer items-center justify-between px-4 py-2 mx-8 font-medium text-white bg-indigo-600 rounded-md"
+        className="flex items-center justify-between px-4 py-2 mx-8 font-medium text-white bg-indigo-600 rounded-md cursor-pointer"
         >
             <IoMdAddCircleOutline className="mr-2" />
             Add Row
@@ -149,7 +149,7 @@ export default function AddTimetable() {
           </div>
           <div
         onClick={()=>uploadTimetable()}
-        className="text-center flex cursor-pointer items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-white bg-indigo-600 rounded-md"
+        className="flex items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-center text-white bg-indigo-600 rounded-md cursor-pointer"
         >
             Submit Timetable
             </div>
