@@ -40,7 +40,7 @@ export default function SchoolSidebar() {
             to="/student/test"
           >
             <FiEdit3 className="w-6 h-6 " />
-            <span className="ml-4 text-lg font-medium select-none">Text/Exam</span>
+            <span className="ml-4 text-lg font-medium select-none">Test/Exam</span>
           </Link>
         </div>
         <div className="flex w-full">
