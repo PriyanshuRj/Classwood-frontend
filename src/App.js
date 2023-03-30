@@ -47,7 +47,6 @@ export default function App() {
   const UserType = useSelector((state) => state.user.UserType);
   useEffect(()=>{
 
-    console.log("user : ",localStorage.getItem("UserType"), UserType);
     if(localStorage.getItem("UserType")){
       dispatch(loginUser(localStorage.getItem("UserType")))
     }
@@ -58,7 +57,6 @@ export default function App() {
     }
   },[UserType])
   useEffect(()=>{
-    console.log(localStorage.getItem("UserType"))
     if(localStorage.getItem("UserType")==="School"){
       getuserCredentials();
     }
@@ -72,7 +70,6 @@ export default function App() {
     }
   )
   dispatch(setProfileData(acountData.data));
-  console.log("account data", acountData)
   }
   return (
     <Router>

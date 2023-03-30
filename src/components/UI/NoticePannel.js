@@ -31,7 +31,6 @@ export default function NoticePannel({setOpenAddNoticeModal}) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("these are notices : ", res.data)
     dispatch(setNotice(res.data));
   }
   useEffect(() => {
@@ -51,7 +50,6 @@ className={`flex flex-row text-indigo-600 items-center font-semibold cursor-poin
       <div className=" bg-white text-black pt-4 md:pt-6 w-full h-max">
         {notices.map((notice, index) => {
           const noticeDate = new Date(notice.date_posted);
-          console.log("notices : ");
           return (
             <Link to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : localStorage.getItem("UserType") ==="School" ? "/school/notice/" + index :  "/student/notice/" + index}>
               <div className="flex justify-start pt-4 ">

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import { AiOutlineBarChart } from "react-icons/ai";
 import Layout from "./Layout";
-
+import axios from "axios";
+import { API_URL } from "../../helpers/URL";
 import { Link } from "react-router-dom";
 import schoolStudentImg from "../../assets/schoolStudent.png";
 import schoolStaffImg from "../../assets/schoolStaff.png";
@@ -21,12 +22,47 @@ export default function StudentDashboard() {
   const noOfStudent = useSelector((state) => state.student.noOfStudent);
   const noOfStaffMenber = useSelector((state) => state.staff.noOfStaffMember);
   const noOfCasses = useSelector((state) => state.classroom.noOfClasses);
-
+  const allStudent = useSelector((state) => state.student.allStudent);
+  const allStaffMemeber = useSelector((state) => state.staff.allStaff);
   useEffect(() => {
     if (!noOfStaffMenber) getAllSchoolData(dispatch, navigate, setLoading);
   }, []);
   const [openAddNoticeModal, setOpenAddNoticeModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [today, setToday] = useState(0);
+  const [presentStudent, setPresentStudents] = useState("");
+  const [presentStaff, setPresentStaff] = useState("");
+  useEffect(() => {
+    const date = new Date();
+    setToday(date.getDate());
+  }, []);
+
+  const getAllStudentAttendence = async () => {
+    if(today){
+      let presents = 0;
+      for(let i in allStudent){
+        let val = JSON.parse(allStudent[i].month_attendance)[today-1];
+        if(val===2) presents++;
+      }
+      setPresentStudents(presents);
+    }
+
+  }
+  const getAllStaffAttendence = async () => {
+    if(today){
+      let presents = 0;
+      for(let i in allStaffMemeber){
+        let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
+        if(val===2) presents++;
+      }
+      setPresentStaff(presents);
+    }
+
+  }
+  useEffect(()=>{
+    getAllStudentAttendence();
+    getAllStaffAttendence();
+  },[today,allStudent]);
   return (
     <Layout>
       {loading ? (
@@ -159,7 +195,7 @@ export default function StudentDashboard() {
                         Present Student
                       </span>
                       <span className="font-semibold text-xl">
-                        200
+                      {presentStudent}
                       </span>
                     </div>
                     <AiOutlineBarChart className="w-6 h-6 text-[#2dd480]"/>
@@ -171,7 +207,7 @@ export default function StudentDashboard() {
                         Present Staff
                       </span>
                       <span className="font-semibold text-xl">
-                        200
+                        {presentStaff}
                       </span>
                     </div>
                     <AiOutlineBarChart className="w-6 h-6 text-[#2dd480]"/>

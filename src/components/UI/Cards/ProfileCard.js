@@ -209,10 +209,10 @@ const deleteFunction = {
       </div>
 
       }
-      {(props.type === "student" &&
+      {!attendanceState && ((props.type === "student" &&
       localStorage.getItem("classId") &&
       (localStorage.getItem("UserType") === "School" ||
-        props.classTeacherOff.includes(props.StclassName))) || props.type==="staff" ? (
+        props.classTeacherOff.includes(props.StclassName))) || props.type==="staff") ? (
         <div className="flex flex-col">
           <span className="mt-4 mb-4 font-medium text-md">Mark Attendence</span>
           <div className="flex flex-row justify-between">
