@@ -6,21 +6,27 @@ import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
 import SingleEntry from "./SingleEntry";
 import { useDispatch, useSelector } from 'react-redux';
+import { Rings } from "react-loader-spinner";
+import {setSuccessToast, setTestStudent, setWarningToast} from "../../../store/genralUser";
 
-import {setTestStudent} from "../../../store/genralUser";
 export default function AddExamResult() {
   const dispatch = useDispatch();
   const classStudents  = useSelector((state) => state.user.testStudents);
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [selectedClass, setSelectedClass] = useState(classrooms[0]);
   const [CSVFile, setCSVFile] = useState(null);
-
+  const [loading, setLoading] = useState(false);
+  const [examName, setExamName] = useState("");
+  const [examDate, setExamDate] = useState("");
+  const [maxMarks, setMaxMarks] = useState("");
   const [classSubjects, setClassSubjects] = useState([]);
   const [showStudents, setShowStudents] = useState(false);
   const [setectedSubject, setSelectedSubject] = useState({
     name: "No Subject Selected",
   });
+
   async function fetchSubjects() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
       headers: {
@@ -33,9 +39,11 @@ export default function AddExamResult() {
     setClassSubjects(classroomSubjects.data);
     setSelectedSubject({ name: "No Subject Selected" });
     setShowStudents(false);
+    setLoading(false);
   }
 
   async function getStudents() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     let res = await axios.get(API_URL + "staff/student/", {
       headers: {
@@ -46,29 +54,31 @@ export default function AddExamResult() {
       },
     });
     dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));
+    setLoading(false);
   }
   function onAddStudentClick() {
     setShowStudents(true);
     getStudents();
   }
-  async function addResults(){
+  async function addResults(exam){
     if(showStudents){
       console.log(classStudents);
       const token = localStorage.getItem("token");
       
-
+      
       classStudents.map(async (student,index)=>{
         const formData = new FormData();
         formData.append("student",student.user.id);
-        formData.append("classroom",selectedClass.id);
-        formData.append("subject",setectedSubject.id);
-        formData.append("score", student.marks);
-        formData.append("totalMarks",student.totalMarks);
-        formData.append("marksheet", student.marksheet);
-        const res = await axios.post(API_URL + "staff/result",formData,
+        formData.append("score", parseInt(student.marks));
+        formData.append("exam",exam.id);
+        // formData.append("marksheet", student.marksheet);
+        const res = await axios.post(API_URL + "staff/result/",formData,
         {headers: {
           Authorization: `Bearer ${token}`,
         }})
+        console.log(res);
+        if(res.status===200) dispatch(setWarningToast("Error in Adding Results"));
+        if(res.status===201) dispatch(setSuccessToast("Exam Result added Succesfully"));
       }
       )
     }
@@ -76,15 +86,43 @@ export default function AddExamResult() {
       const token = localStorage.getItem("token");
 
       const formData = new FormData();
-      formData.append("result",CSVFile);
-      formData.append("classroom",selectedClass.id);
-      formData.append("subject",setectedSubject.id);
-      const res = await axios.push(API_URL + "staff/result",{
-
-      },
+      formData.append("csv_file",CSVFile);
+      formData.append("exam",exam.id);
+      // formData.append("classroom",selectedClass.id);
+      // formData.append("subject",setectedSubject.id);
+      const res = await axios.post(API_URL + "staff/result/",formData,
       {headers: {
         Authorization: `Bearer ${token}`,
-      }})
+      }});
+      console.log(res);
+      if(res.status===200) dispatch(setWarningToast("Error in Adding Results"));
+      if(res.status===201) dispatch(setSuccessToast("Successfully added results"));
+    }
+  } 
+  const addExam = async  ()=>{
+    const token = localStorage.getItem('token');
+    try{
+      if(examDate === "" || maxMarks=== ""  || setectedSubject.name === "No Subject Selected"){
+        dispatch(setWarningToast("Please fill complete Details"));
+      }
+      const res = await axios.post(API_URL + "staff/exam/",{
+        max_marks : parseInt(maxMarks),
+        date_of_exam : examDate,
+        classroom : selectedClass.id,
+        subject : setectedSubject.id,
+        tag : examName
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if(res.status==200) dispatch(setWarningToast("Error in Adding Exam"));
+      if(res.status==201){
+        addResults(res.data.data);
+      }
+      console.log(res);
+    } catch( e ){
+      console.log(e);
     }
   }
   useEffect(() => {
@@ -92,8 +130,23 @@ export default function AddExamResult() {
   }, [selectedClass]);
 
   return (
-    <div className="flex flex-col w-full mt-8">
+    <>
+    
+    {loading ? 
+    <div className="flex items-center justify-center w-full h-screen">
+
+    <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          /> </div>
+    : <div className="flex flex-col w-full mt-8">
+      
       <p className="pl-8 mb-8 text-2xl font-medium">Add Results For a Test</p>
+
       <div className="flex flex-row px-4">
         <div className="w-full mx-4">
 
@@ -119,19 +172,51 @@ export default function AddExamResult() {
           />
           </div>
       </div>
+      <div className="flex flex-col md:px-8 ">
+      <div className="flex flex-col  mt-4 ">
+          <label className="mt-2 font-semibold">Exam Name*</label>
+          <input
+            type="text"
+            placeholder="Exame Name"
+            value={examName}
+            onChange={(e) => setExamName(e.target.value)}
+            className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
+          />
+        </div>
+        <div className="flex flex-col  mt-4">
+          <label className="mt-2 font-semibold">Exame Date*</label>
+          <input
+            type="date"
+            // value={email}
+            onChange={(e) => setExamDate(e.target.value)}
+            className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
+          />
+        </div>
+        <div className="flex flex-col  mt-4 ">
+          <label className="mt-2 font-semibold">Total Marks*</label>
+          <input
+            type="number"
+            placeholder="Total Marks"
+            value={maxMarks}
+            onChange={(e) => setMaxMarks(e.target.value)}
+            className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
+          />
+        </div>
+      </div>
+      
       {showStudents?
       <div className="px-8 mt-16">
         
-      <div className="grid grid-cols-6 gap-4 mb-2">
+      <div className="grid grid-cols-5 gap-4 mb-2">
         <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Roll Number
         </span>
         <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Student Name
         </span>
-        <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
+        {/* <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Total Marks
-        </span>
+        </span> */}
         <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Obtained Marks
         </span>
@@ -144,7 +229,7 @@ export default function AddExamResult() {
       </div>
       {classStudents.map((student,index)=>{
       
-      return <SingleEntry student={student} key={index} index={index} />
+      return <SingleEntry totalMarks={maxMarks} student={student} key={index} index={index} />
       })}
     </div>
       :
@@ -205,11 +290,12 @@ onAddStudentClick();
       </span>
       }
       <button
-        // onClick={() => setPageState(4)}
+        onClick={() => addExam()}
         className="flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"
       >
         Upload
       </button>
-    </div>
+    </div>}
+    </>
   );
 }

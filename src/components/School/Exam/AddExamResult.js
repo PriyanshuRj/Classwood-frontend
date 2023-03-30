@@ -7,7 +7,7 @@ import { API_URL } from "../../../helpers/URL";
 import SingleEntry from "./SingleEntry";
 import { useDispatch, useSelector } from 'react-redux';
 import { Rings } from "react-loader-spinner";
-import {setTestStudent} from "../../../store/genralUser";
+import {setSuccessToast, setTestStudent, setWarningToast} from "../../../store/genralUser";
 
 export default function AddExamResult() {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ export default function AddExamResult() {
   const [loading, setLoading] = useState(false);
   const [examName, setExamName] = useState("");
   const [examDate, setExamDate] = useState("");
+  const [maxMarks, setMaxMarks] = useState("");
   const [classSubjects, setClassSubjects] = useState([]);
   const [showStudents, setShowStudents] = useState(false);
   const [setectedSubject, setSelectedSubject] = useState({
@@ -59,7 +60,7 @@ export default function AddExamResult() {
     setShowStudents(true);
     getStudents();
   }
-  async function addResults(){
+  async function addResults(exam){
     if(showStudents){
       console.log(classStudents);
       const token = localStorage.getItem("token");
@@ -68,15 +69,14 @@ export default function AddExamResult() {
       classStudents.map(async (student,index)=>{
         const formData = new FormData();
         formData.append("student",student.user.id);
-        formData.append("classroom",selectedClass.id);
-        formData.append("subject",setectedSubject.id);
-        formData.append("score", student.marks);
-        formData.append("totalMarks",student.totalMarks);
-        formData.append("marksheet", student.marksheet);
-        const res = await axios.post(API_URL + "staff/result",formData,
+        formData.append("score", parseInt(student.marks));
+        formData.append("exam",exam.id);
+        // formData.append("marksheet", student.marksheet);
+        const res = await axios.post(API_URL + "staff/result/",formData,
         {headers: {
           Authorization: `Bearer ${token}`,
         }})
+        console.log(res);
       }
       )
     }
@@ -84,15 +84,43 @@ export default function AddExamResult() {
       const token = localStorage.getItem("token");
 
       const formData = new FormData();
-      formData.append("result",CSVFile);
-      formData.append("classroom",selectedClass.id);
-      formData.append("subject",setectedSubject.id);
-      const res = await axios.push(API_URL + "staff/result",{
-
-      },
+      formData.append("csv_file",CSVFile);
+      formData.append("exam",exam.id);
+      // formData.append("classroom",selectedClass.id);
+      // formData.append("subject",setectedSubject.id);
+      const res = await axios.post(API_URL + "staff/result/",formData,
       {headers: {
         Authorization: `Bearer ${token}`,
-      }})
+      }});
+      console.log(res);
+      if(res.status===200) dispatch(setWarningToast("Error in Adding Results"));
+      if(res.status===201) dispatch(setSuccessToast("Successfully added results"));
+    }
+  } 
+  const addExam = async  ()=>{
+    const token = localStorage.getItem('token');
+    try{
+      if(examDate === "" || maxMarks=== ""  || setectedSubject.name === "No Subject Selected"){
+        dispatch(setWarningToast("Please fill complete Details"));
+      }
+      const res = await axios.post(API_URL + "staff/exam/",{
+        max_marks : parseInt(maxMarks),
+        date_of_exam : examDate,
+        classroom : selectedClass.id,
+        subject : setectedSubject.id,
+        tag : examName
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if(res.status==200) dispatch(setWarningToast("Error in Adding Exam"));
+      if(res.status==201){
+        addResults(res.data.data);
+      }
+      console.log(res);
+    } catch( e ){
+      console.log(e);
     }
   }
   useEffect(() => {
@@ -147,7 +175,7 @@ export default function AddExamResult() {
           <label className="mt-2 font-semibold">Exam Name*</label>
           <input
             type="text"
-            placeholder="Email"
+            placeholder="Exame Name"
             value={examName}
             onChange={(e) => setExamName(e.target.value)}
             className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
@@ -157,26 +185,36 @@ export default function AddExamResult() {
           <label className="mt-2 font-semibold">Exame Date*</label>
           <input
             type="date"
-            placeholder="Email"
             // value={email}
             onChange={(e) => setExamDate(e.target.value)}
             className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
           />
         </div>
+        <div className="flex flex-col  mt-4 ">
+          <label className="mt-2 font-semibold">Total Marks*</label>
+          <input
+            type="number"
+            placeholder="Total Marks"
+            value={maxMarks}
+            onChange={(e) => setMaxMarks(e.target.value)}
+            className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
+          />
+        </div>
       </div>
+      
       {showStudents?
       <div className="px-8 mt-16">
         
-      <div className="grid grid-cols-6 gap-4 mb-2">
+      <div className="grid grid-cols-5 gap-4 mb-2">
         <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Roll Number
         </span>
         <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Student Name
         </span>
-        <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
+        {/* <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Total Marks
-        </span>
+        </span> */}
         <span className="flex items-center justify-start px-2 font-semibold text-gray-800">
           Obtained Marks
         </span>
@@ -189,7 +227,7 @@ export default function AddExamResult() {
       </div>
       {classStudents.map((student,index)=>{
       
-      return <SingleEntry student={student} key={index} index={index} />
+      return <SingleEntry totalMarks={maxMarks} student={student} key={index} index={index} />
       })}
     </div>
       :
@@ -250,7 +288,7 @@ onAddStudentClick();
       </span>
       }
       <button
-        onClick={() => addResults()}
+        onClick={() => addExam()}
         className="flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"
       >
         Upload

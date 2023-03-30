@@ -6,14 +6,14 @@ import {
   updateTotalMarks,
   updateMakrsheet,
 } from "../../../store/genralUser";
-export default function SingleEntry({ student, index }) {
+export default function SingleEntry({ student, index, totalMarks }) {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (student.totalMarks && student.marks) {
+    if (totalMarks && student.marks) {
       dispatch(
         updatePercentage({
           value: (
-            (parseInt(student.marks) / parseInt(student.totalMarks)) *
+            (parseInt(student.marks) / parseInt(totalMarks)) *
             100
           ).toFixed(2),
           id: index,
@@ -22,14 +22,14 @@ export default function SingleEntry({ student, index }) {
     }
   }, [student.totalMarks, student.marks]);
   return (
-    <div className="grid grid-cols-6 gap-4 mb-2" key={index}>
+    <div className="grid grid-cols-5 gap-4 mb-2" key={index}>
       <span className=" h-[50px] bg-[#F8FAFC] border-[1px] rounded-lg flex items-center justify-end px-2 text-gray-500">
         {student.roll_no}
       </span>
       <span className=" h-[50px] bg-[#F8FAFC] border-[1px] rounded-lg flex items-center justify-end px-2 text-gray-500">
         {student.first_name + " " + student.last_name}
       </span>
-      <input
+      {/* <input
         type="number"
         onChange={(e) =>
           dispatch(updateTotalMarks({ value: e.target.value, id: index }))
@@ -37,7 +37,7 @@ export default function SingleEntry({ student, index }) {
         value={student.totalMarks}
         className=" h-[50px] bg-[#F8FAFC] border-[1px] rounded-lg flex items-center justify-end px-2 text-gray-500"
         placeholder="Total Marks"
-      />
+      /> */}
       <input
         type="number"
         onChange={(e) =>{
