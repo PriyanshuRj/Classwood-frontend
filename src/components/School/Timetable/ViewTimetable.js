@@ -105,7 +105,7 @@ section_name : "No Section"});
             onClick={()=> setTimetableState(1)}
             className="flex items-center justify-between px-4 py-2 mx-8 mt-4 font-medium text-white bg-indigo-600 rounded-md cursor-pointer md:m-0"
           >
-            Edit Timetable
+            Add Timetable
           </span>
           </div>
           <div className="flex flex-row px-4">

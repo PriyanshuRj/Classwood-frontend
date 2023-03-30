@@ -101,9 +101,6 @@ export default function Attendance() {
         key={index}
         classData={classData}
         index={index}
-        // setSelectedClass={setSelectedClass}
-        // setSelectedClassroom={setSelectedClassroom}
-        // setOpenEditClassroom={setOpenEditClassroom}
       />
     );
   })}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
+import { Rings } from "react-loader-spinner";
 import ProfileCard from "../UI/Cards/ProfileCard";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
@@ -9,6 +10,7 @@ import { API_URL } from "../../helpers/URL";
 import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
 import AddStudent from "../UI/SideBars/AddStudentSidebar";
 export default function Student() {
+  const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
   const [singleStudent, setDataOfStudent] = useState({});
   const [openProfile, setOpenProfile] = useState(false);
@@ -21,6 +23,7 @@ export default function Student() {
   }
 
   async function getStudents() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     if (localStorage.getItem("classId")) {
       let res = await axios.get(API_URL + "staff/student/", {
@@ -41,6 +44,7 @@ export default function Student() {
       
       setStudents(res.data);
     }
+    setLoading(false);
   }
   function removeStudent(student){
     const finalStudents = students.filter(function rmvStudent(stnd){
@@ -53,7 +57,17 @@ export default function Student() {
   }, []);
   return (
     <Layout>
-      <div className="px-0 md:px-10">
+
+      {loading ? <div className="w-full flex h-screen justify-center items-center">
+      <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            
+            ariaLabel="loading"
+          />
+      </div> : <div className="px-0 md:px-10">
         {openProfile  ? (
           <ProfileSideBar
             profileType="student"
@@ -133,7 +147,7 @@ export default function Student() {
             <p>No students In Class Right Now</p>
           </div>
         )}
-      </div>
+      </div>}
     </Layout>
   );
 }

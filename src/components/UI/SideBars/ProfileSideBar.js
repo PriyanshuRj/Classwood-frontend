@@ -11,9 +11,10 @@ import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 export default function ProfileSideBar({setOpenProfile, data, setProfileData, setOpenAddProfile, profileType}) {
   const [password, setPassword] = useState("");
+
   function findNoOfAbsents(str){
     let count = 0;
-    for( let i = 0;i< str.length;i++) if(str[i]==="2") count++;
+    for( let i = 0;i< str.length;i++) if(str[i]==="1") count++;
     return count
   }
   console.log(data)
@@ -158,7 +159,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
           <AiOutlineStar className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center ">
             <span className="mb-1 font-semibold text-gray-800 text-md">Holiday Taken</span>
-            <span>{profileType==="student" ? findNoOfAbsents(data.month_attendance) : 4}</span>
+            <span>{findNoOfAbsents(data.month_attendance)}</span>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4">

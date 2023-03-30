@@ -83,6 +83,8 @@ const deleteFunction = {
   useEffect(() => {
     if (props.type === "student")
       setAttendanceState(JSON.parse(props.attendance)[today - 1]);
+    else setAttendanceState(JSON.parse(props.allData.month_attendance)[today - 1]);
+    
   }, [today]);
 
 
@@ -169,7 +171,7 @@ const deleteFunction = {
         <div className="flex flex-col items-end justify-between">
           <PopUpMenu menuList={ProfilePopUpMenu} deleteFunction={deleteFunction} />
          
-          {props.type === "student" ? (
+          {props.type  ? (
             attendanceState === 2 ? (
               <span className="flex items-center text-green-500">
                 <GoPrimitiveDot className="w-4 h-4 mr-2" /> Present
