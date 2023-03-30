@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
 import SingleRow from "./SingleRow";
 import { addTimetableRow, refreshTimetableRow } from "../../../store/School/timetableSlice";
+import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
 export default function AddTimetable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,8 +29,10 @@ export default function AddTimetable() {
 
   async function uploadTimetable() {
     try{
+      setLoading(true);
       const token = localStorage.getItem("token");
-      console.log("Time Table Tows", timetableRows, "time Rows", timetableRowsTime)
+      console.log("Time Table Tows", timetableRows, "time Rows", timetableRowsTime);
+      
       const res = await axios.post(API_URL + "staff/timeTable/", {
         timetable : [timetableRows,timetableRowsTime],
         classroom : selectedClass.id
@@ -38,10 +41,13 @@ export default function AddTimetable() {
           Authorization: `Bearer ${token}`,
         }
       })
-      console.log(res)
+      console.log(res);
+      if(res.status===200) dispatch(setWarningToast("Error in adding Timetable"));
+      else if(res.status===201) dispatch(setSuccessToast("Timetable added Succesfully"));
     } catch( e ){
       console.warn(e)
     }
+    setLoading(false);
   }
   async function fetchSubjects() {
     setLoading(true);
@@ -147,12 +153,13 @@ export default function AddTimetable() {
             Add Row
             </div>
           </div>
-          <div
+          <button
         onClick={()=>uploadTimetable()}
+        disabled={loading}
         className="flex items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-center text-white bg-indigo-600 rounded-md cursor-pointer"
         >
             Submit Timetable
-            </div>
+            </button>
         </div>
       )}
     </>

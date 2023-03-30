@@ -7,32 +7,72 @@ import { API_URL } from "../../../helpers/URL";
 import { Rings } from "react-loader-spinner";
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
+import ViewSubjectEntry from "./ViewSubjectEntry";
 export default function ViewTimetible({setTimetableState}) {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [selectedClass, setSelectedClass] = useState({class_name:"No Class",
-
 section_name : "No Section"});
 
-  const [classSubjects, setClassSubjects] = useState([]);
-
   const [loading, setLoading] = useState(false);
-
+  const [timetable,setTimetable] = useState([]);
+  function sortTimetable(a,b){
+    return a.start_time < b.start_time
+  }
+  function filterTimetable(arr){
+    let finalPeriodArray = [{},{},{},{},{},{}];
+    for(let i in arr){
+      finalPeriodArray[parseInt(arr[i].day)] = arr[i];
+    }
+    return finalPeriodArray;
+  }
   async function getTimeTable(){
+    setLoading(true);
+    var timetable = [];
     const token  = localStorage.getItem("token");
     const res = await axios.get(API_URL + "staff/timeTable", {
       
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          classroom: selectedClass.id,
+        },
+    });
+    if(res.data.length) {const timearray = res.data.sort(sortTimetable);
+    var starttime = timearray[0].start_time;
+    var endtime = timearray[0].end_time;
+    var arr = [];
+    for(let i in timearray){
+      if(timearray[i].start_time === starttime) arr.push(timearray[i]);
+      if(starttime !== timearray[i].start_time){
+        timetable.push({
+          start_time : starttime,
+          end_time :endtime,
+          periods : filterTimetable(arr)
+        });
+        starttime = timearray[i].start_time;
+        endtime = timearray[i].end_time;
+        arr = [];
+      }
+    }
+    timetable.push({
+      start_time : starttime,
+          end_time :endtime,
+          periods : filterTimetable(arr)
     })
-    console.log(res);
+    setTimetable(timetable);}
+    setLoading(false);
+    
   }
   useEffect(()=>{
+    setTimetable([]);
   getTimeTable()
 
-  }, [])
+  }, [selectedClass])
   useEffect(() => {
     if (classrooms.length === 0)
       getAllSchoolData(dispatch, navigate, setLoading);
@@ -81,11 +121,16 @@ section_name : "No Section"});
             </div>
           </div>
           <div className="flex flex-col mx-4 my-8 ">
-            <span>
+            <span className="text-xl font-semibold">
               {selectedClass
                 ? selectedClass.class_name + " " + selectedClass.section_name
                 : undefined}
             </span>
+            {timetable.length===0 ? <div className="flex h-[50vh] w-full justify-center items-center">
+              <span>
+                No Time Table For this class
+              </span>
+            </div> : <div>
             <div className="grid grid-cols-7 gap-4 mt-6">
               <div className="text-gray-500 text-md">  </div>
               <div className="text-center ">Monday</div>
@@ -95,278 +140,15 @@ section_name : "No Section"});
               <div className="text-center ">Friday</div>
               <div className="text-center ">Satarday</div>
             </div>
-            <div className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x">
-            <div className="py-2 text-gray-500 text-md"> 9 AM </div>
-              
-              <div className="py-2 text-center ">
-                <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
+            {timetable.map((timetableRow,index)=>{
+              return <div key={index} className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x">
+              <div className="py-2 text-gray-500 text-md"> {timetableRow.start_time} {" - "} {timetableRow.end_time} </div>
+                {timetableRow.periods.map((period,index)=>{
+                 return <ViewSubjectEntry key={index} period={period} index={index} />
+                })}
               </div>
-              <div className="py-2 text-center "><div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div></div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x">
-            <div className="py-2 text-gray-500 text-md"> 9 AM </div>
-              
-              <div className="py-2 text-center ">
-                <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center "><div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div></div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x">
-            <div className="py-2 text-gray-500 text-md"> 9 AM </div>
-              
-              <div className="py-2 text-center ">
-                <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center "><div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div></div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x">
-            <div className="py-2 text-gray-500 text-md"> 9 AM </div>
-              
-              <div className="py-2 text-center ">
-                <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center "><div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div></div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-              <div className="py-2 text-center ">
-              <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-2 px-2 border-[#4338CA] flex flex-col justify-start items-start">
-                    <span className="text-md text-font-semibold">
-                      Physics
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      Aman Jagotra
-                    </span>
-
-                </div>
-              </div>
-            </div>
+            })}
+      </div>}
           </div>
         </div>
       )}

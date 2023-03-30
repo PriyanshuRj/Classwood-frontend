@@ -5,6 +5,7 @@ import {
   updateTimeFrame,
 } from "../../../store/School/timetableSlice";
 import { useSelector, useDispatch } from "react-redux";
+
 export default function SingleRow({
   markedSubjects,
   allSubjects,

@@ -29,35 +29,26 @@ export default function Login() {
       });
       console.log(res, res.data.message);
       if (res.data.message === "Invalid email or password") {
-        // alert("Entered Email and password are Invalid");
         dispatch(setWarningToast(res.data.message));
       } else if (res.status === 200) {
         localStorage.setItem("UserType", res.data.user_type);
+        localStorage.setItem("token", res.data.tokens.access);
         dispatch(loginUser(res.data.user_type));
         if (res.data.user_type === "School"){
-
           localStorage.setItem("Payed", true);
-          
-            const acountData = await  axios.get(API_URL + "account/", 
+          const acountData = await  axios.get(API_URL + "account/", 
             {
-                headers : {
-                    Authorization: `Bearer ${res.data.tokens.access}`,
-                  }
-                }
-              )
-              dispatch(setProfileData(acountData.data));
-            }
+              headers : {
+                Authorization: `Bearer ${res.data.tokens.access}`,
+              }
+            })
+          dispatch(setProfileData(acountData.data));
+        }
         if (res.data.user_type === "Staff") {
           getAllDatatForStaffUser(dispatch);
-        }
-
-        localStorage.setItem("token", res.data.tokens.access);
-        console.log("Data", res.data);
-        
+        }        
         navigate(`/${res.data.user_type.toLowerCase()}/dashboard`);
       }
-
-      console.log(res);
     } catch (e) {
       console.warn("error ", e);
     } finally {

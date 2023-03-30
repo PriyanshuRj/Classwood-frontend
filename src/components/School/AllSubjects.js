@@ -9,6 +9,10 @@ import { AiOutlineSearch, AiOutlineUpload } from "react-icons/ai";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
+import { API_URL } from "../../helpers/URL";
+import { saveAs } from 'file-saver';
+
+import { HiOutlineDocumentDownload } from 'react-icons/hi'
 const tabs = [
   "All Classes",
   "Senior Secondary",
@@ -28,7 +32,12 @@ export default function AllSubjects() {
   const allSyllabus = useSelector((state) => state.syllabus.allSyllabus);
   console.log("All Sylabus", allSyllabus)
   const allSujects = [{}, {}, {}, {}, {}, {}];
-
+  const downloadFile = (subject)=>{
+    for (let i in subject.attachments){
+      const element  = API_URL.substring(0,API_URL.length - 5) + subject.attachments[i];
+      saveAs(element,subject.subject_name + ".pdf")
+    }
+  }
   useEffect(()=>{
     if(!allSyllabus.length) getAllSchoolData(dispatch, navigate, setLoading);
   },[])
@@ -116,7 +125,7 @@ export default function AllSubjects() {
         {viewState==='grid' ? <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allSyllabus.map((subject, index)=>{
           
-          return <SubjectCard key={index} subject={subject}/>
+          return <SubjectCard downloadFile={downloadFile} key={index} index={index} subject={subject}/>
           })}
          
         </div> 
@@ -124,17 +133,17 @@ export default function AllSubjects() {
         <div className="border-2 rounded-md">
 
         <div className="grid w-full grid-cols-4 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
-          <span>SUBJECTS</span>
-          <span>CLASS LECTURES</span>
-          <span>VIDEO LECTURES</span>
+          <span>Class</span>
+          <span>Subject</span>
+          <span>Download Sylabus</span>
           <span>ACTIONS</span>
 
         </div>
         {allSyllabus.map((subject, index)=>{
           return <div className="grid w-full grid-cols-4 p-2 py-4 font-semibold text-gray-800 bg-white border-b-2">
-          <span>Physics</span>
-          <span>12</span>
-          <span>44</span>
+          <span>{subject.classroom_name}</span>
+          <span>{subject.subject_name}</span>
+          <span onClick={()=>{downloadFile(subject)}}><HiOutlineDocumentDownload className="w-6 h-6 mr-4 text-indigo-600" /></span>
           <FiMoreHorizontal className="flex justify-center w-6 h-6"/>
 
         </div>

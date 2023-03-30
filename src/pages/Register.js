@@ -52,21 +52,6 @@ export default function Register() {
       formData.append("affilation_no", affilationNo);
       formData.append("affilation_board", affilationBoard);
       const res = await axios.post(API_URL + "signup/", 
-      // {
-        //   user: {
-          //     email: email,
-          //     password: password,
-          //   },
-          //   school_name: schoolName,
-          //   school_phone: schoolPhoneNo.toString(),
-          //   school_address: schoolAdress,
-          //   school_city: schoolCity,
-          //   school_state: schoolState,
-          //   school_zipcode: schoolZipcode.toString(),
-          //   school_logo: schoolLogo,
-          //   school_website: schoolWebsite,
-          //   date_of_establishment: dateOfStablishment,
-          // }
           formData
           );
           console.log(res);

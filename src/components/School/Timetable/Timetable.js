@@ -15,8 +15,6 @@ export default function Timetible() {
 
 section_name : "No Section"});
 
-  const [classSubjects, setClassSubjects] = useState([]);
-  const [showStudents, setShowStudents] = useState(false);
 
   const [loading, setLoading] = useState(false);
   
