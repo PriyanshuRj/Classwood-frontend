@@ -42,6 +42,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
   }
   async function createSyllabus(){
     try{
+      setLoading(true);
       console.log(selectedClass, setectedSubject);
       if(setectedSubject.name ==="No Subject Selected"){
         dispatch(setWarningToast("Please select a subject"));
@@ -74,6 +75,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
     catch(error){
       console.warn(error);
     }
+    setLoading(false);
   }
   return (
     <div className="z-40 fixed top-0 right-0 pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">

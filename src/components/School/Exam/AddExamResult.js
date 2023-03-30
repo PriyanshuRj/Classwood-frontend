@@ -16,6 +16,8 @@ export default function AddExamResult() {
   const [selectedClass, setSelectedClass] = useState(classrooms[0]);
   const [CSVFile, setCSVFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [examName, setExamName] = useState("");
+  const [examDate, setExamDate] = useState("");
   const [classSubjects, setClassSubjects] = useState([]);
   const [showStudents, setShowStudents] = useState(false);
   const [setectedSubject, setSelectedSubject] = useState({
@@ -140,7 +142,28 @@ export default function AddExamResult() {
           />
           </div>
       </div>
-      
+      <div className="flex flex-col md:px-8 ">
+      <div className="flex flex-col  mt-4 ">
+          <label className="mt-2 font-semibold">Exam Name*</label>
+          <input
+            type="text"
+            placeholder="Email"
+            value={examName}
+            onChange={(e) => setExamName(e.target.value)}
+            className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
+          />
+        </div>
+        <div className="flex flex-col  mt-4">
+          <label className="mt-2 font-semibold">Exame Date*</label>
+          <input
+            type="date"
+            placeholder="Email"
+            // value={email}
+            onChange={(e) => setExamDate(e.target.value)}
+            className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal"
+          />
+        </div>
+      </div>
       {showStudents?
       <div className="px-8 mt-16">
         
