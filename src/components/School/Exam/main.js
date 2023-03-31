@@ -3,6 +3,7 @@ import Layout from "../Layout";
 import InitialPage from "./InitialPage";
 import AddExamResult from "./AddExamResult";
 import AddTestResult from "./AddTestResult";
+import PastResults from "./PastResults";
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -32,16 +33,16 @@ export default function TestResult() {
           /> </div> : <>
       {classrooms.length === 0 ? <div className="flex h-screen w-full justify-center items-center">
 
-        <span>Please Create a classroom first</span>
-      </div> : pageState ? (
-        pageState === "Exam" ? (
-          <AddExamResult setPageState={setPageState} />
-        ) : (
-          <AddTestResult setPageState={setPageState} />
-        )
-      ) : (
-        <InitialPage setPageState={setPageState} />
-      )}
+<span>Please Create a classroom first</span>
+</div> : pageState ? (
+pageState === "Exam" ? (
+  <AddExamResult setPageState={setPageState} />
+) :pageState === "Test"  ? (
+  <AddTestResult setPageState={setPageState} />
+) : (<PastResults />)
+) : (
+<InitialPage setPageState={setPageState} />
+)}
       </> 
 }
     </Layout>

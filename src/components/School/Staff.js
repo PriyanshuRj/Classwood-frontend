@@ -65,7 +65,7 @@ export default function Student() {
               setStaffData(null);
               setOpenAddProfile(true);
             }}
-            className="flex items-center px-4 py-1 mt-4 font-medium text-white bg-indigo-600 rounded-md md:mt-0"
+            className="flex items-center px-4 py-2 mt-4 font-medium text-white bg-indigo-600 rounded-md md:mt-0"
           >
             <IoMdAddCircleOutline className="mr-2" />
             Add New Staff

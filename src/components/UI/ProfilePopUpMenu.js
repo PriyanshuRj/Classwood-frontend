@@ -12,7 +12,7 @@ export default function ProfilePopUpMenu({menuList}) {
     <Menu as="div" className="relative inline-block text-left">
     <div>
       <Menu.Button className="inline-flex justify-center w-full text-sm font-semibold text-gray-900 ">
-      <div className="ml-4 p-2 min-[480px]:p-4  md:p-4 ml-2 bg-[#D9D9D9] rounded-full">
+      <div className=" p-2 min-[480px]:p-4  md:p-4 ml-2 bg-[#D9D9D9] rounded-full">
         <FiUser className="h-4 w-4 min-[480px]:h-6 min-[480px]:w-6 sm:w-4 sm:h-4 md:w-7 md:h-7 text-[#5F6368]" />       
         </div>
       </Menu.Button>
@@ -30,7 +30,7 @@ export default function ProfilePopUpMenu({menuList}) {
       <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
         <div className="py-1">
             {menuList.map((listItem, index)=>{
-                return (localStorage.getItem("UserType")==="Staff" && listItem.deleteType) ? undefined : <Menu.Item key={index}>
+                return  <Menu.Item key={index}>
                 {({ active }) => (
                   listItem.title!=="View Class Student" ? <span
                     className={classNames(

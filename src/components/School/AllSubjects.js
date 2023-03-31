@@ -90,7 +90,7 @@ export default function AllSubjects() {
           })}
         </div> */}
 
-        <div className="flex flex-row items-center mt-2 mb-4">
+        <div className="flex flex-row items-center mt-10 mb-4">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
               <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                 <AiOutlineSearch />

@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import { BiBook } from "react-icons/bi";
 import { MdNavigateNext } from "react-icons/md";
 import Layout from "./StudentLayout";
 import NoticePannel from "../Common/NoticePannel";
+import { getAllDatatForStudentUser } from "./helper/dataFeatcher";
+
+import { useSelector, useDispatch } from "react-redux";
 export default function StudentDashboard() {
+  const dispatch = useDispatch();
+  const studentData = useSelector((state) => state.studentUser.studentData);
+  
+  useEffect(()=>{
+    if(!studentData.first_name) getAllDatatForStudentUser(dispatch);
+  },[])
+  function findNoOfAbsents(str){
+    let count = 0;
+    for( let i = 0;i< str.length;i++) if(str[i]==="1") count++;
+    return count
+  }
+  function findNoOfPresent(str){
+    let count = 0;
+    for( let i = 0;i< str.length;i++) if(str[i]==="2") count++;
+    return count
+  }
   return (
     <Layout>
       <div className="flex flex-col my-10 min-[1200px]:flex-row md:px-10 min-[1200px]:px-0">
@@ -90,18 +109,18 @@ export default function StudentDashboard() {
             <div className=" rounded-[30px] md:rounded-[30px] bg-white p-6 w-full ">
               <div className="flex flex-col items-center justify-center w-full h-full">
                 <PieChart
-                  data={[{ title: "One", value: 30, color: "#61C26B" }]}
+                  data={[{ title: "One", value: findNoOfPresent(studentData.month_attendance), color: "#61C26B" },{ title: "One", value: findNoOfAbsents(studentData.month_attendance), color: "red" }]}
                   lengthAngle={180}
                   lineWidth={32}
                   startAngle={180}
-                  totalValue={100}
+                  totalValue={JSON.parse(studentData.month_attendance).length}
                   rounded={true}
                   animate={true}
                   background="#D9D9D9"
                 />
                 <div className="flex flex-col items-center justify-center -mt-40 min-[1500px]:-mt-56">
                   <span className="text-2xl font-semibold text-center md:text-5xl">
-                    30%
+                  {findNoOfPresent(studentData.month_attendance)/(JSON.parse(studentData.month_attendance).length)} {" %"}
                   </span>
                   <h1 className="my-2 mt-4 text-2xl text-center text-[#8A8A8A]">
                     Attendance

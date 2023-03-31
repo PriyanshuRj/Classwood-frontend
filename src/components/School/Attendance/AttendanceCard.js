@@ -44,7 +44,7 @@ export default function AttendanceCard({ classData }) {
       <div className="flex flex-row items-center justify-between pb-2 border-b-[1px]">
         <div className="flex flex-row items-center justify-between pb-2">
           <span className="p-2 bg-indigo-200 rounded-lg"></span>
-          <span className="ml-2 text-lg font-semibold ">
+          <span className="ml-2 text-xl font-semibold ">
             {classData.class_name + " " + classData.section_name}
           </span>
         </div>

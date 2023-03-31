@@ -10,9 +10,12 @@ import {
   FiBriefcase,
   FiUser,
 } from "react-icons/fi";
+import {useLocation} from 'react-router-dom'
 import { BiChalkboard } from "react-icons/bi";
 import SideBar from "../UI/Dashboard/SideBar";
 export default function SchoolSidebar() {
+  const location = useLocation();
+  console.log(location);
   return (
     <SideBar>
       <div className="w-full pb-10 mt-12 text-gray-200 gap-y-2">

@@ -25,7 +25,7 @@ export default function TestCard({
           <span className="p-2 bg-indigo-200 rounded-lg">
             <TfiBlackboard className="w-4 h-4 text-indigo-600" />
           </span>
-          <span className="ml-2 text-lg font-semibold ">
+          <span className="ml-2 text-xl font-semibold ">
             {testData.tag}
           </span>
         </div>
@@ -33,13 +33,13 @@ export default function TestCard({
           menuList={TestPopupData}
         />
       </div>
-      <div className="flex flex-row items-center justify-between mt-6 text-sm">
+      <div className="flex flex-row items-center justify-between mt-6 text-md">
         <span className="font-semibold text-gray-500"> Classroom </span>
         <span className="font-semibold text-gray-500">
           {testData.classroom_name}
         </span>
       </div>
-      <div className="flex flex-row items-center justify-between mt-1 text-sm">
+      <div className="flex flex-row items-center justify-between mt-1 text-md">
         <span className="font-semibold text-gray-500"> Subject </span>
         <span className="font-semibold text-gray-500">
           {testData.subject_name}

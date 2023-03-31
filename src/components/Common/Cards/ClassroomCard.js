@@ -89,7 +89,7 @@ export default function ClassroomCard({
           <span className="p-2 bg-indigo-200 rounded-lg">
             <TfiBlackboard className="w-4 h-4 text-indigo-600" />
           </span>
-          <span className="ml-2 text-lg font-semibold ">
+          <span className="ml-2 text-xl font-semibold ">
             {classData.class_name + " " + classData.section_name}
           </span>
         </div>
@@ -98,20 +98,20 @@ export default function ClassroomCard({
           deleteFunction={deleteFunction}
         />
       </div>
-      <div className="flex flex-row items-center justify-between mt-6 text-sm">
+      <div className="flex flex-row items-center justify-between mt-6 text-md ">
         <span className="font-semibold text-gray-500"> TOTAL SUBJECT </span>
         <span className="font-semibold text-gray-500">
           {classData.no_of_subjects}
         </span>
       </div>
-      <div className="flex flex-row items-center justify-between mt-1 text-sm">
+      <div className="flex flex-row items-center justify-between mt-1 text-md md:text-md">
         <span className="font-semibold text-gray-500"> TEACHER ASSIGNED </span>
         <span className="font-semibold text-gray-500">
           {classData.no_of_subjects}
         </span>
       </div>
 
-      <div className="flex flex-row items-center justify-between mt-5 text-sm border-t-[1px] pt-2">
+      <div className="flex flex-row items-center justify-between mt-5 text-md md:text-md border-t-[1px] pt-2">
         <span className="font-semibold text-gray-500"> STUDENTS </span>
         <span className="font-semibold text-gray-500">
           {classData.strength}

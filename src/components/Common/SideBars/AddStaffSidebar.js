@@ -34,6 +34,8 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
   const [email, setEmail] = useState("");
   const [ifscCode, setIFSCCode] = useState("");
   const [acountNo, setAcountNo] = useState("");
+  const [adharNumber, setAdharNumber] = useState("");
+  const [staffId, setStaffId] = useState("");
 
   useEffect(() => {
     if (staffData) {
@@ -170,7 +172,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
   };
 
   return (
-    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white md:w-[55rem]">
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white md:w-[55rem] shadow-lg">
       <div
         onClick={() => setOpenAddProfile(false)}
         className="cursor-pointer absolute p-2 bg-gray-200 rounded-full top-8 left-8"
@@ -248,6 +250,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                   />
                 </div>
               </div>
+              
               <div className="flex flex-row items-center mt-4 mb-4">
                 <BsBriefcase className="w-8 h-8 mr-4 text-indigo-700" />
                 <div className="flex flex-col items-start justify-center ">
@@ -265,6 +268,36 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               </div>
             </div>
 
+            <div className="flex flex-row items-center mb-4">
+                <BsBriefcase className="w-8 h-8 mr-4 text-indigo-700" />
+                <div className="flex flex-col items-start justify-center w-full">
+                  <span className="mb-1 font-semibold text-gray-800 text-md">
+                    Adhar Number
+                  </span>
+                  <input
+                    onChange={(e) => setAdharNumber(e.target.value)}
+                    value={adharNumber}
+                    type="text"
+                    placeholder="Adhar Number"
+                    className="flex px-3 py-2 font-medium w-full  border-2 border-black rounded-lg placeholder:font-normal"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-row items-center mb-4 mt-4">
+                <BsBriefcase className="w-8 h-8 mr-4 text-indigo-700" />
+                <div className="flex flex-col items-start justify-center w-full">
+                  <span className="mb-1 font-semibold text-gray-800 text-md">
+                    Staff ID
+                  </span>
+                  <input
+                    onChange={(e) => setStaffId(e.target.value)}
+                    value={staffId}
+                    type="text"
+                    placeholder="Staff ID"
+                    className="flex px-3 py-2 font-medium w-full  border-2 border-black rounded-lg placeholder:font-normal"
+                  />
+                </div>
+              </div>
             <div className="flex flex-row items-center mt-2 mb-4">
               <BsFillPersonFill className="w-8 h-8 mr-4 text-indigo-700" />
               <div className="flex flex-col items-start justify-center w-[300px] sm:w-[350px] md:w-full ">

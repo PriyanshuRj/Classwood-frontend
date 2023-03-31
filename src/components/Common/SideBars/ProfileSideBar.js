@@ -68,8 +68,8 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
   },[data])
   console.log("User data", data);
   return (
-    <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-96">
-      <div onClick={()=>setOpenProfile(false)} className="absolute p-2 bg-gray-200 rounded-full top-8 left-8">
+    <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-[32rem]">
+      <div onClick={()=>setOpenProfile(false)} className="cursor-pointer absolute p-2 bg-gray-200 rounded-full top-8 left-8">
         <RxCross1 />
       </div>
 
@@ -84,14 +84,14 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
           <GoPrimitiveDot className="w-4 h-4 mr-2" /> Present
         </span>
       </div>
-      <div className="flex flex-row justify-around mt-4 border-b-[1px] border-gray-200 pb-4 mx-4">
+      <div className="flex flex-row gap-8 justify-around mt-4 border-b-[1px] border-gray-200 pb-4 mx-4">
        
-        <div className="flex flex-col w-40 p-4 bg-[#F8FAFC] rounded-lg">
+        <div className="flex flex-col w-full p-4 bg-[#F8FAFC] rounded-lg">
           <MdOutlineSchool className="w-6 h-6 mb-2 text-indigo-800" />
           <span className="mb-2 font-semibold text-md">{profileType==="student" ? "Student Of" : "Class Assigned"}</span>
           <span>{profileType==="student" ? data.classroom : "10 - C"}</span>
         </div>
-        <div className="flex flex-col w-40 p-4 bg-[#F8FAFC] rounded-lg">
+        <div className="flex flex-col w-full p-4 bg-[#F8FAFC] rounded-lg">
           <BsBriefcase className="w-6 h-6 mb-2 text-indigo-800" />
           <span className="mb-2 font-semibold text-md">{profileType==="student" ? "No. of Subjects" : "Role"}</span>
           <span>{profileType==="student" ? data.subjects.length : data.is_class_teacher ? "Class Teacher" : "Not A Class Teacher"}</span>
@@ -99,6 +99,8 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
       </div>
       <div className="flex flex-col mx-4 mt-4">
         <p className="mb-4 text-xl font-semibold text-gray-800">Personal Details</p>
+        <div className="grid grid-cols-2">
+
         <div className="flex flex-row items-center mt-2">
           <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
@@ -106,6 +108,15 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
             <span>{profileType==="student" ? data.parent_mobile_number : data.mobile_number}</span>
           </div>
         </div>
+        <div className="flex flex-row items-center mt-2">
+          <HiOutlineCake className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">Date of Birth</span>
+            <span>{data.date_of_birth}</span>
+          </div>
+        </div>
+        </div>
+
         {profileType==="student" ? 
         <div >
 
@@ -131,13 +142,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
             <span>{data.contact_email}</span>
           </div>
         </div>
-        <div className="flex flex-row items-center mt-4">
-          <HiOutlineCake className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
-          <div className="flex flex-col items-start justify-center">
-            <span className="mb-1 font-semibold text-gray-800 text-md">Date of Birth</span>
-            <span>{data.date_of_birth}</span>
-          </div>
-        </div>
+       
         <div className="flex flex-row items-center mt-4">
           <GoLocation className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">

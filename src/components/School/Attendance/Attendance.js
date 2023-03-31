@@ -44,13 +44,7 @@ export default function Attendance() {
     <div className='p-4'>
     <div className="flex flex-col justify-between my-4 md:flex-row">
           <p className="text-2xl font-semibold ">All CLassroom</p>
-          <button
-           
-            className="flex items-center justify-between px-4 py-1 mx-8 mt-4 font-medium text-white bg-indigo-600 rounded-md md:m-0"
-          >
-            {/* <IoMdAddCircleOutline className="mr-2" /> */}
-            Add Class
-          </button>
+         
         </div>
 
         <div className="flex flex-row items-center justify-between w-full">
