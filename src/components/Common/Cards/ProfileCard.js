@@ -8,12 +8,10 @@ import { removeStaffMember } from "../../../store/School/staffSlice";
 import { API_URL } from "../../../helpers/URL";
 import { formatDate } from "../../../helpers/helperFunctions";
 import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
-import PopUpMenu from "../PopUpMenu";
-
+import PopUpMenu from "../../UI/PopUpMenu";
 
 export default function ProfileCard(props) {
   const dispatch = useDispatch();
-  console.log(props);
   const [today, setToday] = useState(0);
   const [attendanceState, setAttendanceState] = useState(0);
 
@@ -29,7 +27,6 @@ export default function ProfileCard(props) {
   }
   async function DeleteProfile(){
     
-    console.log("Delete called")
     const token = localStorage.getItem("token");
     if(props.type === "student"){
 
@@ -51,7 +48,6 @@ export default function ProfileCard(props) {
       });
       console.log("response",res);
       if(res.status===204 ){
-        console.log("here");
         dispatch(removeStaffMember(props.allData))
       }
     }
@@ -113,7 +109,6 @@ const deleteFunction = {
         if (res.status === 201)
           dispatch(setSuccessToast("Attendance Marked Succesfully"));
         setAttendanceState(val ? 2 : 1);
-        console.log("value of attendance", attendanceState);
         if (
           res.status === 200 &&
           res.data.non_field_errors[0] ===
@@ -122,7 +117,6 @@ const deleteFunction = {
           (setWarningToast("Attendance marked for the day"));
       }
       else {
-        console.log(props.allData,val)
         const res = await axios.post(
           API_URL + "list/staffAttendance/",
           {
@@ -141,7 +135,6 @@ const deleteFunction = {
         if (res.status === 201)
           dispatch(setSuccessToast("Attendance Marked Succesfully"));
         setAttendanceState(val ? 2 : 1);
-        console.log("value of attendance", attendanceState);
         if (
           res.status === 200 &&
           res.data.non_field_errors[0] ===

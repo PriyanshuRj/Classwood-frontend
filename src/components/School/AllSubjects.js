@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import SubjectCard from "../UI/Cards/SubjectCard";
+import SubjectCard from "../Common/Cards/SubjectCard";
 import { BsGrid, BsListUl } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { FiFilter, FiMoreHorizontal } from "react-icons/fi";
-import UploadSyllabusSidebar from "../UI/SideBars/UploadSyllabusSidebar";
+import UploadSyllabusSidebar from "../Common/SideBars/UploadSyllabusSidebar";
 import { AiOutlineSearch, AiOutlineUpload } from "react-icons/ai";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";

@@ -13,7 +13,7 @@ import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
-import NoticePannel from "../UI/NoticePannel";
+import NoticePannel from "../Common/NoticePannel";
 import AddNoticeSidebar from "./AddNoticeSidebar";
 
 export default function StudentDashboard() {

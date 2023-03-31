@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
 import { removeClass } from "../../../store/School/classroomSlice";
-import PopUpMenu from "../PopUpMenu";
+import PopUpMenu from "../../UI/PopUpMenu";
 
 import { setSuccessToast } from "../../../store/genralUser";
 export default function ClassroomRow({

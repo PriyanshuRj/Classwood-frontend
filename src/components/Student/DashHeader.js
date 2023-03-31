@@ -1,6 +1,35 @@
 import React from "react";
-import {FiSettings, FiBell, FiUser} from 'react-icons/fi';
+import {FiSettings, FiBell } from 'react-icons/fi';
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
+
 export default function DashHeader() {
+  const navigate = useNavigate();
+
+  const Logout = ()=>{
+    localStorage.removeItem("UserType");
+    localStorage.removeItem("token");
+    navigate(`/`);
+
+  }
+
+  const viewProfile=()=>{
+    navigate(`/student/dashboard`);
+  }
+  const ClassroomPopUpData = [
+    {
+      title: "View Profile",
+      function: viewProfile,
+    },
+
+  
+    {
+      title: "logout",
+      function: Logout,
+      deleteType: true,
+    },
+  ];
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
       <p className="text-2xl font-semibold sm:text-4xl">Hello Student !</p>
@@ -21,11 +50,9 @@ export default function DashHeader() {
         < FiBell className="h-4 w-4 min-[480px]:h-6 min-[480px]:w-6 sm:w-4 sm:h-4 md:w-7 md:h-7 text-[#5F6368]" />
       
         </div>
-        <div className="p-2 min-[480px]:p-4  md:p-4 ml-2 bg-[#D9D9D9] rounded-full">
-        < FiUser className="h-4 w-4 min-[480px]:h-6 min-[480px]:w-6 sm:w-4 sm:h-4 md:w-7 md:h-7 text-[#5F6368]" />
+     
+        <ProfilePopUpMenu menuList={ClassroomPopUpData} />
 
-       
-        </div>
       </div>
     </div>
   );

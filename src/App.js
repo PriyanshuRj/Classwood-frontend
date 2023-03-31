@@ -37,6 +37,7 @@ import StaffDashboard from "./components/Staff/Dashboard";
 import StaffAllClassrooms from "./components/Staff/Classroom";
 import SingleClassStudents from "./components/Staff/Students";
 import StaffNoticeFullPageView from "./components/Staff/NoticeFullPageView";
+import StaffTestExam from "./components/Staff/Exam/main";
 import "./App.css";
 
 import { setProfileData } from "./store/genralUser";
@@ -109,6 +110,7 @@ export default function App() {
           <Route path="/staff/classroom" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffAllClassrooms />} />
           <Route path="/staff/students" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <SingleClassStudents />} />
           <Route path="/staff/notice/:id" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffNoticeFullPageView />} />
+          <Route path="/staff/test" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffTestExam />} />
           <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>

@@ -18,7 +18,8 @@ export async function getAllDatatForStaffUser (dispatch){
     }
 }
 
-export async function getAllImportantData(dispatch){
+export async function getAllImportantData(dispatch, setLoading, navigate){
+    setLoading(true);
     const token = localStorage.getItem('token');
     try{
         let res = await axios.get(API_URL + "staff/classroom/",{
@@ -33,4 +34,5 @@ export async function getAllImportantData(dispatch){
     catch(e){
         console.warn("Error ::: ", e);
     }
+    setLoading(false);
 }

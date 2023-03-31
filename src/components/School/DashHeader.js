@@ -1,5 +1,4 @@
 import React from "react";
-import {FiSettings, FiBell, FiUser} from 'react-icons/fi';
 import {BiNotification} from 'react-icons/bi';
 import { useSelector } from "react-redux";
 import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";

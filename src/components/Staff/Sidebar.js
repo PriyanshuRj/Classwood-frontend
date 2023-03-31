@@ -37,7 +37,7 @@ export default function SchoolSidebar() {
         <div className="flex w-full">
           <Link
             className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-            to="/student/test"
+            to="/staff/test"
           >
             <FiEdit3 className="w-6 h-6 " />
             <span className="ml-4 text-lg font-medium select-none">Test/Exam</span>

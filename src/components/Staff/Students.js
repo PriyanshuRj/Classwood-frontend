@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import ProfileCard from "../UI/Cards/ProfileCard";
+import ProfileCard from "../Common/Cards/ProfileCard";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -8,7 +8,8 @@ import axios from "axios";
 import { API_URL } from "../../helpers/URL";
 import { useSelector, useDispatch } from "react-redux";
 import { setClassStudents } from "../../store/genralUser";
-import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
+import ProfileSideBar from "../Common/SideBars/ProfileSideBar";
+import { Rings } from "react-loader-spinner";
 export default function Student() {
   const dispatch = useDispatch();
   
@@ -19,13 +20,18 @@ export default function Student() {
   const [searchQuery, setSearchQuery] = useState("");
   const [singleStudent, setDataOfStudent] = useState({});
   const [openProfile, setOpenProfile] = useState(-1);
-  
+  const [classroomId, setClassId] = useState("");
+  const [loading, setLoading]  = useState(false);
+  useEffect(()=>{
+    setClassId(localStorage.getItem("classId"));
+  }, [])
   function fliterStudents(student) {
     return (student.first_name + " " + student.last_name)
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
   }
   async function getStudents() {
+    setLoading(true);
     const token = localStorage.getItem("token");
     let res = await axios.get(API_URL + "staff/student/", {
       headers: {
@@ -36,6 +42,8 @@ export default function Student() {
       },
     });
     dispatch(setClassStudents(res.data));
+    setLoading(false);
+
   }
   
   useEffect(() => {
@@ -46,14 +54,25 @@ export default function Student() {
     }
   }, [staff]);
   useEffect(() => {
-    if (!students.length) {
+    // if (!students.length) {
       getStudents();
-    }
-  }, []);
+    // }
+  }, [classroomId]);
 
   return (
     <Layout>
-      <div className="px-0 md:px-10">
+      {loading ? 
+       <div className="flex items-center justify-center w-full h-screen">
+
+       <Rings
+               height="220"
+               width="220"
+               // radius="9"
+               color="rgb(30 64 175)"
+               
+               ariaLabel="loading"
+             /> </div>
+      : <div className="px-0 md:px-10">
         {openProfile !== -1 ? (
           <ProfileSideBar
             profileType="student"
@@ -118,7 +137,8 @@ export default function Student() {
             })}
           </div>
         )}
-      </div>
+      </div> }
+      
     </Layout>
   );
 }

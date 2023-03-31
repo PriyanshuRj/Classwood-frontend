@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
 import { Rings } from "react-loader-spinner";
-import ProfileCard from "../UI/Cards/ProfileCard";
+import ProfileCard from "../Common/Cards/ProfileCard";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 import { API_URL } from "../../helpers/URL";
-import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
-import AddStudent from "../UI/SideBars/AddStudentSidebar";
+import ProfileSideBar from "../Common/SideBars/ProfileSideBar";
+import AddStudent from "../Common/SideBars/AddStudentSidebar";
 export default function Student() {
   const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);

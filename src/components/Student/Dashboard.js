@@ -3,7 +3,7 @@ import { PieChart } from "react-minimal-pie-chart";
 import { BiBook } from "react-icons/bi";
 import { MdNavigateNext } from "react-icons/md";
 import Layout from "./StudentLayout";
-import NoticePannel from "../UI/NoticePannel";
+import NoticePannel from "../Common/NoticePannel";
 export default function StudentDashboard() {
   return (
     <Layout>

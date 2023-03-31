@@ -1,13 +1,10 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React from "react";
 import { TfiBlackboard } from "react-icons/tfi";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Menu, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
 import { removeClass } from "../../../store/School/classroomSlice";
 import { API_URL } from "../../../helpers/URL";
-import PopUpMenu from "../PopUpMenu";
+import PopUpMenu from "../../UI/PopUpMenu";
 import { setSuccessToast } from "../../../store/genralUser";
 
 export default function ClassroomCard({
@@ -18,7 +15,6 @@ export default function ClassroomCard({
   setOpenEditClassroom,
   setSelectedClassroom
 }) {
-  console.log(classData)
   const dispatch = useDispatch();
   function viewClass() {
     localStorage.setItem("classId", classData.id);
@@ -35,10 +31,8 @@ export default function ClassroomCard({
   }
   async function deleteClass() {
     // props.setOpenProfile(0);
-    console.log("Delete called");
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
       const res = await axios.delete(
         API_URL + "list/classroom/" + classData.id + "/",
         {

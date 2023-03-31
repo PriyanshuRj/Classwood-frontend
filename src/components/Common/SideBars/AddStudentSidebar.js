@@ -9,7 +9,7 @@ import {
 import {MdSchool} from 'react-icons/md'
 import { AiOutlinePhone, AiFillBank } from "react-icons/ai";
 import { HiOutlineCake } from "react-icons/hi";
-import SelectionDropdown from "../SelectionDropdown";
+import SelectionDropdown from "../../UI/SelectionDropdown";
 import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";

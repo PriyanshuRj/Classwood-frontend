@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import ProfileCard from "../UI/Cards/ProfileCard";
+import ProfileCard from "../Common/Cards/ProfileCard";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
-import AddStaff from "../UI/SideBars/AddStaffSidebar";
-import ProfileSideBar from "../UI/SideBars/ProfileSideBar";
+import AddStaff from "../Common/SideBars/AddStaffSidebar";
+import ProfileSideBar from "../Common/SideBars/ProfileSideBar";
 import { useNavigate } from "react-router-dom";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useSelector, useDispatch } from "react-redux";

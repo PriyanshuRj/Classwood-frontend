@@ -38,7 +38,7 @@ export default function ProfilePopUpMenu({menuList}) {
                         ? "bg-gray-100 text-gray-900"
                         : "text-gray-700",
                         listItem.deleteType ? "text-red-400 border-t-[1px]" :"",
-                      "block px-4 py-2 text-sm"
+                      "block px-4 py-2 text-sm cursor-pointer"
                     )}
                     onClick={() => {
                         listItem.function()
@@ -51,7 +51,7 @@ export default function ProfilePopUpMenu({menuList}) {
                       active
                         ? "bg-gray-100 text-gray-900"
                         : "text-gray-700",
-                      "block px-4 py-2 text-sm"
+                      "block px-4 py-2 text-sm cursor-pointer"
                     )}
                     onClick={() => {
                         listItem.function()

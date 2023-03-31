@@ -9,11 +9,11 @@ import { Rings } from "react-loader-spinner";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import AddSubject from "./AddSubject";
 import EditClassroom from "./EditClassModal";
-import AddStudent from "../UI/SideBars/AddStudentSidebar";
-import ClassroomCard from "../UI/Cards/ClassroomCard";
-import ClassroomRow from "../UI/Rows/ClassroomRow";
+import AddStudent from "../Common/SideBars/AddStudentSidebar";
+import ClassroomCard from "../Common/Cards/ClassroomCard";
+import ClassroomRow from "../Common/Rows/ClassroomRow";
 import Layout from "./Layout";
-import ClassroomSideBar from "../UI/SideBars/classroomSidebar";
+import ClassroomSideBar from "../Common/SideBars/classroomSidebar";
 
 const classes = ["12", "11", "10", "9", "8", "7", "6","5", "4", "3", "2", "1", "Others"]
 const tabs = [
