@@ -94,10 +94,11 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("mobile_number", mobileNO.toString(10));
           formData.append("contact_email", email);
           formData.append("date_of_joining", dateOfJoining);
-          // formData.append("school", staffData.school);
           formData.append("date_of_birth", dob);
           formData.append("address", address);
           formData.append("account_no", acountNo);
+          formData.append("staddId", staffId);
+          formData.append("adhar", adharNumber);
           const res = await axios.post(API_URL + "list/staff/", formData, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -146,6 +147,9 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("date_of_birth", dob);
           formData.append("address", address);
           formData.append("account_no", acountNo);
+          formData.append("staddId", staffId);
+          formData.append("adhar", adharNumber);
+
 
           const res = await axios.put(
             API_URL + "list/staff/" + staffData.user.id + "/",

@@ -10,10 +10,10 @@ function classNames(...classes) {
 export default function ProfilePopUpMenu({menuList}) {
   return (
     <Menu as="div" className="relative inline-block text-left">
-    <div>
+    <div className='h-fit flex'>
       <Menu.Button className="inline-flex justify-center w-full text-sm font-semibold text-gray-900 ">
-      <div className=" p-2 min-[480px]:p-4  md:p-4 ml-2 bg-[#D9D9D9] rounded-full">
-        <FiUser className="h-4 w-4 min-[480px]:h-6 min-[480px]:w-6 sm:w-4 sm:h-4 md:w-7 md:h-7 text-[#5F6368]" />       
+      <div className=" p-2 md:p-3 ml-2 bg-[#D9D9D9] rounded-full">
+        <FiUser className="h-4 w-4 min-[480px]:h-6 min-[480px]:w-6  text-[#5F6368]" />       
         </div>
       </Menu.Button>
     </div>

@@ -11,6 +11,10 @@ export const userSlice = createSlice({
     notices: [],
     testStudents: [],
     loading: false,
+    session : {
+      id : 1,
+      name : "2023 - 24"
+    }
   },
   reducers: {
     loginUser: (state, action) => {
@@ -45,8 +49,8 @@ export const userSlice = createSlice({
       console.log(action.payload.id, action.payload.value);
       state.testStudents[action.payload.id].marksheet = action.payload.value;
     },
-    setLoading: (state, action) => {
-      state.loading = action.payload;
+    setSession: (state, action) => {
+      state.session = action.payload;
     },
     setProfileData : (state, action) =>{
       state.userProfileData = action.payload;
@@ -56,7 +60,7 @@ export const userSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  setLoading,
+  setSession,
   loginUser,
   setSuccessToast,
   setWarningToast,

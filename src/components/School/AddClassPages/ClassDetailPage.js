@@ -14,6 +14,10 @@ export default function ClassDetailPage({
   setClassSection,
   staff
 }) {
+  function filterClassTeachers(staffMember){
+    return !staffMember.is_class_teacher;
+  }
+  console.log("These are staff", staff)
   return (
     <div className="flex flex-col h-full mx-4">
       <span className="text-xl font-semibold py-4 border-b-[1px]">
@@ -84,7 +88,7 @@ export default function ClassDetailPage({
               Class Teacher
             </label>
             <TeacherDropdown
-              inputList={staff}
+              inputList={staff.filter(filterClassTeachers)}
               labelTitle=""
               DivWidth="full"
               selected={classTeacher}

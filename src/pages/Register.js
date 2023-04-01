@@ -10,6 +10,7 @@ import EmailTab from "../components/Register/EmailTab";
 import AddressDetailTab from "../components/Register/AddressDetailTab";
 import OtherDetailTab from "../components/Register/OtherDetailTab";
 import loginBg from "../assets/CLASSWOOD Login Cover.png";
+import { boardList, stateList } from "../helpers/inputLists";
 
 export default function Register() {
   let navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Register() {
   const [schoolName, setSchoolName] = useState("");
   const [schoolAdress, setSchoolAddress] = useState("");
   const [schoolCity, setSchoolCity] = useState("");
-  const [schoolState, setSchoolState] = useState("");
+  const [schoolState, setSchoolState] = useState(stateList[8]);
   const [schoolZipcode, setSchoolZipcode] = useState("");
   const [schoolLogo, setSchoolLogo] = useState(null);
   const [schoolWebsite, setSchoolWebsite] = useState("");
@@ -29,7 +30,7 @@ export default function Register() {
   const [dateOfStablishment, setDateOfStablishment] = useState("");
   const [pageState, setPageState] = useState(0);
   const [affilationNo, setAffilationNo] = useState("");
-  const [affilationBoard, setAffilationBoard] = useState("");
+  const [affilationBoard, setAffilationBoard] = useState(boardList[0]);
   const register = async () => {
     localStorage.setItem("UserType", "School");
 
