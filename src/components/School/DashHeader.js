@@ -5,6 +5,7 @@ import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
 import { useNavigate } from "react-router-dom";
 import SessionDoropDown from "../Common/SessionDropdown";
 import { setSession } from "../../store/genralUser";
+import { API_URL } from "../../helpers/URL";
 const sessionList = [
   {
     id : 1,
@@ -46,7 +47,10 @@ export default function DashHeader() {
   const userData = useSelector((state) => state.user.userProfileData);
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
+      <div className="flex flex-row items-center">
+      <img  src={API_URL.substring(0,API_URL.length - 5) + userData.school_logo_url} className="w-14 h-14 mr-4 rounded-full border"/>
       <p className="text-2xl font-semibold sm:text-4xl">Hello {userData.school_name}!</p>
+      </div>
       <div className="flex flex-row items-center justify-center">
       <div className="mr-8">
 

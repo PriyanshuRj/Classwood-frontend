@@ -14,7 +14,6 @@ import SideBar from "../UI/Dashboard/SideBar";
 import { useLocation } from "react-router-dom";
 export default function SchoolSidebar() {
   const location = useLocation();
-  console.log(location.pathname.substring(8));
   return (
     <SideBar>
       <div className="w-full pb-10 mt-12 text-gray-200 gap-y-2">

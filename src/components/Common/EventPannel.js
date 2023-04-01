@@ -20,7 +20,7 @@ const monthNames = [
   "Nov",
   "Dec",
 ];
-export default function NoticePannel({setOpenAddNoticeModal}) {
+export default function EventPannel({setOpenAddEventModal}) {
   const dispatch = useDispatch();
   const notices = useSelector((state) => state.user.notices);
   async function fetchNotice() {
@@ -41,10 +41,10 @@ export default function NoticePannel({setOpenAddNoticeModal}) {
       <div className="pb-2 flex justify-between items-center border-b mx-2">
 
 <h1 className=" text-2xl font-semibold text-left">
-  Anouncement board
+  Event board
 </h1>
 <span
-onClick={()=> setOpenAddNoticeModal(true)}
+onClick={()=> setOpenAddEventModal(true)}
 className={`flex flex-row text-indigo-600 items-center font-semibold cursor-pointer ${localStorage.getItem("UserType") ==="School" ? undefined : ' hidden '}`}> <IoMdAddCircleOutline className="mr-2 w-6 h-6" /> Add New </span>
 </div>
       <div className=" bg-white text-black pt-4 md:pt-6 w-full h-max">

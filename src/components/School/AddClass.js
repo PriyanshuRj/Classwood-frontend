@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
+import { classNameList } from "../../helpers/inputLists";
 import ClassDetailPage from "./AddClassPages/ClassDetailPage";
 import SubjectDetailPage from "./AddClassPages/SubjectDetailPage";
 import StudentDetailPage from "./AddClassPages/StudentDetailPage";
@@ -19,7 +19,7 @@ export default function AddClass() {
   const [loading, setLoading] = useState(false);
   const [classTeacher, setClassTeacher] = useState("");
   const [subClassTeacher, setSubClassTeacher] = useState("");
-  const [classTitle, setClassTitle] = useState("");
+  const [classTitle, setClassTitle] = useState(classNameList[0]);
   const [classSection, setClassSection] = useState("");
   const [pageState, setPageState] = useState(1);
   const [CSVFile, setCSVFile] = useState(null);
@@ -33,7 +33,7 @@ export default function AddClass() {
     if (staff.length) setSubClassTeacher(staff[0]);
   }, [staff]);
   const propogateToPage2 = (val) => {
-    if (classTitle.length === 0 || classSection.length === 0) {
+    if ( classSection.length === 0) {
       
       dispatch(setWarningToast("Please Fill Complete Details"));
     } 
@@ -56,7 +56,7 @@ export default function AddClass() {
       const res = await axios.post(
         API_URL + "list/classroom/",
         {
-          class_name: classTitle,
+          class_name: classTitle.name,
           section_name: classSection,
           class_teacher: classTeacher.user.id,
           sub_class_teacher: subClassTeacher.user.id,
@@ -162,7 +162,7 @@ export default function AddClass() {
             subClassTeacher={subClassTeacher}
             addClass={addClass}
             classSection={classSection}
-            classTitle={classTitle}
+            classTitle={classTitle.name}
           />
         )
       ) : (

@@ -2,6 +2,7 @@ import React from "react";
 import SelectionDropdown from "../../UI/SelectionDropdown";
 import { GrNext } from "react-icons/gr";
 import TeacherDropdown from "../helpers/TeacherDropDown";
+import { classNameList } from "../../../helpers/inputLists";
 export default function ClassDetailPage({
   classTeacher,
   setClassTeacher,
@@ -59,13 +60,20 @@ export default function ClassDetailPage({
             <label className="mb-4 text-lg font-semibold text-gray-800">
               Class*
             </label>
-            <input
+            <SelectionDropdown
+              inputList={classNameList}
+              labelTitle=""
+              DivWidth="full"
+              selected={classTitle}
+              setSelected={setClassTitle}
+            />
+            {/* <input
               value={classTitle}
               onChange={(e) => setClassTitle(e.target.value)}
               type="text"
               placeholder="Class"
               className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
-            />
+            /> */}
           </div>
           <div className="flex flex-col w-full px-8">
             <label className="mb-4 text-lg font-semibold text-gray-800">

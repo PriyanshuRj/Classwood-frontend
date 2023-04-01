@@ -31,7 +31,7 @@ export default function AllSubjects() {
   
   const allSyllabus = useSelector((state) => state.syllabus.allSyllabus);
   console.log("All Sylabus", allSyllabus)
-  const allSujects = [{}, {}, {}, {}, {}, {}];
+
   const downloadFile = (subject)=>{
     for (let i in subject.attachments){
       const element  = API_URL.substring(0,API_URL.length - 5) + subject.attachments[i];

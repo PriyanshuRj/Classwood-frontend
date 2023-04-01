@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../helpers/URL";
 import { setNotice } from "../../store/genralUser";
+import { AiFillFileExcel } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
+import { saveAs } from "file-saver";
 export default function NoticeFullPageView() {
   const [Notice, setCurrentNotice] = useState({});
   const [date, setDate] = useState("");
@@ -21,7 +23,6 @@ export default function NoticeFullPageView() {
       },
     });
     console.log("these are notices : ", res.data);
-    dispatch(setNotice(res.data));
   }
   useEffect(() => {
     fetchNotice();
@@ -36,6 +37,12 @@ export default function NoticeFullPageView() {
       );
     }
   }, [notices]);
+  console.log(Notice);
+  const downloadFile = (index) => {
+    const element =
+      API_URL.substring(0, API_URL.length - 5) + Notice.attachments[index];
+    saveAs(element, Notice.title + index + ".pdf");
+  };
   return (
     <Layout>
       <div className="flex p-8 m-8 bg-white rounded-2xl">
@@ -47,6 +54,27 @@ export default function NoticeFullPageView() {
           <p className="mt-2 text-md">
             {Notice ? Notice.description : undefined}
           </p>
+          {Notice ? (
+            <div className="flex w-full text-center mt-16 flex-col  justify-center flex-wrap">
+              <span className="text-xl font-semibold">Attachmenents</span>
+              <div className="flex flex-row w-full justify-start mt-8 flex-wrap">
+                {Notice.attachments
+                  ? Notice.attachments.map((attachment, index) => {
+                      return (
+                        <button
+                          key={index}
+                          onClick={() => downloadFile(index)}
+                          className=" text-blue-600  ml-8 my-4 border-dashed border-2 py-2 px-4 rounded-lg flex items-center justify-center"
+                        >
+                          <AiFillFileExcel className="mr-4 w-6 h-6" />
+                          File {index}
+                        </button>
+                      );
+                    })
+                  : undefined}
+              </div>
+            </div>
+          ) : undefined}
         </div>
       </div>
     </Layout>

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { API_URL } from "../../helpers/URL";
 import { setWarningToast, setSuccessToast } from "../../store/genralUser";
 import { RxCross1 } from "react-icons/rx";
-export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
+export default function AddEventSidebar({setOpenAddEventeModal}) {
   
   const dispatch = useDispatch();
   const [noticeImage, addNoticeImage] = useState([]);
@@ -40,7 +40,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
         setTitle("");
         setContent("");
         addNoticeImage(null);
-        setOpenAddNoticeModal(false);
+        setOpenAddEventeModal(false);
       }
     }
     setLoading(false);
@@ -48,7 +48,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
   return (
     <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem] md:w-[55rem] shadow-lg">
        <div
-        onClick={() => setOpenAddNoticeModal(false)}
+        onClick={() => setOpenAddEventeModal(false)}
         className="cursor-pointer absolute p-2 bg-gray-200 duration-200 ease-in-out hover:bg-gray-400 rounded-full top-8 left-8"
       >
         <RxCross1 />
@@ -65,7 +65,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
             ariaLabel="loading"
           /> </div> : <>
       <div className="flex flex-col mt-16">
-        <span className=" text-2xl font-semibold text-center">Add Notice</span>
+        <span className=" text-2xl font-semibold text-center">Add Event</span>
         <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Title

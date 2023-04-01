@@ -13,8 +13,10 @@ import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
+import EventPannel from "../Common/EventPannel";
 import NoticePannel from "../Common/NoticePannel";
 import AddNoticeSidebar from "./AddNoticeSidebar";
+import AddEventSidebar from "./AddEventSidebar";
 
 export default function StudentDashboard() {
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ export default function StudentDashboard() {
     if (!noOfStaffMenber) getAllSchoolData(dispatch, navigate, setLoading);
   }, []);
   const [openAddNoticeModal, setOpenAddNoticeModal] = useState(false);
+  const [openAddEventModal, setOpenAddEventeModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [today, setToday] = useState(0);
   const [presentStudent, setPresentStudents] = useState("");
@@ -79,6 +82,9 @@ export default function StudentDashboard() {
         <div className="flex flex-col my-10 min-[1200px]:flex-row md:px-10 min-[1200px]:px-0">
           {openAddNoticeModal ? (
             <AddNoticeSidebar setOpenAddNoticeModal={setOpenAddNoticeModal} />
+          ) : undefined}
+          {openAddEventModal ? (
+            <AddEventSidebar setOpenAddEventeModal={setOpenAddEventeModal} />
           ) : undefined}
           <div className="w-full min-[1200px]:ml-10 2xl:pl-0 xl:w-3/5 2xl:w-2/3 2xl:mx-10">
             <span className="mb-4 text-3xl font-semibold">Dashboard</span>
@@ -250,6 +256,7 @@ export default function StudentDashboard() {
           <div className="w-full my-10 xl:w-2/5 2xl:w-1/3 min-[1200px]:mx-10 px-10 min-[1200px]:px-0 min-[1200px]:my-0">
             
             <NoticePannel setOpenAddNoticeModal={setOpenAddNoticeModal} />
+            <EventPannel setOpenAddEventModal={setOpenAddEventeModal} />
           </div>
         </div>
       )}

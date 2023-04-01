@@ -3,8 +3,16 @@ import { GrNext } from "react-icons/gr";
 import { CgAdd } from "react-icons/cg";
 import { setWarningToast } from "../../../store/genralUser";
 import { useDispatch } from "react-redux";
+import {AiFillFileExcel } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { saveAs } from "file-saver";
 export default function StudentDetailPage({ setPageState, CSVFile, setCSVFile }) {
   const dispatch = useDispatch();
+  async function saveExample(){
+    saveAs(process.env.PUBLIC_URL + "/Test-Student.csv", "example.csv")
+  }
+
+  
   const goToNextPage = () =>{
     if(CSVFile) setPageState(4);
     else dispatch(setWarningToast("Please Select A CSV File"));
@@ -45,10 +53,16 @@ export default function StudentDetailPage({ setPageState, CSVFile, setCSVFile })
           </span>
         </div>
       </div>
+      <div className="flex">
 
+      <button onClick={()=> saveExample()} className=" text-blue-600  ml-8 my-4 border-dashed border-2 py-2 px-4 rounded-lg flex items-center justify-center" >
+       <AiFillFileExcel className="mr-4 w-6 h-6" />
+        Download Example
+      </button>
+      </div>
       <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
         <span className="mb-4 font-semibold text-gray-800 text-md">
-          Profile Picture
+          Student CSV
         </span>
         <div className="flex items-center justify-center w-full">
           <label
@@ -91,13 +105,13 @@ export default function StudentDetailPage({ setPageState, CSVFile, setCSVFile })
           </label>
         </div>
       </div>
-      <span
+      {/* <span
         onClick={() => addNewStudent()}
         className="flex flex-row items-center px-4 py-2 mt-4 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer hover:bg-gray-200 hover:text-indigo-500 w-max"
       >
         {" "}
         <CgAdd className="mr-2" /> Add new Student
-      </span>
+      </span> */}
       <button
         onClick={() => setPageState(4)}
         className="flex items-center justify-center py-4 mx-8 mt-16 text-gray-800 duration-300 bg-gray-200 rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"
