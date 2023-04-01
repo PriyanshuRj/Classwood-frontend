@@ -45,13 +45,13 @@ export default function Register() {
       formData.append("school_phone", schoolPhoneNo.toString());
       formData.append("school_address", schoolAdress);
       formData.append("school_city", schoolCity);
-      formData.append("school_state", schoolState);
+      formData.append("school_state", schoolState.name);
       formData.append("school_zipcode", schoolZipcode.toString());
       formData.append("school_logo", schoolLogo);
       formData.append("school_website", schoolWebsite);
       formData.append("date_of_establishment", dateOfStablishment);
       formData.append("affilation_no", affilationNo);
-      formData.append("affilation_board", affilationBoard);
+      formData.append("affilation_board", affilationBoard.name);
       const res = await axios.post(API_URL + "signup/", 
           formData
           );
