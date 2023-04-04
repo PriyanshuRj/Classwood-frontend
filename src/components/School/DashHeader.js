@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import NotificationIcon from "../../assets/icons/NotificationIcon"
 import { useSelector, useDispatch } from "react-redux";
 import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import SessionDoropDown from "../Common/SessionDropdown";
 import { setSession } from "../../store/genralUser";
 import { API_URL } from "../../helpers/URL";
+import SchoolProfile from "./SchoolProfile";
 const sessionList = [
   {
     id : 1,
@@ -17,6 +18,7 @@ const sessionList = [
   }
 ]
 export default function DashHeader() {
+  const [openProfile,setOpenProfile] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const session = useSelector((state) => state.user.session);
@@ -28,7 +30,7 @@ export default function DashHeader() {
   }
 
   const viewProfile=()=>{
-    navigate(`/school/dashboard`);
+    setOpenProfile(true);
   }
   const ClassroomPopUpData = [
     {
@@ -47,6 +49,7 @@ export default function DashHeader() {
   const userData = useSelector((state) => state.user.userProfileData);
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
+      {openProfile ? <SchoolProfile data={userData} setOpenProfile={setOpenProfile} /> : undefined}
       <div className="flex flex-row items-center">
       <img  src={API_URL.substring(0,API_URL.length - 5) + userData.school_logo_url} className="w-14 h-14 mr-4 rounded-full border"/>
       <p className="text-2xl font-semibold sm:text-4xl">Hello {userData.school_name}!</p>

@@ -443,8 +443,8 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     type="file"
                     className="hidden"
                     onChange={(e) => {
-                      console.log("This is my file : ", e.target.files[0]);
-                      setProfileImage(e.target.files[0]);
+                     if(e.target.files[0].type.substring(0,5)==="image")  setProfileImage(e.target.files[0]);
+                      else dispatch(setWarningToast("Please select an Image"))
                     }}
                   />
                 </label>

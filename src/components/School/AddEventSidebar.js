@@ -9,7 +9,7 @@ import { RxCross1 } from "react-icons/rx";
 export default function AddEventSidebar({setOpenAddEventeModal}) {
   
   const dispatch = useDispatch();
-  const [noticeImage, addNoticeImage] = useState([]);
+  const [noticeImage, addNoticeImage] = useState();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -87,7 +87,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
             type="text"
             onChange={(e) => setContent(e.target.value)}
             placeholder="Content"
-            className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
+            className="flex px-3 py-4 font-medium  border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>
         <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
@@ -137,7 +137,13 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
                 multiple="multiple"
                 className="hidden"
                 onChange={(e) => {
-                  addNoticeImage(e.target.files);
+                  let arr = [];
+              
+                  for (let i in e.target.files){
+                    if(e.target.files[i].type==="application/pdf") arr.push(e.target.files[i]);
+                  }
+                  if(arr.length) addNoticeImage(arr);
+                  else dispatch(setWarningToast("Please select PDF documents only"));
                 }}
               />
             </label>

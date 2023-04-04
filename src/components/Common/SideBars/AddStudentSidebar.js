@@ -392,7 +392,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               onChange={(e) => setDOB(e.target.value)}
               type="date"
               placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
             />
           </div>
         </div>
@@ -467,8 +467,11 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
                 type="file"
                 className="hidden"
                 onChange={(e) => {
-                  console.log("This is my file : ",  e.target.files[0])
-                  setProfileImage(e.target.files[0])}}
+                
+                  if(e.target.files[0].type.substring(0,5)==="image")  setProfileImage(e.target.files[0]);
+                      else dispatch(setWarningToast("Please select an Image"))
+                }}
+                  
               />
             </label>
           </div>

@@ -9,7 +9,7 @@ import { RxCross1 } from "react-icons/rx";
 export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
   
   const dispatch = useDispatch();
-  const [noticeImage, addNoticeImage] = useState([]);
+  const [noticeImage, addNoticeImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -87,17 +87,17 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
             type="text"
             onChange={(e) => setContent(e.target.value)}
             placeholder="Content"
-            className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
+            className="flex px-3 py-4 font-medium border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>
         <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
           <span className="mb-4 text-xl font-semibold text-gray-800">
-            Subject Image
+            Notice Attachment
           </span>
           <div className="flex items-center justify-center w-full">
             <label
               htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100   "
+              className="flex noticeImage flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100   "
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg
@@ -118,7 +118,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
                 <p className="mb-2 text-sm text-gray-500 ">
                   <span className="text-xl font-semibold">
                     {" "}
-                    {noticeImage  ? "Files Selected": "Subject Image"}
+                    {noticeImage  ? "Files Selected": "Select File"}
                   </span>
                 </p>
 
@@ -137,7 +137,13 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
                 multiple="multiple"
                 className="hidden"
                 onChange={(e) => {
-                  addNoticeImage(e.target.files);
+                  let arr = [];
+              
+                  for (let i in e.target.files){
+                    if(e.target.files[i].type==="application/pdf") arr.push(e.target.files[i]);
+                  }
+                  if(arr.length) addNoticeImage(arr);
+                  else dispatch(setWarningToast("Please select PDF documents only"));
                 }}
               />
             </label>

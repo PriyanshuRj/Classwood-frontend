@@ -26,7 +26,6 @@ import AllSubjects from "./components/School/AllSubjects"
 import SchoolClassroom from "./components/School/Classroom";
 import StartPay from "./components/School/StartPay";
 import AddClass from "./components/School/AddClass";
-import AddNotice from "./components/School/AddNotice";
 import TestResult from "./components/School/Exam/main";
 import Attendance from "./components/School/Attendance/Attendance";
 import SchoolTimetable from "./components/School/Timetable/Timetable";
@@ -97,7 +96,6 @@ export default function App() {
           <Route path="/school/classroom" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolClassroom /> : <StartPay />} />
           <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllSubjects /> : <StartPay />} />
           <Route path="/school/addclass" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AddClass /> : <StartPay />} />
-          <Route path="/school/addnoice" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AddNotice /> : <StartPay />} />
           <Route path="/school/test" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <TestResult /> : <StartPay />} />
           <Route path="/school/attendence" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <Attendance /> : <StartPay />} />
           <Route path="/school/timetable" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolTimetable /> : <StartPay />} />

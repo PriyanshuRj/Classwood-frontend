@@ -36,15 +36,7 @@ export default function SchoolSidebar() {
           </Link>
         </div>
        
-        {/* <div className="flex w-full">
-          <Link
-            className={`flex items-center justify-start w-full p-4 mx-4 my-1 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 ${location.pathname.substring(8)==="dashboard" ? "bg-gray-700" : ""}`}
-            to="/school/addnoice"
-          >
-            <FiFileText className="w-6 h-6 " />
-            <span className="ml-4 text-lg font-medium select-none">Create Notice</span>
-          </Link>
-        </div> */}
+      
         <div className="flex w-full">
           <Link
             className={`flex items-center justify-start w-full p-4 mx-4 my-1 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 ${location.pathname.substring(8)==="classroom" ? "bg-gray-700" : ""}`}
