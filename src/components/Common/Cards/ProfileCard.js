@@ -9,12 +9,12 @@ import { API_URL } from "../../../helpers/URL";
 import { formatDate } from "../../../helpers/helperFunctions";
 import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
 import PopUpMenu from "../../UI/PopUpMenu";
-
+import { Rings } from "react-loader-spinner";
 export default function ProfileCard(props) {
   const dispatch = useDispatch();
   const [today, setToday] = useState(0);
   const [attendanceState, setAttendanceState] = useState(0);
-
+  const [loading, setLoading] = useState(false);
   function viewProfile(){
     props.setDataOfStaff(props.allData);
     props.setOpenProfile(true);
@@ -85,6 +85,7 @@ const deleteFunction = {
 
 
   async function markAttendance(val) {
+    setLoading(true);
     const token = localStorage.getItem("token");
     const date = new Date();
    
@@ -146,10 +147,21 @@ const deleteFunction = {
     } catch (e) {
       console.warn("Error ::: ", e);
     }
+    setLoading(false);
   }
 
   return (
+
     <div className="border-[1px]  border-gray-400 rounded-lg flex flex-col p-4 w-full">
+    { loading ?  <div className="w-full h-full flex justify-center items-center">
+      <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            ariaLabel="loading"
+          />{" "}
+    </div> : <>
       <div className="flex flex-row justify-between border-b-[1px] border-gray-200 pb-2 border-dotted">
         <div className="flex flex-col">
           <img
@@ -225,6 +237,8 @@ const deleteFunction = {
           </div>
         </div>
       ) : undefined}
+    </>}
+
     </div>
   );
 }
