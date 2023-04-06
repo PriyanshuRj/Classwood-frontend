@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNotice } from "../../store/genralUser";
 import {GrNext} from "react-icons/gr";
 import {IoMdAddCircleOutline} from 'react-icons/io';
+import AnouncementIcon from "../../assets/icons/AnouncementIcon";
 const monthNames = [
   "Jan",
   "Feb",
@@ -52,21 +53,18 @@ className={`flex flex-row text-indigo-600 items-center font-semibold cursor-poin
           const noticeDate = new Date(notice.date_posted);
           return (
             <Link key={index} to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : localStorage.getItem("UserType") ==="School" ? "/school/notice/" + index :  "/student/notice/" + index}>
-              <div className="flex justify-start pt-4 ">
-              <div
-                    className="text-sm text-[#76A5FF] bg-[#F0F7FD] rounded-md self-start  px-4 py-2 mr-6 flex justify-center items-center flex-col font-semibold">
-                    <span>{noticeDate.getDate()}
-                      </span>
-                      <span>{monthNames[noticeDate.getMonth()]}
-                      </span>
-                  </div>
+              <div className="flex justify-start pt-4 items-center">
+             
               
                 <div className="flex flex-col">
-                  <span className="font-sans font-medium uppercase text-md sm:text-xl text-[#020410]">
-                    {notice.title}
+                  <span className="font-sans font-medium uppercase text-md sm:text-xl text-[#020410] flex flex-row items-center">
+                  <div
+                    className="mr-4">
+                    <AnouncementIcon />
+                  </div> {notice.title}
                   </span>
-                  <p className="pt-4 text-xs  sm:text-sm text-[#8A8A8A]">
-                    {notice.description}
+                  <p className="ml-8 pt-1 text-xs  sm:text-sm text-[#8A8A8A]">
+                  {noticeDate.getDate()} {" "} {monthNames[noticeDate.getMonth()]}
                   </p>
                 </div>
               </div>

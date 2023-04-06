@@ -91,24 +91,29 @@ export default function StudentDashboard() {
             {/* Add flex */}
             <div className=" w-full mt-4 p-3 shadow-lg rounded-lg">
               <div className="flex justify-between ">
-                <div className="flex rounded-lg w-[22%] bg-[#FBF0FD] py-4 px-4 flex-col justify-center items-center">
+                <Link to="/school/students" 
+                onClick={() => {
+                  localStorage.removeItem("classId");
+                  localStorage.removeItem("className");
+                }}
+                className=" cursor-pointer flex rounded-lg w-[22%] bg-[#FBF0FD] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolStudentImg} />
                   <span className="text-xl font-semibold">{noOfStudent}</span>
                   <span className="text-sm">Total Student</span>
-                </div>
-                <div className="flex rounded-lg w-[22%] bg-[#FDF9F0] py-4 px-4 flex-col justify-center items-center">
+                </Link>
+                <Link to="/school/staff" className="cursor-pointer flex rounded-lg w-[22%] bg-[#FDF9F0] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolStaffImg} />
                   <span className="text-xl font-semibold">
                     {noOfStaffMenber}
                   </span>
                   <span className="text-sm">Total Staff</span>
-                </div>
-                <div className="flex rounded-lg w-[22%] bg-[#F0F7FD] py-4 px-4 flex-col justify-center items-center">
+                </Link>
+                <Link to="/school/classroom" className="cursor-pointer flex rounded-lg w-[22%] bg-[#F0F7FD] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolClassImg} />
                   <span className="text-xl font-semibold">{noOfCasses}</span>
                   <span className="text-sm">Total Classes</span>
-                </div>
-                <div className="flex rounded-lg w-[22%] bg-[#F0FDF0] py-4 px-4 flex-col justify-center items-center">
+                </Link>
+                <div className="cursor-pointer flex rounded-lg w-[22%] bg-[#F0FDF0] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolAcchivementImg} />
                   <span className="text-xl font-semibold">00</span>
                   <span className="text-sm">Total Achivements</span>

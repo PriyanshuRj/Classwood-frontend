@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
 import SubjectCard from "../Common/Cards/SubjectCard";
-import { BsGrid, BsListUl } from "react-icons/bs";
+import GridButton from "../../assets/icons/GridButton";
+import ListButton from "../../assets/icons/ListButton";
 import { useSelector, useDispatch } from "react-redux";
 import { FiFilter, FiMoreHorizontal } from "react-icons/fi";
 import UploadSyllabusSidebar from "../Common/SideBars/UploadSyllabusSidebar";
@@ -112,11 +113,18 @@ export default function AllSubjects() {
             </div>
             <div className="flex flex-row p-1 rounded-md bg-slate-100">
             <span className={`px-2 pl-4 py-2 flex items-center justify-center ${viewState==='grid' ?'bg-white pr-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('grid')}>
-            <BsGrid className="mr-2" />
+            <div  className="mr-2">
+
+              <GridButton />
+              </div>
               Grid
             </span>
             <span className={`px-2 pr-4 py-2 flex items-center justify-center ${viewState==='list' ?'bg-white pl-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('list')}>
-            <BsListUl className="mr-2" />
+            <div className="mr-2" >
+
+<ListButton />
+</div>
+
               List
             </span>
             </div>

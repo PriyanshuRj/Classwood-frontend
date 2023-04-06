@@ -3,18 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FiFilter, FiMoreHorizontal } from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsGrid, BsListUl } from "react-icons/bs";
+import GridButton from "../../assets/icons/GridButton";
+import ListButton from "../../assets/icons/ListButton";
 import { useSelector, useDispatch } from "react-redux";
 import { Rings } from "react-loader-spinner";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import AddSubject from "./AddSubject";
 import EditClassroom from "./EditClassModal";
 import AddStudent from "../Common/SideBars/AddStudentSidebar";
-import ClassroomCard from "../Common/Cards/ClassroomCard";
 import ClassroomRow from "../Common/Rows/ClassroomRow";
 import Layout from "./Layout";
 import ClassroomSideBar from "../Common/SideBars/classroomSidebar";
-
+import ClassroomCardSection from "../Common/ClassroomCardSection";
+import ClassroomRowSection from "../Common/ClassroomRowSection";
 const classes = ["12", "11", "10", "9", "8", "7", "6","5", "4", "3", "2", "1", "Others"]
 const tabs = [
   "All Classes",
@@ -24,6 +25,7 @@ const tabs = [
   "Middle",
   "Pre Primary",
 ];
+const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG", "UKG","Nursery", "Pre Nursery"]
 export default function Classroom() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,7 +48,24 @@ export default function Classroom() {
     if (!classrooms || classrooms.length === 0)
       getAllSchoolData(dispatch, navigate,setLoading);
   }, []);
-
+  function filterTabs(classData) {
+    if(tabState===0) return true;
+    else if(tabState===1) {
+      if(classData.class_name==="12" || classData.class_name==="11") return true;
+    }
+    else if(tabState===2) {
+      if(classData.class_name==="10" || classData.class_name==="9") return true;
+    }
+    else if(tabState===3) {
+      if(classData.class_name>="6" && classData.class_name<="8") return true;
+    }
+    else if(tabState===4) {
+      if(classData.class_name>="6" && classData.class_name<="8") return true;
+    }
+    else if(tabState===4) {
+      if(classData.class_name>="5" && classData.class_name<="1") return true;
+    }
+  }
   function fliterClassroom(classData) {
     return (classData.class_name + " " + classData.section_name)
       .toLowerCase()
@@ -104,7 +123,7 @@ export default function Classroom() {
             Add Class
           </Link>
         </div>
-        {/* <div className="flex-row hidden w-full mb-4 border-b-2 md:flex">
+        <div className="flex-row hidden w-full mb-4 border-b-2 md:flex">
           {tabs.map((tab, index) => {
             return (
               <span
@@ -120,7 +139,7 @@ export default function Classroom() {
               </span>
             );
           })}
-        </div> */}
+        </div>
         <div className="flex flex-row items-center justify-between w-full">
           <div className="flex flex-row my-8">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
@@ -148,7 +167,10 @@ export default function Classroom() {
               } rounded-md`}
               onClick={() => setViewState("grid")}
             >
-              <BsGrid className="mr-2" />
+              <div  className="mr-2">
+
+              <GridButton />
+              </div>
               Grid
             </span>
             <span
@@ -157,7 +179,10 @@ export default function Classroom() {
               } rounded-md`}
               onClick={() => setViewState("list")}
             >
-              <BsListUl className="mr-2" />
+              <div className="mr-2" >
+
+              <ListButton />
+              </div>
 
               List
             </span>
@@ -173,12 +198,13 @@ export default function Classroom() {
             <span>No Classroom Created Create A Classroom</span>
           </div>
         ) : viewState==="grid" ?  (
-          <div className="mb-10 grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {classrooms.filter(fliterClassroom).map((classData, index) => {
+          <div>
+            {sections.map((classCumilativeName, index) => {
               return (
-                <ClassroomCard
+                <ClassroomCardSection
                   key={index}
-                  classData={classData}
+                  classCumilativeName={classCumilativeName}
+                  sectionData={classrooms.filter(filterTabs).filter(fliterClassroom)}
                   index={index}
                   setSelectedClass={setSelectedClass}
                   setOpenSidebar={setOpenSidebar}
@@ -189,27 +215,23 @@ export default function Classroom() {
             })}
           </div>
         ) : 
-        <div className="border-2 rounded-md">
-          <div className="grid w-full grid-cols-5 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
-            <span>Class</span>
-            <span>Total Subjects</span>
-            <span>Teachers Assigned</span>
-            <span>Students</span>
-            <span>Actions</span>
-          </div>
-          {classrooms.filter(fliterClassroom).map((classData, index) => {
-            return (
-              <ClassroomRow
-                key={index}
-                classData={classData}
-                index={index}
-                setSelectedClassroom={setSelectedClassroom}
-                setSelectedClass={setSelectedClass}
-                setOpenSidebar={setOpenSidebar}
-                setOpenEditClassroom={setOpenEditClassroom}
-              />
-            );
-          })}
+        <div>
+      
+          {sections.map((classCumilativeName, index) => {
+              return (
+                <ClassroomRowSection
+                  key={index}
+                  classCumilativeName={classCumilativeName}
+                  sectionData={classrooms.filter(filterTabs).filter(fliterClassroom)}
+                  index={index}
+                  setSelectedClass={setSelectedClass}
+                  setOpenSidebar={setOpenSidebar}
+                  setSelectedClassroom={setSelectedClassroom}
+                  setOpenEditClassroom={setOpenEditClassroom}
+                />
+              );
+            })}
+        
         </div>}
       </div>
     </>

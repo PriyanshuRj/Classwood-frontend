@@ -11,6 +11,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
   const dispatch = useDispatch();
   const [noticeImage, addNoticeImage] = useState();
   const [title, setTitle] = useState("");
+  const [eventTime, setEventTime] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   
@@ -68,6 +69,21 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
         <span className=" text-2xl font-semibold text-center">Add Event</span>
         <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
+            Event Time
+          </label>
+          <input
+            value={eventTime}
+            type="date"
+            onChange={(e) => setEventTime(e.target.value)}
+            placeholder="Title"
+            className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
+          />
+        </div>
+        <spam className="ml-6 text-lg mt-4 mb-4 font-semibold">
+          Event Date : {eventTime}
+        </spam>
+        <div className="flex flex-col w-full px-8 my-4 ">
+          <label className="mb-4 text-xl font-semibold text-gray-800">
             Title
           </label>
           <input
@@ -92,7 +108,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
         </div>
         <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
           <span className="mb-4 text-xl font-semibold text-gray-800">
-            Subject Image
+            Event Image
           </span>
           <div className="flex items-center justify-center w-full">
             <label
@@ -118,7 +134,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
                 <p className="mb-2 text-sm text-gray-500 ">
                   <span className="text-xl font-semibold">
                     {" "}
-                    {noticeImage  ? "Files Selected": "Subject Image"}
+                    {noticeImage  ? "Files Selected": "Event Image"}
                   </span>
                 </p>
 
