@@ -6,12 +6,29 @@ import { useNavigate } from 'react-router-dom';
 import { Rings } from 'react-loader-spinner';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FiFilter } from 'react-icons/fi';
+import AttendenceCardSection from '../../Common/AttendenceCardSection';
+import AttendenceRowSection from '../../Common/AttendenceRowSection';
 import { getAllSchoolData } from '../helpers/dataFetcher';
 import { useSelector, useDispatch} from 'react-redux';
+import GridButton from '../../../assets/icons/GridButton';
+import ListButton from '../../../assets/icons/ListButton';
+const classes = ["12", "11", "10", "9", "8", "7", "6","5", "4", "3", "2", "1", "Others"]
+const tabs = [
+  "All Classes",
+  "Senior Secondary",
+  "Secondary",
+  "Primary",
+  "Middle",
+  "Pre Primary",
+];
+const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG", "UKG","Nursery", "Pre Nursery"]
+
+
 export default function Attendance() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [tabState, setTabState] = useState(0);
 
   const [viewState, setViewState] = useState("grid");
 
@@ -22,6 +39,25 @@ export default function Attendance() {
     if (!classrooms || classrooms.length === 0)
       getAllSchoolData(dispatch, navigate,setLoading);
   }, []);
+
+  function filterTabs(classData) {
+    if(tabState===0) return true;
+    else if(tabState===1) {
+      if(classData.class_name==="12" || classData.class_name==="11") return true;
+    }
+    else if(tabState===2) {
+      if(classData.class_name==="10" || classData.class_name==="9") return true;
+    }
+    else if(tabState===3) {
+      if(classData.class_name>="6" && classData.class_name<="8") return true;
+    }
+    else if(tabState===4) {
+      if(classData.class_name>="6" && classData.class_name<="8") return true;
+    }
+    else if(tabState===4) {
+      if(classData.class_name>="5" && classData.class_name<="1") return true;
+    }
+  }
 
   function fliterClassroom(classData) {
     return (classData.class_name + " " + classData.section_name)
@@ -46,7 +82,23 @@ export default function Attendance() {
           <p className="text-2xl font-semibold ">All CLassroom</p>
          
         </div>
-
+        <div className="flex-row hidden w-full mb-4 border-b-2 md:flex">
+          {tabs.map((tab, index) => {
+            return (
+              <span
+                key={index}
+                className={`mx-4 cursor-pointer font-semibold text-gray-400 ${
+                  tabState === index
+                    ? "text-indigo-600 border-b-2 border-indigo-600"
+                    : undefined
+                }`}
+                onClick={() => setTabState(index)}
+              >
+                {tab}
+              </span>
+            );
+          })}
+        </div>
         <div className="flex flex-row items-center justify-between w-full">
           <div className="flex flex-row my-8">
             <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
@@ -69,56 +121,58 @@ export default function Attendance() {
           </div>
           <div className="flex flex-row p-1 rounded-md bg-slate-100 ">
             <span
-              className={`px-2 pl-4 py-2  ${
+              className={`px-2 pl-4 py-2 flex items-center ${
                 viewState === "grid" ? "bg-white pr-4 font-semibold cursor-pointer" : "cursor-pointer"
               } rounded-md`}
               onClick={() => setViewState("grid")}
             >
+                <div  className="mr-2">
+
+<GridButton />
+</div>
               Grid
             </span>
             <span
-              className={`px-2 pr-4 py-2 ${
+              className={`px-2 pr-4 py-2 flex items-center ${
                 viewState === "list" ? "bg-white pl-4 font-semibold" : "cursor-pointer"
               } rounded-md`}
               onClick={() => setViewState("list")}
             >
+                <div className="mr-2" >
+
+<ListButton />
+</div>
               List
             </span>
           </div>
         </div>
 
 {viewState==="grid" ?  (
-  <div className="mb-10 grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-  {classrooms.filter(fliterClassroom).map((classData, index) => {
-    return (
-      <AttendanceCard
-        key={index}
-        classData={classData}
-        index={index}
-      />
-    );
-  })}
+  <div>
+{sections.map((classCumilativeName, index) => {
+              return (
+                <AttendenceCardSection
+                  key={index}
+                  classCumilativeName={classCumilativeName}
+                  sectionData={classrooms.filter(filterTabs).filter(fliterClassroom)}
+                  index={index}
+                  
+                />
+              );
+            })}
 </div>
   ) : (<>
-  <div className="border-2 rounded-md">
-          <div className="grid w-full grid-cols-5 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
-            <span>Class</span>
-            <span>Total Students</span>
-            <span>Students Present</span>
-            <span>Students Absent</span>
-            <span>Actions</span>
-          </div>
-          </div>
-          {classrooms.filter(fliterClassroom).map((classData, index) => {
-            return (
-              <AttendenceRow
-                key={index}
-                classData={classData}
-                index={index}
-            
-              />
-            );
-          })}
+ {sections.map((classCumilativeName, index) => {
+              return (
+                <AttendenceRowSection
+                  key={index}
+                  classCumilativeName={classCumilativeName}
+                  sectionData={classrooms.filter(filterTabs).filter(fliterClassroom)}
+                  index={index}
+                 
+                />
+              );
+            })}
   
   </>)}
     
