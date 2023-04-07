@@ -8,7 +8,7 @@ import TestCard from '../../Common/Cards/TestCard';
 import TestRow from '../../Common/Rows/TestRow';
 export default function PastResults() {
     function filterTest(testData) {
-        return (testData.classroom + " " +  testData.subject)
+        return (testData.classroom + " " +  testData.subject + testData.tag)
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
       }

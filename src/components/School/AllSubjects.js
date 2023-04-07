@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import SubjectCard from "../Common/Cards/SubjectCard";
 import GridButton from "../../assets/icons/GridButton";
 import ListButton from "../../assets/icons/ListButton";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,7 +12,6 @@ import { Rings } from "react-loader-spinner";
 import { API_URL } from "../../helpers/URL";
 import { saveAs } from "file-saver";
 import SubjectCardSection from "../Common/SubjectCardSection";
-import { HiOutlineDocumentDownload } from "react-icons/hi";
 import SubjectRowSection from "../Common/SubjectRowSection";
 
 const tabs = [
@@ -106,7 +104,7 @@ export default function AllSubjects() {
                 return (
                   <span
                     key={index}
-                    className={`mx-4 font-semibold text-gray-400 ${
+                    className={`mx-4 cursor-pointer font-semibold text-gray-400 ${
                       tabState === index
                         ? "text-indigo-600 border-b-2 border-indigo-600"
                         : undefined

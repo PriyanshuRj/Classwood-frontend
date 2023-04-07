@@ -15,7 +15,7 @@ export default function ClassroomCardSection({
   return (
     <>
       {sectionData.filter(filterTabs).length === 0 ? undefined : (
-        <div>
+        <div className="mt-2 flex flex-col">
           <span className="ml-2 text-2xl font-medium text-gray-800 my-3 flex">
             {classCumilativeName} Standard
           </span>
