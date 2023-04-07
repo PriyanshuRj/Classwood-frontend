@@ -11,9 +11,11 @@ import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
 import { API_URL } from "../../helpers/URL";
-import { saveAs } from 'file-saver';
+import { saveAs } from "file-saver";
+import SubjectCardSection from "../Common/SubjectCardSection";
+import { HiOutlineDocumentDownload } from "react-icons/hi";
+import SubjectRowSection from "../Common/SubjectRowSection";
 
-import { HiOutlineDocumentDownload } from 'react-icons/hi'
 const tabs = [
   "All Classes",
   "Senior Secondary",
@@ -22,6 +24,8 @@ const tabs = [
   "Middle",
   "Pre Primary",
 ];
+const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG", "UKG","Nursery", "Pre Nursery"]
+
 export default function AllSubjects() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,135 +33,175 @@ export default function AllSubjects() {
   const [tabState, setTabState] = useState(0);
   const [viewState, setViewState] = useState("grid");
   const [loading, setLoading] = useState(false);
-  
-  const allSyllabus = useSelector((state) => state.syllabus.allSyllabus);
-  console.log("All Sylabus", allSyllabus)
+  const [searchQuery, setSearchQueary] = useState("");
 
-  const downloadFile = (subject)=>{
-    for (let i in subject.attachments){
-      const element  = API_URL.substring(0,API_URL.length - 5) + subject.attachments[i];
-      saveAs(element,subject.subject_name + ".pdf")
+  const allSyllabus = useSelector((state) => state.syllabus.allSyllabus);
+  console.log("All Sylabus", allSyllabus);
+  function filterTabs(classData) {
+    if (tabState === 0) return true;
+    else if (tabState === 1) {
+      if (classData.classroom_name.split(" ")[0] === "12" || classData.classroom_name.split(" ")[0] === "11")
+        return true;
+    } else if (tabState === 2) {
+      if (classData.classroom_name.split(" ")[0] === "10" || classData.classroom_name.split(" ")[0] === "9")
+        return true;
+    } else if (tabState === 3) {
+      if (classData.classroom_name.split(" ")[0] >= "6" && classData.classroom_name.split(" ")[0] <= "8")
+        return true;
+    } else if (tabState === 4) {
+      if (classData.classroom_name.split(" ")[0] >= "6" && classData.classroom_name.split(" ")[0] <= "8")
+        return true;
+    } else if (tabState === 4) {
+      if (classData.classroom_name.split(" ")[0] >= "5" && classData.classroom_name.split(" ")[0] <= "1")
+        return true;
     }
   }
-  useEffect(()=>{
-    if(!allSyllabus.length) getAllSchoolData(dispatch, navigate, setLoading);
-  },[])
+  function fliterClassroom(classData) {
+    return (classData.classroom_name)
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+  }
+  const downloadFile = (subject) => {
+    for (let i in subject.attachments) {
+      const element =
+        API_URL.substring(0, API_URL.length - 5) + subject.attachments[i];
+      saveAs(element, subject.subject_name + ".pdf");
+    }
+  };
+  useEffect(() => {
+    if (!allSyllabus.length) getAllSchoolData(dispatch, navigate, setLoading);
+  }, []);
   return (
     <Layout>
-      {loading ?  
-    <div className="flex items-center justify-center w-full h-screen">
-
-    <Rings
+      {loading ? (
+        <div className="flex items-center justify-center w-full h-screen">
+          <Rings
             height="220"
             width="220"
             // radius="9"
             color="rgb(30 64 175)"
-            
             ariaLabel="loading"
-          /> </div> : <>
-      {openUpload !== false ? (
-        <UploadSyllabusSidebar setOpenUpload={setOpenUpload} />
-      ) : undefined}
-      <div className="px-0 md:px-10">
-        <div className="flex justify-between my-4">
-        <p className="text-2xl font-semibold ">All CLassroom</p>
-          
-          <button
-            className="flex items-center px-4 py-2 font-medium text-white bg-indigo-600 rounded-md"
-            onClick={() => setOpenUpload(true)}
-          >
-            <AiOutlineUpload className="w-6 h-6 mr-2" />
-            Upload Syllabus
-          </button>
+          />{" "}
         </div>
+      ) : (
+        <>
+          {openUpload !== false ? (
+            <UploadSyllabusSidebar setOpenUpload={setOpenUpload} />
+          ) : undefined}
+          <div className="px-0 md:px-10">
+            <div className="flex justify-between my-4">
+              <p className="text-2xl font-semibold ">All CLassroom</p>
 
-       
-      
-        {/* <div className="flex flex-row w-full mb-4 border-b-2">
-          {tabs.map((tab, index) => {
-            return (
-              <span
-                key={index}
-                className={`mx-4 font-semibold text-gray-400 ${
-                  tabState === index
-                    ? "text-indigo-600 border-b-2 border-indigo-600"
-                    : undefined
-                }`}
-                onClick={() => setTabState(index)}
+              <button
+                className="flex items-center px-4 py-2 font-medium text-white bg-indigo-600 rounded-md"
+                onClick={() => setOpenUpload(true)}
               >
-                {tab}
-              </span>
-            );
-          })}
-        </div> */}
-
-        <div className="flex flex-row items-center mt-10 mb-4">
-            <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                <AiOutlineSearch />
-              </span>
-              <input
-                type="search"
-                name="q"
-                className="py-3 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
-                placeholder="Search a staff member"
-                autoComplete="off"
-              />
+                <AiOutlineUpload className="w-6 h-6 mr-2" />
+                Upload Syllabus
+              </button>
             </div>
-            <div className="flex flex-row justify-between w-full">
 
-            <button className="flex items-center px-2 py-1 font-medium text-gray-800 rounded-md border-[1px] bg-gray-50 sm:px-6 md:py-2 hover:bg-gray-600 hover:text-white ease-int-out duration-200">
-              <FiFilter className="sm:mr-2" />
-              <span className="hidden font-semibold text-md sm:flex">Fliter</span>
-            </button>
+            <div className="flex flex-row w-full mb-4 border-b-2">
+              {tabs.map((tab, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={`mx-4 font-semibold text-gray-400 ${
+                      tabState === index
+                        ? "text-indigo-600 border-b-2 border-indigo-600"
+                        : undefined
+                    }`}
+                    onClick={() => setTabState(index)}
+                  >
+                    {tab}
+                  </span>
+                );
+              })}
             </div>
-            <div className="flex flex-row p-1 rounded-md bg-slate-100">
-            <span className={`px-2 pl-4 py-2 flex items-center justify-center ${viewState==='grid' ?'bg-white pr-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('grid')}>
-            <div  className="mr-2">
 
-              <GridButton />
+            <div className="flex flex-row items-center mt-10 mb-4">
+              <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <AiOutlineSearch />
+                </span>
+                <input
+                  type="search"
+                  name="q"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQueary(e.target.value)}
+                  className="py-3 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
+                  placeholder="Search a staff member"
+                  autoComplete="off"
+                />
               </div>
-              Grid
-            </span>
-            <span className={`px-2 pr-4 py-2 flex items-center justify-center ${viewState==='list' ?'bg-white pl-4 font-semibold' : 'cursor-pointer'} rounded-md`} onClick={()=> setViewState('list')}>
-            <div className="mr-2" >
-
-<ListButton />
-</div>
-
-              List
-            </span>
+              <div className="flex flex-row justify-between w-full">
+                <button className="flex items-center px-2 py-1 font-medium text-gray-800 rounded-md border-[1px] bg-gray-50 sm:px-6 md:py-2 hover:bg-gray-600 hover:text-white ease-int-out duration-200">
+                  <FiFilter className="sm:mr-2" />
+                  <span className="hidden font-semibold text-md sm:flex">
+                    Fliter
+                  </span>
+                </button>
+              </div>
+              <div className="flex flex-row p-1 rounded-md bg-slate-100">
+                <span
+                  className={`px-2 pl-4 py-2 flex items-center justify-center ${
+                    viewState === "grid"
+                      ? "bg-white pr-4 font-semibold"
+                      : "cursor-pointer"
+                  } rounded-md`}
+                  onClick={() => setViewState("grid")}
+                >
+                  <div className="mr-2">
+                    <GridButton />
+                  </div>
+                  Grid
+                </span>
+                <span
+                  className={`px-2 pr-4 py-2 flex items-center justify-center ${
+                    viewState === "list"
+                      ? "bg-white pl-4 font-semibold"
+                      : "cursor-pointer"
+                  } rounded-md`}
+                  onClick={() => setViewState("list")}
+                >
+                  <div className="mr-2">
+                    <ListButton />
+                  </div>
+                  List
+                </span>
+              </div>
             </div>
+
+            {viewState === "grid" ? (
+               <div>
+               {sections.map((classCumilativeName, index) => {
+                 return (
+                   <SubjectCardSection
+                     key={index}
+                     classCumilativeName={classCumilativeName}
+                     sectionData={allSyllabus.filter(filterTabs).filter(fliterClassroom)}
+                     index={index}
+                   />
+                 );
+               })}
+             </div>
+            ) : (
+              <div>
+                 {sections.map((classCumilativeName, index) => {
+                 return (
+                   <SubjectRowSection
+                     key={index}
+                     classCumilativeName={classCumilativeName}
+                     sectionData={allSyllabus.filter(filterTabs).filter(fliterClassroom)}
+                     index={index}
+                   />
+                 );
+               })}
+                </div>
+            )}
           </div>
-          
-        {viewState==='grid' ? <div className="grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {allSyllabus.map((subject, index)=>{
-          
-          return <SubjectCard downloadFile={downloadFile} key={index} index={index} subject={subject}/>
-          })}
-         
-        </div> 
-: 
-        <div className="border-2 rounded-md">
-
-        <div className="grid w-full grid-cols-4 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
-          <span>Class</span>
-          <span>Subject</span>
-          <span>Download Sylabus</span>
-          <span>ACTIONS</span>
-
-        </div>
-        {allSyllabus.map((subject, index)=>{
-          return <div className="grid w-full grid-cols-4 p-2 py-4 font-semibold text-gray-800 bg-white border-b-2">
-          <span>{subject.classroom_name}</span>
-          <span>{subject.subject_name}</span>
-          <span onClick={()=>{downloadFile(subject)}}><HiOutlineDocumentDownload className="w-6 h-6 mr-4 text-indigo-600" /></span>
-          <FiMoreHorizontal className="flex justify-center w-6 h-6"/>
-
-        </div>
-        })}
-        </div>}
-      </div></> }
+        </>
+      )}
     </Layout>
   );
 }
