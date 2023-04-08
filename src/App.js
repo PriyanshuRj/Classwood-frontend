@@ -31,6 +31,7 @@ import Attendance from "./components/School/Attendance/Attendance";
 import SchoolTimetable from "./components/School/Timetable/Timetable";
 import FeesPage from "./components/School/Fees/main";
 import SchoolNoticeFullPageView from "./components/School/NoticeFullPageView";
+import SchoolEventFullPageView from "./components/School/EventFullPageView";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import StaffAllClassrooms from "./components/Staff/Classroom";
@@ -60,7 +61,7 @@ export default function App() {
     if(localStorage.getItem("UserType")==="School"){
       getuserCredentials();
     }
-  },[])
+  },[localStorage.getItem("UserType")])
   const getuserCredentials = async () =>{
     const acountData = await  axios.get(API_URL + "account/", 
     {
@@ -101,6 +102,7 @@ export default function App() {
           <Route path="/school/timetable" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolTimetable /> : <StartPay />} />
           <Route path="/school/fees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <FeesPage /> : <StartPay />} />
           <Route path="/school/notice/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ?  <SchoolNoticeFullPageView /> : <StartPay />} />
+          <Route path="/school/event/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ?  <SchoolEventFullPageView /> : <StartPay />} />
 
 
           {/* Staff Links */}

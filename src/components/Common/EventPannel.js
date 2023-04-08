@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../helpers/URL";
 import { useSelector, useDispatch } from "react-redux";
-import { setNotice } from "../../store/genralUser";
+import { setEvents } from "../../store/genralUser";
 import {GrNext} from "react-icons/gr";
 import {IoMdAddCircleOutline} from 'react-icons/io';
 const monthNames = [
@@ -22,16 +22,16 @@ const monthNames = [
 ];
 export default function EventPannel({setOpenAddEventModal}) {
   const dispatch = useDispatch();
-  const notices = useSelector((state) => state.user.notices);
+  const events = useSelector((state) => state.user.events);
   async function fetchNotice() {
     const token = localStorage.getItem("token");
 
-    let res = await axios.get(API_URL + "list/notice/", {
+    let res = await axios.get(API_URL + "list/event/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    dispatch(setNotice(res.data));
+    dispatch(setEvents(res.data));
   }
   useEffect(() => {
     fetchNotice();
@@ -48,10 +48,10 @@ onClick={()=> setOpenAddEventModal(true)}
 className={`flex flex-row text-indigo-600 items-center font-semibold cursor-pointer ${localStorage.getItem("UserType") ==="School" ? undefined : ' hidden '}`}> <IoMdAddCircleOutline className="mr-2 w-6 h-6" /> Add New </span>
 </div>
       <div className=" bg-white text-black pt-4 md:pt-6 w-full h-max">
-        {notices.map((notice, index) => {
-          const noticeDate = new Date(notice.date_posted);
+        {events.map((notice, index) => {
+          const noticeDate = new Date(notice.date);
           return (
-            <Link key={index} to={localStorage.getItem("UserType") ==="Staff" ? "/staff/notice/" + index : localStorage.getItem("UserType") ==="School" ? "/school/notice/" + index :  "/student/notice/" + index}>
+            <Link key={index} to={localStorage.getItem("UserType") ==="Staff" ? "/staff/event/" + index : localStorage.getItem("UserType") ==="School" ? "/school/event/" + index :  "/student/event/" + index}>
               <div className="flex justify-start pt-4 ">
               <div
                     className="text-sm text-[#76A5FF] bg-[#F0F7FD] rounded-md self-start  px-4 py-2 mr-6 flex justify-center items-center flex-col font-semibold">

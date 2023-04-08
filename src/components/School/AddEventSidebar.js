@@ -17,25 +17,31 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
   
   async function submit(){
     if(!noticeImage){
-      dispatch(setWarningToast("Notice files Missing"));
+      dispatch(setWarningToast("Event Image files Missing"));
     }
     else if(title.length==0 || content.length===0){
       dispatch(setWarningToast("Complete all the Details"));
 
-    } else{
+    } 
+    else if(eventTime.length===0){
+      dispatch(setWarningToast("Please Select A Date"));
+    }
+    else{
       setLoading(true);
       const token = localStorage.getItem("token");
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", content);
+      formData.append("date", eventTime);
       console.log(noticeImage)
       const Attachments = Array.from(noticeImage)
       Attachments.forEach((item) => formData.append("attachments", item));
-      const res =  await axios.post(API_URL + "list/notice/",formData,{
+      const res =  await axios.post(API_URL + "list/event/",formData,{
           headers: {
             Authorization: `Bearer ${token}`,
           }
       });
+      console.log(res);
       if(res.status===201) {
         dispatch(setSuccessToast("Notice Added Successfully"))
         setTitle("");
@@ -79,9 +85,9 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
             className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>
-        <spam className="ml-6 text-lg mt-4 mb-4 font-semibold">
+        <span className="ml-6 text-lg mt-4 mb-4 font-semibold">
           Event Date : {eventTime}
-        </spam>
+        </span>
         <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Title

@@ -20,7 +20,7 @@ export default function SideBar({children}) {
       
       <div>
 
-        <div className="mt-8 text-gray-800">
+        {/* <div className="mt-8 text-gray-800">
           <div className="z-50">
             <div className="flex w-full px-6 my-8">
               <span
@@ -61,7 +61,7 @@ export default function SideBar({children}) {
               </span>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="flex items-center justify-center w-full px-10 py-4 border-t-[1px] border-gray-400 bg-opacity-30">
         <img className="w-auto h-8 " src={logo} alt="Classwood logo" />
       </div>

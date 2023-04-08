@@ -9,6 +9,7 @@ export const userSlice = createSlice({
     userProfileData: {},
     classStudents: [],
     notices: [],
+    events : [],
     testStudents: [],
     loading: false,
     session : {
@@ -31,6 +32,9 @@ export const userSlice = createSlice({
     },
     setNotice: (state, action) => {
       state.notices = action.payload;
+    },
+    setEvents: (state, action) =>{
+      state.events = action.payload;
     },
     setTestStudent: (state, action) => {
       console.log("called", action.payload);
@@ -66,6 +70,7 @@ export const {
   setWarningToast,
   setClassStudents,
   setNotice,
+  setEvents,
   setTestStudent,
   updatePercentage,
   updateSubjectMarks,

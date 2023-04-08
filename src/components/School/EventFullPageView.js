@@ -3,38 +3,40 @@ import Layout from "./Layout";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../helpers/URL";
+import { setNotice } from "../../store/genralUser";
 import { AiFillFileExcel } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { saveAs } from "file-saver";
-export default function NoticeFullPageView() {
+export default function EventFullPageView() {
   const [Notice, setCurrentNotice] = useState({});
   const [date, setDate] = useState("");
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const notices = useSelector((state) => state.user.notices);
+  const events = useSelector((state) => state.user.events);
 
   async function fetchNotice() {
     const token = localStorage.getItem("token");
 
-    let res = await axios.get(API_URL + "list/notice/", {
+    let res = await axios.get(API_URL + "list/event/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("these are notices : ", res.data);
+    console.log("these are events : ", res.data);
   }
   useEffect(() => {
     fetchNotice();
   }, []);
   useEffect(() => {
-    setCurrentNotice(notices[id]);
-    if (notices[id]) {
-      const date = new Date(notices[id].date_posted);
+    setCurrentNotice(events[id]);
+    if (events[id]) {
+      const date = new Date(events[id].date);
       console.log(date);
       setDate(
         date.getDate() + "/" + (date.getMonth() + 1 + "/" + date.getFullYear())
       );
     }
-  }, [notices]);
+  }, [events]);
   console.log(Notice);
   const downloadFile = (index) => {
     const element =
