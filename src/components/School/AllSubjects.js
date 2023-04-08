@@ -99,7 +99,7 @@ export default function AllSubjects() {
               </button>
             </div>
 
-            <div className="flex flex-row w-full mb-4 border-b-2">
+            <div className="mt-6 flex flex-row w-full mb-4 border-b-2">
               {tabs.map((tab, index) => {
                 return (
                   <span
@@ -127,18 +127,18 @@ export default function AllSubjects() {
                   name="q"
                   value={searchQuery}
                   onChange={(e) => setSearchQueary(e.target.value)}
-                  className="py-3 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
+                  className="border py-3 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
                   placeholder="Search a staff member"
                   autoComplete="off"
                 />
               </div>
               <div className="flex flex-row justify-between w-full">
-                <button className="flex items-center px-2 py-1 font-medium text-gray-800 rounded-md border-[1px] bg-gray-50 sm:px-6 md:py-2 hover:bg-gray-600 hover:text-white ease-int-out duration-200">
+                {/* <button className="flex items-center px-2 py-1 font-medium text-gray-800 rounded-md border-[1px] bg-gray-50 sm:px-6 md:py-2 hover:bg-gray-600 hover:text-white ease-int-out duration-200">
                   <FiFilter className="sm:mr-2" />
                   <span className="hidden font-semibold text-md sm:flex">
                     Fliter
                   </span>
-                </button>
+                </button> */}
               </div>
               <div className="flex flex-row p-1 rounded-md bg-slate-100">
                 <span

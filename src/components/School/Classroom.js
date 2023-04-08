@@ -123,7 +123,7 @@ export default function Classroom() {
             Add Class
           </Link>
         </div>
-        <div className="flex-row hidden w-full mb-4 border-b-2 md:flex">
+        <div className="mt-6 flex-row hidden w-full mb-4 border-b-2 md:flex">
           {tabs.map((tab, index) => {
             return (
               <span
@@ -150,15 +150,15 @@ export default function Classroom() {
                 type="search"
                 name="q"
                 onChange={(e) => setSearchQueary(e.target.value)}
-                className="py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none w-[280px] sm:w-[320px]"
+                className="border py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none w-[280px] sm:w-[320px]"
                 placeholder="Search a class"
                 autoComplete="off"
               />
             </div>
-            <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
+            {/* <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
               <FiFilter className="sm:mr-2" />
               <span className="hidden sm:flex">Fliter</span>
-            </button>
+            </button> */}
           </div>
           <div className="flex flex-row p-1 rounded-md bg-slate-100 ">
             <span
