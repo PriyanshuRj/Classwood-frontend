@@ -12,15 +12,15 @@ export const genderList = [
   export const boardList = [
     {
       id: 1,
-      name: "CBSC",
+      name: "CBSE",
     },
     {
       id: 2,
-      name: "ICSC",
+      name: "ICSE",
     },
     {
       id : 3,
-      name: "Himachal Board"
+      name: "HP"
     }
   ];
   export const classNameList = [

@@ -113,7 +113,14 @@ console.log("the web", schoolWebsite.substring(0,12))
                 SVG, PNG, JPG or GIF (MAX. 800x400px)
               </p>
             </div>
-            <input id="dropzone-file" type="file" className="hidden" onChange={(e)=> setSchoolLogo(e.target.files[0])} />
+            <input id="dropzone-file" type="file" className="hidden" 
+            onChange={(e)=> {
+              if(e.target.files[0].type.substring(0,5)==="image")  setSchoolLogo(e.target.files[0]);
+              else dispatch(setWarningToast("Please select an Image"))
+              
+            }
+              
+              } />
           </label>
         </div>
         </div>

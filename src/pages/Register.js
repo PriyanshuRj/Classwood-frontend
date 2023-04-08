@@ -50,8 +50,8 @@ export default function Register() {
       formData.append("school_logo", schoolLogo);
       formData.append("school_website", schoolWebsite);
       formData.append("date_of_establishment", dateOfStablishment);
-      formData.append("affilation_no", affilationNo);
-      formData.append("affilation_board", affilationBoard.name);
+      formData.append("school_affNo", affilationNo);
+      formData.append("school_board", affilationBoard.name);
       const res = await axios.post(API_URL + "signup/", 
           formData
           );
