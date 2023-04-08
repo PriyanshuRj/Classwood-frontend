@@ -4,6 +4,7 @@ import { BiBook } from "react-icons/bi";
 import { MdNavigateNext } from "react-icons/md";
 import Layout from "./StudentLayout";
 import NoticePannel from "../Common/NoticePannel";
+import EventPannel from "../Common/EventPannel";
 import { getAllDatatForStudentUser } from "./helper/dataFeatcher";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -130,6 +131,7 @@ export default function StudentDashboard() {
             </div>
           </a>
          <NoticePannel />
+         <EventPannel />
         </div>
       </div>
     </Layout>
