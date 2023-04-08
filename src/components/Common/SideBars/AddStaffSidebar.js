@@ -99,6 +99,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("account_no", acountNo);
           formData.append("staddId", staffId);
           formData.append("adhar", adharNumber);
+          formData.append("ifsc_code", ifscCode);
           const res = await axios.post(API_URL + "list/staff/", formData, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -149,6 +150,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("account_no", acountNo);
           formData.append("staddId", staffId);
           formData.append("adhar", adharNumber);
+          formData.append("ifsc_code", ifscCode);
 
 
           const res = await axios.put(
