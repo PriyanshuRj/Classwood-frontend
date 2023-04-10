@@ -20,7 +20,7 @@ export default function AddExamResult() {
   const [examDate, setExamDate] = useState("");
   const [maxMarks, setMaxMarks] = useState("");
   const [classSubjects, setClassSubjects] = useState([]);
-  const [showStudents, setShowStudents] = useState(false);
+  const [showStudents, setShowStudents] = useState(true);
   const [setectedSubject, setSelectedSubject] = useState({
     name: "No Subject Selected",
   });
@@ -38,7 +38,8 @@ export default function AddExamResult() {
     });
     setClassSubjects(classroomSubjects.data);
     setSelectedSubject({ name: "No Subject Selected" });
-    setShowStudents(false);
+    // setShowStudents(false);
+    getStudents();
     setLoading(false);
   }
 
@@ -274,7 +275,7 @@ export default function AddExamResult() {
         </label>
       </div> 
       }
-      {
+      {/* {
 showStudents ? 
 <span onClick={()=>{
   setShowStudents(false);
@@ -288,7 +289,7 @@ onAddStudentClick();
         {" "}
         <CgAdd className="mr-2 " /> Add Individual Marks
       </span>
-      }
+      } */}
       <button
         onClick={() => addExam()}
         className="flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"

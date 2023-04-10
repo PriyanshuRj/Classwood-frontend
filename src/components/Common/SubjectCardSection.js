@@ -5,7 +5,8 @@ import { saveAs } from "file-saver";
 import { API_URL } from "../../helpers/URL";
 export default function SubjectCardSection({
   classCumilativeName,
-  sectionData
+  sectionData,
+  setOpenSylabusSidebar
 }) {
 
   const downloadFile = (subject) => {
@@ -35,6 +36,7 @@ export default function SubjectCardSection({
                   key={index}
                   index={index}
                   subject={subject}
+                  setOpenSylabusSidebar={setOpenSylabusSidebar}
                 />
               );
             })}

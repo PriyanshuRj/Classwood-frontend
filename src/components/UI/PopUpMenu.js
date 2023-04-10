@@ -29,7 +29,7 @@ export default function PopUpMenu({menuList}) {
             {menuList.map((listItem, index)=>{
                 return (localStorage.getItem("UserType")==="Staff" && listItem.deleteType) ? undefined : <Menu.Item key={index}>
                 {({ active }) => (
-                  listItem.title!=="View Class Student" ? <span
+                  listItem.title!=="View Class Student" && listItem.title!=="View Attendence" ? <span
                     className={classNames(
                       active
                         ? "bg-gray-100 text-gray-900"

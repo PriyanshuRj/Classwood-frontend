@@ -5,7 +5,8 @@ import { API_URL } from "../../helpers/URL";
 import { saveAs } from "file-saver";
 export default function SubjectRowSection({
     classCumilativeName,
-    sectionData
+    sectionData,
+    setOpenSylabusSidebar
 }) {
     const downloadFile = (subject) => {
         for (let i in subject.attachments) {
@@ -40,6 +41,7 @@ export default function SubjectRowSection({
                 key={index}
                 index={index}
                 subject={subject}
+                setOpenSylabusSidebar={setOpenSylabusSidebar}
                 />
               );
             })}

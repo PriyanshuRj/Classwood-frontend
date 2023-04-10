@@ -7,15 +7,18 @@ import {IoMdAddCircleOutline} from 'react-icons/io';
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
+import {addFees, updateTitle, updateValue} from "../../../store/School/feesSlice";
 export default function FeesDistribution() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const divisionStats = [{title : "Annual",
-division : []},{title : "Monthly",
-division : ["M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1"] }, {title : "Quartely", division : ["Q1", "Q2", "Q3", "Q4"]}, {title : "Custom", division : ["D1", "D2", "D3"]}];
-
+  
+  const [extrafiled, setExtrafileds] = useState([]);
+  function addNewFeefiled(){
+    dispatch(addFees());
+  }
   const classrooms = useSelector((state) => state.classroom.allClasses);
-  const [divisionState, setDevisionState] = useState(0);
+  const fees = useSelector((state) => state.fees.allFees);
+  console.log(fees)
   const [selectedClass, setSelectedClass] = useState({
     class_name: "No Class",
 
@@ -124,38 +127,49 @@ division : ["M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1"] }, {tit
                         className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
                       />
                     </div>
+                    {fees.length>0 && fees.map((filed, index)=>{
+                      return (  
+                      <div key={index} className="flex justify-between mx-4 px-4 mt-4">
+                        <div className="flex flex-col">
+                        <label className="font-semibold mt-2">Fees Title</label>
+
+                      <input
+                        type="text"
+                        
+                        placeholder="Fees Title"
+                        value={filed.title}
+                        onChange={(e) => dispatch(updateTitle({index:index, value : e.target.value}))}
+                        className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+                      />
+                      </div>
+
+                      <div className="flex flex-col">
+                      <label className="font-semibold mt-2">Fees Value</label>
+
+                      <input
+                        type="text"
+                        placeholder=" Fees Value"
+                        value={filed.value}
+                        onChange={(e) => dispatch(updateValue({index:index, value : e.target.value}))}
+                        className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+                      />
+                      </div>
+
+                      </div>)
+                    })}
                     <button
-                    className="ml-8 mt-8 flex items-center px-4 py-2 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
+                    className="ml-8 mt-8 flex items-center px-4 py-2 font-medium text-indigo-700 duration-300 ease-in-out rounded-md hover:bg-indigo-100 hover:text-indigo-800"
                     onClick={() => {
-                      // setOpen(true);
+                      addNewFeefiled()
                     }}
                   >
                     <IoMdAddCircleOutline className="mr-2" />
                     Add Section
                   </button>
 
-                  <div className="flex flex-col">
-                      <span className="text-gray-500 font-semibold mt-4 mx-8">Time Period*</span>
-                      <div className="flex flex-row justify-between py-4 mx-8">
-                        {divisionStats.map((division, index)=>{
-                          return <span onClick={()=> setDevisionState(index)} key={index} className={` ${divisionState===index ? " bg-slate-700 text-white "  : "bg-slate-200  text-gray-700 " }  w-[20%] text-center cursor-pointer  rounded-md px-4 py-2 text-md font-semibold `}>
-                          {division.title}
-                        </span>
-                        })}
-                        
-                      </div>
-                  </div>
+                 
       
-         <div className="border-2 rounded-md mx-8">
-          <div className={`grid cursor-pointer w-full grid-cols-${divisionStats[divisionState].division.length + 1} p-2 text-sm font-semibold text-gray-500 bg-slate-50`}>
-            <span>Fee Fields</span>
-            {divisionStats[divisionState].division.map((value,key)=>{
-              return <span>{value}</span>
-            })}
-            
-           
-          </div>
-          </div>
+        
           <div
         onClick={()=>console.log("hello")}
         className="text-center flex cursor-pointer items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-white bg-indigo-600 rounded-md"

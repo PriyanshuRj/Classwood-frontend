@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import AttendanceCard from './AttendanceCard';
-import AttendenceRow from './AttendenceRow';
 import Layout from "../Layout";
 import { useNavigate } from 'react-router-dom';
 import { Rings } from 'react-loader-spinner';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { FiFilter } from 'react-icons/fi';
 import AttendenceCardSection from '../../Common/AttendenceCardSection';
 import AttendenceRowSection from '../../Common/AttendenceRowSection';
 import { getAllSchoolData } from '../helpers/dataFetcher';
@@ -77,7 +74,7 @@ export default function Attendance() {
             
             ariaLabel="loading"
           /> </div> : <>
-    <div className='p-4'>
+    <div className='px-4 md:px-10'>
     <div className="flex flex-col justify-between my-4 md:flex-row">
           <p className="text-2xl font-semibold ">All CLassroom</p>
          

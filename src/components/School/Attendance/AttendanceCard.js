@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
+import PopUpMenu from "../../UI/PopUpMenu";
 export default function AttendanceCard({ classData }) {
 
   const [today, setToday] = useState(0);
@@ -36,6 +37,18 @@ export default function AttendanceCard({ classData }) {
     }
 
   }
+  function viewStudentDetails() {
+    localStorage.setItem("classId", classData.id);
+    localStorage.setItem(
+      "className",
+      classData.class_name + " " + classData.section_name
+    );
+    // setSelectedClass(index);
+  }
+  const ClassroomPopUpData = [{
+    title : "View Attendence",
+    function : viewStudentDetails
+  }]
   useEffect(()=>{
     getAllClassStudent();
   },[today])
@@ -48,6 +61,9 @@ export default function AttendanceCard({ classData }) {
             {classData.class_name + " " + classData.section_name}
           </span>
         </div>
+        <PopUpMenu
+          menuList={ClassroomPopUpData}
+        />
       </div>
       <div className="flex flex-row items-center justify-between mt-6 ">
         <span className="font-semibold text-gray-500 flex flex-row justify-center items-center">

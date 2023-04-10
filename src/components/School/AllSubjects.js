@@ -27,6 +27,7 @@ const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG",
 export default function AllSubjects() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [opneSylabusSidebar, setOpenSylabusSidebar] = useState(false);
   const [openUpload, setOpenUpload] = useState(false);
   const [tabState, setTabState] = useState(0);
   const [viewState, setViewState] = useState("grid");
@@ -59,13 +60,7 @@ export default function AllSubjects() {
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
   }
-  const downloadFile = (subject) => {
-    for (let i in subject.attachments) {
-      const element =
-        API_URL.substring(0, API_URL.length - 5) + subject.attachments[i];
-      saveAs(element, subject.subject_name + ".pdf");
-    }
-  };
+  
   useEffect(() => {
     if (!allSyllabus.length) getAllSchoolData(dispatch, navigate, setLoading);
   }, []);
@@ -86,6 +81,7 @@ export default function AllSubjects() {
           {openUpload !== false ? (
             <UploadSyllabusSidebar setOpenUpload={setOpenUpload} />
           ) : undefined}
+            
           <div className="px-0 md:px-10">
             <div className="flex justify-between my-4">
               <p className="text-2xl font-semibold ">All CLassroom</p>
@@ -179,6 +175,7 @@ export default function AllSubjects() {
                      classCumilativeName={classCumilativeName}
                      sectionData={allSyllabus.filter(filterTabs).filter(fliterClassroom)}
                      index={index}
+                     setOpenSylabusSidebar={setOpenSylabusSidebar}
                    />
                  );
                })}
@@ -192,6 +189,7 @@ export default function AllSubjects() {
                      classCumilativeName={classCumilativeName}
                      sectionData={allSyllabus.filter(filterTabs).filter(fliterClassroom)}
                      index={index}
+                     setOpenSylabusSidebar={setOpenSylabusSidebar}
                    />
                  );
                })}

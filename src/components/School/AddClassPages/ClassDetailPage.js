@@ -123,7 +123,7 @@ export default function ClassDetailPage({
 
       <button
         onClick={() => setPageState(2)}
-        className="mb-8 flex items-center justify-center py-4 mx-8 mt-16 text-gray-800 duration-300 bg-gray-200 rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"
+        className="mb-8 flex border border-indigo-700 items-center justify-center py-4 mx-8 mt-16 text-indigo-700 duration-300  rounded-lg justify-self-end hover:bg-indigo-700 hover:text-gray-50 easy-in-out"
       >
         Save and Next <GrNext className="ml-2" />
       </button>

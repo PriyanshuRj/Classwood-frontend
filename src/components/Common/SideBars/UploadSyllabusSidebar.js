@@ -20,6 +20,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
   const [loading, setLoading] = useState(false);
   const [selectedClass, setSelectedClass] = useState(classrooms[0]);
   const [subjectImage, setSubjectImage] = useState(null);
+  const [units, setUnits] = useState("");
 
   useEffect(() => {
     fetchSubjects();
@@ -55,7 +56,8 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
         formData.append("classroom", selectedClass.id);
         formData.append("attachments", subjectImage);
         formData.append("subject", setectedSubject.id);
-        formData.append("tag",  selectedClass.class_teacher )
+        formData.append("tag",  selectedClass.class_teacher );
+        // formData.append("unit", units);
         let res = await axios.post(API_URL + "staff/syllabus/", formData, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -121,6 +123,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
           selected={setectedSubject}
           setSelected={setSelectedSubject}
         />
+       
         <div className="flex items-center justify-center w-full mt-8">
           <label
             htmlFor="dropzone-file"

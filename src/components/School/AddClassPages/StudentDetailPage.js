@@ -116,7 +116,7 @@ export default function StudentDetailPage({ setPageState, CSVFile, setCSVFile })
       </div>
       <button
         onClick={() => setPageState(4)}
-        className="mb-8 flex items-center justify-center py-4 mx-8 mt-16 text-gray-800 duration-300 bg-gray-200 rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"
+        className="mb-8 flex border border-indigo-700 items-center justify-center py-4 mx-8 mt-16 text-indigo-700 duration-300  rounded-lg justify-self-end hover:bg-indigo-700 hover:text-gray-50 easy-in-out"
       >
         Save and Review <GrNext className="ml-2" />
       </button>

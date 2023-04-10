@@ -6,7 +6,7 @@ import classroomSlice from './School/classroomSlice'
 import timetableSlice from './School/timetableSlice';
 import studentSlice from './School/studentSlice';
 import syllabusSlice from './School/syllabusSlice';
-
+import feesSlice from './School/feesSlice';
 // Staff Slice
 import staffUserSlice from './Staff/UserSlice';
 
@@ -24,6 +24,7 @@ export default configureStore({
       timetable :timetableSlice,
       student : studentSlice,
       syllabus : syllabusSlice,
-      studentUser : studentUserSlice
+      studentUser : studentUserSlice,
+      fees : feesSlice
   },
 })
