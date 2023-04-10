@@ -6,9 +6,13 @@ import {FiFilter} from "react-icons/fi";
 import {BsGrid, BsListUl} from "react-icons/bs";
 import TestCard from '../../Common/Cards/TestCard';
 import TestRow from '../../Common/Rows/TestRow';
+import { Rings } from 'react-loader-spinner';
+import PastResultCardSection from '../../Common/PastResultCardSection';
+import PastResultRowSection from '../../Common/PastResultRowSection';
+const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG", "UKG","Nursery", "Pre Nursery"]
 export default function PastResults() {
     function filterTest(testData) {
-        return (testData.classroom + " " +  testData.subject + testData.tag)
+        return (testData.classroom_name + " " +  testData.subject + testData.tag)
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
       }
@@ -16,8 +20,9 @@ export default function PastResults() {
     const [selectedTest, setSelectedTest] = useState(0);
     const [pastExams, setPastExams] = useState([]);
     const [viewState, setViewState] = useState("grid");
-
+      const [loading, setLoading] = useState(false);
     async function getPastExams() {
+      setLoading(true);
         const token = localStorage.getItem("token");
 
         let res = await axios.get(API_URL + "staff/exam/", {
@@ -27,15 +32,28 @@ export default function PastResults() {
         });
         setPastExams(res.data);
         console.log("these are notices : ", res.data);
+        setLoading(false);
     };
     useEffect(()=>{
         getPastExams();
         console.log(pastExams)
     },[])
   return (
+    <>
+    {loading ? (
+        <div className="flex items-center justify-center w-full h-screen">
+          <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            ariaLabel="loading"
+          />{" "}
+        </div>
+      ) : (
     <div className="px-4 md:px-10">
             <div className="flex flex-col justify-between my-4 md:flex-row">
-              <p className="my-4 mt-2 text-2xl font-semibold">All CLassroom</p>
+              <p className="my-4 mt-2 text-2xl font-semibold">All Past Exams</p>
             </div>
             <div className=" mb-8 flex flex-row items-center justify-between w-full">
               <div className="flex flex-row">
@@ -87,40 +105,49 @@ export default function PastResults() {
                 <span>No Test Found </span>
               </div>
             ) : viewState === "grid" ? (
-              <div className="mb-10 grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {pastExams.filter(filterTest).map((classData, index) => {
-                  return (
-                    <TestCard
-                      key={index}
-                      testData={classData}
-                      index={index}
-                      setSelectedTest={setSelectedTest}
+              // <div className="mb-10 grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              //   {pastExams.filter(filterTest).map((classData, index) => {
+              //     return (
+              //       <TestCard
+              //         key={index}
+              //         testData={classData}
+              //         index={index}
+              //         setSelectedTest={setSelectedTest}
                      
-                    />
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="border-2 rounded-md">
-                <div className="grid w-full grid-cols-4 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
-                  <span>Test name</span>
-                  <span>Classroom</span>
-                  <span>Subject</span>
-                  <span>Actions</span>
-                </div>
-                {pastExams.filter(filterTest).map((classData, index) => {
-                  return (
-                    <TestRow
-                      key={index}
-                      testData={classData}
-                      index={index}
-                      setSelectedTest={setSelectedTest}
-                     
-                    />
-                  );
-                })}
-              </div>
-            )}
+              //       />
+              //     );
+              //   })}
+              // </div>
+              <div>
+            {sections.map((classCumilativeName, index) => {
+              return (
+                <PastResultCardSection
+                  key={index}
+                  classCumilativeName={classCumilativeName}
+                  sectionData={pastExams.filter(filterTest)}
+                  index={index}
+                  setSelectedTest={setSelectedTest}
+                />
+              );
+            })}
           </div>
+            ) : (
+              <div>
+      
+          {sections.map((classCumilativeName, index) => {
+              return (
+                <PastResultRowSection
+                key={index}
+                classCumilativeName={classCumilativeName}
+                sectionData={pastExams.filter(filterTest)}
+                index={index}
+                setSelectedTest={setSelectedTest}
+                />
+              );
+            })}
+        
+        </div>
+            )}
+          </div> )}</>
   )
 }

@@ -133,7 +133,7 @@ export default function StudentDashboard() {
               </div>
             </div>
             
-            <div className="flex flex-row mt-8 ">
+            <div className="flex flex-row mt-10 ">
               {/* Fees Management */}
             <Link to="/school/fees" className="w-3/5 mb-8 flex flex-col shadow-md rounded-xl py-4 px-6">
               <span className="font-semibold text-xl flex border-b pb-2">Fee Management</span>
@@ -153,15 +153,7 @@ export default function StudentDashboard() {
                     animate={true}
                     background="#818CF8"
                   />
-                  
-                  {/* <div className="flex flex-col items-center justify-center -mt-40  ">
-                    <span className="text-2xl font-semibold text-center md:text-5xl">
-                      30% Paid
-                    </span>
-                    <h1 className="my-2 mt-4 text-2xl text-center text-[#8A8A8A]">
-                      Fees
-                    </h1>
-                  </div> */}
+               
                 </div>
                 <div>
 

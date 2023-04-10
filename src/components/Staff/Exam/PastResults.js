@@ -6,6 +6,7 @@ import {FiFilter} from "react-icons/fi";
 import {BsGrid, BsListUl} from "react-icons/bs";
 import TestCard from '../../Common/Cards/TestCard';
 import TestRow from '../../Common/Rows/TestRow';
+import { Rings } from 'react-loader-spinner';
 export default function PastResults() {
     function filterTest(testData) {
         return (testData.classroom + " " +  testData.subject)
@@ -16,8 +17,9 @@ export default function PastResults() {
     const [selectedTest, setSelectedTest] = useState(0);
     const [pastExams, setPastExams] = useState([]);
     const [viewState, setViewState] = useState("grid");
-
+    const [loading, setLoading] = useState(false);
     async function getPastExams() {
+      setLoading(true);
         const token = localStorage.getItem("token");
 
         let res = await axios.get(API_URL + "staff/exam/", {
@@ -27,15 +29,27 @@ export default function PastResults() {
         });
         setPastExams(res.data);
         console.log("these are notices : ", res.data);
+        setLoading(false);
     };
     useEffect(()=>{
         getPastExams();
-        console.log(pastExams)
     },[])
   return (
+    <>
+    {loading ? (
+        <div className="flex items-center justify-center w-full h-screen">
+          <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            ariaLabel="loading"
+          />{" "}
+        </div>
+      ) : (
     <div className="px-4 md:px-10">
             <div className="flex flex-col justify-between my-4 md:flex-row">
-              <p className="my-4 mt-2 text-2xl font-semibold">All CLassroom</p>
+              <p className="my-4 mt-2 text-2xl font-semibold">All Past Results</p>
             </div>
             <div className=" mb-8 flex flex-row items-center justify-between w-full">
               <div className="flex flex-row">
@@ -82,7 +96,7 @@ export default function PastResults() {
                 </span>
               </div>
             </div>
-            {pastExams.length == 0 ? (
+            {!loading && pastExams.length == 0 ? (
               <div className="flex items-center justify-center w-full h-96">
                 <span>No Test Found </span>
               </div>
@@ -121,6 +135,7 @@ export default function PastResults() {
                 })}
               </div>
             )}
-          </div>
+          </div> ) }
+          </>
   )
 }

@@ -40,7 +40,7 @@ export default function NoticePannel({ setOpenAddNoticeModal }) {
     fetchNotice();
   }, []);
   return (
-    <div className="mt-10 md:shadow-lg md:rounded-xl py-4">
+    <div className="mt-10 md:shadow-lg md:rounded-xl py-4 min-h-[23.5rem]">
       <div className="absolute -l-4 ">
         <SideRectange />
       </div>

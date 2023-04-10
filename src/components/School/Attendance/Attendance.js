@@ -87,10 +87,10 @@ export default function Attendance() {
             return (
               <span
                 key={index}
-                className={`mx-4 cursor-pointer font-semibold text-gray-400 ${
+                className={`mx-4 cursor-pointer font-semibold  ${
                   tabState === index
                     ? "text-indigo-600 border-b-2 border-indigo-600"
-                    : undefined
+                    : "text-gray-400"
                 }`}
                 onClick={() => setTabState(index)}
               >
