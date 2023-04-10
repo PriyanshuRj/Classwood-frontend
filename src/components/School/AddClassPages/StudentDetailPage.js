@@ -19,7 +19,8 @@ export default function StudentDetailPage({ setPageState, CSVFile, setCSVFile })
   }
   const addNewStudent = () => {};
   return (
-    <div className="flex flex-col h-full mx-4">
+    <div className="flex flex-col h-full mx-4 flex-1 justify-between">
+        <div className="flex flex-col h-full">
       <span className="text-xl font-semibold py-4 border-b-[1px]">
         Create New Class
       </span>
@@ -112,9 +113,10 @@ export default function StudentDetailPage({ setPageState, CSVFile, setCSVFile })
         {" "}
         <CgAdd className="mr-2" /> Add new Student
       </span> */}
+      </div>
       <button
         onClick={() => setPageState(4)}
-        className="flex items-center justify-center py-4 mx-8 mt-16 text-gray-800 duration-300 bg-gray-200 rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"
+        className="mb-8 flex items-center justify-center py-4 mx-8 mt-16 text-gray-800 duration-300 bg-gray-200 rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"
       >
         Save and Review <GrNext className="ml-2" />
       </button>

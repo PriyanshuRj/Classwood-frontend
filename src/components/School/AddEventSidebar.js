@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import { Rings } from "react-loader-spinner";
 import Layout from "./Layout";
@@ -6,6 +6,23 @@ import { useDispatch } from "react-redux";
 import { API_URL } from "../../helpers/URL";
 import { setWarningToast, setSuccessToast } from "../../store/genralUser";
 import { RxCross1 } from "react-icons/rx";
+import Calendar from "../Common/Calander";
+
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apl",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 export default function AddEventSidebar({setOpenAddEventeModal}) {
   
   const dispatch = useDispatch();
@@ -14,7 +31,8 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
   const [eventTime, setEventTime] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  
+  const [selectedDate, selectDate] = useState("");
+  const [day, setDate] = useState("");
   async function submit(){
     if(!noticeImage){
       dispatch(setWarningToast("Event Image files Missing"));
@@ -23,7 +41,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
       dispatch(setWarningToast("Complete all the Details"));
 
     } 
-    else if(eventTime.length===0){
+    else if(day.length===0){
       dispatch(setWarningToast("Please Select A Date"));
     }
     else{
@@ -32,7 +50,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", content);
-      formData.append("date", eventTime);
+      formData.append("date", day.toISOString().substring(0, 10));
       console.log(noticeImage)
       const Attachments = Array.from(noticeImage)
       Attachments.forEach((item) => formData.append("attachments", item));
@@ -51,9 +69,14 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
       }
     }
     setLoading(false);
+  
+    
   }
+  useEffect(() => {
+    console.log(day)
+  }, [day])
   return (
-    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem] md:w-[55rem] shadow-lg">
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[34rem]  shadow-lg">
        <div
         onClick={() => setOpenAddEventeModal(false)}
         className="cursor-pointer absolute p-2 bg-gray-200 duration-200 ease-in-out hover:bg-gray-400 rounded-full top-8 left-8"
@@ -77,17 +100,13 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Event Time
           </label>
-          <input
-            value={eventTime}
-            type="date"
-            onChange={(e) => setEventTime(e.target.value)}
-            placeholder="Title"
-            className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
-          />
+         
+        <Calendar seletctedDate={selectedDate} selectDate={selectDate} setDate={setDate} />
         </div>
-        <span className="ml-6 text-lg mt-4 mb-4 font-semibold">
-          Event Date : {eventTime}
-        </span>
+        {day !=="" ?  <span className="ml-6 text-lg mt-4 mb-4 font-semibold">
+          Event Date : {day.getDate() + " " +  monthNames[day.getMonth()] + " " + day.getFullYear() }
+        </span>  : undefined}
+       
         <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Title
@@ -96,7 +115,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
             value={title}
             type="text"
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
+            placeholder="Enter a brief of upcoming event"
             className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>
@@ -108,7 +127,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
             value={content}
             type="text"
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Content"
+            placeholder="Enter in detail of upcoming event"
             className="flex px-3 py-4 font-medium  border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>

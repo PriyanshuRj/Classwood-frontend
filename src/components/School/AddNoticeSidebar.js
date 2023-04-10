@@ -13,7 +13,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  
+  const date = new Date();
   async function submit(){
     if(!noticeImage){
       dispatch(setWarningToast("Notice files Missing"));
@@ -46,7 +46,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
     setLoading(false);
   }
   return (
-    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem] md:w-[55rem] shadow-lg">
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[35rem] shadow-lg">
        <div
         onClick={() => setOpenAddNoticeModal(false)}
         className="cursor-pointer absolute p-2 bg-gray-200 duration-200 ease-in-out hover:bg-gray-400 rounded-full top-8 left-8"
@@ -66,6 +66,9 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
           /> </div> : <>
       <div className="flex flex-col mt-16">
         <span className=" text-2xl font-semibold text-center">Add Notice</span>
+        <span className="text-lg ml-8 font-medium mt-4">
+        Date : {date.getDate() + " - " + (date.getMonth() + 1) + " - " + date.getFullYear()}
+        </span>
         <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Title

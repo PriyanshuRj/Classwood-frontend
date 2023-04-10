@@ -78,7 +78,9 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
     setLoading(false);
   }
   return (
-    <div className="z-40 fixed top-0 right-0 pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full">
+    <div className="z-40 fixed top-0 right-0 pt-8 overflow-y-scroll bg-white w-[32rem] flex flex-col h-full shadow-md">
+    
+
       <div onClick={()=>setOpenUpload(false)} className="absolute p-2 bg-gray-200 rounded-full cursor-pointer top-8 left-8">
         <RxCross1 />
       </div>
@@ -97,7 +99,8 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
 
       <span className="mt-16 ml-8 text-lg font-semibold text-black">Create New Syllabus</span>
       </div>
-      <div className="flex flex-col mx-8 mt-8 ">
+      <div className="flex flex-col mx-8 mt-8 justify-between flex-1">
+      <div className="flex flex-col h-full">
      <div className="mb-8">
 
         <ClassDropDown
@@ -153,9 +156,12 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
             <input id="dropzone-file" type="file" className="hidden" onChange={(e)=> setSubjectImage(e.target.files[0])} />
           </label>
         </div>
-          <button onClick={()=> createSyllabus()} className="self-end w-full py-2 mt-8 font-semibold text-white bg-indigo-500 rounded-md text-md ">Submit</button>
+        
+    </div>
+          <button onClick={()=> createSyllabus()} className="mb-8 self-end w-full py-2 mt-8 font-semibold text-white bg-indigo-500 rounded-md text-md ">Submit</button>
       </div>
       </> }
     </div>
+
   );
 }

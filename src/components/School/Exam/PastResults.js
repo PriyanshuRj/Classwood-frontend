@@ -4,8 +4,7 @@ import { API_URL } from '../../../helpers/URL';
 import {AiOutlineSearch} from "react-icons/ai";
 import {FiFilter} from "react-icons/fi";
 import {BsGrid, BsListUl} from "react-icons/bs";
-import TestCard from '../../Common/Cards/TestCard';
-import TestRow from '../../Common/Rows/TestRow';
+
 import { Rings } from 'react-loader-spinner';
 import PastResultCardSection from '../../Common/PastResultCardSection';
 import PastResultRowSection from '../../Common/PastResultRowSection';
