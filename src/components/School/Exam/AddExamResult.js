@@ -39,30 +39,30 @@ export default function AddExamResult() {
     setClassSubjects(classroomSubjects.data);
     setSelectedSubject({ name: "No Subject Selected" });
     // setShowStudents(false);
-    getStudents();
+    await getStudents();
     setLoading(false);
   }
 
   async function getStudents() {
     setLoading(true);
-    const token = localStorage.getItem("token");
-    let res = await axios.get(API_URL + "staff/student/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        classroom: selectedClass.id,
-      },
-    });
-    dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));
+    // Promise(async resolve =>{
+      const token = localStorage.getItem("token");
+      let res = await axios.get(API_URL + "staff/student/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          classroom: selectedClass.id,
+        },
+      });
+      dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));
+      // resolve();
+    // })
     setLoading(false);
+    
   }
-  function onAddStudentClick() {
-    setShowStudents(true);
-    getStudents();
-  }
+
   useEffect(()=>{
-    setShowStudents(true);
     getStudents();
   },[])
   async function addResults(exam){
@@ -207,7 +207,9 @@ export default function AddExamResult() {
         </div>
       </div>
       
-      {showStudents ?
+      {showStudents ? classStudents.length === 0 ? <div className="h-96 w-full flex justify-center items-center">
+        <span>No Student in the class</span>
+      </div> :
       <div className="px-8 mt-16">
         
       <div className="grid grid-cols-5 gap-4 mb-2">
@@ -294,7 +296,7 @@ onAddStudentClick();
       } */}
       <button
         onClick={() => addExam()}
-        className="flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"
+        className="mb-8 flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"
       >
         Upload
       </button>

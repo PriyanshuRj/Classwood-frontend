@@ -144,7 +144,7 @@ export default function StudentDashboard() {
                 <div className="flex flex-col items-center justify-center w-full h-full p-4">
            
                   <PieChart
-                    data={[{ title: "Paid", value: 30, color: "#2DD4BF" },{ title: "Pending", value: 20, color: "#F59E0B" },]}
+                    data={[{ title: "Paid", value: 0, color: "#2DD4BF" }]}
                     lengthAngle={360}
                     lineWidth={10}
                     startAngle={180}
