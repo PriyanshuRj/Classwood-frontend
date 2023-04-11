@@ -9,20 +9,30 @@ import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
 import SingleRow from "./SingleRow";
+
 import { addTimetableRow, refreshTimetableRow } from "../../../store/School/timetableSlice";
 import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
+
+const tabs = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thusday",
+  "Friday",
+  "Satarday"
+];
+
 export default function AddTimetable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const timetableRows = useSelector((state) => state.timetable.timeTableRows);
-  const timetableRowsTime = useSelector((state) => state.timetable.startAndEndTime);
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [selectedClass, setSelectedClass] = useState({
     class_name: "No Class",
 
     section_name: "No Section",
   });
-
+  const [tabState, setTabState] = useState(0);
   const [classSubjects, setClassSubjects] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -31,10 +41,10 @@ export default function AddTimetable() {
     try{
       setLoading(true);
       const token = localStorage.getItem("token");
-      console.log("Time Table Tows", timetableRows, "time Rows", timetableRowsTime);
+      console.log("Time Table Rows", timetableRows);
       
       const res = await axios.post(API_URL + "staff/timeTable/", {
-        timetable : [timetableRows,timetableRowsTime],
+        timetable : timetableRows,
         classroom : selectedClass.id
       },{
         headers : {
@@ -80,7 +90,7 @@ export default function AddTimetable() {
     fetchSubjects();
   }, [selectedClass]);
   const addRow = ()=>{
-    dispatch(addTimetableRow());
+    dispatch(addTimetableRow(tabState));
  
   }
   return (
@@ -100,12 +110,13 @@ export default function AddTimetable() {
           <span>Please Create a classroom first</span>
         </div>
       ) : (
-        <div className="px-4 md:px-10">
+        <div className="px-4 md:px-10 flex-1 flex flex-col">
+          <div className="flex-1">
           <div className="flex flex-col justify-between my-4 md:flex-row">
             <p className="mt-8 text-2xl font-semibold">TimeTable</p>
           </div>
           <div className="flex flex-row px-4">
-            <div className="w-full mx-4">
+            <div className="w-full ">
               <ClassDropDown
                 //   id={index + 1}
                 inputList={classrooms}
@@ -122,23 +133,32 @@ export default function AddTimetable() {
                 ? selectedClass.class_name + " " + selectedClass.section_name
                 : undefined}
             </span>
-            <div className="grid grid-cols-7 gap-4 mt-6">
-              <div className="text-gray-500 text-md"> </div>
-              <div className="text-center ">Monday</div>
-              <div className="text-center ">Tuesday</div>
-              <div className="text-center ">Wednesday</div>
-              <div className="text-center ">Thusday</div>
-              <div className="text-center ">Friday</div>
-              <div className="text-center ">Satarday</div>
+                <div className="grid grid-cols-6 rounded-md text-center border  ">
+
+            {tabs.map((tab,index)=>{
+              return (<div
+              onClick={()=> setTabState(index)}
+              className={`border-r cursor-pointer ${ tabState===index? "bg-indigo-500 text-white font-medium" :   "hover:bg-indigo-100"} duration-200 ease-in-out py-2`}>
+                {tab}
+
+              </div>)
+            })}
             </div>
             
-              {timetableRows.map((subjectRow, index) =>{
+    <div className="mt-8 grid grid-cols-4 gap-8  mb-4 text-lg font-semibold">
+           <span>Subject</span>
+           <span>Teacher Assigned</span>
+           <span>Start Time</span>
+           <span>End Time</span>
+           
+            </div>
+              {timetableRows[tabState].map((dayRow, index) =>{
                 return <SingleRow
                 key={index}
                 allSubjects={classSubjects}
                 rowIndex={index}
-                markedSubjects={subjectRow}
-                rowTime={timetableRowsTime[index]}
+                dayRow={dayRow}
+                day={tabState}
               />
               })}
             
@@ -147,16 +167,17 @@ export default function AddTimetable() {
 
           <div
         onClick={()=>addRow()}
-        className="flex items-center justify-between px-4 py-2 mx-8 font-medium text-white bg-indigo-600 rounded-md cursor-pointer"
+        className="flex items-center justify-between px-4 text-indigo-700 mx-4 font-medium rounded-md cursor-pointer hover:bg-indigo-100 py-3"
         >
             <IoMdAddCircleOutline className="mr-2" />
             Add Row
             </div>
           </div>
+          </div>
           <button
         onClick={()=>uploadTimetable()}
         disabled={loading}
-        className="flex items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-center text-white bg-indigo-600 rounded-md cursor-pointer"
+        className="mb-8 flex items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-center text-white bg-indigo-600 rounded-md cursor-pointer"
         >
             Submit Timetable
             </button>

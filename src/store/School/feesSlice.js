@@ -5,6 +5,10 @@ export const FeesSlice = createSlice({
   initialState: {
     allFees: [],
     concession : [{
+      title : "No Concession",
+      value : "0"
+    },
+    {
       title : "",
       value : ""
     }]

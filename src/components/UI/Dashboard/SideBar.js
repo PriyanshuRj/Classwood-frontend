@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 import logo from "../../../assets/CLASSWOOD_Logo.png";
@@ -63,7 +64,9 @@ export default function SideBar({children}) {
           </div>
         </div> */}
         <div className="flex items-center justify-center w-full px-10 py-4 border-t-[1px] border-gray-400 bg-opacity-30">
+       <Link to = "/">
         <img className="w-auto h-8 " src={logo} alt="Classwood logo" />
+       </Link>
       </div>
       </div>
                     </div>

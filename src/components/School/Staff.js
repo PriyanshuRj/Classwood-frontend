@@ -10,9 +10,16 @@ import { useNavigate } from "react-router-dom";
 import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useSelector, useDispatch } from "react-redux";
 import { Rings } from "react-loader-spinner";
+
+const tabs = [
+  "Teaching Staff",
+  "Non-Teaching Staff"
+];
 export default function Student() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [tabState, setTabState] = useState(0);
   
   const [loading, setLoading] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
@@ -20,11 +27,18 @@ export default function Student() {
   const [staffData, setStaffData] = useState(null);
   const [searchQueary, setSearchQueary] = useState("");
   const staff = useSelector((state) => state.staff.allStaff);
- 
+  
 
   useEffect(() => {
     if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate,setLoading);
   }, []);
+
+  function teachingStaffFilter (staff){
+    return staff.isTeachingStaff;
+  }
+  function nonTeachingStaffFilter (staff) {
+    return !staff.IsTeachingStaff;
+  }
   function filterStaff(student) {
     return (student.first_name + " " + student.last_name)
       .toLowerCase()
@@ -71,6 +85,23 @@ export default function Student() {
             Add New Staff
           </button>
         </div>
+        <div className="mt-6 flex-row hidden w-full mb-4 border-b-2 md:flex">
+              {tabs.map((tab, index) => {
+                return (
+                  <span
+                    key={index}
+                    className={`mx-4 cursor-pointer font-semibold  ${
+                      tabState === index
+                        ? "text-indigo-600 border-b-2 border-indigo-600"
+                        : "text-gray-400"
+                    }`}
+                    onClick={() => setTabState(index)}
+                  >
+                    {tab}
+                  </span>
+                );
+              })}
+            </div>
         <div className="flex flex-row my-8">
           <div className="relative mr-4 text-gray-600 focus-within:text-gray-400">
             <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -94,9 +125,14 @@ export default function Student() {
           <div className="flex items-center justify-center w-full h-96">
             <span>No Staff Till Now Add Staff Members</span>
           </div>
-        ) : (
-          <div className="mb-8  grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {staff.filter(filterStaff).map((e, i) => {
+        ) : 
+          
+            staff.filter(tabState ? teachingStaffFilter : nonTeachingStaffFilter).filter(filterStaff).length===0 ? <div className="w-full h-96 flex justify-center items-center">
+
+              <span>No Staff Present</span>
+            </div> : 
+            (<div className="mb-8  grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+               {staff.filter(tabState ? teachingStaffFilter : nonTeachingStaffFilter).filter(filterStaff).map((e, i) => {
               return (
                 <ProfileCard
                   key={i}
@@ -113,9 +149,11 @@ export default function Student() {
                   
                 />
               );
+              
             })}
-          </div>
-        )}
+            </div>)
+           
+        }
       </div> 
       </> 
 }

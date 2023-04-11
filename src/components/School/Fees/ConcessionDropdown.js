@@ -33,7 +33,7 @@ export default function ConcessionDropDown({inputList, DivWidth, selected, setSe
             >
               <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {inputList.map((person,index) => (
-                  <Listbox.Option
+                  person.title && <Listbox.Option
                     key={index}
                     className={({ active }) =>
                       classNames(

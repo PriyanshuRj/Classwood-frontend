@@ -55,7 +55,7 @@ export default function SubjectDetailPage({  setPageState,staff }) {
         Create New Class
       </span>
 
-      <div className="flex flex-row justify-between my-8 ">
+      <div className="flex flex-row justify-between my-8 items-center">
         <div className="flex flex-row items-center justify-center">
           <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-indigo-600 border-2 border-indigo-600 rounded-full text-md">
             1
@@ -65,6 +65,8 @@ export default function SubjectDetailPage({  setPageState,staff }) {
             Class Detail
           </span>
         </div>
+        <div className="flex-1 border h-0 mx-4 border-indigo-600"></div>
+
         <div className="flex flex-row items-center justify-center">
           <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-gray-700 border-2 border-gray-700 rounded-full text-md">
             2
@@ -74,6 +76,8 @@ export default function SubjectDetailPage({  setPageState,staff }) {
             Subject Detail
           </span>
         </div>
+        <div className="flex-1 border h-0 mx-4"></div>
+
         <div className="flex flex-row items-center justify-center">
           <span className="flex items-center justify-center w-6 h-6 text-gray-500 bg-white border-2 border-gray-500 rounded-full text-md">
             3

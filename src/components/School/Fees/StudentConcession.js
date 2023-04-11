@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import ClassDropDown from "../helpers/ClassDropDown";
 import { API_URL } from "../../../helpers/URL";
-import { IoMdAddCircleOutline } from "react-icons/io";
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
-import {
-  addConcession,
-  updateConcessionTitle,
-  updateConcessionValue,
-} from "../../../store/School/feesSlice";
+
 import StudentSingleEntry from "./StudentSingleEntry";
-export default function StudentConcession({ setPageState, feesValue }) {
+export default function StudentConcession({ setPageState, feesValue, addFees, classroom }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function addNewFeefiled() {
-    dispatch(addConcession());
-  }
   useEffect(() => {
     getStudents();
   }, []);
@@ -30,6 +21,10 @@ export default function StudentConcession({ setPageState, feesValue }) {
     let res = await axios.get(API_URL + "staff/student/", {
       headers: {
         Authorization: `Bearer ${token}`,
+        
+      },
+      params: {
+        classroom: classroom.id,
       },
     });
 
@@ -69,7 +64,7 @@ export default function StudentConcession({ setPageState, feesValue }) {
                 Create Fee Structure
               </p>
             </div>
-            <div className="flex flex-row justify-between my-8 ">
+            <div className="flex flex-row justify-between my-8  items-center">
               <div className="flex flex-row items-center justify-center">
                 <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-indigo-700 border-2 border-indigo-700 rounded-full text-md">
                   1
@@ -79,6 +74,8 @@ export default function StudentConcession({ setPageState, feesValue }) {
                   Fee Structure
                 </span>
               </div>
+              <div className="flex-1 border h-0 mx-4 border-indigo-700"></div>
+
               <div className="flex flex-row items-center justify-center">
                 <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-indigo-700 border-2 border-indigo-700 rounded-full text-md">
                   2
@@ -88,6 +85,8 @@ export default function StudentConcession({ setPageState, feesValue }) {
                   Fee Concession
                 </span>
               </div>
+              <div className="flex-1 border h-0 mx-4 border-indigo-700"></div>
+
               <div className="flex flex-row items-center justify-center">
                 <span className="flex items-center justify-center w-6 h-6 text-white bg-gray-700 border-2 border-gray-700 rounded-full text-md">
                   3
@@ -98,28 +97,28 @@ export default function StudentConcession({ setPageState, feesValue }) {
                 </span>
               </div>
             </div>
-            <div className="border-2 rounded-md">
-          <div className="grid w-full grid-cols-5 p-2 text-md font-semibold text-gray-500 bg-slate-50 pl-6">
-            <span className='text-center'>Student Name</span>
-            <span className='text-center'>Roll No.</span>
-            <span className='text-center'>FEE AMOUNT</span>
-            <span className='text-center'>DISCOUNT</span>
-            <span className='text-center'>DISCOUNT %</span>
-           
-          </div>
-            {student.map((student,index)=>{
-                console.log(student)
+            {student.length===0 ? <div className="flex h-96 w-full justify-center items-center"> <span>No Student In This Class</span>
+              </div> : <div className="border-2 rounded-md">
+              <div className="grid w-full grid-cols-5 p-2 text-md font-semibold text-gray-500 bg-slate-50 pl-6">
+                <span className="text-center">Student Name</span>
+                <span className="text-center">Roll No.</span>
+                <span className="text-center">FEE AMOUNT</span>
+                <span className="text-center">DISCOUNT</span>
+                <span className="text-center">DISCOUNT %</span>
+              </div>
+              {student.map((student, index) => {
+                console.log(student);
                 return (
-                    <StudentSingleEntry feesValue={feesValue} student={student}/>
-                )
-            })}
-            </div>
+                  <StudentSingleEntry feesValue={feesValue} student={student} />
+                );
+              })}
+            </div>}
           </div>
           <div
             onClick={() => setPageState(2)}
             className="mb-8 text-center flex cursor-pointer items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-white bg-indigo-600 rounded-md"
           >
-            Next Page
+            Submit Fees
           </div>
         </div>
       )}

@@ -39,30 +39,34 @@ export default function AddExamResult() {
     setClassSubjects(classroomSubjects.data);
     setSelectedSubject({ name: "No Subject Selected" });
     // setShowStudents(false);
-    getStudents();
+    await getStudents();
     setLoading(false);
   }
 
   async function getStudents() {
     setLoading(true);
-    const token = localStorage.getItem("token");
-    let res = await axios.get(API_URL + "staff/student/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        classroom: selectedClass.id,
-      },
-    });
-    dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));
+    // Promise(async resolve =>{
+      const token = localStorage.getItem("token");
+      let res = await axios.get(API_URL + "staff/student/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          classroom: selectedClass.id,
+        },
+      });
+      dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));
+      // resolve();
+    // })
     setLoading(false);
+    
   }
-  function onAddStudentClick() {
-    setShowStudents(true);
+
+  useEffect(()=>{
     getStudents();
-  }
+  },[])
+
   async function addResults(exam){
-    if(showStudents){
       console.log(classStudents);
       const token = localStorage.getItem("token");
       
@@ -82,23 +86,7 @@ export default function AddExamResult() {
         if(res.status===201) dispatch(setSuccessToast("Exam Result added Succesfully"));
       }
       )
-    }
-    else {
-      const token = localStorage.getItem("token");
-
-      const formData = new FormData();
-      formData.append("csv_file",CSVFile);
-      formData.append("exam",exam.id);
-      // formData.append("classroom",selectedClass.id);
-      // formData.append("subject",setectedSubject.id);
-      const res = await axios.post(API_URL + "staff/result/",formData,
-      {headers: {
-        Authorization: `Bearer ${token}`,
-      }});
-      console.log(res);
-      if(res.status===200) dispatch(setWarningToast("Error in Adding Results"));
-      if(res.status===201) dispatch(setSuccessToast("Successfully added results"));
-    }
+ 
   } 
   const addExam = async  ()=>{
     const token = localStorage.getItem('token');
@@ -144,8 +132,9 @@ export default function AddExamResult() {
             
             ariaLabel="loading"
           /> </div>
-    : <div className="flex flex-col w-full mt-8">
-      
+    : <div className="flex flex-col w-full mt-8 flex-1">
+      <div className="flex flex-col w-full mt-8 flex-1">
+
       <p className="pl-8 mb-8 text-2xl font-medium">Add Results For a Test</p>
 
       <div className="flex flex-row px-4">
@@ -205,7 +194,9 @@ export default function AddExamResult() {
         </div>
       </div>
       
-      {showStudents?
+      {classStudents.length === 0 ? <div className="h-96 w-full flex justify-center items-center">
+        <span>No Student in the class</span>
+      </div> :
       <div className="px-8 mt-16">
         
       <div className="grid grid-cols-5 gap-4 mb-2">
@@ -233,66 +224,13 @@ export default function AddExamResult() {
       return <SingleEntry totalMarks={maxMarks} student={student} key={index} index={index} />
       })}
     </div>
-      :
-      <div className="flex items-center justify-center mx-8 my-16">
-        <label
-          htmlFor="dropzone-file"
-          className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50   hover:bg-gray-100   "
-        >
-          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-            <svg
-              aria-hidden="true"
-              className="w-10 h-10 mb-3 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-              ></path>
-            </svg>
-            <p className="mb-2 text-sm text-gray-500 ">
-              <span className="text-xl font-semibold">Result CSV</span>
-            </p>
-
-            <p className="mb-2 text-sm text-gray-500 ">
-              <span className="font-semibold">Click to upload</span>
-            </p>
-            <p className="text-xs text-gray-500 ">
-              Only CSV format allowed
-            </p>
-          </div>
-          <input
-            id="dropzone-file"
-            type="file"
-            className="hidden"
-            onChange={(e) => setCSVFile(e.target.files[0])}
-          />
-        </label>
-      </div> 
+     
       }
-      {/* {
-showStudents ? 
-<span onClick={()=>{
-  setShowStudents(false);
-        }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer select-none hover:bg-gray-200 hover:text-indigo-500 w-max">
-          {" "}
-          <CgAdd className="mr-2" /> Use CSV
-        </span> : 
-      <span onClick={()=>{
-onAddStudentClick();
-      }} className="flex flex-row items-center px-4 py-2 mt-2 ml-4 text-indigo-700 duration-200 ease-in-out rounded cursor-pointer select-none hover:bg-gray-200 hover:text-indigo-500 w-max">
-        {" "}
-        <CgAdd className="mr-2 " /> Add Individual Marks
-      </span>
-      } */}
+      </div>
+      
       <button
         onClick={() => addExam()}
-        className="flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"
+        className="mb-8 flex items-center justify-center py-4 mx-8 mt-4 text-white duration-300 bg-indigo-600 rounded-lg justify-self-end hover:bg-blue-700 hover:text-gray-200 easy-in-out"
       >
         Upload
       </button>

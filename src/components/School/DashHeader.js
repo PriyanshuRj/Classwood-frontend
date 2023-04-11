@@ -17,7 +17,7 @@ const sessionList = [
     name : "2022 - 23"
   }
 ]
-export default function DashHeader() {
+export default function DashHeader({setLoading}) {
   const [openProfile,setOpenProfile] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -58,6 +58,7 @@ export default function DashHeader() {
       <div className="mr-8">
 
       <SessionDoropDown
+      setLoading={setLoading}
         inputList={sessionList}
         selected={session}
         setSelected={setSession}

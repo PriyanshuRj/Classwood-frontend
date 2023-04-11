@@ -166,7 +166,11 @@ export default function AllSubjects() {
               </div>
             </div>
 
-            {viewState === "grid" ? (
+            {allSyllabus.filter(filterTabs).filter(fliterClassroom).length == 0 ? (
+              <div className="flex items-center justify-center w-full h-96">
+                <span>No Syllabus Create A Syllabus</span>
+              </div>
+            ) : viewState === "grid" ? (
                <div>
                {sections.map((classCumilativeName, index) => {
                  return (

@@ -99,24 +99,12 @@ export default function PastResults() {
                 </span>
               </div>
             </div>
-            {pastExams.length == 0 ? (
+            {pastExams.filter(filterTest).length == 0 ? (
               <div className="flex items-center justify-center w-full h-96">
                 <span>No Test Found </span>
               </div>
             ) : viewState === "grid" ? (
-              // <div className="mb-10 grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              //   {pastExams.filter(filterTest).map((classData, index) => {
-              //     return (
-              //       <TestCard
-              //         key={index}
-              //         testData={classData}
-              //         index={index}
-              //         setSelectedTest={setSelectedTest}
-                     
-              //       />
-              //     );
-              //   })}
-              // </div>
+  
               <div>
             {sections.map((classCumilativeName, index) => {
               return (

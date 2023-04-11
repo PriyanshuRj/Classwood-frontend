@@ -96,8 +96,8 @@ export default function PastResults() {
                 </span>
               </div>
             </div>
-            {!loading && pastExams.length == 0 ? (
-              <div className="flex items-center justify-center w-full h-96">
+            {pastExams.filter(filterTest).length === 0 ? (
+              <div className="flex items-center justify-center w-full h-screen">
                 <span>No Test Found </span>
               </div>
             ) : viewState === "grid" ? (

@@ -36,7 +36,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
   const [acountNo, setAcountNo] = useState("");
   const [adharNumber, setAdharNumber] = useState("");
   const [staffId, setStaffId] = useState("");
-
+  const [isClassTeacher, setIsClassTeacher] = useState(true);
   useEffect(() => {
     if (staffData) {
       // console.log(staffData);
@@ -100,6 +100,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("staddId", staffId);
           formData.append("adhar", adharNumber);
           formData.append("ifsc_code", ifscCode);
+          formData.append("isTeacher", isClassTeacher);
           const res = await axios.post(API_URL + "list/staff/", formData, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -151,6 +152,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("staddId", staffId);
           formData.append("adhar", adharNumber);
           formData.append("ifsc_code", ifscCode);
+          formData.append("isTeacher", isClassTeacher);
 
 
           const res = await axios.put(
@@ -208,6 +210,18 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               Personal Details
             </p>
             <div className="flex flex-col justify-between mb-4 md:flex-row">
+              <span
+              onClick={()=> setIsClassTeacher(true)}
+              className={`cursor-pointer py-3 mx-5 ${!isClassTeacher ? "bg-gray-50 text-gray-800" : "bg-gray-700 text-white"} bg-gray-50 border-gray-700 border flex-1 rounded flex justify-center items-center`}> 
+                Teacher
+              </span>
+              <span 
+              onClick={()=> setIsClassTeacher(false)}
+              className={`cursor-pointer py-3 mx-5 ${isClassTeacher ? "bg-gray-50 text-gray-800" : "bg-gray-700 text-white"} bg-gray-50 border-gray-700 border flex-1 rounded flex justify-center items-center`}> 
+                Non Teacher
+              </span>
+            </div>
+            <div className="flex flex-col justify-between mb-4 md:flex-row">
               <div className="flex flex-row items-center mt-2 mb-4">
                 <BsFillPersonFill className="w-8 h-8 mr-4 text-indigo-700" />
                 <div className="flex flex-col items-start justify-center">
@@ -250,6 +264,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                   <input
                     onChange={(e) => setMobileNo(e.target.value)}
                     value={mobileNO}
+                    maxLength={10}
                     type="number"
                     placeholder="Phone No"
                     className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"

@@ -34,7 +34,8 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(false);
   const [today, setToday] = useState(0);
   const [presentStudent, setPresentStudents] = useState("");
-  const [presentStaff, setPresentStaff] = useState("");
+  const [presentTeachngStaff, setPresentTeachingStaff] = useState("");
+  const [presentNonTeachingStaff, setPresentNonTeachigStaff] = useState("");
   useEffect(() => {
     const date = new Date();
     setToday(date.getDate());
@@ -53,12 +54,21 @@ export default function StudentDashboard() {
   }
   const getAllStaffAttendence = async () => {
     if(today){
-      let presents = 0;
+      let presentTeaching = 0;
+      let presentNonTeaching = 0;
       for(let i in allStaffMemeber){
-        let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
-        if(val===2) presents++;
+        if(allStaffMemeber[i].isTeachingStaff){
+
+          let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
+          if(val===2) presentTeaching++;
+        }
+        else {
+          let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
+          if(val===2) presentNonTeaching++;
+        }
       }
-      setPresentStaff(presents);
+      setPresentTeachingStaff(presentTeaching);
+      setPresentNonTeachigStaff(presentNonTeaching);
     }
 
   }
@@ -207,10 +217,23 @@ export default function StudentDashboard() {
                     <div className="">
 
                       <span className="text-gray-500 flex flex-col">
-                        Present Staff
+                        Present Teaching Staff
                       </span>
                       <span className="font-semibold text-xl">
-                        {presentStaff}
+                        {presentTeachngStaff}
+                      </span>
+                    </div>
+                    <AiOutlineBarChart className="w-6 h-6 text-[#2dd480]"/>
+
+                    </div>
+                    <div className="flex flex-row justify-between items-center">
+                    <div className="">
+
+                      <span className="text-gray-500 flex flex-col">
+                        Present Non Teaching Staff
+                      </span>
+                      <span className="font-semibold text-xl">
+                        {presentNonTeachingStaff}
                       </span>
                     </div>
                     <AiOutlineBarChart className="w-6 h-6 text-[#2dd480]"/>

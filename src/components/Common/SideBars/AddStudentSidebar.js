@@ -276,6 +276,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               onChange={(e) => setMobileNo(e.target.value)}
               value={mobileNO}
               type="number"
+              maxLength={10}
               placeholder="Phone No"
               className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
@@ -290,6 +291,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             <input
               onChange={(e) => setParentMobileNo(e.target.value)}
               value={parentMobileNO}
+              maxLength={10}
               type="number"
               placeholder="Parental Phone No"
               className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
