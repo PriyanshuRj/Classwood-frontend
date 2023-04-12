@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import ClassDropDown from "../helpers/ClassDropDown";
-import SubjectDropDown from "../helpers/SubjectDropDown";
 import { API_URL } from "../../../helpers/URL";
 import { Rings } from "react-loader-spinner";
 import { getAllSchoolData } from "../helpers/dataFetcher";
@@ -33,8 +32,8 @@ section_name : "No Section"});
     setLoading(true);
     var timetable = [];
     const token  = localStorage.getItem("token");
+
     const res = await axios.get(API_URL + "staff/timeTable", {
-      
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -42,6 +41,15 @@ section_name : "No Section"});
           classroom: selectedClass.id,
         },
     });
+    const commonRes = await axios.get(API_URL + "staff/commontime", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        classroom: selectedClass.id,
+      },
+  });
+  
     if(res.data.length) {const timearray = res.data.sort(sortTimetable);
     var starttime = timearray[0].start_time;
     var endtime = timearray[0].end_time;
@@ -64,7 +72,9 @@ section_name : "No Section"});
           end_time :endtime,
           periods : filterTimetable(arr)
     })
-    setTimetable(timetable);}
+    setTimetable(timetable.concat(commonRes.data));
+    console.log("The result", commonRes.data, timetable);
+  }
     setLoading(false);
     
   }
@@ -143,9 +153,19 @@ section_name : "No Section"});
             {timetable.map((timetableRow,index)=>{
               return <div key={index} className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x">
               <div className="py-2 text-gray-500 text-md"> {timetableRow.start_time} {" - "} {timetableRow.end_time} </div>
-                {timetableRow.periods.map((period,index)=>{
+                {timetableRow.periods ? timetableRow.periods.map((period,index)=>{
                  return <ViewSubjectEntry key={index} period={period} index={index} />
-                })}
+                }) : <div className="col-span-6">
+                 <div className="py-2 text-center " index={index}>
+                  <div className="mx-2 my-2 rounded-lg  bg-[#FEF3C7] shadow-xl border-l-4 py-4  px-3 border-[#F59E0B] flex flex-col justify-start items-start">
+                      <span className="text-md text-font-semibold">
+                    {timetableRow.subject}
+                      </span>
+                     
+                  </div>
+                </div>
+                  </div>}
+                
               </div>
             })}
       </div>}

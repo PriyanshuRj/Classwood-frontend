@@ -34,17 +34,17 @@ export default function Student() {
   }, []);
 
   function teachingStaffFilter (staff){
-    return staff.isTeachingStaff;
+    return !staff.is_teaching_staff;
   }
   function nonTeachingStaffFilter (staff) {
-    return !staff.IsTeachingStaff;
+    return staff.is_teaching_staff;
   }
   function filterStaff(student) {
     return (student.first_name + " " + student.last_name)
       .toLowerCase()
       .includes(searchQueary.toLowerCase());
   }
-
+  console.log(staff)
   return (
     <Layout>
        {loading ?  
@@ -85,7 +85,7 @@ export default function Student() {
             Add New Staff
           </button>
         </div>
-        <div className="mt-6 flex-row hidden w-full mb-4 border-b-2 md:flex">
+        <div className="flex-row hidden w-full mt-6 mb-4 border-b-2 md:flex">
               {tabs.map((tab, index) => {
                 return (
                   <span
@@ -127,7 +127,7 @@ export default function Student() {
           </div>
         ) : 
           
-            staff.filter(tabState ? teachingStaffFilter : nonTeachingStaffFilter).filter(filterStaff).length===0 ? <div className="w-full h-96 flex justify-center items-center">
+            staff.filter(tabState ? teachingStaffFilter : nonTeachingStaffFilter).filter(filterStaff).length===0 ? <div className="flex items-center justify-center w-full h-96">
 
               <span>No Staff Present</span>
             </div> : 

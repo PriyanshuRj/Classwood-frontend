@@ -6,15 +6,18 @@ export default function ViewSubjectEntry({period, index}) {
     const [teacher, setTeacher] = useState({});
     const [loading, setLoading] = useState(false);
     async function getTeacher(){
-      setLoading(true);
+      if(period && period.teacher){
+
+        setLoading(true);
         const token = localStorage.getItem("token");
         const res = await axios(API_URL + "list/staff/" + period.teacher + "/",{
-            headers: {
+          headers: {
                 Authorization: `Bearer ${token}`,
-            }
-        })
-        setTeacher(res.data);
-        setLoading(false);
+              }
+            })
+            setTeacher(res.data);
+            setLoading(false);
+          }
     }
     useEffect(()=>{
         getTeacher()
@@ -34,10 +37,10 @@ export default function ViewSubjectEntry({period, index}) {
            /> </div> :<div className="py-2 text-center " index={index}>
                   <div className="mx-2 my-2 rounded-lg bg-gray-50 shadow-xl border-l-4 py-4  px-3 border-[#4338CA] flex flex-col justify-start items-start">
                       <span className="text-md text-font-semibold">
-                        {period.subject}
+                        {period.subject ? period.subject : "No Subject"}
                       </span>
                       <span className="text-sm text-gray-500 break-word">
-                        {teacher.first_name + " " + teacher.last_name}
+                        {teacher.first_name ? teacher.first_name + " " + teacher.last_name : undefined}
                       </span>
   
                   </div>

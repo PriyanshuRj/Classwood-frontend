@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {IoMdAddCircleOutline} from 'react-icons/io';
 import axios from "axios";
 import ClassDropDown from "../helpers/ClassDropDown";
-import SubjectDropDown from "../helpers/SubjectDropDown";
 import { API_URL } from "../../../helpers/URL";
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
 import SingleRow from "./SingleRow";
-
+import BreakSidebar from "./breakSidebar";
 import { addTimetableRow, refreshTimetableRow } from "../../../store/School/timetableSlice";
 import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
 
@@ -26,6 +25,8 @@ export default function AddTimetable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const timetableRows = useSelector((state) => state.timetable.timeTableRows);
+  const commonTimming = useSelector((state) => state.timetable.commonTiming);
+  
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [selectedClass, setSelectedClass] = useState({
     class_name: "No Class",
@@ -34,9 +35,9 @@ export default function AddTimetable() {
   });
   const [tabState, setTabState] = useState(0);
   const [classSubjects, setClassSubjects] = useState([]);
-
+  const [openBreakSidebar, setOpenBreakSidebar] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [sendCommon, setSendCommon] = useState(false);
   async function uploadTimetable() {
     try{
       setLoading(true);
@@ -45,7 +46,7 @@ export default function AddTimetable() {
       
       const res = await axios.post(API_URL + "staff/timeTable/", {
         timetable : timetableRows,
-        classroom : selectedClass.id
+        classroom : selectedClass.id,
       },{
         headers : {
           Authorization: `Bearer ${token}`,
@@ -110,10 +111,17 @@ export default function AddTimetable() {
           <span>Please Create a classroom first</span>
         </div>
       ) : (
-        <div className="px-4 md:px-10 flex-1 flex flex-col">
+        <div className="flex flex-col flex-1 px-4 md:px-10">
+          {openBreakSidebar && <BreakSidebar classID={selectedClass.id} setOpenUpload={setOpenBreakSidebar}/>}
           <div className="flex-1">
-          <div className="flex flex-col justify-between my-4 md:flex-row">
+          <div className="flex flex-col items-center justify-between my-4 md:flex-row">
             <p className="mt-8 text-2xl font-semibold">TimeTable</p>
+            <span
+            onClick={()=> setOpenBreakSidebar(true)}
+            className="flex items-center justify-between px-4 py-2 mx-8 mt-4 font-medium text-white bg-indigo-600 rounded-md cursor-pointer md:m-0"
+          >
+            Add Break
+          </span>
           </div>
           <div className="flex flex-row px-4">
             <div className="w-full ">
@@ -133,7 +141,7 @@ export default function AddTimetable() {
                 ? selectedClass.class_name + " " + selectedClass.section_name
                 : undefined}
             </span>
-                <div className="grid grid-cols-6 rounded-md text-center border  ">
+                <div className="grid grid-cols-6 text-center border rounded-md ">
 
             {tabs.map((tab,index)=>{
               return (<div
@@ -145,7 +153,7 @@ export default function AddTimetable() {
             })}
             </div>
             
-    <div className="mt-8 grid grid-cols-4 gap-8  mb-4 text-lg font-semibold">
+    <div className="grid grid-cols-4 gap-8 mt-8 mb-4 text-lg font-semibold">
            <span>Subject</span>
            <span>Teacher Assigned</span>
            <span>Start Time</span>
@@ -167,7 +175,7 @@ export default function AddTimetable() {
 
           <div
         onClick={()=>addRow()}
-        className="flex items-center justify-between px-4 text-indigo-700 mx-4 font-medium rounded-md cursor-pointer hover:bg-indigo-100 py-3"
+        className="flex items-center justify-between px-4 py-3 mx-4 font-medium text-indigo-700 rounded-md cursor-pointer hover:bg-indigo-100"
         >
             <IoMdAddCircleOutline className="mr-2" />
             Add Row
@@ -177,7 +185,7 @@ export default function AddTimetable() {
           <button
         onClick={()=>uploadTimetable()}
         disabled={loading}
-        className="mb-8 flex items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-center text-white bg-indigo-600 rounded-md cursor-pointer"
+        className="flex items-center justify-center px-4 py-2 mx-8 mt-8 mb-8 font-medium text-center text-white bg-indigo-600 rounded-md cursor-pointer"
         >
             Submit Timetable
             </button>

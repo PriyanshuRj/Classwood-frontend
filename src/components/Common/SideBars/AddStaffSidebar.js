@@ -100,7 +100,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("staddId", staffId);
           formData.append("adhar", adharNumber);
           formData.append("ifsc_code", ifscCode);
-          formData.append("isTeacher", isClassTeacher);
+          formData.append("is_teaching_staff", isClassTeacher);
           const res = await axios.post(API_URL + "list/staff/", formData, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -152,7 +152,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("staddId", staffId);
           formData.append("adhar", adharNumber);
           formData.append("ifsc_code", ifscCode);
-          formData.append("isTeacher", isClassTeacher);
+          formData.append("is_teaching_staff", isClassTeacher);
 
 
           const res = await axios.put(
@@ -183,7 +183,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
     <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white md:w-[55rem] shadow-lg">
       <div
         onClick={() => setOpenAddProfile(false)}
-        className="cursor-pointer absolute p-2 bg-gray-200 rounded-full top-8 left-8"
+        className="absolute p-2 bg-gray-200 rounded-full cursor-pointer top-8 left-8"
       >
         <RxCross1 />
       </div>
@@ -300,11 +300,11 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     value={adharNumber}
                     type="text"
                     placeholder="Adhar Number"
-                    className="flex px-3 py-2 font-medium w-full  border-2 border-black rounded-lg placeholder:font-normal"
+                    className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal"
                   />
                 </div>
               </div>
-              <div className="flex flex-row items-center mb-4 mt-4">
+              <div className="flex flex-row items-center mt-4 mb-4">
                 <BsBriefcase className="w-8 h-8 mr-4 text-indigo-700" />
                 <div className="flex flex-col items-start justify-center w-full">
                   <span className="mb-1 font-semibold text-gray-800 text-md">
@@ -315,7 +315,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     value={staffId}
                     type="text"
                     placeholder="Staff ID"
-                    className="flex px-3 py-2 font-medium w-full  border-2 border-black rounded-lg placeholder:font-normal"
+                    className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal"
                   />
                 </div>
               </div>
@@ -419,7 +419,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               <div className="flex items-center justify-center w-full">
                 <label
                   htmlFor="dropzone-file"
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50   hover:bg-gray-100   "
+                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 "
                 >
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg

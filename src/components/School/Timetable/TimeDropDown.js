@@ -7,7 +7,6 @@ function classNames(...classes) {
 }
 
 export default function TimeDropDown({inputList, labelTitle, DivWidth, selected, setSelected,  type, HorM}) {
-  console.log("This is selected",type,HorM, selected)
   return (
     <Listbox value={selected} onChange={async (value)=>{setSelected(value.value,type,HorM)
     

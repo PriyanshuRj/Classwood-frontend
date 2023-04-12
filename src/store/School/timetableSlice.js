@@ -106,6 +106,20 @@ export const timeTableSlice = createSlice({
         }
         
       ]
+    ],
+    commonTiming: [
+      {
+        subject : "",
+       
+        start : {
+          hour : "0",
+          minute : "0",
+        },
+        end : {
+          hour : "0",
+          minute : "0",
+        }
+      }
     ]
   
   },
@@ -125,8 +139,20 @@ export const timeTableSlice = createSlice({
             minute : "0",
           }
         });
-      
-     
+    },
+    addCommonTimeTableRow : (state, action)=>{
+      state.commonTiming.push({
+        subject : "",
+       
+        start : {
+          hour : "0",
+          minute : "0",
+        },
+        end : {
+          hour : "0",
+          minute : "0",
+        }
+      })
     },
     refreshTimetableRow : (state, action) =>{
         state.timeTableRows = [
@@ -233,6 +259,18 @@ export const timeTableSlice = createSlice({
             
           ]
         ]
+        state.commonTiming = [{
+          subject : "",
+         
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }]
          
     },
     updateTimetableSell : (state, action) =>{
@@ -247,12 +285,21 @@ export const timeTableSlice = createSlice({
         
       }
     },
-    
+    updateCommonTiming : (state, action) =>{
+      console.log("here", action.payload.columnIndex, action.payload.value)
+      if(action.payload.type==="subject"){
+        console.log("insed")
+      state.commonTiming[action.payload.columnIndex].subject = action.payload.value;
+
+      }
+      else  state.commonTiming[action.payload.columnIndex][action.payload.type][action.payload.HorM] = action.payload.value;
+
+    }
    
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addTimetableRow, refreshTimetableRow, updateTimetableSell  } = timeTableSlice.actions
+export const { addTimetableRow, refreshTimetableRow, updateTimetableSell, updateCommonTiming, addCommonTimeTableRow  } = timeTableSlice.actions
 
 export default timeTableSlice.reducer
