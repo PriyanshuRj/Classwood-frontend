@@ -40,7 +40,7 @@ export default function ViewSubjectEntry({period, index}) {
                         {period.subject ? period.subject : "No Subject"}
                       </span>
                       <span className="text-sm text-gray-500 break-word">
-                        {teacher.first_name ? teacher.first_name + " " + teacher.last_name : undefined}
+                        {teacher.first_name ? teacher.first_name + " " + teacher.last_name : "Free Class"}
                       </span>
   
                   </div>

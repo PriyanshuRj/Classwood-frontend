@@ -7,6 +7,11 @@ import { Rings } from "react-loader-spinner";
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import ViewSubjectEntry from "./ViewSubjectEntry";
+
+function sortTimeTable(a,b){
+  return a.start_time > b.start_time
+}
+
 export default function ViewTimetible({setTimetableState}) {
 
   const dispatch = useDispatch();
@@ -72,7 +77,7 @@ section_name : "No Section"});
           end_time :endtime,
           periods : filterTimetable(arr)
     })
-    setTimetable(timetable.concat(commonRes.data));
+    setTimetable(timetable.concat(commonRes.data).sort(sortTimeTable));
     console.log("The result", commonRes.data, timetable);
   }
     setLoading(false);
