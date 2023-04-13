@@ -3,7 +3,6 @@ import ClassroomRow from "./Rows/ClassroomRow";
 export default function ClassroomRowSection({
   classCumilativeName,
   sectionData,
-  setSelectedClass,
   setOpenSidebar,
   setSelectedClassroom,
   setOpenEditClassroom,
@@ -35,7 +34,6 @@ export default function ClassroomRowSection({
                   key={index}
                   classData={classData}
                   index={index}
-                  setSelectedClass={setSelectedClass}
                   setOpenSidebar={setOpenSidebar}
                   setSelectedClassroom={setSelectedClassroom}
                   setOpenEditClassroom={setOpenEditClassroom}

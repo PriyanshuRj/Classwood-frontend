@@ -121,20 +121,20 @@ export default function Classroom() {
           {openEditClassroom ? (
             <EditClassroom
               setOpen={setOpenEditClassroom}
-              classroom={classrooms.filter(fliterClassroom)[selectedClassroom]}
+              classroom={selectedClassroom}
             />
           ) : undefined}
           {isOpen ? (
             <AddSubject
               setOpen={setOpen}
-              classroom={classrooms.filter(fliterClassroom)[openSidebar]}
+              classroom={selectedClassroom}
             />
           ) : undefined}
 
           {openAddStudent ? (
             <AddStudent
               subjects={subjects}
-              classroom={classrooms.filter(fliterClassroom)[selectedClass]}
+              classroom={selectedClassroom}
               setOpenAddProfile={setOpenAddStudent}
             />
           ) : undefined}
@@ -144,7 +144,7 @@ export default function Classroom() {
               setSubjects={setSubjects}
               setOpen={setOpen}
               setOpenSidebar={setOpenSidebar}
-              data={classrooms.filter(fliterClassroom)[openSidebar]}
+              data={selectedClassroom}
               setOpenAddStudent={setOpenAddStudent}
             />
           ) : undefined}
@@ -248,7 +248,6 @@ export default function Classroom() {
                         .filter(filterTabs)
                         .filter(fliterClassroom)}
                       index={index}
-                      setSelectedClass={setSelectedClass}
                       setOpenSidebar={setOpenSidebar}
                       setSelectedClassroom={setSelectedClassroom}
                       setOpenEditClassroom={setOpenEditClassroom}
@@ -267,7 +266,6 @@ export default function Classroom() {
                         .filter(filterTabs)
                         .filter(fliterClassroom)}
                       index={index}
-                      setSelectedClass={setSelectedClass}
                       setOpenSidebar={setOpenSidebar}
                       setSelectedClassroom={setSelectedClassroom}
                       setOpenEditClassroom={setOpenEditClassroom}

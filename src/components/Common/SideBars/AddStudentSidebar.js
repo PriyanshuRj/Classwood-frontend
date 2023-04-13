@@ -6,7 +6,8 @@ import {
   BsFillCalendar2DateFill,
   BsBriefcase,
 } from "react-icons/bs";
-import {MdSchool} from 'react-icons/md'
+import {MdSchool} from 'react-icons/md';
+import { Rings } from "react-loader-spinner";
 import { AiOutlinePhone, AiFillBank } from "react-icons/ai";
 import { HiOutlineCake } from "react-icons/hi";
 import SelectionDropdown from "../../UI/SelectionDropdown";
@@ -40,8 +41,24 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
   const [fatherName, setFatherName] = useState("");
   const [rollNo, setRollNo] = useState("");
   const dispatch = useDispatch();
-  const [studentSubjects, setStudentSubjects] = useState([]);
 
+  function resetForm(){
+    setProfileImage(null);
+    setFatherName("");
+    setFirstName("");
+    setLastName("");
+    setGender(genderList[0]);
+    setMobileNo("");
+    setDateOfAdmission("");
+    setAddress("");
+    setDOB("");
+    setParentMobileNo("");
+    setAdmissionNo("");
+    setEmail("");
+    setAcountNo("");
+    setMotherName("");
+    setRollNo("");
+  }
   useEffect(()=>{
     if(!staff || staff.length===0)
     getAllSchoolData(dispatch, navigate, setLoading)
@@ -49,6 +66,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
   useEffect(()=>{
 
     if(studentData) {
+      setLoading(true);
       console.log(studentData)
       setFirstName(studentData.first_name);
       setLastName(studentData.last_name);
@@ -73,10 +91,11 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
       setMotherName(studentData.mother_name);
       setParentMobileNo(studentData.parent_mobile_number);
       setRollNo(studentData.roll_no);
+      setLoading(false);
     }
   },[])
   const submit = async () => {
-    console.log("submiting student form",studentData);
+      setLoading(true);
       if(studentData){
         if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
           try {
@@ -114,6 +133,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             if (res.status === 201) {
               dispatch(setSuccessToast("Student Updated Successfully"));
               console.log("response returned", res);
+              resetForm();
             }
           } catch (e) {
             console.warn("Error ::::::", e);
@@ -145,10 +165,6 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
 
             formData.append("admission_no", admissionNo);
 
-            console.log("consoling form data")
-            for (var pair of formData.entries()) {
-              console.log(pair[0]+ ', ' + pair[1]); 
-          }
             const res = await axios.post(
               API_URL + "staff/student/",
               formData,
@@ -165,6 +181,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             if (res.status === 201) {
               dispatch(setSuccessToast("Student Added Successfully"));
               console.log("response returned", res);
+              resetForm();
             }
             else {
               dispatch(setWarningToast("Error in Adding Student"));
@@ -175,7 +192,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
           }
         }
       }
-   
+      setLoading(false);
   };
 
   return (
@@ -192,7 +209,18 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
           {studentData ? "Edit Student" : "Add Student"}
         </p>
       </div>
-
+      {loading ? (
+        <div className="flex items-center justify-center w-full h-screen">
+          <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            ariaLabel="loading"
+          />{" "}
+        </div>
+      ) : (<>
+     
       <div className="flex flex-col mx-4 mt-4">
         <p className="mb-4 text-xl font-semibold text-gray-800">
           Personal Details
@@ -488,6 +516,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
           Save
         </button>
       </div>
+      </>)}
     </div>
   );
 }

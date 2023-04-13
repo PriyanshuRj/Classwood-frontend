@@ -3,7 +3,6 @@ import ClassroomCard from "./Cards/ClassroomCard";
 export default function ClassroomCardSection({
   classCumilativeName,
   sectionData,
-  setSelectedClass,
   setOpenSidebar,
   setSelectedClassroom,
   setOpenEditClassroom,
@@ -26,7 +25,6 @@ export default function ClassroomCardSection({
                   key={index}
                   classData={classData}
                   index={index}
-                  setSelectedClass={setSelectedClass}
                   setOpenSidebar={setOpenSidebar}
                   setSelectedClassroom={setSelectedClassroom}
                   setOpenEditClassroom={setOpenEditClassroom}
