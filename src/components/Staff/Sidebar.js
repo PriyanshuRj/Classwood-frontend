@@ -46,7 +46,7 @@ export default function SchoolSidebar() {
             <span className="ml-4 text-lg font-medium select-none">Test/Exam</span>
           </Link>
         </div>
-        <div className="flex w-full">
+        {/* <div className="flex w-full">
           <Link
             className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
             to="/"
@@ -54,27 +54,18 @@ export default function SchoolSidebar() {
             <FiSend className="w-6 h-6 " />
             <span className="ml-4 text-lg font-medium select-none">Message</span>
           </Link>
-        </div>
-        <div className="flex w-full">
+        </div> */}
+        {/* <div className="flex w-full">
           <Link
             className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-            to="/student/fees"
+            to="/staff/salary"
           >
             <FiCreditCard className="w-6 h-6 " />
 
-            <span className="ml-4 text-lg font-medium select-none">Fee Payment</span>
+            <span className="ml-4 text-lg font-medium select-none">Salary</span>
           </Link>
-        </div>
-        <div className="flex w-full">
-          <Link
-            className="flex items-center justify-start w-full p-4 mx-4 my-1 my-2 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700"
-            to="{% url 'dashboard' %}"
-          >
-            <FiBriefcase className="w-6 h-6 " />
-
-            <span className="ml-4 text-lg font-medium select-none">Administration</span>
-          </Link>
-        </div>
+        </div> */}
+        
       </div>
     </SideBar>
   );
