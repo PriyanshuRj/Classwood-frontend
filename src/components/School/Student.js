@@ -41,7 +41,6 @@ export default function Student() {
           Authorization: `Bearer ${token}`,
         },
       });
-      
       setStudents(res.data);
     }
     setLoading(false);

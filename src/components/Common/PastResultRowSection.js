@@ -3,7 +3,8 @@ import TestRow from "./Rows/TestRow";
 export default function PastResultRowSection({
     classCumilativeName,
     sectionData,
-    setSelectedTest
+    setSelectedTest,
+    setPageState
 }) {
 
     
@@ -33,6 +34,7 @@ export default function PastResultRowSection({
                 testData={classData}
                 index={index}
                 setSelectedTest={setSelectedTest}
+                setPageState={setPageState}
                 />
               );
             })}

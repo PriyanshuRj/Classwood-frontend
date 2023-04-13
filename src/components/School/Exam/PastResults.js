@@ -9,14 +9,14 @@ import { Rings } from 'react-loader-spinner';
 import PastResultCardSection from '../../Common/PastResultCardSection';
 import PastResultRowSection from '../../Common/PastResultRowSection';
 const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG", "UKG","Nursery", "Pre Nursery"]
-export default function PastResults() {
+export default function PastResults({setPageState, setSelectedTest}) {
     function filterTest(testData) {
         return (testData.classroom_name + " " +  testData.subject + testData.tag)
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
       }
   const [searchQuery, setSearchQuery] = useState("");
-    const [selectedTest, setSelectedTest] = useState(0);
+    
     const [pastExams, setPastExams] = useState([]);
     const [viewState, setViewState] = useState("grid");
       const [loading, setLoading] = useState(false);
@@ -30,7 +30,6 @@ export default function PastResults() {
           },
         });
         setPastExams(res.data);
-        console.log("these are notices : ", res.data);
         setLoading(false);
     };
     useEffect(()=>{
@@ -113,6 +112,7 @@ export default function PastResults() {
                   classCumilativeName={classCumilativeName}
                   sectionData={pastExams.filter(filterTest)}
                   index={index}
+                  setPageState={setPageState}
                   setSelectedTest={setSelectedTest}
                 />
               );
@@ -128,6 +128,7 @@ export default function PastResults() {
                 classCumilativeName={classCumilativeName}
                 sectionData={pastExams.filter(filterTest)}
                 index={index}
+                setPageState={setPageState}
                 setSelectedTest={setSelectedTest}
                 />
               );

@@ -4,7 +4,8 @@ import TestCard from "./Cards/TestCard";
 export default function PastResultCardSection({
   classCumilativeName,
   sectionData,
-  setSelectedTest
+  setSelectedTest,
+  setPageState
 }) {
     function filterTabs(classData) {
         return classData.classroom_name.split(" ")[0] === classCumilativeName;
@@ -25,6 +26,7 @@ export default function PastResultCardSection({
                   testData={classData}
                   index={index}
                   setSelectedTest={setSelectedTest}
+                  setPageState={setPageState}
                 />
               );
             })}

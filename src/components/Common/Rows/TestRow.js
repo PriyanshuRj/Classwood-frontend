@@ -4,12 +4,13 @@ import PopUpMenu from "../../UI/PopUpMenu";
 export default function TestRow({
   testData,
   index,
-setSelectedTest
+setSelectedTest,
+setPageState
 }) {
   console.log(testData);
   function viewResult() {
-
-    setSelectedTest(index);
+    setPageState("singleResult")
+    setSelectedTest(testData);
   }
   const ClassroomPopUpData = [
     {

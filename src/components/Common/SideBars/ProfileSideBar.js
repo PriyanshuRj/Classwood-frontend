@@ -191,7 +191,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
       </div>
       <div className="mx-4 my-4">
 
-      <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-100 rounded-md" onClick={()=>{
+      {localStorage.getItem("UserType")==="School" && <button className="flex items-center px-4 py-1 font-medium text-gray-800 bg-gray-100 rounded-md" onClick={()=>{
         setProfileData(data);
         setOpenAddProfile(true)
         setOpenProfile(false)
@@ -199,7 +199,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
       }}>
               <FiEdit2 className="mr-2" />
               {profileType === "student" ? "Edit Student" : "Edit Staff"}
-            </button>
+            </button>}
       </div>
     </div>
   );
