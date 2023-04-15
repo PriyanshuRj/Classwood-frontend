@@ -6,11 +6,14 @@ import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
 
+import {setFeesStudents} from "../../../store/School/feesSlice";
+
 import StudentSingleEntry from "./StudentSingleEntry";
 export default function StudentConcession({ setPageState, feesValue, addFees, classroom }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const concessions = useSelector((state) => state.fees.concession);
+  const feesStudents = useSelector((state) => state.fees.feesStudents);
   useEffect(() => {
     getStudents();
   }, []);
@@ -27,8 +30,8 @@ export default function StudentConcession({ setPageState, feesValue, addFees, cl
         classroom: classroom.id,
       },
     });
-
-    setStudents(res.data);
+    
+    dispatch(setFeesStudents(res.data.map(student => ({...student, concession: concessions[0]}))));
 
     setLoading(false);
   }
@@ -36,7 +39,7 @@ export default function StudentConcession({ setPageState, feesValue, addFees, cl
 
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [loading, setLoading] = useState(false);
-  const [student, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);
   useEffect(() => {
     if (classrooms.length === 0)
       getAllSchoolData(dispatch, navigate, setLoading, session);
@@ -99,7 +102,7 @@ export default function StudentConcession({ setPageState, feesValue, addFees, cl
                 </span>
               </div>
             </div>
-            {student.length===0 ? <div className="flex h-96 w-full justify-center items-center"> <span>No Student In This Class</span>
+            {feesStudents.length===0 ? <div className="flex h-96 w-full justify-center items-center"> <span>No Student In This Class</span>
               </div> : <div className="border-2 rounded-md">
               <div className="grid w-full grid-cols-5 p-2 text-md font-semibold text-gray-500 bg-slate-50 pl-6">
                 <span className="text-center">Student Name</span>
@@ -108,16 +111,15 @@ export default function StudentConcession({ setPageState, feesValue, addFees, cl
                 <span className="text-center">DISCOUNT</span>
                 <span className="text-center">DISCOUNT %</span>
               </div>
-              {student.map((student, index) => {
-                console.log(student);
+              {feesStudents.map((student, index) => {
                 return (
-                  <StudentSingleEntry feesValue={feesValue} student={student} />
+                  <StudentSingleEntry key={index} index={index} feesValue={feesValue} student={student} />
                 );
               })}
             </div>}
           </div>
           <div
-            onClick={() => setPageState(2)}
+            onClick={() => addFees()}
             className="mb-8 text-center flex cursor-pointer items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-white bg-indigo-600 rounded-md"
           >
             Submit Fees

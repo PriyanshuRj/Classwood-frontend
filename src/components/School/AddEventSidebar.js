@@ -181,10 +181,10 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
                   let arr = [];
               
                   for (let i in e.target.files){
-                    if(e.target.files[i].type==="application/pdf") arr.push(e.target.files[i]);
+                    if(e.target.files[i].type==="application/pdf" && e.target.files[i].size < 1000000) arr.push(e.target.files[i]);
                   }
                   if(arr.length) addNoticeImage(arr);
-                  else dispatch(setWarningToast("Please select PDF documents only"));
+                  else dispatch(setWarningToast("Please select PDF documents smaller than !MB only"));
                 }}
               />
             </label>

@@ -4,8 +4,8 @@ import FeeDistribution from "./FeeDistribution";
 import FeesConcession from "./FeeConcession";
 import StudentConcession from "./StudentConcession";
 import { Rings } from "react-loader-spinner";
-import { useDispatch } from "react-redux";
-import { setWarningToast } from "../../../store/genralUser";
+import { useDispatch, useSelector } from "react-redux";
+import { setSuccessToast, setWarningToast } from "../../../store/genralUser";
 import axios from "axios";
 import { API_URL } from "../../../helpers/URL";
 export default function Main() {
@@ -18,14 +18,54 @@ export default function Main() {
 
     section_name: "No Section",
   });
-  function addFees () {
+  const feesStudents = useSelector((state) => state.fees.feesStudents);
+
+  const fees = useSelector((state) => state.fees.allFees);
+  async function addFees () {
     setLoading(true);
     try{
-      axios.push(API_URL + "fees/", {
+      const tutionFees = {title : "tution", fees : feesValue};
+      console.log("here");
+      let allFess = [...fees, tutionFees];
+
+      console.log(allFess, feesStudents, selectedClass.id);
+      const fessRes = await axios.post(API_URL + "list/fees/", {
+        for_class : selectedClass.id,
+        fee_data : allFess,
+        session : localStorage.getItem("session"),
+        student_data : feesStudents
 
       }, {
         headers : {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        params :{
+          session : localStorage.getItem("session")
+        }
+      }
+      );
+      console.log(fessRes)
+      if(fessRes.status===201) dispatch(setSuccessToast("Fees Added Successfully"))
+    } catch(e){
+      console.log(e)
+      dispatch(setWarningToast("Error occured while uploading Fees"))
+    }
+    finally{
+      setLoading(false);
+    }
+  }
+
+  async function AddIndividualStudentFees(){
+    try{
+      axios.push(API_URL + "list/fees/", {
+        
+
+      }, {
+        headers : {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        params :{
+          session : localStorage.getItem("session")
         }
       }
       )

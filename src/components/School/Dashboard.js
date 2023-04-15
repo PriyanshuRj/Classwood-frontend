@@ -17,6 +17,7 @@ import EventPannel from "../Common/EventPannel";
 import NoticePannel from "../Common/NoticePannel";
 import AddNoticeSidebar from "./AddNoticeSidebar";
 import AddEventSidebar from "./AddEventSidebar";
+import { setSuccessToast } from "../../store/genralUser";
 
 export default function StudentDashboard() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ export default function StudentDashboard() {
   useEffect(() => {
     if (!noOfStaffMenber) getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
+  const [thought, setThought] = useState("");
   const [openAddNoticeModal, setOpenAddNoticeModal] = useState(false);
   const [openAddEventModal, setOpenAddEventeModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -38,11 +40,37 @@ export default function StudentDashboard() {
   const [presentStudent, setPresentStudents] = useState("");
   const [presentTeachngStaff, setPresentTeachingStaff] = useState("");
   const [presentNonTeachingStaff, setPresentNonTeachigStaff] = useState("");
+
   useEffect(() => {
     const date = new Date();
     setToday(date.getDate());
   }, []);
+  async function setThoughtOfTheDay(){
+    const date = new Date();
+    const token = localStorage.getItem("token");
+    const res = await axios.post(API_URL + "list/thoughtDay/",{
+      date : date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
+      session : localStorage.getItem("session"),
+      "content" : thought
+    },{
+      headers : {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    console.log("Res", res);
+    if(res.status===201) dispatch(setSuccessToast("Thought Added Successfully"));
+  }
+  async function getThougthOfTheDay(){
+    const token = localStorage.getItem("token");
 
+    const res = await axios.get(API_URL + "list/thoughtDay/",{
+      headers : {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    setThought(res.data[res.data.length - 1].content)
+    console.log("thi is it",res)
+  }
   const getAllStudentAttendence = async () => {
     if(today){
       let presents = 0;
@@ -78,6 +106,10 @@ export default function StudentDashboard() {
 
   }
   useEffect(()=>{
+    getThougthOfTheDay();
+  },[])
+  useEffect(()=>{
+
     getAllStudentAttendence();
     getAllStaffAttendence();
   },[today,allStudent]);
@@ -139,10 +171,12 @@ export default function StudentDashboard() {
                   Thought Of the Day
                 </span>
                 <textarea
+                value={thought}
+                onChange={(e)=> setThought(e.target.value)}
                   placeholder="Enter Thought of the day"
                   className="border w-full rounded-lg p-2 mt-4"
                 />
-                <button className="py-2 mt-2 px-4 bg-[#372ed1] rounded-md text-white font-sembold">
+                <button onClick={setThoughtOfTheDay} className="py-2 mt-2 px-4 bg-[#372ed1] rounded-md text-white font-sembold">
                   Save and Share
                 </button>
               </div>

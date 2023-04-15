@@ -11,7 +11,8 @@ export const FeesSlice = createSlice({
     {
       title : "",
       value : ""
-    }]
+    }],
+    feesStudents :  []
   },
   reducers: {
     addFees: (state, action) => {
@@ -25,7 +26,7 @@ export const FeesSlice = createSlice({
         state.allFees[action.payload.index].title = action.payload.value;
     },
     updateValue : (state, action) =>{
-        state.allFees[action.payload.index].value = action.payload.value;
+        state.allFees[action.payload.index].fees = action.payload.value;
     },
     addConcession: (state, action) => {
       state.concession.push({
@@ -38,12 +39,17 @@ export const FeesSlice = createSlice({
   },
   updateConcessionValue : (state, action) =>{
       state.concession[action.payload.index].value = action.payload.value;
+  },
+  setFeesStudents : (state, action) =>{
+    state.feesStudents = action.payload;
+  },
+  updateStudentConcession : (state, action) =>{
+    state.feesStudents[action.payload.index].concession = action.payload.value;
   }
-
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addFees, updateTitle, updateValue, addConcession, updateConcessionTitle, updateConcessionValue } = FeesSlice.actions
+export const { addFees, updateTitle, updateValue, addConcession, updateConcessionTitle, updateConcessionValue, setFeesStudents,updateStudentConcession } = FeesSlice.actions
 
 export default FeesSlice.reducer

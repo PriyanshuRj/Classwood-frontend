@@ -33,6 +33,7 @@ import SchoolTimetable from "./components/School/Timetable/Timetable";
 import FeesPage from "./components/School/Fees/main";
 import SchoolNoticeFullPageView from "./components/School/NoticeFullPageView";
 import SchoolEventFullPageView from "./components/School/EventFullPageView";
+import ViewFees from "./components/School/Fees/ViewFees";
 // Staff Pages Import
 import StaffDashboard from "./components/Staff/Dashboard";
 import StaffAllClassrooms from "./components/Staff/Classroom";
@@ -104,7 +105,9 @@ export default function App() {
           <Route path="/school/test" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <TestResult /> : <StartPay />} />
           <Route path="/school/attendence" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <Attendance /> : <StartPay />} />
           <Route path="/school/timetable" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <SchoolTimetable /> : <StartPay />} />
-          <Route path="/school/fees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <FeesPage /> : <StartPay />} />
+          
+          <Route path="/school/fees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <ViewFees /> : <StartPay />} />
+          <Route path="/school/addfees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <FeesPage /> : <StartPay />} />
           <Route path="/school/notice/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ?  <SchoolNoticeFullPageView /> : <StartPay />} />
           <Route path="/school/event/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true)  ?  <SchoolEventFullPageView /> : <StartPay />} />
 
