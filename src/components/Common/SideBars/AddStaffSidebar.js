@@ -467,7 +467,11 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     type="file"
                     className="hidden"
                     onChange={(e) => {
-                     if(e.target.files[0].type.substring(0,5)==="image")  setProfileImage(e.target.files[0]);
+                      console.log(e.target.files[0])
+                     if(e.target.files[0].type.substring(0,5)==="image")  {
+                      if(e.target.files[0].size < 1000000)setProfileImage(e.target.files[0]);
+                      else dispatch(setWarningToast("Please select an image smaller than 1MB"))
+                    }
                       else dispatch(setWarningToast("Please select an Image"))
                     }}
                   />

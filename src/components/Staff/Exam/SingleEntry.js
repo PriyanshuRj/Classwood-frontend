@@ -6,6 +6,7 @@ import {
   updateTotalMarks,
   updateMakrsheet,
 } from "../../../store/genralUser";
+import { setWarningToast } from "../../../store/genralUser";
 export default function SingleEntry({ student, index, totalMarks }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -91,8 +92,8 @@ export default function SingleEntry({ student, index, totalMarks }) {
             type="file"
             className="hidden bg-red-400 w-26"
             onChange={(e) =>{
-              console.log(index,student);
-              dispatch(updateMakrsheet({ value: e.target.files[0],  id: index}))
+              if(e.target.files[0].size < 1000000) dispatch(updateMakrsheet({ value: e.target.files[0],  id: index}));
+              else dispatch(setWarningToast("Please select an image smaller than 1MB"))
             }
           }
           />

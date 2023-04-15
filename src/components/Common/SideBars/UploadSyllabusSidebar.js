@@ -159,7 +159,12 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
                 SVG, PNG, JPG or GIF (MAX. 800x400px)
               </p>
             </div>
-            <input id="dropzone-file" type="file" className="hidden" onChange={(e)=> setSubjectImage(e.target.files[0])} />
+            <input id="dropzone-file" type="file" className="hidden" onChange={(e)=> {
+              if(e.target.files[0].size < 1000000) setSubjectImage(e.target.files[0]);
+              else dispatch(setWarningToast("Please select an image smaller than 1MB"))
+              
+            }
+              } />
           </label>
         </div>
         

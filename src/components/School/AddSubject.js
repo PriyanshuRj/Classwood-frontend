@@ -152,7 +152,10 @@ export default function AddSubject({ setOpen, classroom }) {
                         type="file"
                         className="hidden"
                         onChange={(e) => {
-                          setSubjectImage(e.target.files[0]);
+                          if(e.target.files[0].size < 1000000) setSubjectImage(e.target.files[0]);
+                          else dispatch(setWarningToast("Please select an image smaller than 1MB"))
+                        
+                          
                         }}
                       />
                     </label>

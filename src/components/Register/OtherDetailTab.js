@@ -115,7 +115,10 @@ console.log("the web", schoolWebsite.substring(0,12))
             </div>
             <input id="dropzone-file" type="file" className="hidden" 
             onChange={(e)=> {
-              if(e.target.files[0].type.substring(0,5)==="image")  setSchoolLogo(e.target.files[0]);
+              if(e.target.files[0].type.substring(0,5)==="image")  {
+                if(e.target.files[0].size < 1000000) setSchoolLogo(e.target.files[0]);
+                else dispatch(setWarningToast("Please select an image smaller than 1MB"))
+                }
               else dispatch(setWarningToast("Please select an Image"))
               
             }
