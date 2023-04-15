@@ -24,6 +24,8 @@ const tabs = [
 export default function AddTimetable() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const session = useSelector((state) => state.user.session);
+
   const timetableRows = useSelector((state) => state.timetable.timeTableRows);
   const commonTimming = useSelector((state) => state.timetable.commonTiming);
   
@@ -50,6 +52,9 @@ export default function AddTimetable() {
       },{
         headers : {
           Authorization: `Bearer ${token}`,
+        },
+        params : {
+          session : localStorage.getItem("session")
         }
       })
       console.log(res);
@@ -80,7 +85,7 @@ export default function AddTimetable() {
 
   useEffect(() => {
     if (classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate, setLoading);
+      getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
 
   useEffect(() => {

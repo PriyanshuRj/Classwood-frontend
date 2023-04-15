@@ -26,9 +26,10 @@ export default function AddClass() {
 
   const staff = useSelector((state) => state.staff.allStaff);
   const subjects = useSelector((state) => state.classroom.addClassSubject);
+  const session = useSelector((state) => state.user.session);
 
   useEffect(() => {
-    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate, setLoading);
+    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate, setLoading,session);
     if (staff.length) setClassTeacher(staff[0]);
     if (staff.length) setSubClassTeacher(staff[0]);
   }, [staff]);
@@ -66,6 +67,9 @@ export default function AddClass() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params : {
+            session : localStorage.getItem("session")
+          }
         }
       );
       console.log("Created Class", res);

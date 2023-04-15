@@ -1,23 +1,31 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Layout from "./StudentLayout";
 import { MdNavigateNext } from "react-icons/md";
 import { BiBook } from "react-icons/bi";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllDatatForStudentUser } from './helper/dataFeatcher';
 export default function Subjects() {
+  const dispatch = useDispatch();
+  const studentData = useSelector((state) => state.studentUser.studentData);
+  console.log(studentData)
+  useEffect(()=>{
+    if(!studentData.first_name) getAllDatatForStudentUser(dispatch);
+  },[])
   return (
     <Layout>
         <div className="flex flex-col my-10 min-[1200px]:flex-row md:px-10 min-[1200px]:px-0">
         <div className="w-full min-[1200px]:ml-10 2xl:pl-0 min-[1200px]:w-3/5 xl:w-2/3 2xl:w-3/4 2xl:mx-10">
         <p className='mb-4 text-3xl font-semibold'>Subjects</p>
         <div className="w-full py-10 text-black h-max">
-        <div className="flex flex-col items-center justify-between p-4 mb-4 bg-white rounded-2xl">
+          {studentData.subjects.map((subject, index)=>{
+            return  <div key={index} className=" border flex flex-col items-center justify-between p-4 mb-4 bg-white rounded-2xl">
             <div className='flex justify-between w-full'>
 
         <div className="flex flex-col justify-center">
-        <div className="bg-[#3399FF] p-2 rounded-full self-start">
+        <div className="bg-[#3399FF] p-2 rounded-full self-start mb-2">
                   <BiBook className="w-6 h-6 text-white" />
                 </div>
-              <p className="text-3xl font-semibold text-[#5F6368]">Physics</p>
+              <p className="text-3xl font-semibold text-[#5F6368]">{subject}</p>
               <p className="text-lg text-[#5F6368] flex flex-row items-center">
                 View All <MdNavigateNext />{" "}
               </p>
@@ -26,24 +34,11 @@ export default function Subjects() {
 
             </div>
             </div>
+          })}
+       
 
 
-            <div className="flex flex-col items-center justify-between p-4 mb-4 bg-white rounded-2xl">
-            <div className='flex justify-between w-full'>
-
-        <div className="flex flex-col justify-center">
-        <div className="bg-[#3399FF] p-2 rounded-full self-start">
-                  <BiBook className="w-6 h-6 text-white" />
-                </div>
-              <p className="text-3xl font-semibold text-[#5F6368]">Maths</p>
-              <p className="text-lg text-[#5F6368] flex flex-row items-center">
-                View All <MdNavigateNext />{" "}
-              </p>
-            </div>
-            <img src="https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" className='object-cover h-32 min-[480px]:w-[18rem] min-[550px]:w-[24rem] min-[690px]:w-[32rem] md:w-[30rem] min-[1200px]:w-[20rem]  min-[1400px]:w-[28rem] 2xl:w-[38rem] rounded-2xl'/>
-
-            </div>
-            </div>
+          
         </div>
 
             </div>

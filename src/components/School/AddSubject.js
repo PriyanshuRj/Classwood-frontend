@@ -33,6 +33,9 @@ export default function AddSubject({ setOpen, classroom }) {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params : {
+            session :localStorage.getItem("session")
+          }
         });
         console.log("res : ", resp);
         if (resp.status === 201)

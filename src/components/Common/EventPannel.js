@@ -24,7 +24,7 @@ const monthNames = [
 export default function EventPannel({setOpenAddEventModal}) {
   const dispatch = useDispatch();
   const [eventArraLength, setNoticeArrayLength] = useState(4);
-
+  const session = useSelector((state) => state.user.session);
   const events = useSelector((state) => state.user.events);
   async function fetchNotice() {
     const token = localStorage.getItem("token");
@@ -33,6 +33,9 @@ export default function EventPannel({setOpenAddEventModal}) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params: {
+        session: session.id,
+    },
     });
     dispatch(setEvents(res.data));
   }

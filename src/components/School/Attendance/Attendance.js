@@ -61,10 +61,11 @@ export default function Attendance() {
 
   const [searchQuery, setSearchQueary] = useState("");
   const classrooms = useSelector((state) => state.classroom.allClasses);
+  const session = useSelector((state) => state.user.session);
 
   useEffect(() => {
     if (!classrooms || classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate, setLoading);
+      getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
 
   function filterTabs(classData) {

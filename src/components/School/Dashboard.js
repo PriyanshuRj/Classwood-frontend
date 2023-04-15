@@ -26,8 +26,10 @@ export default function StudentDashboard() {
   const noOfCasses = useSelector((state) => state.classroom.noOfClasses);
   const allStudent = useSelector((state) => state.student.allStudent);
   const allStaffMemeber = useSelector((state) => state.staff.allStaff);
+  const session = useSelector((state) => state.user.session);
+
   useEffect(() => {
-    if (!noOfStaffMenber) getAllSchoolData(dispatch, navigate, setLoading);
+    if (!noOfStaffMenber) getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
   const [openAddNoticeModal, setOpenAddNoticeModal] = useState(false);
   const [openAddEventModal, setOpenAddEventeModal] = useState(false);
@@ -44,11 +46,14 @@ export default function StudentDashboard() {
   const getAllStudentAttendence = async () => {
     if(today){
       let presents = 0;
+      console.log("students",allStudent)
       for(let i in allStudent){
         let val = JSON.parse(allStudent[i].month_attendance)[today-1];
         if(val===2) presents++;
+        console.log("presents",presents);
       }
       setPresentStudents(presents);
+      console.log("These are the present", presents)
     }
 
   }

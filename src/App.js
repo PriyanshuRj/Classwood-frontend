@@ -40,6 +40,7 @@ import SingleClassStudents from "./components/Staff/Students";
 import StaffNoticeFullPageView from "./components/Staff/NoticeFullPageView";
 import StaffEventFullPageView from "./components/Staff/EventFullPageView";
 import StaffTestExam from "./components/Staff/Exam/main";
+import StaffTimeTable from "./components/Staff/TimeTable/TimeTable";
 import "./App.css";
 
 import { setProfileData } from "./store/genralUser";
@@ -115,6 +116,9 @@ export default function App() {
           <Route path="/staff/notice/:id" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffNoticeFullPageView />} />
           <Route path="/staff/event/:id" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffEventFullPageView />} />
           <Route path="/staff/test" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffTestExam />} />
+          <Route path="/staff/timetable" element={localStorage.getItem("UserType")!=="Staff"? <NotAuthorized /> : <StaffTimeTable />} />
+          
+          
           <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>

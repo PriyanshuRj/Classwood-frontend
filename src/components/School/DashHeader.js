@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import NotificationIcon from "../../assets/icons/NotificationIcon"
 import { useSelector, useDispatch } from "react-redux";
 import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
@@ -7,28 +7,43 @@ import SessionDoropDown from "../Common/SessionDropdown";
 import { setSession } from "../../store/genralUser";
 import { API_URL } from "../../helpers/URL";
 import SchoolProfile from "./SchoolProfile";
-const sessionList = [
-  {
-    id : 1,
-    name : "2023 - 24"
-  },
-  {
-    id : 2,
-    name : "2022 - 23"
-  }
-]
+import axios from "axios";
+import { setAllSession } from "../../store/School/sessionSlice";
+
 export default function DashHeader({setLoading}) {
+  async function getSessions(){
+    const token = localStorage.getItem("token");
+    const sessionRes =  await axios.get(API_URL + "list/session",{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("session res", sessionRes);
+
+    dispatch(setAllSession(sessionRes.data));
+    if(sessionRes.data.length){
+      localStorage.setItem("session", sessionRes.data[0].id);
+    }
+  }
   const [openProfile,setOpenProfile] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const session = useSelector((state) => state.user.session);
+  const sessionList = useSelector((state)=> state.session.session);
   const Logout = ()=>{
     localStorage.removeItem("UserType");
     localStorage.removeItem("token");
     navigate(`/`);
 
   }
+  useEffect(()=>{
+    getSessions()
 
+  },[])
+useEffect(()=>{
+  if(sessionList.length)
+  dispatch(setSession(sessionList[0]))
+},[sessionList])
   const viewProfile=()=>{
     setOpenProfile(true);
   }

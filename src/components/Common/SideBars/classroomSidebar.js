@@ -25,6 +25,7 @@ export default function ClassroomSideBar({
   const [classTeacher, setClassTeacher] = useState({});
   const [loading, setLoading] = useState(false);
   const students = useSelector((state) => state.user.classStudents);
+  const session = useSelector((state) => state.user.session);
 
   async function fetchSubjects() {
     setLoading(true);
@@ -35,6 +36,7 @@ export default function ClassroomSideBar({
       },
       params: {
         classroom: localStorage.getItem("classId"),
+        session : session.id
       },
     });
     console.log(classroomSubjects.data);

@@ -23,6 +23,7 @@ import { genderList } from "../../../helpers/inputLists";
 export default function AddStudent({ setOpenAddProfile, classroom, subjects, studentData }) {
   const staff = useSelector((state) => state.staff.allStaff);
   const navigate = useNavigate();
+  const session = useSelector((state) => state.user.session);
 
   const [loading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
@@ -61,7 +62,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
   }
   useEffect(()=>{
     if(!staff || staff.length===0)
-    getAllSchoolData(dispatch, navigate, setLoading)
+    getAllSchoolData(dispatch, navigate, setLoading, session)
   },[staff])
   useEffect(()=>{
 
@@ -172,6 +173,9 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
+                params : {
+                  session : localStorage.getItem("session")
+                }
               }
             );
               console.log("This is the response :  ", res);

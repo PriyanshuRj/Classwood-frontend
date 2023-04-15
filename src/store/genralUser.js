@@ -12,10 +12,7 @@ export const userSlice = createSlice({
     events : [],
     testStudents: [],
     loading: false,
-    session : {
-      id : 1,
-      name : "2023 - 24"
-    }
+    session : {}
   },
   reducers: {
     loginUser: (state, action) => {

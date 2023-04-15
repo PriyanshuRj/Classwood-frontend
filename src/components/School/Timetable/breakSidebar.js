@@ -34,6 +34,9 @@ export default function BreakSidebar({ setOpenUpload, classID }) {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params : {
+            session : localStorage.getItem("session")
+          }
         }
       );
       console.log(res);

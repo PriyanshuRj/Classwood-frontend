@@ -27,10 +27,11 @@ export default function Student() {
   const [staffData, setStaffData] = useState(null);
   const [searchQueary, setSearchQueary] = useState("");
   const staff = useSelector((state) => state.staff.allStaff);
-  
+  const session = useSelector((state) => state.user.session);
+
 
   useEffect(() => {
-    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate,setLoading);
+    if (!staff || staff.length === 0) getAllSchoolData(dispatch, navigate,setLoading, session);
   }, []);
 
   function teachingStaffFilter (staff){
@@ -110,16 +111,16 @@ export default function Student() {
             <input
               type="search"
               name="q"
-              className="py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none"
+              className="py-2 pl-10 text-sm text-gray-900 bg-white rounded-md focus:outline-none border"
               placeholder="Search a staff member"
               autoComplete="off"
               onChange={(e) => setSearchQueary(e.target.value)}
             />
           </div>
-          <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
+          {/* <button className="flex items-center px-2 py-1 font-medium text-gray-800 bg-gray-200 rounded-md sm:px-4">
             <FiFilter className="sm:mr-2" />
             <span className="hidden sm:flex">Fliter</span>
-          </button>
+          </button> */}
         </div>
         {staff.length == 0 ? (
           <div className="flex items-center justify-center w-full h-96">

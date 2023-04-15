@@ -62,6 +62,9 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params : {
+            session : localStorage.getItem("session")
+          }
         });
         console.log(res);
         if(res.status==200){

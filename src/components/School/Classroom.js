@@ -60,6 +60,7 @@ const sections = [
 export default function Classroom() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const session = useSelector((state) => state.user.session);
 
   const [loading, setLoading] = useState(false);
   const [openEditClassroom, setOpenEditClassroom] = useState(false);
@@ -77,7 +78,7 @@ export default function Classroom() {
 
   useEffect(() => {
     if (!classrooms || classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate, setLoading);
+      getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
   function filterTabs(classData) {
     if (tabState === 0) return true;

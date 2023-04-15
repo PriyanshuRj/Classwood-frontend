@@ -32,12 +32,14 @@ export default function StudentConcession({ setPageState, feesValue, addFees, cl
 
     setLoading(false);
   }
+  const session = useSelector((state) => state.user.session);
+
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const [loading, setLoading] = useState(false);
   const [student, setStudents] = useState([]);
   useEffect(() => {
     if (classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate, setLoading);
+      getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
 
   return (

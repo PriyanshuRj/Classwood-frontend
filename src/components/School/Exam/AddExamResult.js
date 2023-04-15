@@ -80,7 +80,11 @@ export default function AddExamResult() {
         const res = await axios.post(API_URL + "staff/result/",formData,
         {headers: {
           Authorization: `Bearer ${token}`,
-        }})
+        },
+        params : {
+          session : localStorage.getItem("session")
+        }
+      })
         console.log(res);
       }
       )

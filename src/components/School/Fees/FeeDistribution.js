@@ -26,6 +26,8 @@ export default function FeesDistribution({
   function addNewFeefiled() {
     dispatch(addFees());
   }
+  const session = useSelector((state) => state.user.session);
+
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const fees = useSelector((state) => state.fees.allFees);
   console.log(fees);
@@ -36,7 +38,7 @@ export default function FeesDistribution({
 
   useEffect(() => {
     if (classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate, setLoading);
+      getAllSchoolData(dispatch, navigate, setLoading,session);
   }, []);
 
   useEffect(() => {

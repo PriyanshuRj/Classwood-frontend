@@ -3,6 +3,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { useNavigate } from 'react-router-dom'
 import { getAllSchoolData } from '../School/helpers/dataFetcher'
+import { useSelector } from 'react-redux'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -10,10 +11,12 @@ function classNames(...classes) {
 
 export default function SessionDoropDown({inputList, selected, setSelected, dispatch, setLoading}) {
   const navigate = useNavigate();
+  
   function fetchNewSession(value){
     console.log("changed")
-    dispatch(setSelected(value))
-    getAllSchoolData(dispatch, navigate, setLoading);
+    dispatch(setSelected(value));
+    localStorage.setItem("session", value.id);
+    getAllSchoolData(dispatch, navigate, setLoading, selected);
   }
   return (
     <Listbox value={selected} onChange={value=>fetchNewSession(value)}>
@@ -22,7 +25,9 @@ export default function SessionDoropDown({inputList, selected, setSelected, disp
           <div className="relative w-full mt-1">
             <Listbox.Button className={`relative w-[16rem] py-3 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-default focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm`}>
               <span className="flex items-center">
-                <span className="block ml-3 truncate">{selected.name}</span>
+                <span className="block ml-3 truncate">
+                  {selected.start_date ? selected.start_date.substring(0,4) : "2023"}
+                  </span>
               </span>
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
                 <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
@@ -54,7 +59,7 @@ export default function SessionDoropDown({inputList, selected, setSelected, disp
                           <span
                             className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
                           >
-                            {person.name}
+                            {person.start_date && person.start_date.substring(0,4)}
                           </span>
                         </div>
 

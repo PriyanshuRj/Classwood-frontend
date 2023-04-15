@@ -80,6 +80,9 @@ export default function AddExamResult() {
         const res = await axios.post(API_URL + "staff/result/",formData,
         {headers: {
           Authorization: `Bearer ${token}`,
+        },
+        params : {
+          session : localStorage.getItem("session")
         }})
         console.log(res);
         if(res.status===200) dispatch(setWarningToast("Error in Adding Results"));
@@ -104,6 +107,9 @@ export default function AddExamResult() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params : {
+          session : localStorage.getItem("session")
+        }
       });
       if(res.status==200) dispatch(setWarningToast("Error in Adding Exam"));
       if(res.status==201){

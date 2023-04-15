@@ -3,8 +3,8 @@ import axios from 'axios'
 import { API_URL } from '../../../helpers/URL';
 import {AiOutlineSearch} from "react-icons/ai";
 import {FiFilter} from "react-icons/fi";
-import {BsGrid, BsListUl} from "react-icons/bs";
-
+import ListButton from '../../../assets/icons/ListButton';
+import GridButton from '../../../assets/icons/GridButton';
 import { Rings } from 'react-loader-spinner';
 import PastResultCardSection from '../../Common/PastResultCardSection';
 import PastResultRowSection from '../../Common/PastResultRowSection';
@@ -82,7 +82,9 @@ export default function PastResults({setPageState, setSelectedTest}) {
                   } rounded-md`}
                   onClick={() => setViewState("grid")}
                 >
-                  <BsGrid className="mr-2" />
+                  <div className="mr-2">
+                    <GridButton />
+                  </div>
                   Grid
                 </span>
                 <span
@@ -93,7 +95,9 @@ export default function PastResults({setPageState, setSelectedTest}) {
                   } rounded-md`}
                   onClick={() => setViewState("list")}
                 >
-                  <BsListUl className="mr-2" />
+                   <div className="mr-2">
+                    <ListButton />
+                  </div>
                   List
                 </span>
               </div>

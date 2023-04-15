@@ -27,6 +27,8 @@ const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG",
 export default function AllSubjects() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const session = useSelector((state) => state.user.session);
+
   const [opneSylabusSidebar, setOpenSylabusSidebar] = useState(false);
   const [openUpload, setOpenUpload] = useState(false);
   const [tabState, setTabState] = useState(0);
@@ -62,7 +64,7 @@ export default function AllSubjects() {
   }
   
   useEffect(() => {
-    if (!allSyllabus.length) getAllSchoolData(dispatch, navigate, setLoading);
+    if (!allSyllabus.length) getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
   return (
     <Layout>

@@ -19,8 +19,10 @@ import { getAllSchoolData } from "../../School/helpers/dataFetcher";
 import { genderList } from "../../../helpers/inputLists";
 import { Rings } from "react-loader-spinner";
 export default function AddStaff({ setOpenAddProfile, staffData }) {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const session = useSelector((state) => state.user.session);
 
   const [loading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
@@ -105,17 +107,22 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            params : {
+              session : localStorage.getItem("session")
+            }
           });
           console.log("This is the response : ", res);
           if (res.status === 201) {
             dispatch(setSuccessToast("Staff added SUccessfully"));
-            console.log("response returned", res);
+          }
+          if(res.status ===200){
+            dispatch(setWarningToast("Staff with same Details detected"));
           }
         } catch (e) {
           console.warn("Error :::::::", e);
         }
         setLoading(false);
-        getAllSchoolData(dispatch, navigate, setLoading);
+        getAllSchoolData(dispatch, navigate, setLoading, session);
       }
     
     } else {
@@ -173,7 +180,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           console.warn("Error :::::::", e);
         }
         setLoading(false);
-    getAllSchoolData(dispatch, navigate, setLoading);
+    getAllSchoolData(dispatch, navigate, setLoading, session);
       }
     }
     
@@ -209,15 +216,15 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
             <p className="mb-4 text-xl font-semibold text-gray-800">
               Personal Details
             </p>
-            <div className="flex flex-col justify-between mb-4 md:flex-row">
+            <div className="flex flex-col justify-between  md:flex-row my-8">
               <span
               onClick={()=> setIsClassTeacher(true)}
-              className={`cursor-pointer py-3 mx-5 ${!isClassTeacher ? "bg-gray-50 text-gray-800" : "bg-gray-700 text-white"} bg-gray-50 border-gray-700 border flex-1 rounded flex justify-center items-center`}> 
+              className={`cursor-pointer py-3 mr-5 ${!isClassTeacher ? "bg-gray-50 text-gray-800" : "bg-gray-700 text-white"} bg-gray-50 border-gray-700 border flex-1 rounded flex justify-center items-center`}> 
                 Teacher
               </span>
               <span 
               onClick={()=> setIsClassTeacher(false)}
-              className={`cursor-pointer py-3 mx-5 ${isClassTeacher ? "bg-gray-50 text-gray-800" : "bg-gray-700 text-white"} bg-gray-50 border-gray-700 border flex-1 rounded flex justify-center items-center`}> 
+              className={`cursor-pointer py-3 ml-5 ${isClassTeacher ? "bg-gray-50 text-gray-800" : "bg-gray-700 text-white"} bg-gray-50 border-gray-700 border flex-1 rounded flex justify-center items-center`}> 
                 Non Teacher
               </span>
             </div>

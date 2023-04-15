@@ -25,20 +25,10 @@ const monthNames = [
 export default function NoticePannel({ setOpenAddNoticeModal }) {
   const dispatch = useDispatch();
   const notices = useSelector((state) => state.user.notices);
+  const session = useSelector((state) => state.user.session);
+ 
   const [noticeArraLength, setNoticeArrayLength] = useState(4);
-  async function fetchNotice() {
-    const token = localStorage.getItem("token");
 
-    let res = await axios.get(API_URL + "list/notice/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    dispatch(setNotice(res.data));
-  }
-  useEffect(() => {
-    fetchNotice();
-  }, []);
   return (
     <div className="mt-10 md:shadow-lg md:rounded-xl py-4 min-h-[23.5rem]">
       <div className="absolute -l-4 ">

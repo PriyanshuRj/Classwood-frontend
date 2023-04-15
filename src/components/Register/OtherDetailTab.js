@@ -53,7 +53,7 @@ console.log("the web", schoolWebsite.substring(0,12))
           type="number"
           value={schoolPhoneNo}
     onChange={(e)=>setSchoolPhoneNo(e.target.value)}
-      maxLength={10}
+          maxLength={10}
           placeholder="School Phone No."
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />

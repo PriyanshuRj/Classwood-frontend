@@ -16,9 +16,10 @@ export default function TestResult() {
   const [loading, setLoading] = useState(false);
   const [selectedTest, setSelectedTest] = useState(0);
   const classrooms = useSelector((state) => state.classroom.allClasses);
+  const session = useSelector((state) => state.user.session);
 
   useEffect(() => {
-    if (classrooms.length === 0) getAllSchoolData(dispatch, navigate, setLoading);
+    if (classrooms.length === 0) getAllSchoolData(dispatch, navigate, setLoading, session);
   },[]);
   return (
     <Layout>
