@@ -18,17 +18,18 @@ export default function BreakSidebar({ setOpenUpload, classID }) {
   const addRow = () => {
     dispatch(addCommonTimeTableRow());
   };
-  async function createSyllabus() {
+  async function creatCommonTime() {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      console.log("Time Table Rows", timetableRows);
+      console.log("Time Table Rows", localStorage.getItem("session"));
 
       const res = await axios.post(
         API_URL + "staff/commontime/",
         {
           common: timetableRows,
           classroom: classID,
+          session : localStorage.getItem("session")
         },
         {
           headers: {
@@ -105,7 +106,7 @@ export default function BreakSidebar({ setOpenUpload, classID }) {
             </div>
             </div>
             <button
-              onClick={() => createSyllabus()}
+              onClick={() => creatCommonTime()}
               className="self-end w-full py-2 mt-8 mb-8 font-semibold text-white bg-indigo-500 rounded-md text-md "
             >
               Save

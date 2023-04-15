@@ -95,18 +95,18 @@ export default function App() {
           <Route path="/student/event/:id" element={localStorage.getItem("UserType")!=="Student" ? <NotAuthorized /> : <StudentEventFullPageView /> } />
 
           {/* School Links */}
-          <Route path="/school/dashboard" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolDashboard /> : <StartPay />} />
-          <Route path="/school/students" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllStudent /> : <StartPay />} />
-          <Route path="/school/staff" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllStaff /> : <StartPay />} />
-          <Route path="/school/classroom" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolClassroom /> : <StartPay />} />
-          <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AllSubjects /> : <StartPay />} />
-          <Route path="/school/addclass" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <AddClass /> : <StartPay />} />
-          <Route path="/school/test" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <TestResult /> : <StartPay />} />
-          <Route path="/school/attendence" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <Attendance /> : <StartPay />} />
-          <Route path="/school/timetable" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <SchoolTimetable /> : <StartPay />} />
-          <Route path="/school/fees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ? <FeesPage /> : <StartPay />} />
-          <Route path="/school/notice/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ?  <SchoolNoticeFullPageView /> : <StartPay />} />
-          <Route path="/school/event/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : localStorage.getItem("Payed") ?  <SchoolEventFullPageView /> : <StartPay />} />
+          <Route path="/school/dashboard" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <SchoolDashboard /> : <StartPay />} />
+          <Route path="/school/students" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <AllStudent /> : <StartPay />} />
+          <Route path="/school/staff" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <AllStaff /> : <StartPay />} />
+          <Route path="/school/classroom" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <SchoolClassroom /> : <StartPay />} />
+          <Route path="/school/subject" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <AllSubjects /> : <StartPay />} />
+          <Route path="/school/addclass" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <AddClass /> : <StartPay />} />
+          <Route path="/school/test" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <TestResult /> : <StartPay />} />
+          <Route path="/school/attendence" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <Attendance /> : <StartPay />} />
+          <Route path="/school/timetable" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <SchoolTimetable /> : <StartPay />} />
+          <Route path="/school/fees" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ? <FeesPage /> : <StartPay />} />
+          <Route path="/school/notice/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true) ?  <SchoolNoticeFullPageView /> : <StartPay />} />
+          <Route path="/school/event/:id" element={localStorage.getItem("UserType")!=="School"? <NotAuthorized /> : (localStorage.getItem("Payed")  || true)  ?  <SchoolEventFullPageView /> : <StartPay />} />
 
 
           {/* Staff Links */}
