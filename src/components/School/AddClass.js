@@ -38,7 +38,7 @@ export default function AddClass() {
       
       dispatch(setWarningToast("Please Fill Complete Details"));
     } 
-    else if (classSection.length !== 1) dispatch(setWarningToast("Class section can only be of one letter"));
+    else if (classSection.length > 20) dispatch(setWarningToast("Class section can only be of 20 letter"));
     else setPageState(val);
   };
   const propogateToPage3 = async (val) => {

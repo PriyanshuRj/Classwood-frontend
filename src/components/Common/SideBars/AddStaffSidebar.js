@@ -97,7 +97,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("date_of_birth", dob);
           formData.append("address", address);
           formData.append("account_no", acountNo);
-          formData.append("staddId", staffId);
+          formData.append("staff_id", staffId);
           formData.append("adhar", adharNumber);
           formData.append("ifsc_code", ifscCode);
           formData.append("is_teaching_staff", isClassTeacher);
@@ -154,11 +154,10 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("date_of_birth", dob);
           formData.append("address", address);
           formData.append("account_no", acountNo);
-          formData.append("staddId", staffId);
           formData.append("adhar", adharNumber);
           formData.append("ifsc_code", ifscCode);
           formData.append("is_teaching_staff", isClassTeacher);
-
+          formData.append("staff_id", staffId);
 
           const res = await axios.put(
             API_URL + "list/staff/" + staffData.user.id + "/",

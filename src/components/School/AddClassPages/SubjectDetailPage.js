@@ -7,7 +7,9 @@ import {
   addNewClassSubjectsTecher,
   addNewClassSubjectsName,
   addAWholeSubject,
+  removeClassSubjects
 } from "../../../store/School/classroomSlice";
+import {IoMdRemoveCircleOutline} from 'react-icons/io';
 import TeacherDropdown from "../helpers/TeacherDropDown";
 function filterSubjectTeacher(staffMember){
   return staffMember.is_teaching_staff;
@@ -99,6 +101,7 @@ export default function SubjectDetailPage({  setPageState,staff }) {
                 <label className="mb-4 text-lg font-semibold text-gray-800">
                   Subject*
                 </label>
+               
                 <input
                   value={subject.subjectname}
                   type="text"
@@ -108,9 +111,13 @@ export default function SubjectDetailPage({  setPageState,staff }) {
                 />
               </div>
               <div className="flex flex-col w-full px-8">
+                <div className="flex flex-row justify-between w-full items-center">
+
                 <label className="mb-4 text-lg font-semibold text-gray-800">
                   Teacher*
                 </label>
+                <IoMdRemoveCircleOutline onClick={()=> dispatch(removeClassSubjects(index))} className="text-red-500 h-6 w-6"/>
+                </div>
                 <TeacherDropdown
                   id={index + 1}
                   inputList={staff.filter(filterSubjectTeacher)}
@@ -120,6 +127,7 @@ export default function SubjectDetailPage({  setPageState,staff }) {
                   setSelected={selectTeacher}
                 />
               </div>
+              
             </div>
           </div>
         );

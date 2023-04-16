@@ -94,16 +94,7 @@ export default function Login() {
                     </p>
                   </div>
                   <div className="flex flex-col max-w-2xl">
-                    <div className="flex flex-col max-w-2xl mt-4">
-                      <label className="mt-2 font-semibold">School Name*</label>
-                      <input
-                        type="text"
-                        placeholder="School Name"
-                        value={schoolName}
-                        onChange={(e) => setSchoolName(e.target.value)}
-                        className="flex px-3 py-2 font-medium border-2 rounded-lg border-slate-200 md:px-4 md:py-3 placeholder:font-normal w-full"
-                      />
-                    </div>
+                  
                     <div className="flex flex-col max-w-2xl mt-4">
                       <label className="mt-2 font-semibold">Email*</label>
                       <input

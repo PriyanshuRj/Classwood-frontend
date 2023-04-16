@@ -24,7 +24,7 @@ export const genderList = [
     },
     {
       id : 3,
-      name: "HP"
+      name: "HPBOSE"
     }
   ];
   export const classNameList = [

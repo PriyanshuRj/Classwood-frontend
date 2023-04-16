@@ -14,6 +14,8 @@ export default function EmailTab({
   setConfirmPassword,
   schoolName,
   setSchoolName,
+  schoolHead,
+  setSchoolHead
 }) {
   const dispatch = useDispatch();
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -46,6 +48,16 @@ export default function EmailTab({
             placeholder="School Name"
             value={schoolName}
             onChange={(e) => setSchoolName(e.target.value)}
+            className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+          />
+        </div>
+        <div className="flex flex-col max-w-2xl mt-4">
+          <label className="font-semibold mt-2">School Head Name*</label>
+          <input
+            type="text"
+            placeholder="School Head Name"
+            value={schoolHead}
+            onChange={(e) => setSchoolHead(e.target.value)}
             className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
           />
         </div>

@@ -134,7 +134,8 @@ export default function Student() {
             </div> : 
             (<div className="mb-8  grid gap-4 min-[590px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                {staff.filter(tabState ? teachingStaffFilter : nonTeachingStaffFilter).filter(filterStaff).map((e, i) => {
-              return (
+   
+             return (
                 <ProfileCard
                 tabState={tabState}
                   key={i}
@@ -143,7 +144,7 @@ export default function Student() {
                   name={e.first_name + " " + e.last_name}
                   allData={e}
                   setDataOfStaff={setStaffData}
-                  id={12345}
+                  id={e.staff_id ? e.staff_id : "1234"}
                   incharge={e.incharge_of}
                   isIncharge={e.is_class_teacher}
                   setOpenProfile={setOpenProfile}

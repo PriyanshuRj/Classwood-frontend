@@ -31,6 +31,7 @@ export default function Register() {
   const [pageState, setPageState] = useState(0);
   const [affilationNo, setAffilationNo] = useState("");
   const [affilationBoard, setAffilationBoard] = useState(boardList[0]);
+  const [schoolHead, setSchoolHead] = useState("");
   const register = async () => {
     localStorage.setItem("UserType", "School");
 
@@ -52,6 +53,7 @@ export default function Register() {
       formData.append("date_of_establishment", dateOfStablishment);
       formData.append("school_affNo", affilationNo);
       formData.append("school_board", affilationBoard.name);
+      formData.append("school_head", schoolHead);
       const res = await axios.post(API_URL + "signup/", 
           formData
           );
@@ -152,7 +154,8 @@ export default function Register() {
               <EmailTab
               setSchoolName={setSchoolName}
               schoolName={schoolName}
-
+              setSchoolHead={setSchoolHead}
+              schoolHead={schoolHead}
                 email={email}
                 setEmail={setEmail}
                 password={password}

@@ -34,7 +34,7 @@ export default function AddressDetailTab({
     <div className="flex flex-col justify-center flex-1 max-w-2xl space-y-5 my-8">
       <div className="flex flex-col space-y-2 text-start">
         <h2 className="text-3xl font-bold md:text-6xl">
-          School Address Details
+          Tell us more about your school
         </h2>
         <p className="text-md md:text-2xl">Sign up to Digitalize your school</p>
       </div>

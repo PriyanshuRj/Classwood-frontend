@@ -91,6 +91,7 @@ export default function ClassDetailPage({
             </label>
             <input
               value={classSection}
+              maxLength={20}
               onChange={(e) => setClassSection(e.target.value)}
               type="text"
               placeholder="Section"
