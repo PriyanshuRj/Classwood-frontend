@@ -3,54 +3,53 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import ClassDropDown from "../helpers/ClassDropDown";
 import { API_URL } from "../../../helpers/URL";
-import {IoMdAddCircleOutline} from 'react-icons/io';
+import { IoMdAddCircleOutline } from "react-icons/io";
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
-export default function FeesDistribution() {
+import {
+  addFees,
+  updateTitle,
+  updateValue,
+} from "../../../store/School/feesSlice";
+import { setWarningToast } from "../../../store/genralUser";
+export default function FeesDistribution({
+  setPageState,
+  feesValue,
+  selectedClass,
+  setSelectedClass,
+  setFeesValue,
+}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const divisionStats = [{title : "Annual",
-division : []},{title : "Monthly",
-division : ["M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1"] }, {title : "Quartely", division : ["Q1", "Q2", "Q3", "Q4"]}, {title : "Custom", division : ["D1", "D2", "D3"]}];
+
+  function addNewFeefiled() {
+    dispatch(addFees());
+  }
+  const session = useSelector((state) => state.user.session);
 
   const classrooms = useSelector((state) => state.classroom.allClasses);
-  const [divisionState, setDevisionState] = useState(0);
-  const [selectedClass, setSelectedClass] = useState({
-    class_name: "No Class",
-
-    section_name: "No Section",
-  });
-
+  const fees = useSelector((state) => state.fees.allFees);
+  console.log(fees);
+ 
 
   const [loading, setLoading] = useState(false);
-
-  async function uploadFees() {
-    try{
-      const token = localStorage.getItem("token");
-      const res = await axios.post(API_URL + "list/fees", {
-   
-      },{
-        headers : {
-          Authorization: `Bearer ${token}`,
-        }
-      })
-    } catch( e ){
-      console.warn(e)
-    }
-  }
 
 
   useEffect(() => {
     if (classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate, setLoading);
+      getAllSchoolData(dispatch, navigate, setLoading,session);
   }, []);
 
   useEffect(() => {
     if (classrooms.length > 0) setSelectedClass(classrooms[0]);
   }, [classrooms]);
 
-
+  function onNextClick() {
+    if (feesValue.length === 0)
+      dispatch(setWarningToast("Please Fill Tution Fees"));
+    else setPageState(1);
+  }
 
   return (
     <>
@@ -69,99 +68,126 @@ division : ["M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1","M1"] }, {tit
           <span>Please Create a classroom first</span>
         </div>
       ) : (
-        <div className="px-4 md:px-10">
-          <div className="flex flex-col justify-between my-4 md:flex-row">
-            <p className="mt-8 text-2xl font-semibold">Create Fee Structure</p>
-          </div>
-          <div className="flex flex-row justify-between my-8 ">
-        <div className="flex flex-row items-center justify-center">
-          <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-gray-700 border-2 border-gray-700 rounded-full text-md">
-            1
-          </span>
-          <span className="ml-2 font-semibold text-gray-700 text-md">
-            {" "}
-            Fees Structure
-          </span>
-        </div>
-        <div className="flex flex-row items-center justify-center">
-          <span className="flex items-center justify-center w-6 h-6 text-gray-500 bg-white border-2 border-gray-500 rounded-full text-md">
-            2
-          </span>
-          <span className="ml-2 font-semibold text-gray-500 text-md">
-            {" "}
-            Fee Concession
-          </span>
-        </div>
-        <div className="flex flex-row items-center justify-center">
-          <span className="flex items-center justify-center w-6 h-6 text-gray-500 bg-white border-2 border-gray-500 rounded-full text-md">
-            3
-          </span>
-          <span className="ml-2 font-semibold text-gray-500 text-md">
-            {" "}
-            Student List
-          </span>
-        </div>
-      </div>
-          <div className="flex flex-row px-4">
-            <div className="w-full mx-4">
-              <ClassDropDown
-                //   id={index + 1}
-                inputList={classrooms}
-                labelTitle="Class*"
-                DivWidth="full"
-                selected={selectedClass}
-                setSelected={setSelectedClass}
+        <div className="px-4 md:px-10 flex flex-col justify-between w-full ">
+          <div className="flex flex-col flex-1 ">
+            <div className="flex flex-col justify-between my-4 md:flex-row">
+              <p className="mt-8 text-2xl font-semibold">
+                Create Fee Structure
+              </p>
+            </div>
+            <div className="flex flex-row justify-between my-8 items-center">
+              <div className="flex flex-row items-center justify-center">
+                <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-gray-700 border-2 border-gray-700 rounded-full text-md">
+                  1
+                </span>
+                <span className="ml-2 font-semibold text-gray-700 text-md">
+                  {" "}
+                  Fees Structure
+                </span>
+              </div>
+              <div className="flex-1 border h-0 mx-4"></div>
+              <div className="flex flex-row items-center justify-center">
+                <span className="flex items-center justify-center w-6 h-6 text-gray-500 bg-white border-2 border-gray-500 rounded-full text-md">
+                  2
+                </span>
+                <span className="ml-2 font-semibold text-gray-500 text-md">
+                  {" "}
+                  Fee Concession
+                </span>
+              </div>
+              <div className="flex-1 border h-0 mx-4"></div>
+              <div className="flex flex-row items-center justify-center">
+                <span className="flex items-center justify-center w-6 h-6 text-gray-500 bg-white border-2 border-gray-500 rounded-full text-md">
+                  3
+                </span>
+                <span className="ml-2 font-semibold text-gray-500 text-md">
+                  {" "}
+                  Student List
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-row px-4">
+              <div className="w-full mx-4">
+                <ClassDropDown
+                  //   id={index + 1}
+                  inputList={classrooms}
+                  labelTitle="Class*"
+                  DivWidth="full"
+                  selected={selectedClass}
+                  setSelected={setSelectedClass}
+                />
+              </div>
+            </div>
+            <div className="mx-4 px-4 flex flex-col  mt-4">
+              <label className="font-semibold mt-2">Tution Fees*</label>
+              <input
+                type="text"
+                placeholder="Tution Fees"
+                value={feesValue}
+                onChange={(e) => setFeesValue(e.target.value)}
+                className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
               />
             </div>
-          </div>
-          <div className="mx-4 px-4 flex flex-col  mt-4">
-                      <label className="font-semibold mt-2">Tution Fees*</label>
+            {fees.length > 0 &&
+              fees.map((filed, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex justify-between mx-4 px-4 mt-4"
+                  >
+                    <div className="flex flex-col w-[40%]">
+                      <label className="font-semibold mt-2">Fees Title</label>
+
                       <input
                         type="text"
-                        placeholder="Tution Fees"
-                        // value={schoolName}
-                        // onChange={(e) => setSchoolName(e.target.value)}
+                        placeholder="Fees Title"
+                        value={filed.title}
+                        onChange={(e) =>
+                          dispatch(
+                            updateTitle({ index: index, value: e.target.value })
+                          )
+                        }
                         className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
                       />
                     </div>
-                    <button
-                    className="ml-8 mt-8 flex items-center px-4 py-2 font-medium text-white duration-300 ease-in-out bg-indigo-600 rounded-md hover:bg-indigo-800"
-                    onClick={() => {
-                      // setOpen(true);
-                    }}
-                  >
-                    <IoMdAddCircleOutline className="mr-2" />
-                    Add Section
-                  </button>
 
-                  <div className="flex flex-col">
-                      <span className="text-gray-500 font-semibold mt-4 mx-8">Time Period*</span>
-                      <div className="flex flex-row justify-between py-4 mx-8">
-                        {divisionStats.map((division, index)=>{
-                          return <span onClick={()=> setDevisionState(index)} key={index} className={` ${divisionState===index ? " bg-slate-700 text-white "  : "bg-slate-200  text-gray-700 " }  w-[20%] text-center cursor-pointer  rounded-md px-4 py-2 text-md font-semibold `}>
-                          {division.title}
-                        </span>
-                        })}
-                        
-                      </div>
+                    <div className="flex flex-col w-[40%]">
+                      <label className="font-semibold mt-2">Fees Value</label>
+
+                      <input
+                        type="text"
+                        placeholder=" Fees Value"
+                        value={filed.value}
+                        onChange={(e) =>
+                          dispatch(
+                            updateValue({ index: index, value: e.target.value })
+                          )
+                        }
+                        className="flex px-3 py-2 font-medium border-2 border-slate-200  rounded-lg md:px-4 md:py-3 placeholder:font-normal"
+                      />
+                    </div>
                   </div>
-      
-         <div className="border-2 rounded-md mx-8">
-          <div className={`grid cursor-pointer w-full grid-cols-${divisionStats[divisionState].division.length + 1} p-2 text-sm font-semibold text-gray-500 bg-slate-50`}>
-            <span>Fee Fields</span>
-            {divisionStats[divisionState].division.map((value,key)=>{
-              return <span>{value}</span>
-            })}
-            
-           
-          </div>
+                );
+              })}
+              <div className="flex ">
+
+            <button
+              className="ml-8 mt-8 flex items-center px-4 py-2 font-medium text-indigo-700 duration-300 ease-in-out rounded-md hover:bg-indigo-100 hover:text-indigo-800"
+              onClick={() => {
+                addNewFeefiled();
+              }}
+            >
+              <IoMdAddCircleOutline className="mr-2" />
+              Add Section
+            </button>
+              </div>
           </div>
           <div
-        onClick={()=>console.log("hello")}
-        className="text-center flex cursor-pointer items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-white bg-indigo-600 rounded-md"
-        >
+            onClick={() => onNextClick()}
+            className="mb-8 text-center flex cursor-pointer items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-white bg-indigo-600 rounded-md"
+          >
             Next Page
-            </div>
+          </div>
         </div>
       )}
     </>

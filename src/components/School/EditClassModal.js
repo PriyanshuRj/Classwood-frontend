@@ -13,11 +13,12 @@ export default function EditClassroom({ setOpen,classroom }) {
   const [classTeacher, setClassTeacher] = useState(staff[0]);
   const [subClassTeacher, setSubClassTeacher] = useState(staff[0]);
     useEffect(()=>{
+ 
         const clsTchr = staff.filter((tchr)=>{
-            return tchr.user.id === classroom.class_teacher
+            return tchr.first_name + " " + tchr.last_name === classroom.class_teacher
         })
         const subclsTchr = staff.filter((tchr)=>{
-            return tchr.user.id === classroom.sub_class_teacher
+            return tchr.first_name + " " + tchr.last_name === classroom.sub_class_teacher
         })
         console.log(clsTchr, subclsTchr);
         setClassTeacher(clsTchr[0]);

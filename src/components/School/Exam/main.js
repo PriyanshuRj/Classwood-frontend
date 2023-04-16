@@ -4,6 +4,7 @@ import InitialPage from "./InitialPage";
 import AddExamResult from "./AddExamResult";
 import AddTestResult from "./AddTestResult";
 import PastResults from "./PastResults";
+import SingleExamResult from "./SingleExamResult";
 import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,10 +14,12 @@ export default function TestResult() {
   const dispatch = useDispatch();
   const [pageState, setPageState] = useState("");
   const [loading, setLoading] = useState(false);
+  const [selectedTest, setSelectedTest] = useState(0);
   const classrooms = useSelector((state) => state.classroom.allClasses);
+  const session = useSelector((state) => state.user.session);
 
   useEffect(() => {
-    if (classrooms.length === 0) getAllSchoolData(dispatch, navigate, setLoading);
+    if (classrooms.length === 0) getAllSchoolData(dispatch, navigate, setLoading, session);
   },[]);
   return (
     <Layout>
@@ -39,7 +42,7 @@ pageState === "Exam" ? (
   <AddExamResult setPageState={setPageState} />
 ) :pageState === "Test"  ? (
   <AddTestResult setPageState={setPageState} />
-) : (<PastResults />)
+) : pageState==="result" ?  (<PastResults setSelectedTest={setSelectedTest} setPageState={setPageState} />) : <SingleExamResult selectedTest={selectedTest} />
 ) : (
 <InitialPage setPageState={setPageState} />
 )}

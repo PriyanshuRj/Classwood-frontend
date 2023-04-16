@@ -6,7 +6,8 @@ import {
   BsFillCalendar2DateFill,
   BsBriefcase,
 } from "react-icons/bs";
-import {MdSchool} from 'react-icons/md'
+import {MdSchool} from 'react-icons/md';
+import { Rings } from "react-loader-spinner";
 import { AiOutlinePhone, AiFillBank } from "react-icons/ai";
 import { HiOutlineCake } from "react-icons/hi";
 import SelectionDropdown from "../../UI/SelectionDropdown";
@@ -22,6 +23,7 @@ import { genderList } from "../../../helpers/inputLists";
 export default function AddStudent({ setOpenAddProfile, classroom, subjects, studentData }) {
   const staff = useSelector((state) => state.staff.allStaff);
   const navigate = useNavigate();
+  const session = useSelector((state) => state.user.session);
 
   const [loading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
@@ -40,15 +42,32 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
   const [fatherName, setFatherName] = useState("");
   const [rollNo, setRollNo] = useState("");
   const dispatch = useDispatch();
-  const [studentSubjects, setStudentSubjects] = useState([]);
 
+  function resetForm(){
+    setProfileImage(null);
+    setFatherName("");
+    setFirstName("");
+    setLastName("");
+    setGender(genderList[0]);
+    setMobileNo("");
+    setDateOfAdmission("");
+    setAddress("");
+    setDOB("");
+    setParentMobileNo("");
+    setAdmissionNo("");
+    setEmail("");
+    setAcountNo("");
+    setMotherName("");
+    setRollNo("");
+  }
   useEffect(()=>{
     if(!staff || staff.length===0)
-    getAllSchoolData(dispatch, navigate, setLoading)
+    getAllSchoolData(dispatch, navigate, setLoading, session)
   },[staff])
   useEffect(()=>{
 
     if(studentData) {
+      setLoading(true);
       console.log(studentData)
       setFirstName(studentData.first_name);
       setLastName(studentData.last_name);
@@ -73,10 +92,11 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
       setMotherName(studentData.mother_name);
       setParentMobileNo(studentData.parent_mobile_number);
       setRollNo(studentData.roll_no);
+      setLoading(false);
     }
   },[])
   const submit = async () => {
-    console.log("submiting student form",studentData);
+      setLoading(true);
       if(studentData){
         if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
           try {
@@ -114,6 +134,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             if (res.status === 201) {
               dispatch(setSuccessToast("Student Updated Successfully"));
               console.log("response returned", res);
+              resetForm();
             }
           } catch (e) {
             console.warn("Error ::::::", e);
@@ -145,10 +166,6 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
 
             formData.append("admission_no", admissionNo);
 
-            console.log("consoling form data")
-            for (var pair of formData.entries()) {
-              console.log(pair[0]+ ', ' + pair[1]); 
-          }
             const res = await axios.post(
               API_URL + "staff/student/",
               formData,
@@ -156,6 +173,9 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
+                params : {
+                  session : localStorage.getItem("session")
+                }
               }
             );
               console.log("This is the response :  ", res);
@@ -165,6 +185,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             if (res.status === 201) {
               dispatch(setSuccessToast("Student Added Successfully"));
               console.log("response returned", res);
+              resetForm();
             }
             else {
               dispatch(setWarningToast("Error in Adding Student"));
@@ -175,7 +196,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
           }
         }
       }
-   
+      setLoading(false);
   };
 
   return (
@@ -192,7 +213,18 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
           {studentData ? "Edit Student" : "Add Student"}
         </p>
       </div>
-
+      {loading ? (
+        <div className="flex items-center justify-center w-full h-screen">
+          <Rings
+            height="220"
+            width="220"
+            // radius="9"
+            color="rgb(30 64 175)"
+            ariaLabel="loading"
+          />{" "}
+        </div>
+      ) : (<>
+     
       <div className="flex flex-col mx-4 mt-4">
         <p className="mb-4 text-xl font-semibold text-gray-800">
           Personal Details
@@ -276,6 +308,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               onChange={(e) => setMobileNo(e.target.value)}
               value={mobileNO}
               type="number"
+              maxLength={10}
               placeholder="Phone No"
               className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
             />
@@ -290,6 +323,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             <input
               onChange={(e) => setParentMobileNo(e.target.value)}
               value={parentMobileNO}
+              maxLength={10}
               type="number"
               placeholder="Parental Phone No"
               className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px]"
@@ -392,7 +426,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               onChange={(e) => setDOB(e.target.value)}
               type="date"
               placeholder="Phone No"
-              className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
+              className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
             />
           </div>
         </div>
@@ -467,8 +501,14 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
                 type="file"
                 className="hidden"
                 onChange={(e) => {
-                  console.log("This is my file : ",  e.target.files[0])
-                  setProfileImage(e.target.files[0])}}
+                
+                  if(e.target.files[0].type.substring(0,5)==="image")  {
+                    if(e.target.files[0].size < 1000000)setProfileImage(e.target.files[0]);
+                    else dispatch(setWarningToast("Please select an image smaller than 1MB"))
+                  }
+                      else dispatch(setWarningToast("Please select an Image"))
+                }}
+                  
               />
             </label>
           </div>
@@ -483,6 +523,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
           Save
         </button>
       </div>
+      </>)}
     </div>
   );
 }

@@ -9,12 +9,10 @@ export const userSlice = createSlice({
     userProfileData: {},
     classStudents: [],
     notices: [],
+    events : [],
     testStudents: [],
     loading: false,
-    session : {
-      id : 1,
-      name : "2023 - 24"
-    }
+    session : {}
   },
   reducers: {
     loginUser: (state, action) => {
@@ -31,6 +29,9 @@ export const userSlice = createSlice({
     },
     setNotice: (state, action) => {
       state.notices = action.payload;
+    },
+    setEvents: (state, action) =>{
+      state.events = action.payload;
     },
     setTestStudent: (state, action) => {
       console.log("called", action.payload);
@@ -66,6 +67,7 @@ export const {
   setWarningToast,
   setClassStudents,
   setNotice,
+  setEvents,
   setTestStudent,
   updatePercentage,
   updateSubjectMarks,

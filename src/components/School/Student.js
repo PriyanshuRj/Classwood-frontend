@@ -41,7 +41,6 @@ export default function Student() {
           Authorization: `Bearer ${token}`,
         },
       });
-      
       setStudents(res.data);
     }
     setLoading(false);
@@ -94,10 +93,10 @@ export default function Student() {
           ) : (
             <p className="text-xl font-semibold">All Students</p>
           )}
-          <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
+          {/* <button className="flex items-center px-4 py-1 font-medium text-white bg-indigo-600 rounded-md">
             <IoMdAddCircleOutline className="mr-2" />
             Add New Student
-          </button>
+          </button> */}
         </div>
 
         <div className="flex flex-row my-8">

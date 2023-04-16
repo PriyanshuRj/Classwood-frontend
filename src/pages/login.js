@@ -36,6 +36,17 @@ export default function Login() {
         dispatch(loginUser(res.data.user_type));
         if (res.data.user_type === "School"){
           localStorage.setItem("Payed", true);
+
+          const sessionRes =  await axios.get(API_URL + "list/session",{
+            headers: {
+              Authorization: `Bearer ${res.data.tokens.access}`,
+            },
+          });
+          console.log("session res", sessionRes);
+      
+          if(sessionRes.data.length){
+            localStorage.setItem("session", sessionRes.data[0].id);
+          }
           const acountData = await  axios.get(API_URL + "account/", 
             {
               headers : {

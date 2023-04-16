@@ -12,7 +12,7 @@ export default function MessageSidebar({selectedChat, setSelectedChat, chatList}
         </div>
         <div className="ml-auto">
           <button className="flex items-center justify-center text-gray-500 bg-gray-200 rounded-full h-7 w-7">
-            <svg className="w-4 h-4 stroke-current"
+            <svg className="w-4 h-4 strokeLcurrent"
                  fill="none"
                  stroke="currentColor"
                  viewBox="0 0 24 24"

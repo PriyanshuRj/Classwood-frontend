@@ -3,114 +3,303 @@ import { createSlice } from '@reduxjs/toolkit'
 export const timeTableSlice = createSlice({
   name: 'timeTable',
   initialState: {
-
-
-    timeTableRows: [[
+    timeTableRows: [
+      [
         {
-          name: "No Subject Selected",
-        },
+          subject : {
+            name: "No Subject Selected",
+          },
+          teacher : "No Teacher",
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }
+        
+      ],
+      [
         {
-          name: "No Subject Selected",
-        },
+          subject : {
+            name: "No Subject Selected",
+          },
+          teacher : "No Teacher",
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }
+        
+      ],
+      [
         {
-          name: "No Subject Selected",
-        },
+          subject : {
+            name: "No Subject Selected",
+          },
+          teacher : "No Teacher",
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }
+        
+      ],
+      [
         {
-          name: "No Subject Selected",
-        },
+          subject : {
+            name: "No Subject Selected",
+          },
+          teacher : "No Teacher",
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }
+        
+      ],
+      [
         {
-          name: "No Subject Selected",
-        },
+          subject : {
+            name: "No Subject Selected",
+          },
+          teacher : "No Teacher",
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }
+        
+      ],
+      [
         {
-          name: "No Subject Selected",
+          subject : {
+            name: "No Subject Selected",
+          },
+          teacher : "No Teacher",
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }
+        
+      ]
+    ],
+    commonTiming: [
+      {
+        subject : "",
+       
+        start : {
+          hour : "0",
+          minute : "0",
         },
-      ]],
-      startAndEndTime : [{start : {
-        hour : "",
-        minute : "",
-        ampm : "",
-      }, end : {
-        hour : "",
-        minute : "",
-        ampm : "",
-      }}]
-    
+        end : {
+          hour : "0",
+          minute : "0",
+        }
+      }
+    ]
+  
   },
   reducers: {
     addTimetableRow : (state, action) =>{
-        state.timeTableRows.push([
-            {
-              name: "No Subject Selected",
-            },
-            {
-              name: "No Subject Selected",
-            },
-            {
-              name: "No Subject Selected",
-            },
-            {
-              name: "No Subject Selected",
-            },
-            {
-              name: "No Subject Selected",
-            },
-            {
-              name: "No Subject Selected",
-            },
-          ]);
-       state.startAndEndTime.push({start : {
-        hour : "",
-        minute : "",
-        ampm : "",
-      }, end : {
-        hour : "",
-        minute : "",
-        ampm : "",
-      }})
-     
+        state.timeTableRows[action.payload].push({
+          subject : {
+            name: "No Subject Selected",
+          },
+          teacher : "No Teacher",
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        });
+    },
+    addCommonTimeTableRow : (state, action)=>{
+      state.commonTiming.push({
+        subject : "",
+       
+        start : {
+          hour : "0",
+          minute : "0",
+        },
+        end : {
+          hour : "0",
+          minute : "0",
+        }
+      })
     },
     refreshTimetableRow : (state, action) =>{
-        state.timeTableRows = [[
+        state.timeTableRows = [
+          [
             {
-              name: "No Subject Selected",
-            },
+              subject : {
+                name: "No Subject Selected",
+              },
+              teacher : "No Teacher",
+              start : {
+                hour : "0",
+                minute : "0",
+              },
+              end : {
+                hour : "0",
+                minute : "0",
+              }
+            }
+            
+          ],
+          [
             {
-              name: "No Subject Selected",
-            },
+              subject : {
+                name: "No Subject Selected",
+              },
+              teacher : "No Teacher",
+              start : {
+                hour : "0",
+                minute : "0",
+              },
+              end : {
+                hour : "0",
+                minute : "0",
+              }
+            }
+            
+          ],
+          [
             {
-              name: "No Subject Selected",
-            },
+              subject : {
+                name: "No Subject Selected",
+              },
+              teacher : "No Teacher",
+              start : {
+                hour : "0",
+                minute : "0",
+              },
+              end : {
+                hour : "0",
+                minute : "0",
+              }
+            }
+            
+          ],
+          [
             {
-              name: "No Subject Selected",
-            },
+              subject : {
+                name: "No Subject Selected",
+              },
+              teacher : "No Teacher",
+              start : {
+                hour : "0",
+                minute : "0",
+              },
+              end : {
+                hour : "0",
+                minute : "0",
+              }
+            }
+            
+          ],
+          [
             {
-              name: "No Subject Selected",
-            },
+              subject : {
+                name: "No Subject Selected",
+              },
+              teacher : "No Teacher",
+              start : {
+                hour : "0",
+                minute : "0",
+              },
+              end : {
+                hour : "0",
+                minute : "0",
+              }
+            }
+            
+          ],
+          [
             {
-              name: "No Subject Selected",
-            },
-          ]];
-          state.startAndEndTime = [{start : {
-            hour : "",
-            minute : "",
-            ampm : "",
-          }, end : {
-            hour : "",
-            minute : "",
-            ampm : "",
-          }}];
+              subject : {
+                name: "No Subject Selected",
+              },
+              teacher : "No Teacher",
+              start : {
+                hour : "0",
+                minute : "0",
+              },
+              end : {
+                hour : "0",
+                minute : "0",
+              }
+            }
+            
+          ]
+        ]
+        state.commonTiming = [{
+          subject : "",
+         
+          start : {
+            hour : "0",
+            minute : "0",
+          },
+          end : {
+            hour : "0",
+            minute : "0",
+          }
+        }]
+         
     },
     updateTimetableSell : (state, action) =>{
-        state.timeTableRows[action.payload.rowIndex][action.payload.columnIndex] = action.payload.value;
+      if(action.payload.type==="subject"){
+
+        state.timeTableRows[action.payload.day][action.payload.columnIndex][action.payload.type] = action.payload.value;
+        state.timeTableRows[action.payload.day][action.payload.columnIndex].teacher = action.payload.value.teacher;
+        
+      }
+      else {
+        state.timeTableRows[action.payload.day][action.payload.columnIndex][action.payload.type][action.payload.HorM] = action.payload.value;
+        
+      }
     },
-    updateTimeFrame : (state, action)=>{
-        state.startAndEndTime[action.payload.rowIndex][action.payload.startEnd][action.payload.timeType] = action.payload.value;
+    updateCommonTiming : (state, action) =>{
+      console.log("here", action.payload.columnIndex, action.payload.value)
+      if(action.payload.type==="subject"){
+        console.log("insed")
+      state.commonTiming[action.payload.columnIndex].subject = action.payload.value;
+
+      }
+      else  state.commonTiming[action.payload.columnIndex][action.payload.type][action.payload.HorM] = action.payload.value;
+
     }
    
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addTimetableRow, refreshTimetableRow, updateTimetableSell, updateTimeFrame } = timeTableSlice.actions
+export const { addTimetableRow, refreshTimetableRow, updateTimetableSell, updateCommonTiming, addCommonTimeTableRow  } = timeTableSlice.actions
 
 export default timeTableSlice.reducer

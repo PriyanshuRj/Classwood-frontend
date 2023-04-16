@@ -1,51 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import { Rings } from "react-loader-spinner";
 import Layout from "./Layout";
 import { useDispatch } from "react-redux";
 import { API_URL } from "../../helpers/URL";
 import { setWarningToast, setSuccessToast } from "../../store/genralUser";
+import { RxCross1 } from "react-icons/rx";
+import Calendar from "../Common/Calander";
 
-export default function AddNotice() {
+const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apl",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+export default function AddEventSidebar({setOpenAddEventeModal}) {
   
   const dispatch = useDispatch();
-  const [noticeImage, addNoticeImage] = useState([]);
+  const [noticeImage, addNoticeImage] = useState();
   const [title, setTitle] = useState("");
+  const [eventTime, setEventTime] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  
+  const [selectedDate, selectDate] = useState("");
+  const [day, setDate] = useState("");
   async function submit(){
     if(!noticeImage){
-      dispatch(setWarningToast("Notice files Missing"));
+      dispatch(setWarningToast("Event Image files Missing"));
     }
     else if(title.length==0 || content.length===0){
       dispatch(setWarningToast("Complete all the Details"));
 
-    } else{
+    } 
+    else if(day.length===0){
+      dispatch(setWarningToast("Please Select A Date"));
+    }
+    else{
       setLoading(true);
       const token = localStorage.getItem("token");
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", content);
+      formData.append("date", day.toISOString().substring(0, 10));
       console.log(noticeImage)
       const Attachments = Array.from(noticeImage)
       Attachments.forEach((item) => formData.append("attachments", item));
-      const res =  await axios.post(API_URL + "list/notice/",formData,{
+      const res =  await axios.post(API_URL + "list/event/",formData,{
           headers: {
             Authorization: `Bearer ${token}`,
           }
       });
+      console.log(res);
       if(res.status===201) {
         dispatch(setSuccessToast("Notice Added Successfully"))
         setTitle("");
         setContent("");
         addNoticeImage(null);
+        setOpenAddEventeModal(false);
       }
     }
     setLoading(false);
+  
+    
   }
+  useEffect(() => {
+    console.log(day)
+  }, [day])
   return (
-    <Layout>
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[34rem]  shadow-lg">
+       <div
+        onClick={() => setOpenAddEventeModal(false)}
+        className="cursor-pointer absolute p-2 bg-gray-200 duration-200 ease-in-out hover:bg-gray-400 rounded-full top-8 left-8"
+      >
+        <RxCross1 />
+      </div>
       {loading ?  
     <div className="flex items-center justify-center w-full h-screen">
 
@@ -57,8 +94,20 @@ export default function AddNotice() {
             
             ariaLabel="loading"
           /> </div> : <>
-      <div className="flex flex-col">
-        <div className="flex flex-col w-full px-8 my-4 mt-16">
+      <div className="flex flex-col mt-16">
+        <span className=" text-2xl font-semibold text-center">Add Event</span>
+        <div className="flex flex-col w-full px-8 my-4 ">
+          <label className="mb-4 text-xl font-semibold text-gray-800">
+            Event Time
+          </label>
+         
+        <Calendar seletctedDate={selectedDate} selectDate={selectDate} setDate={setDate} />
+        </div>
+        {day !=="" ?  <span className="ml-6 text-lg mt-4 mb-4 font-semibold">
+          Event Date : {day.getDate() + " " +  monthNames[day.getMonth()] + " " + day.getFullYear() }
+        </span>  : undefined}
+       
+        <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Title
           </label>
@@ -66,7 +115,7 @@ export default function AddNotice() {
             value={title}
             type="text"
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
+            placeholder="Enter a brief of upcoming event"
             className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>
@@ -78,13 +127,13 @@ export default function AddNotice() {
             value={content}
             type="text"
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Content"
-            className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
+            placeholder="Enter in detail of upcoming event"
+            className="flex px-3 py-4 font-medium  border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>
         <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
           <span className="mb-4 text-xl font-semibold text-gray-800">
-            Subject Image
+            Event Image
           </span>
           <div className="flex items-center justify-center w-full">
             <label
@@ -110,7 +159,7 @@ export default function AddNotice() {
                 <p className="mb-2 text-sm text-gray-500 ">
                   <span className="text-xl font-semibold">
                     {" "}
-                    {noticeImage  ? "Files Selected": "Subject Image"}
+                    {noticeImage  ? "Files Selected": "Event Image"}
                   </span>
                 </p>
 
@@ -129,7 +178,13 @@ export default function AddNotice() {
                 multiple="multiple"
                 className="hidden"
                 onChange={(e) => {
-                  addNoticeImage(e.target.files);
+                  let arr = [];
+              
+                  for (let i in e.target.files){
+                    if(e.target.files[i].type==="application/pdf" && e.target.files[i].size < 1000000) arr.push(e.target.files[i]);
+                  }
+                  if(arr.length) addNoticeImage(arr);
+                  else dispatch(setWarningToast("Please select PDF documents smaller than !MB only"));
                 }}
               />
             </label>
@@ -146,6 +201,6 @@ export default function AddNotice() {
         </div>
       </div>
       </> }
-    </Layout>
+      </div>
   );
 }

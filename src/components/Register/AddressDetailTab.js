@@ -104,6 +104,7 @@ export default function AddressDetailTab({
           onChange={(e) => setSchoolZipcode(e.target.value)}
           type="number"
           placeholder="School Zipcode"
+          maxLength={8}
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
         </div>

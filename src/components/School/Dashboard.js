@@ -13,8 +13,11 @@ import { getAllSchoolData } from "./helpers/dataFetcher";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Rings } from "react-loader-spinner";
+import EventPannel from "../Common/EventPannel";
 import NoticePannel from "../Common/NoticePannel";
 import AddNoticeSidebar from "./AddNoticeSidebar";
+import AddEventSidebar from "./AddEventSidebar";
+import { setSuccessToast } from "../../store/genralUser";
 
 export default function StudentDashboard() {
   const dispatch = useDispatch();
@@ -24,42 +27,89 @@ export default function StudentDashboard() {
   const noOfCasses = useSelector((state) => state.classroom.noOfClasses);
   const allStudent = useSelector((state) => state.student.allStudent);
   const allStaffMemeber = useSelector((state) => state.staff.allStaff);
+  const session = useSelector((state) => state.user.session);
+
   useEffect(() => {
-    if (!noOfStaffMenber) getAllSchoolData(dispatch, navigate, setLoading);
+    if (!noOfStaffMenber) getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
+  const [thought, setThought] = useState("");
   const [openAddNoticeModal, setOpenAddNoticeModal] = useState(false);
+  const [openAddEventModal, setOpenAddEventeModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [today, setToday] = useState(0);
   const [presentStudent, setPresentStudents] = useState("");
-  const [presentStaff, setPresentStaff] = useState("");
+  const [presentTeachngStaff, setPresentTeachingStaff] = useState("");
+  const [presentNonTeachingStaff, setPresentNonTeachigStaff] = useState("");
+
   useEffect(() => {
     const date = new Date();
     setToday(date.getDate());
   }, []);
+  async function setThoughtOfTheDay(){
+    const date = new Date();
+    const token = localStorage.getItem("token");
+    const res = await axios.post(API_URL + "list/thoughtDay/",{
+      date : date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
+      session : localStorage.getItem("session"),
+      "content" : thought
+    },{
+      headers : {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    console.log("Res", res);
+    if(res.status===201) dispatch(setSuccessToast("Thought Added Successfully"));
+  }
+  async function getThougthOfTheDay(){
+    const token = localStorage.getItem("token");
 
+    const res = await axios.get(API_URL + "list/thoughtDay/",{
+      headers : {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    setThought(res.data[res.data.length - 1].content)
+    console.log("thi is it",res)
+  }
   const getAllStudentAttendence = async () => {
     if(today){
       let presents = 0;
+      console.log("students",allStudent)
       for(let i in allStudent){
         let val = JSON.parse(allStudent[i].month_attendance)[today-1];
         if(val===2) presents++;
+        console.log("presents",presents);
       }
       setPresentStudents(presents);
+      console.log("These are the present", presents)
     }
 
   }
   const getAllStaffAttendence = async () => {
     if(today){
-      let presents = 0;
+      let presentTeaching = 0;
+      let presentNonTeaching = 0;
       for(let i in allStaffMemeber){
-        let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
-        if(val===2) presents++;
+        if(allStaffMemeber[i].isTeachingStaff){
+
+          let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
+          if(val===2) presentTeaching++;
+        }
+        else {
+          let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
+          if(val===2) presentNonTeaching++;
+        }
       }
-      setPresentStaff(presents);
+      setPresentTeachingStaff(presentTeaching);
+      setPresentNonTeachigStaff(presentNonTeaching);
     }
 
   }
   useEffect(()=>{
+    getThougthOfTheDay();
+  },[])
+  useEffect(()=>{
+
     getAllStudentAttendence();
     getAllStaffAttendence();
   },[today,allStudent]);
@@ -80,29 +130,37 @@ export default function StudentDashboard() {
           {openAddNoticeModal ? (
             <AddNoticeSidebar setOpenAddNoticeModal={setOpenAddNoticeModal} />
           ) : undefined}
+          {openAddEventModal ? (
+            <AddEventSidebar setOpenAddEventeModal={setOpenAddEventeModal} />
+          ) : undefined}
           <div className="w-full min-[1200px]:ml-10 2xl:pl-0 xl:w-3/5 2xl:w-2/3 2xl:mx-10">
             <span className="mb-4 text-3xl font-semibold">Dashboard</span>
             {/* Add flex */}
             <div className=" w-full mt-4 p-3 shadow-lg rounded-lg">
               <div className="flex justify-between ">
-                <div className="flex rounded-lg w-[22%] bg-[#FBF0FD] py-4 px-4 flex-col justify-center items-center">
+                <Link to="/school/students" 
+                onClick={() => {
+                  localStorage.removeItem("classId");
+                  localStorage.removeItem("className");
+                }}
+                className=" cursor-pointer flex rounded-lg w-[22%] bg-[#FBF0FD] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolStudentImg} />
                   <span className="text-xl font-semibold">{noOfStudent}</span>
                   <span className="text-sm">Total Student</span>
-                </div>
-                <div className="flex rounded-lg w-[22%] bg-[#FDF9F0] py-4 px-4 flex-col justify-center items-center">
+                </Link>
+                <Link to="/school/staff" className="cursor-pointer flex rounded-lg w-[22%] bg-[#FDF9F0] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolStaffImg} />
                   <span className="text-xl font-semibold">
                     {noOfStaffMenber}
                   </span>
                   <span className="text-sm">Total Staff</span>
-                </div>
-                <div className="flex rounded-lg w-[22%] bg-[#F0F7FD] py-4 px-4 flex-col justify-center items-center">
+                </Link>
+                <Link to="/school/classroom" className="cursor-pointer flex rounded-lg w-[22%] bg-[#F0F7FD] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolClassImg} />
                   <span className="text-xl font-semibold">{noOfCasses}</span>
                   <span className="text-sm">Total Classes</span>
-                </div>
-                <div className="flex rounded-lg w-[22%] bg-[#F0FDF0] py-4 px-4 flex-col justify-center items-center">
+                </Link>
+                <div className="cursor-pointer flex rounded-lg w-[22%] bg-[#F0FDF0] py-4 px-4 flex-col justify-center items-center">
                   <img className="my-2" src={schoolAcchivementImg} />
                   <span className="text-xl font-semibold">00</span>
                   <span className="text-sm">Total Achivements</span>
@@ -113,16 +171,18 @@ export default function StudentDashboard() {
                   Thought Of the Day
                 </span>
                 <textarea
+                value={thought}
+                onChange={(e)=> setThought(e.target.value)}
                   placeholder="Enter Thought of the day"
                   className="border w-full rounded-lg p-2 mt-4"
                 />
-                <button className="py-2 mt-2 px-4 bg-[#372ed1] rounded-md text-white font-sembold">
+                <button onClick={setThoughtOfTheDay} className="py-2 mt-2 px-4 bg-[#372ed1] rounded-md text-white font-sembold">
                   Save and Share
                 </button>
               </div>
             </div>
             
-            <div className="flex flex-row mt-8 ">
+            <div className="flex flex-row mt-10 ">
               {/* Fees Management */}
             <Link to="/school/fees" className="w-3/5 mb-8 flex flex-col shadow-md rounded-xl py-4 px-6">
               <span className="font-semibold text-xl flex border-b pb-2">Fee Management</span>
@@ -133,7 +193,7 @@ export default function StudentDashboard() {
                 <div className="flex flex-col items-center justify-center w-full h-full p-4">
            
                   <PieChart
-                    data={[{ title: "Paid", value: 30, color: "#2DD4BF" },{ title: "Pending", value: 20, color: "#F59E0B" },]}
+                    data={[{ title: "Paid", value: 0, color: "#2DD4BF" }]}
                     lengthAngle={360}
                     lineWidth={10}
                     startAngle={180}
@@ -142,15 +202,7 @@ export default function StudentDashboard() {
                     animate={true}
                     background="#818CF8"
                   />
-                  
-                  {/* <div className="flex flex-col items-center justify-center -mt-40  ">
-                    <span className="text-2xl font-semibold text-center md:text-5xl">
-                      30% Paid
-                    </span>
-                    <h1 className="my-2 mt-4 text-2xl text-center text-[#8A8A8A]">
-                      Fees
-                    </h1>
-                  </div> */}
+               
                 </div>
                 <div>
 
@@ -204,10 +256,23 @@ export default function StudentDashboard() {
                     <div className="">
 
                       <span className="text-gray-500 flex flex-col">
-                        Present Staff
+                        Present Teaching Staff
                       </span>
                       <span className="font-semibold text-xl">
-                        {presentStaff}
+                        {presentTeachngStaff}
+                      </span>
+                    </div>
+                    <AiOutlineBarChart className="w-6 h-6 text-[#2dd480]"/>
+
+                    </div>
+                    <div className="flex flex-row justify-between items-center">
+                    <div className="">
+
+                      <span className="text-gray-500 flex flex-col">
+                        Present Non Teaching Staff
+                      </span>
+                      <span className="font-semibold text-xl">
+                        {presentNonTeachingStaff}
                       </span>
                     </div>
                     <AiOutlineBarChart className="w-6 h-6 text-[#2dd480]"/>
@@ -250,6 +315,7 @@ export default function StudentDashboard() {
           <div className="w-full my-10 xl:w-2/5 2xl:w-1/3 min-[1200px]:mx-10 px-10 min-[1200px]:px-0 min-[1200px]:my-0">
             
             <NoticePannel setOpenAddNoticeModal={setOpenAddNoticeModal} />
+            <EventPannel setOpenAddEventModal={setOpenAddEventeModal} />
           </div>
         </div>
       )}

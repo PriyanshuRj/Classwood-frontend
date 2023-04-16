@@ -53,7 +53,7 @@ console.log("the web", schoolWebsite.substring(0,12))
           type="number"
           value={schoolPhoneNo}
     onChange={(e)=>setSchoolPhoneNo(e.target.value)}
-
+          maxLength={10}
           placeholder="School Phone No."
           className="flex px-3 py-2 font-medium border-2 border-slate-200 rounded-lg md:px-4 md:py-3 placeholder:font-normal"
         />
@@ -113,7 +113,17 @@ console.log("the web", schoolWebsite.substring(0,12))
                 SVG, PNG, JPG or GIF (MAX. 800x400px)
               </p>
             </div>
-            <input id="dropzone-file" type="file" className="hidden" onChange={(e)=> setSchoolLogo(e.target.files[0])} />
+            <input id="dropzone-file" type="file" className="hidden" 
+            onChange={(e)=> {
+              if(e.target.files[0].type.substring(0,5)==="image")  {
+                if(e.target.files[0].size < 1000000) setSchoolLogo(e.target.files[0]);
+                else dispatch(setWarningToast("Please select an image smaller than 1MB"))
+                }
+              else dispatch(setWarningToast("Please select an Image"))
+              
+            }
+              
+              } />
           </label>
         </div>
         </div>

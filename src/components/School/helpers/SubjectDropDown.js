@@ -6,11 +6,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function SubjectDropDown({inputList, labelTitle, DivWidth, selected, setSelected, id, type, index}) {
+export default function SubjectDropDown({inputList, labelTitle, DivWidth, selected, setSelected, id, type}) {
   return (
     <Listbox value={selected} onChange={async (value)=>{
       if(type && type==="timetable"){
-        setSelected(index, value)
+        setSelected(value)
       }
       else id ? setSelected(value, id) : setSelected(value)
       }} >

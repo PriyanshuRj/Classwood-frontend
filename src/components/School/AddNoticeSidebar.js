@@ -9,11 +9,11 @@ import { RxCross1 } from "react-icons/rx";
 export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
   
   const dispatch = useDispatch();
-  const [noticeImage, addNoticeImage] = useState([]);
+  const [noticeImage, addNoticeImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
-  
+  const date = new Date();
   async function submit(){
     if(!noticeImage){
       dispatch(setWarningToast("Notice files Missing"));
@@ -46,10 +46,10 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
     setLoading(false);
   }
   return (
-    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[30rem] md:w-[55rem]">
+    <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[35rem] shadow-lg">
        <div
         onClick={() => setOpenAddNoticeModal(false)}
-        className="absolute p-2 bg-gray-200 rounded-full top-8 left-8"
+        className="cursor-pointer absolute p-2 bg-gray-200 duration-200 ease-in-out hover:bg-gray-400 rounded-full top-8 left-8"
       >
         <RxCross1 />
       </div>
@@ -66,6 +66,9 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
           /> </div> : <>
       <div className="flex flex-col mt-16">
         <span className=" text-2xl font-semibold text-center">Add Notice</span>
+        <span className="text-lg ml-8 font-medium mt-4">
+        Date : {date.getDate() + " - " + (date.getMonth() + 1) + " - " + date.getFullYear()}
+        </span>
         <div className="flex flex-col w-full px-8 my-4 ">
           <label className="mb-4 text-xl font-semibold text-gray-800">
             Title
@@ -87,17 +90,17 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
             type="text"
             onChange={(e) => setContent(e.target.value)}
             placeholder="Content"
-            className="flex px-3 py-4 font-medium border-2 border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
+            className="flex px-3 py-4 font-medium border-gray-400 border-[1px] rounded-lg placeholder:font-normal w-full"
           />
         </div>
         <div className="flex flex-col items-start justify-center w-full p-8 pt-2">
           <span className="mb-4 text-xl font-semibold text-gray-800">
-            Subject Image
+            Notice Attachment
           </span>
           <div className="flex items-center justify-center w-full">
             <label
               htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100   "
+              className="flex noticeImage flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100   "
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg
@@ -118,7 +121,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
                 <p className="mb-2 text-sm text-gray-500 ">
                   <span className="text-xl font-semibold">
                     {" "}
-                    {noticeImage  ? "Files Selected": "Subject Image"}
+                    {noticeImage  ? "Files Selected": "Select File"}
                   </span>
                 </p>
 
@@ -137,7 +140,13 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
                 multiple="multiple"
                 className="hidden"
                 onChange={(e) => {
-                  addNoticeImage(e.target.files);
+                  let arr = [];
+              
+                  for (let i in e.target.files){
+                    if(e.target.files[i].type==="application/pdf" && e.target.files[i].size < 1000000) arr.push(e.target.files[i]);
+                  }
+                  if(arr.length) addNoticeImage(arr);
+                  else dispatch(setWarningToast("Please select PDF documents smaller than 1 MB only"));
                 }}
               />
             </label>

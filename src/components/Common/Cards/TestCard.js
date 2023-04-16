@@ -5,11 +5,12 @@ import PopUpMenu from "../../UI/PopUpMenu";
 export default function TestCard({
   testData,
   index,
-  setSelectedTest
+  setSelectedTest,
+  setPageState
 }) {
   function viewResult() {
-
-    setSelectedTest(index);
+    setPageState("singleResult")
+    setSelectedTest(testData);
   }
   const TestPopupData = [
     {

@@ -1,8 +1,7 @@
 import React, {Fragment} from 'react'
 import { Link } from 'react-router-dom';
 import { Menu, Transition } from "@headlessui/react";
-import { BiDotsVerticalRounded } from "react-icons/bi";
-
+import VirticalDotsIcon from "../../assets/icons/VerticalDots";
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -12,7 +11,7 @@ export default function PopUpMenu({menuList}) {
     <Menu as="div" className="relative inline-block text-left">
     <div>
       <Menu.Button className="inline-flex justify-center w-full text-sm font-semibold text-gray-900 ">
-        <BiDotsVerticalRounded className="w-6 h-6" />
+        <VirticalDotsIcon className="w-6 h-6" />
       </Menu.Button>
     </div>
 
@@ -30,7 +29,7 @@ export default function PopUpMenu({menuList}) {
             {menuList.map((listItem, index)=>{
                 return (localStorage.getItem("UserType")==="Staff" && listItem.deleteType) ? undefined : <Menu.Item key={index}>
                 {({ active }) => (
-                  listItem.title!=="View Class Student" ? <span
+                  listItem.title!=="View Class Student" && listItem.title!=="View Attendence" ? <span
                     className={classNames(
                       active
                         ? "bg-gray-100 text-gray-900"

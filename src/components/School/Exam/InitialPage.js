@@ -39,7 +39,7 @@ export default function InitialPage({setPageState}) {
 
         </div>
         <p className="text-2xl font-bold mb-6">Previously Uploaded Marks</p>
-        <button className="mt-4 flex items-center px-4 py-3 font-medium text-lg text-white bg-[#4F46E5] rounded-md">
+        <button onClick={()=> setPageState("result")} className="mt-4 flex items-center px-4 py-3 font-medium text-lg text-white bg-[#4F46E5] rounded-md">
             View All Previous Uploads
           </button>
 

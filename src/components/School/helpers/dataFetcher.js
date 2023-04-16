@@ -3,16 +3,22 @@ import { addAllClassroom } from "../../../store/School/classroomSlice";
 import { addAllStudent } from "../../../store/School/studentSlice";
 import { API_URL } from "../../../helpers/URL";
 import { addAllSyllabus } from "../../../store/School/syllabusSlice";
+import { setNotice } from "../../../store/genralUser";
 import axios from "axios";
 
-export async function getAllSchoolData(dispatch, navigate, setLoading) {
+export async function getAllSchoolData(dispatch, navigate, setLoading, session) {
+  // const session = useSelector((state) => state.user.session);
+console.log("session", session);
   setLoading(true);
-  console.log("called")
   const token = localStorage.getItem("token");
   try {
+   
     const resStaff = await axios.get(API_URL + "list/staff/", {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+      params: {
+          session: session.id,
       },
     });
 
@@ -20,17 +26,37 @@ export async function getAllSchoolData(dispatch, navigate, setLoading) {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params: {
+        session: session.id,
+    },
     });
     const resStudent = await axios.get(API_URL + "staff/student/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params: {
+        session: session.id,
+    },
     });
     const syllabusRes = await axios.get(API_URL + "staff/syllabus/",{
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params: {
+        session: session.id,
+    },
     })
+
+    const resNotice = await axios.get(API_URL + "list/notice/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        session: session.id,
+    },
+    });
+    console.log(resNotice.data)
+    dispatch(setNotice(resNotice.data));
     dispatch(addAllSyllabus(syllabusRes.data))
     dispatch(addAllStaff(resStaff.data));
     dispatch(addAllClassroom(resClassroom.data));
@@ -45,6 +71,7 @@ export async function getAllSchoolData(dispatch, navigate, setLoading) {
     }
   }
   setLoading(false);
+
 
 }
 export async function getLatestClassroom(dispatch, navigate,setLoading){

@@ -14,7 +14,6 @@ import SideBar from "../UI/Dashboard/SideBar";
 import { useLocation } from "react-router-dom";
 export default function SchoolSidebar() {
   const location = useLocation();
-  console.log(location.pathname.substring(8));
   return (
     <SideBar>
       <div className="w-full pb-10 mt-12 text-gray-200 gap-y-2">
@@ -37,15 +36,7 @@ export default function SchoolSidebar() {
           </Link>
         </div>
        
-        {/* <div className="flex w-full">
-          <Link
-            className={`flex items-center justify-start w-full p-4 mx-4 my-1 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 ${location.pathname.substring(8)==="dashboard" ? "bg-gray-700" : ""}`}
-            to="/school/addnoice"
-          >
-            <FiFileText className="w-6 h-6 " />
-            <span className="ml-4 text-lg font-medium select-none">Create Notice</span>
-          </Link>
-        </div> */}
+      
         <div className="flex w-full">
           <Link
             className={`flex items-center justify-start w-full p-4 mx-4 my-1 text-center duration-300 ease-in-out rounded-xl hover:bg-gray-700 ${location.pathname.substring(8)==="classroom" ? "bg-gray-700" : ""}`}

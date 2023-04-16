@@ -11,7 +11,6 @@ export default function ClassroomRow({
   classData,
   setOpenSidebar,
   index,
-  setSelectedClass,
   setOpenEditClassroom,
   setSelectedClassroom
 }) {
@@ -23,11 +22,11 @@ export default function ClassroomRow({
       "className",
       classData.class_name + " " + classData.section_name
     );
-    setSelectedClass(index);
+    setOpenEditClassroom(classData);
     setOpenSidebar(index);
   }
   function editClass() {
-    setSelectedClassroom(index);
+    setSelectedClassroom(classData);
     setOpenEditClassroom(true);
   }
   async function deleteClass() {
@@ -59,7 +58,6 @@ export default function ClassroomRow({
       "className",
       classData.class_name + " " + classData.section_name
     );
-    setSelectedClass(index);
   }
   const ClassroomPopUpData = [
     {
@@ -81,8 +79,10 @@ export default function ClassroomRow({
     },
   ];
   return (
-    <div className="grid w-full grid-cols-5 p-2 py-4 font-semibold text-gray-800 bg-white border-b-2">
+    <div className="grid w-full grid-cols-7 p-2 pl-6 py-4 font-semibold text-gray-800 bg-white border-b-2">
       <span>{classData.class_name + " " + classData.section_name}</span>
+      <span>{classData.class_teacher}</span>
+      <span>{classData.sub_class_teacher}</span>
       <span>{classData.no_of_subjects}</span>
       <span>{classData.no_of_subjects}</span>
       <span> {classData.strength}</span>

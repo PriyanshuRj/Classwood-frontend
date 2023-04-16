@@ -4,6 +4,7 @@ import { BiBook } from "react-icons/bi";
 import { MdNavigateNext } from "react-icons/md";
 import Layout from "./Layout";
 import NoticePannel from "../Common/NoticePannel";
+import EventPannel from "../Common/EventPannel";
 export default function StudentDashboard() {
   return (
     <Layout>
@@ -111,11 +112,9 @@ export default function StudentDashboard() {
             </div>
           </a>
           <div>
-            <h1 className="w-full mt-10 mb-4 text-4xl font-semibold text-left">
-              Notice board
-            </h1>
+           
             <NoticePannel />
-            
+            <EventPannel />
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ export default function Header() {
   const [careerDrop, setCareerDrop] = useState(false);
   const [featureDrop, setFeatureDrop] = useState(false);
   const [menuDrop, setmenuDrop] = useState(false);
-
+  const [isLogedIn, setIsLogedIn] = useState(localStorage.getItem("UserType") ? true : false);
   const [scrolled, setScrolled] = useState();
   const classes = classNames("header", {
     scrolled: scrolled,
@@ -23,7 +23,7 @@ export default function Header() {
   }, []);
   return (
     <nav
-      className={"sticky top-0 z-50 sticky " + classes}
+      className={" top-0 z-50 sticky " + classes}
       id="navbar"
     >
       <div className="px-2 mx-auto sm:px-6 lg:px-8">
@@ -143,31 +143,41 @@ export default function Header() {
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="relative ml-3">
-              {/* <Link
-                  className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
-                  to="{%url 'dashboard'%}"
+             {isLogedIn ?  <>
+              <Link
+                  className="cursor-pointer hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
+                  to= {`${localStorage.getItem("UserType").toLowerCase()}` + "/dashboard"}
+
                 >
                   Dashboard
                 </Link>
-                <Link
-                  className="hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
-                  to="{%url 'logout'%}"
-                >
+                <span
+                  className="cursor-pointer hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
+                  onClick={()=>{
+                    console.log("clicked");
+                    localStorage.removeItem("UserType");
+                    localStorage.removeItem("Payed");
+                    localStorage.removeItem("token");
+                    setIsLogedIn(false);
+                  }}
+                  >
                   Logout
-                </Link> */}
-
+                </span>
+                  </> :
+              <>
               <Link
                 className="hidden sm:inline-flex text-white bg-black hover:bg-transparent hover:text-black border-4 border-black focus:ring-none focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-4 rounded-l-full "
                 to="/register"
-              >
+                >
                 Get started
               </Link>
               <Link
                 className="hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-none focus:outline-none focus:ring-none font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
                 to="/login"
-              >
+                >
                 Login
               </Link>
+                </>}
             </div>
           </div>
         </div>

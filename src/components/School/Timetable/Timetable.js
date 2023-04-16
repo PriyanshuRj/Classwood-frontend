@@ -17,11 +17,12 @@ section_name : "No Section"});
 
 
   const [loading, setLoading] = useState(false);
+  const session = useSelector((state) => state.user.session);
   
  const [timetableState, setTimetableState] = useState(0);
   useEffect(() => {
     if (classrooms.length === 0)
-      getAllSchoolData(dispatch, navigate, setLoading);
+      getAllSchoolData(dispatch, navigate, setLoading, session);
   }, []);
   useEffect(() => {
     if(classrooms.length>0)

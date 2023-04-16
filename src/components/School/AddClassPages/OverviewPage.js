@@ -13,12 +13,14 @@ export default function OverviewPage({
   const subjects = useSelector((state) => state.classroom.addClassSubject);
 
   return (
-    <div className="flex flex-col h-full mx-4">
+    <div className="flex flex-col h-full mx-4 flex-1 justify-between">
+        <div className="flex flex-col h-full">
+
       <span className="text-xl font-semibold py-4 border-b-[1px]">
         Create New Class
       </span>
 
-      <div className="flex flex-row justify-between my-8 ">
+      <div className="flex flex-row justify-between my-8 items-center">
         <div className="flex flex-row items-center justify-center">
           <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-indigo-600 border-2 border-indigo-600 rounded-full text-md">
             1
@@ -28,6 +30,8 @@ export default function OverviewPage({
             Class Detail
           </span>
         </div>
+        <div className="flex-1 border h-0 mx-4 border-indigo-600"></div>
+
         <div className="flex flex-row items-center justify-center">
           <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-indigo-600 border-2 border-indigo-600 rounded-full text-md">
             2
@@ -37,6 +41,8 @@ export default function OverviewPage({
             Subject Detail
           </span>
         </div>
+        <div className="flex-1 border h-0 mx-4 border-indigo-600"></div>
+
         <div className="flex flex-row items-center justify-center">
           <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-indigo-600 border-2 border-indigo-600 rounded-full text-md">
             3
@@ -120,7 +126,8 @@ export default function OverviewPage({
           </table>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-around">
+      </div>
+      <div className="mb-8 flex flex-row items-center justify-around">
         <button
           onClick={() => setPageState(1)}
           className="flex items-center justify-center w-2/5 py-4 mx-8 mt-16 font-semibold text-gray-800 duration-300 bg-gray-200 rounded-lg justify-self-end hover:bg-gray-700 hover:text-gray-200 easy-in-out"

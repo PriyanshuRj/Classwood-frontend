@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FiSettings, FiBell, FiUser } from "react-icons/fi";
 import { getAllDatatForStaffUser } from "./helper/getData";
 import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
 import { useNavigate } from "react-router-dom";
 import SelectionDropdown from "../UI/SelectionDropdown";
+import ProfileSideBar from "../Common/SideBars/ProfileSideBar";
 
 export default function DashHeader() {
+  const [openProfile, setOpenProfile] = useState(false);
+  function setStatffData (){
+
+  }
   const dispatch = useDispatch();
   useEffect(() => {
     if (!staff.first_name) {
@@ -24,7 +29,7 @@ export default function DashHeader() {
   }
 
   const viewProfile=()=>{
-    navigate(`/school/dashboard`);
+    setOpenProfile(true);
   }
   const ClassroomPopUpData = [
     {
@@ -41,8 +46,15 @@ export default function DashHeader() {
   ];
 
   const staff = useSelector((state) => state.staffUser.staffData);
+  console.log(staff);
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
+      {openProfile && <ProfileSideBar 
+            profileType="staff"
+            setStaffData={setStatffData}
+            data={staff}
+            setOpenProfile={setOpenProfile}
+      /> }
       <p className="text-2xl font-semibold sm:text-4xl">
         Hello {staff.first_name ? staff.first_name + " " + staff.last_name : "Staff Member"}{" "}
       </p>

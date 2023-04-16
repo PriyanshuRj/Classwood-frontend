@@ -1,14 +1,15 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { FiSettings, FiBell } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
 import { getAllDatatForStudentUser } from "./helper/dataFeatcher";
+import ProfileSideBar from "../Common/SideBars/ProfileSideBar";
 export default function DashHeader() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const studentData = useSelector((state) => state.studentUser.studentData);
-  
+  const [openProfile, setOpenProfile] = useState(false);
   useEffect(()=>{
     if(!studentData.first_name) getAllDatatForStudentUser(dispatch);
   },[])
@@ -18,9 +19,9 @@ export default function DashHeader() {
     localStorage.removeItem("token");
     navigate(`/`);
   };
-
+  function setStudentData(){}
   const viewProfile = () => {
-    navigate(`/student/dashboard`);
+    setOpenProfile(true);
   };
   const ClassroomPopUpData = [
     {
@@ -37,6 +38,12 @@ export default function DashHeader() {
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
       <p className="text-2xl font-semibold sm:text-4xl">Hello {studentData.first_name ? studentData.first_name + " " + studentData.last_name + " " : "Student "} !</p>
+      {openProfile && <ProfileSideBar 
+            profileType="student"
+            setStaffData={setStudentData}
+            data={studentData}
+            setOpenProfile={setOpenProfile}
+      /> }
       <div className="flex flex-row items-center justify-center">
         <button
           className="hidden px-8 py-4 text-lg text-white rounded-full sm:flex text-medium"

@@ -11,7 +11,6 @@ export default function ClassroomCard({
   classData,
   setOpenSidebar,
   index,
-  setSelectedClass,
   setOpenEditClassroom,
   setSelectedClassroom
 }) {
@@ -22,11 +21,11 @@ export default function ClassroomCard({
       "className",
       classData.class_name + " " + classData.section_name
     );
-    setSelectedClass(index);
+    setSelectedClassroom(classData);
     setOpenSidebar(index);
   }
   function editClass() {
-    setSelectedClassroom(index);
+    setSelectedClassroom(classData);
     setOpenEditClassroom(true);
   }
   async function deleteClass() {
@@ -56,7 +55,6 @@ export default function ClassroomCard({
       "className",
       classData.class_name + " " + classData.section_name
     );
-    setSelectedClass(index);
   }
   const ClassroomPopUpData = [
     {
