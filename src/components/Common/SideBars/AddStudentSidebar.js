@@ -305,7 +305,9 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               Phone Number
             </span>
             <input
-              onChange={(e) => setMobileNo(e.target.value)}
+              onChange={(e) => {
+                if(mobileNO.length < 10 || e.target.value.length < 10 )
+                setMobileNo(e.target.value)}}
               value={mobileNO}
               type="number"
               maxLength={10}
@@ -321,7 +323,10 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
               Parents Phone Number
             </span>
             <input
-              onChange={(e) => setParentMobileNo(e.target.value)}
+              onChange={(e) => {
+                if(parentMobileNO.length < 10 || e.target.value.length < 10 )
+                setParentMobileNo(e.target.value)}
+      }
               value={parentMobileNO}
               maxLength={10}
               type="number"

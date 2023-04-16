@@ -269,7 +269,11 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     Phone Number
                   </span>
                   <input
-                    onChange={(e) => setMobileNo(e.target.value)}
+                    onChange={(e) => {
+                      console.log(mobileNO.length, e.target)
+                      if(mobileNO.length < 10 || e.target.value.length < 10 )
+                      setMobileNo(e.target.value)}
+                    }
                     value={mobileNO}
                     maxLength={10}
                     type="number"
@@ -305,7 +309,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                   <input
                     onChange={(e) => setAdharNumber(e.target.value)}
                     value={adharNumber}
-                    type="text"
+                    type="number"
                     placeholder="Adhar Number"
                     className="flex w-full px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal"
                   />
@@ -351,7 +355,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                   <input
                     onChange={(e) => setAcountNo(e.target.value)}
                     value={acountNo}
-                    type="text"
+                    type="number"
                     placeholder="Acount No"
                     className="flex px-3 py-2 font-medium w-[300px] sm:w-[350px] border-2 border-black rounded-lg placeholder:font-normal"
                   />
