@@ -9,6 +9,9 @@ import {
   addAWholeSubject,
 } from "../../../store/School/classroomSlice";
 import TeacherDropdown from "../helpers/TeacherDropDown";
+function filterSubjectTeacher(staffMember){
+  return staffMember.is_teaching_staff;
+}
 
 export default function SubjectDetailPage({  setPageState,staff }) {
   const subjects = useSelector((state) => state.classroom.addClassSubject);
@@ -110,7 +113,7 @@ export default function SubjectDetailPage({  setPageState,staff }) {
                 </label>
                 <TeacherDropdown
                   id={index + 1}
-                  inputList={staff}
+                  inputList={staff.filter(filterSubjectTeacher)}
                   labelTitle=""
                   DivWidth="full"
                   selected={subject.teacher}

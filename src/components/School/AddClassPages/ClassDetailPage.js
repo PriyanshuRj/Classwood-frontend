@@ -16,8 +16,12 @@ export default function ClassDetailPage({
   staff
 }) {
   function filterClassTeachers(staffMember){
-    return !staffMember.is_class_teacher;
+    return !staffMember.is_class_teacher && staffMember.is_teaching_staff;
   }
+  function filterSubClassTeacher(staffMember){
+    return staffMember.is_teaching_staff;
+  }
+  
   console.log("These are staff", staff)
   return (
     <div className="flex flex-col h-full mx-4 flex-1 justify-between">
@@ -114,7 +118,7 @@ export default function ClassDetailPage({
               Secondary Class Teacher
             </label>
             <TeacherDropdown
-              inputList={staff}
+              inputList={staff.filter(filterSubClassTeacher)}
               labelTitle=""
               DivWidth="full"
               selected={subClassTeacher}

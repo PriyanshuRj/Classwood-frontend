@@ -94,8 +94,9 @@ export default function Classroom() {
     } else if (tabState === 4) {
       if (classData.class_name >= "6" && classData.class_name <= "8")
         return true;
-    } else if (tabState === 4) {
-      if (classData.class_name >= "5" && classData.class_name <= "1")
+    } else if (tabState === 5) {
+      console.log(classData.class_name )
+      if (classData.class_name <= "5" && classData.class_name <= "1")
         return true;
     }
   }

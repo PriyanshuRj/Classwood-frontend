@@ -15,10 +15,7 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
   const [loading, setLoading] = useState(false);
   const date = new Date();
   async function submit(){
-    if(!noticeImage){
-      dispatch(setWarningToast("Notice files Missing"));
-    }
-    else if(title.length==0 || content.length===0){
+if(title.length==0 || content.length===0){
       dispatch(setWarningToast("Complete all the Details"));
 
     } else{
@@ -26,9 +23,12 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
       const token = localStorage.getItem("token");
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("description", content);
-      const Attachments = Array.from(noticeImage)
-      Attachments.forEach((item) => formData.append("attachments", item));
+      formData.append("description", content);;
+      if(noticeImage){
+
+        const Attachments = Array.from(noticeImage)
+        Attachments.forEach((item) => formData.append("attachments", item));
+      }
       const res =  await axios.post(API_URL + "list/notice/",formData,{
           headers: {
             Authorization: `Bearer ${token}`,

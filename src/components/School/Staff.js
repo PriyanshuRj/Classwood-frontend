@@ -136,6 +136,7 @@ export default function Student() {
                {staff.filter(tabState ? teachingStaffFilter : nonTeachingStaffFilter).filter(filterStaff).map((e, i) => {
               return (
                 <ProfileCard
+                tabState={tabState}
                   key={i}
                   type="staff"
                   index={i}

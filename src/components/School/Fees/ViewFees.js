@@ -48,24 +48,24 @@ export default function ViewFees({setPageState, setSelectedTest}) {
     const [pastExams, setPastExams] = useState([]);
     const [viewState, setViewState] = useState("grid");
       const [loading, setLoading] = useState(false);
-    async function getPastExams() {
-      setLoading(true);
-        const token = localStorage.getItem("token");
-
-        let res = await axios.get(API_URL + "list/fees/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            
-          },
-          params : {
-            session : localStorage.getItem("session")
-          }
-        });
-        sortByClasses(res.data);
-        setLoading(false);
-    };
+      async function getPastFees() {
+        setLoading(true);
+          const token = localStorage.getItem("token");
+  
+          let res = await axios.get(API_URL + "list/fees/", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              
+            },
+            params : {
+              session : localStorage.getItem("session")
+            }
+          });
+          sortByClasses(res.data);
+          setLoading(false);
+      };
     useEffect(()=>{
-        getPastExams();
+        getPastFees();
         console.log(pastExams)
     },[])
   return (

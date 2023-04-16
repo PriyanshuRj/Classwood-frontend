@@ -34,10 +34,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
   const [selectedDate, selectDate] = useState("");
   const [day, setDate] = useState("");
   async function submit(){
-    if(!noticeImage){
-      dispatch(setWarningToast("Event Image files Missing"));
-    }
-    else if(title.length==0 || content.length===0){
+  if(title.length==0 || content.length===0){
       dispatch(setWarningToast("Complete all the Details"));
 
     } 
@@ -51,8 +48,11 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
       formData.append("title", title);
       formData.append("description", content);
       formData.append("date", day.toISOString().substring(0, 10));
-      const Attachments = Array.from(noticeImage)
-      Attachments.forEach((item) => formData.append("attachments", item));
+      if(noticeImage){
+
+        const Attachments = Array.from(noticeImage)
+        Attachments.forEach((item) => formData.append("attachments", item));
+      }
       const res =  await axios.post(API_URL + "list/event/",formData,{
           headers: {
             Authorization: `Bearer ${token}`,

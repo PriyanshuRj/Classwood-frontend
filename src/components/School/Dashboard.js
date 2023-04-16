@@ -40,7 +40,7 @@ export default function StudentDashboard() {
   const [presentStudent, setPresentStudents] = useState("");
   const [presentTeachngStaff, setPresentTeachingStaff] = useState("");
   const [presentNonTeachingStaff, setPresentNonTeachigStaff] = useState("");
-
+  const [totalFees, setTotalFees] = useState(0);
   useEffect(() => {
     const date = new Date();
     setToday(date.getDate());
@@ -60,6 +60,30 @@ export default function StudentDashboard() {
     console.log("Res", res);
     if(res.status===201) dispatch(setSuccessToast("Thought Added Successfully"));
   }
+  async function getPastFees() {
+    setLoading(true);
+      const token = localStorage.getItem("token");
+
+      let res = await axios.get(API_URL + "list/fees/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          
+        },
+        params : {
+          session : localStorage.getItem("session")
+        }
+      });
+      let fees = 0;
+      console.log(res.data)
+      for(let i = 0; i< res.data.length;i++){
+        fees += parseInt(res.data[i].amount);
+
+      }
+      console.log("fees", fees);
+      setTotalFees(fees);
+      setLoading(false);
+  };
+
   async function getThougthOfTheDay(){
     const token = localStorage.getItem("token");
 
@@ -90,8 +114,9 @@ export default function StudentDashboard() {
       let presentTeaching = 0;
       let presentNonTeaching = 0;
       for(let i in allStaffMemeber){
-        if(allStaffMemeber[i].isTeachingStaff){
-
+     
+        if(allStaffMemeber[i].is_teaching_staff){
+      
           let val = JSON.parse(allStaffMemeber[i].month_attendance)[today-1];
           if(val===2) presentTeaching++;
         }
@@ -100,13 +125,18 @@ export default function StudentDashboard() {
           if(val===2) presentNonTeaching++;
         }
       }
+      console.log(presentTeaching)
       setPresentTeachingStaff(presentTeaching);
       setPresentNonTeachigStaff(presentNonTeaching);
     }
 
   }
   useEffect(()=>{
+    getPastFees()
+  },[])
+  useEffect(()=>{
     getThougthOfTheDay();
+    // getPastFees();
   },[])
   useEffect(()=>{
 
@@ -197,7 +227,7 @@ export default function StudentDashboard() {
                     lengthAngle={360}
                     lineWidth={10}
                     startAngle={180}
-                    totalValue={100}
+                    totalValue={totalFees}
                     rounded={true}
                     animate={true}
                     background="#818CF8"
@@ -215,7 +245,7 @@ export default function StudentDashboard() {
 
                   </span>
                   Total Fees</span>
-                <span className="text-xl font-bold ml-6">2 Crore</span>
+                <span className="text-xl font-bold ml-6">{totalFees}</span>
               </div>
               <div className="flex flex-col mb-6">
                 <span className="flex items-center justify-center text-gray-600 ">
@@ -223,7 +253,7 @@ export default function StudentDashboard() {
 
                   </span>
                   Fee Submitted</span>
-                  <span className="text-xl font-bold ml-6">2 Crore</span>
+                  <span className="text-xl font-bold ml-6">0</span>
               </div>
               <div className="flex flex-col ">
                 <span className="flex items-center justify-center text-gray-600 ">
@@ -231,7 +261,7 @@ export default function StudentDashboard() {
 
                   </span>
                   Fee Pending</span>
-                  <span className="text-xl font-bold ml-6">2 Crore</span>
+                  <span className="text-xl font-bold ml-6">{totalFees}</span>
               </div>
             </div>
             </div>
@@ -285,32 +315,8 @@ export default function StudentDashboard() {
             
             {/* shop and roadmaps */}
 
-            <div className="flex mt-10 "></div>
-            {/* fees history */}
-            <div className="h-72 md:rounded-[30px] bg-gray-200 p-6 w-full mt-10">
-              <h1 className="text-2xl text-center md:text-4xl">
-                Payment History
-              </h1>
-              <div className="grid grid-cols-3 mt-4">
-                <div className="py-3 font-bold text-center text-gray-700 uppercase text-md lg:text-lg">
-                  Serial
-                </div>
-                <div className="py-3 font-bold text-center text-gray-700 uppercase text-md lg:text-lg">
-                  Amount
-                </div>
-                <div className="py-3 font-bold text-center text-gray-700 uppercase text-md lg:text-lg">
-                  Date
-                </div>
-
-                <div className="px-6 py-4 text-center">1</div>
-                <div className="px-6 py-4 text-center">Rs 11000</div>
-                <div className="px-6 py-4 text-center">11 jan</div>
-
-                <div className="col-span-3 px-6 py-4 text-center">
-                  No Payment History Found
-                </div>
-              </div>
-            </div>
+          
+     
           </div>
           <div className="w-full my-10 xl:w-2/5 2xl:w-1/3 min-[1200px]:mx-10 px-10 min-[1200px]:px-0 min-[1200px]:my-0">
             

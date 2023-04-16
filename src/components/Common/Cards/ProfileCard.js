@@ -80,8 +80,8 @@ const deleteFunction = {
     if (props.type === "student")
       setAttendanceState(JSON.parse(props.attendance)[today - 1]);
     else setAttendanceState(JSON.parse(props.allData.month_attendance)[today - 1]);
-    
-  }, [today]);
+    console.log("called")
+  }, [today,props.tabState]);
 
 
   async function markAttendance(val) {

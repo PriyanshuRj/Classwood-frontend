@@ -67,7 +67,7 @@ useEffect(()=>{
       {openProfile ? <SchoolProfile data={userData} setOpenProfile={setOpenProfile} /> : undefined}
       <div className="flex flex-row items-center">
       <img  src={API_URL.substring(0,API_URL.length - 5) + userData.school_logo_url} className="w-14 h-14 mr-4 rounded-full border"/>
-      <p className="text-2xl font-semibold sm:text-4xl">Hello {userData.school_name}!</p>
+      <p className="text-2xl font-semibold sm:text-4xl"> {userData.school_name}</p>
       </div>
       <div className="flex flex-row items-center justify-center">
       <div className="mr-8">
