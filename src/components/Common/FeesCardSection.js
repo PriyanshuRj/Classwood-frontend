@@ -7,7 +7,6 @@ export default function FeesCardSection({
   setPageState
 }) {
     function filterTabs(classData) {
-        console.log("this is class", classData)
         return classData.className.split(" ")[0] === classCumilativeName;
       }
 

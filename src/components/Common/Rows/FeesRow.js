@@ -20,7 +20,7 @@ setPageState
   ];
   return (
     <div className="grid w-full grid-cols-3 p-2 py-4 font-semibold text-gray-800 bg-white border-b-2">
-      <span>{feesData.fee_type}</span>
+      <span>{feesData.className}</span>
       <span>{feesData.amount}</span>
       <span>{0}</span>
       <span>

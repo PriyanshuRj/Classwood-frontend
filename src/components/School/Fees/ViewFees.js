@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
+import { IoMdAddCircleOutline } from 'react-icons/io';
 import { API_URL } from '../../../helpers/URL';
 import {AiOutlineSearch} from "react-icons/ai";
 import {FiFilter} from "react-icons/fi";
@@ -8,13 +10,39 @@ import GridButton from '../../../assets/icons/GridButton';
 import { Rings } from 'react-loader-spinner';
 import FeesCardSection from '../../Common/FeesCardSection';
 import FeesRowSection from '../../Common/FeesRowSection';
+import Layout from "../Layout";
 const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG", "UKG","Nursery", "Pre Nursery"]
 export default function ViewFees({setPageState, setSelectedTest}) {
-    function filterTest(testData) {
-        return (testData.className + " " +  testData.amount + testData.fee_type)
+    
+  function filterTest(feesData) {
+        return (feesData.className + " " +  feesData.amount + feesData.fee_type)
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
       }
+
+  function sortByClasses(feesData){
+    let feesees = feesData.reduce((group, product) => {
+      const { className } = product;
+      group[className] = group[className] ?? [];
+      group[className].push(product);
+      return group;
+    }, {});
+    let finalFees = [];
+    for(var key in feesees){
+      let amount = 0;
+      let subFeesees = [];
+      for (let i in feesees[key]){
+        amount += parseInt(feesees[key][i].amount);
+        subFeesees.push(feesees[key][i]);
+      }
+      finalFees.push({className : key, amount : amount, subFeesees : subFeesees});
+      console.log("This is fees", key, feesees[key]);
+    }
+    console.log("This is final Fees", finalFees);
+    setPastExams(finalFees);
+
+
+  }
   const [searchQuery, setSearchQuery] = useState("");
     
     const [pastExams, setPastExams] = useState([]);
@@ -33,7 +61,7 @@ export default function ViewFees({setPageState, setSelectedTest}) {
             session : localStorage.getItem("session")
           }
         });
-        setPastExams(res.data);
+        sortByClasses(res.data);
         setLoading(false);
     };
     useEffect(()=>{
@@ -41,7 +69,7 @@ export default function ViewFees({setPageState, setSelectedTest}) {
         console.log(pastExams)
     },[])
   return (
-    <>
+    <Layout>
     {loading ? (
         <div className="flex items-center justify-center w-full h-screen">
           <Rings
@@ -54,8 +82,15 @@ export default function ViewFees({setPageState, setSelectedTest}) {
         </div>
       ) : (
     <div className="px-4 md:px-10">
-            <div className="flex flex-col justify-between my-4 md:flex-row">
+            <div className="flex flex-col justify-between items-center my-4 md:flex-row">
               <p className="my-4 mt-2 text-2xl font-semibold">All Past Exams</p>
+              <Link
+                to="/school/addfees"
+                className="flex items-center justify-between px-4 py-2 mx-8 mt-4 font-medium text-white bg-indigo-600 rounded-md md:m-0"
+              >
+                <IoMdAddCircleOutline className="mr-2" />
+                Add Fees
+              </Link>
             </div>
             <div className=" mb-8 flex flex-row items-center justify-between w-full">
               <div className="flex flex-row">
@@ -144,6 +179,7 @@ export default function ViewFees({setPageState, setSelectedTest}) {
         
         </div>
             )}
-          </div> )}</>
+          </div> )}
+          </Layout>
   )
 }

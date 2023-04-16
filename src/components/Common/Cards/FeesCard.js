@@ -26,7 +26,7 @@ export default function FeesCard({
         <div className="flex flex-row items-center justify-between pb-2">
          
           <span className="ml-2 text-xl font-semibold ">
-            {feesData.fee_type}
+            {feesData.className}
           </span>
         </div>
         {/* <PopUpMenu

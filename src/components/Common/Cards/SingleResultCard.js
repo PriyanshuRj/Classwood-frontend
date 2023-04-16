@@ -10,7 +10,7 @@ export default function SingleResultCard({result, totalScore}) {
             <TfiBlackboard className="w-4 h-4 text-indigo-600" />
           </span>
           <span className="ml-2 text-xl font-semibold ">
-            {result.student}
+            {result.student_name}
           </span>
         </div>
       
