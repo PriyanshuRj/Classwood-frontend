@@ -90,7 +90,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("profile_pic", profileImage);
           formData.append("first_name", firstName);
           formData.append("last_name", lastName);
-          formData.append("gender", gender === "Male" ? "1" : "2");
+          formData.append("gender", gender === "Male" ? "1" : gender==="Female" ?   "2" : "3");
           formData.append("mobile_number", mobileNO.toString(10));
           formData.append("contact_email", email);
           formData.append("date_of_joining", dateOfJoining);
@@ -146,7 +146,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("profile_pic", profileImage);
           formData.append("first_name", firstName);
           formData.append("last_name", lastName);
-          formData.append("gender", gender === "Male" ? "1" : "2");
+          formData.append("gender", gender === "Male" ? "1" : gender==="Female" ?   "2" : "3");
           formData.append("mobile_number", mobileNO.toString(10));
           formData.append("contact_email", email);
           formData.append("date_of_joining", dateOfJoining);
@@ -301,10 +301,12 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                 <BsBriefcase className="w-8 h-8 mr-4 text-indigo-700" />
                 <div className="flex flex-col items-start justify-center w-full">
                   <span className="mb-1 font-semibold text-gray-800 text-md">
-                    Adhar Number
+                    Aadhar Number
                   </span>
                   <input
-                    onChange={(e) => setAdharNumber(e.target.value)}
+                    onChange={(e) => {
+                      if(mobileNO.length < 16 || e.target.value.length < 16 )
+                      setAdharNumber(e.target.value)}}
                     value={adharNumber}
                     type="number"
                     placeholder="Adhar Number"
@@ -385,7 +387,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     value={dob}
                     onChange={(e) => setDOB(e.target.value)}
                     type="date"
-                    placeholder="Phone No"
+                    placeholder="DOB"
                     className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
                   />
                 </div>
@@ -400,7 +402,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     onChange={(e) => setDateOfJoining(e.target.value)}
                     type="date"
                     value={dateOfJoining}
-                    placeholder="Phone No"
+                    placeholder="Date of Joining"
                     className="flex px-3 py-2 font-medium border-2 border-black rounded-lg placeholder:font-normal w-[300px] sm:w-[350px] mb-4"
                   />
                 </div>

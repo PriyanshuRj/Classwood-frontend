@@ -7,6 +7,10 @@ export const genderList = [
       id: 2,
       name: "Female",
     },
+    {
+      id : 3,
+      name : "Other"
+    }
   ];
 
   export const boardList = [

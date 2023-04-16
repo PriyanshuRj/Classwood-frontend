@@ -104,7 +104,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("profile_pic", profileImage);
             formData.append("first_name", firstName);
             formData.append("last_name", lastName);
-            formData.append("gender", gender === "Male" ? "1" :  "2");
+            formData.append("gender", gender === "Male" ? "1" : gender==="Female" ?   "2" : "3");
             formData.append("mobile_number", mobileNO.toString(10));
             formData.append("contact_email", email);
             formData.append("date_of_admission", dateOfAdmission);
@@ -148,7 +148,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("profile_pic", profileImage);
             formData.append("first_name", firstName);
             formData.append("last_name", lastName);
-            formData.append("gender", gender === "Male" ? "1" :  "2");
+            formData.append("gender", gender === "Male" ? "1" : gender==="Female" ?   "2" : "3");
             formData.append("mobile_number", mobileNO.toString(10));
             formData.append("contact_email", email);
             formData.append("date_of_admission", dateOfAdmission);
