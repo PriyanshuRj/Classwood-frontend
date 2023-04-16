@@ -27,7 +27,6 @@ export default function AddNoticeSidebar({setOpenAddNoticeModal}) {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", content);
-      console.log(noticeImage)
       const Attachments = Array.from(noticeImage)
       Attachments.forEach((item) => formData.append("attachments", item));
       const res =  await axios.post(API_URL + "list/notice/",formData,{

@@ -286,9 +286,7 @@ export const timeTableSlice = createSlice({
       }
     },
     updateCommonTiming : (state, action) =>{
-      console.log("here", action.payload.columnIndex, action.payload.value)
       if(action.payload.type==="subject"){
-        console.log("insed")
       state.commonTiming[action.payload.columnIndex].subject = action.payload.value;
 
       }

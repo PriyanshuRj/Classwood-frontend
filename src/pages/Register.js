@@ -55,7 +55,7 @@ export default function Register() {
       const res = await axios.post(API_URL + "signup/", 
           formData
           );
-          console.log(res);
+          // console.log(res);
           if(res.status===200){
             if(res.data.user && res.data.user.email){
               dispatch(setWarningToast("Account with this email already exists."))
@@ -67,7 +67,7 @@ export default function Register() {
               email: email,
               password: password,
             });
-            console.log("Res : ",LoginRes)
+            // console.log("Res : ",LoginRes)
             if (LoginRes.status === 200) {
               localStorage.setItem("UserType", LoginRes.data.user_type);
               const sessionRes = await axios.post(API_URL + "list/session/",{
@@ -77,14 +77,13 @@ export default function Register() {
                   Authorization: `Bearer ${LoginRes.data.tokens.access}`,
                 },
               });
-              console.log(sessionRes)
               localStorage.setItem("token", LoginRes.data.tokens.access);
               localStorage.setItem("Payed", true);
               dispatch(loginUser(res.data.user_type))
               
               navigate(`/${LoginRes.data.user_type.toLowerCase()}/dashboard`);
             }
-            console.log("response returned", LoginRes);
+            // console.log("response returned", LoginRes);
             setPageState(0);
         }
       

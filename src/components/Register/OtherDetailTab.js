@@ -21,7 +21,6 @@ export default function OtherDetailTab({
     const re = new RegExp('/', 'g');
     const re2 = new RegExp('-','g');
     const Phoneno = schoolPhoneNo.toString(10);
-    console.log("website ", schoolWebsite.substring(0,12));
     // matching the pattern
     if(dateOfStablishment.length===0
       // || schoolLogo===null || schoolWebsite.length===0 
@@ -31,7 +30,6 @@ export default function OtherDetailTab({
     else if(Phoneno.length < 10 ) dispatch(setWarningToast("Enter complete phone number"));
     else if(schoolWebsite && schoolWebsite.substring(0,12) !== "https://www."){
 dispatch(setWarningToast("Website not in proper format"))
-console.log("the web", schoolWebsite.substring(0,12))
     }
     else if((dateOfStablishment.match(re) && dateOfStablishment.match(re).length <2) || (dateOfStablishment.match(re2) && dateOfStablishment.match(re2).length < 2)) dispatch(setWarningToast('Please fill date properly'))
     else {

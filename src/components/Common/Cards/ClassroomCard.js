@@ -40,7 +40,7 @@ export default function ClassroomCard({
           },
         }
       );
-      console.log("response", res);
+      // console.log("response", res);
       if (res.status === 204) {
         dispatch(removeClass(classData));
         dispatch(setSuccessToast("Deleted Classroom"));

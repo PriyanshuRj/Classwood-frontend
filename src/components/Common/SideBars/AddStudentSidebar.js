@@ -68,7 +68,6 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
 
     if(studentData) {
       setLoading(true);
-      console.log(studentData)
       setFirstName(studentData.first_name);
       setLastName(studentData.last_name);
       setFatherName(studentData.father_name);
@@ -127,13 +126,13 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
                 },
               }
             );
-              console.log("This is the response :  ", res);
+              // console.log("This is the response :  ", res);
               if(res.status===200 && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
                 dispatch(setWarningToast("Admission Number must be unique"));
               }
             if (res.status === 201) {
               dispatch(setSuccessToast("Student Updated Successfully"));
-              console.log("response returned", res);
+              // console.log("response returned", res);
               resetForm();
             }
           } catch (e) {
@@ -142,7 +141,6 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
         }
       }
       else {
-        console.log("Adding new student");
         if(validateStudent(firstName,lastName, dateOfAdmission, acountNo, profileImage, mobileNO, email, dispatch)){
           try {
             const token = localStorage.getItem("token");
@@ -178,13 +176,13 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
                 }
               }
             );
-              console.log("This is the response :  ", res);
+              // console.log("This is the response :  ", res);
               if(res.status===200 && res.data.non_field_errors && res.data.non_field_errors[0] === 'The fields school, roll_no, admission_no, classroom must make a unique set.'){
                 dispatch(setWarningToast("Admission Number must be unique"));
               }
             if (res.status === 201) {
               dispatch(setSuccessToast("Student Added Successfully"));
-              console.log("response returned", res);
+              // console.log("response returned", res);
               resetForm();
             }
             else {

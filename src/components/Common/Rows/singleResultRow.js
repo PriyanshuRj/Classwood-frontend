@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function SingleResultRow({result, totalScore}) {
-  console.log("row", result);
   function fetchStudent(){
 
   }

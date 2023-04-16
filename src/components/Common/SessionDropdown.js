@@ -13,7 +13,6 @@ export default function SessionDoropDown({inputList, selected, setSelected, disp
   const navigate = useNavigate();
   
   function fetchNewSession(value){
-    console.log("changed")
     dispatch(setSelected(value));
     localStorage.setItem("session", value.id);
     getAllSchoolData(dispatch, navigate, setLoading, selected);

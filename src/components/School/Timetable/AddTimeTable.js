@@ -49,6 +49,8 @@ export default function AddTimetable() {
       const res = await axios.post(API_URL + "staff/timeTable/", {
         timetable : timetableRows,
         classroom : selectedClass.id,
+        session : localStorage.getItem("session")
+
       },{
         headers : {
           Authorization: `Bearer ${token}`,

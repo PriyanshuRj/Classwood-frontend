@@ -20,7 +20,6 @@ export default function ClassroomSideBar({
   setOpenAddStudent,
   setSubjects,
 }) {
-  console.log(data);
   const [classSubjects, setClassSubject] = useState([]);
   const [classTeacher, setClassTeacher] = useState({});
   const [loading, setLoading] = useState(false);
@@ -39,7 +38,6 @@ export default function ClassroomSideBar({
         session : session.id
       },
     });
-    console.log(classroomSubjects.data);
     setClassSubject(classroomSubjects.data);
     setLoading(false);
   }
@@ -54,7 +52,6 @@ export default function ClassroomSideBar({
         classroom: localStorage.getItem("classId"),
       },
     });
-    console.log("Teacher :", Teachers);
     const classroomTeacher = Teachers.data.filter((teacher) => {
       return teacher.user.id === data.class_teacher;
     });
@@ -91,7 +88,6 @@ export default function ClassroomSideBar({
       let absents = 0;
       for(let i in res.data){
         let val = JSON.parse(res.data[i].month_attendance)[today-1];
-        console.log(val)
         if(val===2) presents++;
         if(val===1) absents++;
       }

@@ -46,6 +46,7 @@ export default function ViewTimetible({ setTimetableState }) {
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
       },
     });
     const commonRes = await axios.get(API_URL + "staff/commontime", {
@@ -54,9 +55,11 @@ export default function ViewTimetible({ setTimetableState }) {
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
+
       },
     });
-
+    console.log(res);
     if (res.data.length) {
       const timearray = res.data.sort(sortTimetable);
       var starttime = timearray[0].start_time;

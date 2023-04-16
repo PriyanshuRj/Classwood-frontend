@@ -44,7 +44,6 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
   async function createSyllabus(){
     try{
       setLoading(true);
-      console.log(selectedClass, setectedSubject);
       if(setectedSubject.name ==="No Subject Selected"){
         dispatch(setWarningToast("Please select a subject"));
       }
@@ -52,7 +51,6 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
       else{
         const token = localStorage.getItem("token");
         const formData = new FormData();
-        console.log(subjectImage)
         formData.append("classroom", selectedClass.id);
         formData.append("attachments", subjectImage);
         formData.append("subject", setectedSubject.id);
@@ -66,7 +64,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
             session : localStorage.getItem("session")
           }
         });
-        console.log(res);
+        // console.log(res);
         if(res.status==200){
           dispatch(setWarningToast("Syllabus Adding Failed"));
   

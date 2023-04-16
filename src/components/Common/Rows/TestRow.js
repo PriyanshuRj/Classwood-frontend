@@ -7,7 +7,6 @@ export default function TestRow({
 setSelectedTest,
 setPageState
 }) {
-  console.log(testData);
   function viewResult() {
     setPageState("singleResult")
     setSelectedTest(testData);

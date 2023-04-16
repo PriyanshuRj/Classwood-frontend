@@ -24,24 +24,21 @@ export default function ForgotPassword() {
     const updatePassword = async () =>{
         try {
             setLoading(true);
-            console.log(OTP);
             const res = await axios.post(API_URL + "verify-otp/", {
               email: email,
               password :  password,
               otp : OTP
               
             });
-            console.log(res);
+            // console.log(res);
           if (res.status === 200) {
       
-              console.log("Data", res.data);
               if(res.data.message)
               dispatch(setWarningToast(res.data.message))
             }
             else if(res.status===201) {
               dispatch(setSuccessToast("Verification OTP send"))
             }
-            console.log(res);
           } catch (e) {
             console.warn("error ", e);
           } finally {
@@ -55,7 +52,7 @@ export default function ForgotPassword() {
         email: email,
  
       });
-      console.log(res);
+      // console.log(res);
       if(res.data.message==="Password Changed Successfully") {
         dispatch(setSuccessToast(res.data.message))
         navigate('/');
@@ -65,7 +62,7 @@ export default function ForgotPassword() {
         dispatch(setWarningToast(res.data.message));
       } 
 
-      console.log(res);
+      // console.log(res);
     setPageState(1);
     } catch (e) {
       console.warn("error ", e);

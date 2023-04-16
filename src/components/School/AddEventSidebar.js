@@ -51,7 +51,6 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
       formData.append("title", title);
       formData.append("description", content);
       formData.append("date", day.toISOString().substring(0, 10));
-      console.log(noticeImage)
       const Attachments = Array.from(noticeImage)
       Attachments.forEach((item) => formData.append("attachments", item));
       const res =  await axios.post(API_URL + "list/event/",formData,{
@@ -59,7 +58,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
             Authorization: `Bearer ${token}`,
           }
       });
-      console.log(res);
+      // console.log(res);
       if(res.status===201) {
         dispatch(setSuccessToast("Notice Added Successfully"))
         setTitle("");
@@ -72,9 +71,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
   
     
   }
-  useEffect(() => {
-    console.log(day)
-  }, [day])
+
   return (
     <div className="z-20 fixed top-0 right-0 h-full pt-8 overflow-y-scroll bg-white w-[34rem]  shadow-lg">
        <div

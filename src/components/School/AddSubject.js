@@ -37,7 +37,7 @@ export default function AddSubject({ setOpen, classroom }) {
             session :localStorage.getItem("session")
           }
         });
-        console.log("res : ", resp);
+        // console.log("res : ", resp);
         if (resp.status === 201)
           dispatch(setSuccessToast("Subject Added Successfully"));
       }

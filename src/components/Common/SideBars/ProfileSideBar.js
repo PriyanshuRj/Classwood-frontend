@@ -17,7 +17,6 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
     for( let i = 0;i< str.length;i++) if(str[i]==="1") count++;
     return count
   }
-  console.log(data)
   async function getStaffAttandence(){
     const token = localStorage.getItem("token");
     let res = await axios.get(API_URL + "list/staffAttendance/", {
@@ -25,7 +24,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
         Authorization: `Bearer ${token}`,
       }
     });
-    console.log("Attendence", res)
+    // console.log("Attendence", res)
   }
   useEffect(()=>{
     getStaffAttandence();
@@ -66,7 +65,6 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
   useEffect(()=>{
     getEmailAndPassword();
   },[data])
-  console.log("User data", data);
   return (
     <div className="fixed top-0 right-0 z-50 h-full pt-8 overflow-y-scroll bg-white w-[32rem]">
       <div onClick={()=>setOpenProfile(false)} className="cursor-pointer absolute p-2 bg-gray-200 rounded-full top-8 left-8">

@@ -72,7 +72,7 @@ export default function AddClass() {
           }
         }
       );
-      console.log("Created Class", res);
+      // console.log("Created Class", res);
       if (
         res.status === 200 &&
         res.data.message === "Class Teacher Already Assigned"
@@ -101,7 +101,6 @@ export default function AddClass() {
               },
             }
           );
-          console.log("Subjects Added",SubjectResponse);
           if(SubjectResponse.status=== 201){
           const formData = new FormData();
      
@@ -118,7 +117,7 @@ export default function AddClass() {
                 },
               }
             );
-            console.log("Student Response", studentRes);
+            // console.log("Student Response", studentRes);
             if(studentRes.status===201){
               dispatch(setSuccessToast("classroom Created successfully"));
               getLatestClassroom(dispatch, navigate, setLoading);

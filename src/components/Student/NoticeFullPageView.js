@@ -20,7 +20,7 @@ export default function NoticeFullPageView() {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("these are notices : ", res.data);
+    // console.log("these are notices : ", res.data);
     dispatch(setNotice(res.data));
   }
   useEffect(() => {
@@ -30,7 +30,6 @@ export default function NoticeFullPageView() {
     setCurrentNotice(notices[id]);
     if (notices[id]) {
       const date = new Date(notices[id].date_posted);
-      console.log(date);
       setDate(
         date.getDate() + "/" + (date.getMonth() + 1 + "/" + date.getFullYear())
       );

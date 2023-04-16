@@ -13,7 +13,6 @@ export const StudentSlice = createSlice({
       state.noOfStudent = action.payload.length
     },
     removeStudentMember : (state, action) =>{
-      console.log(action.payload);
       const StudentMembers = state.allStudent.filter(function rmvStudent(Student){
         return Student.user.id !== action.payload.user.id
       });

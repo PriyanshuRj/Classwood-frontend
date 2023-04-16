@@ -37,7 +37,6 @@ export default function AllSubjects() {
   const [searchQuery, setSearchQueary] = useState("");
 
   const allSyllabus = useSelector((state) => state.syllabus.allSyllabus);
-  console.log("All Sylabus", allSyllabus);
   function filterTabs(classData) {
     if (tabState === 0) return true;
     else if (tabState === 1) {

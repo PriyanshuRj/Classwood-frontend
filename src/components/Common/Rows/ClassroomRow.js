@@ -14,7 +14,6 @@ export default function ClassroomRow({
   setOpenEditClassroom,
   setSelectedClassroom
 }) {
-  console.log(classData);
   const dispatch = useDispatch();
   function viewClass() {
     localStorage.setItem("classId", classData.id);
@@ -31,10 +30,8 @@ export default function ClassroomRow({
   }
   async function deleteClass() {
     // props.setOpenProfile(0);
-    console.log("Delete called");
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
       const res = await axios.delete(
         API_URL + "list/classroom/" + classData.id + "/",
         {
@@ -43,7 +40,7 @@ export default function ClassroomRow({
           },
         }
       );
-      console.log("response", res);
+      // console.log("response", res);
       if (res.status === 204) {
         dispatch(removeClass(classData));
         dispatch(setSuccessToast("Deleted Classroom"));

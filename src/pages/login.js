@@ -27,7 +27,6 @@ export default function Login() {
         email: email,
         password: password,
       });
-      console.log(res, res.data.message);
       if (res.data.message === "Invalid email or password") {
         dispatch(setWarningToast(res.data.message));
       } else if (res.status === 200) {
@@ -42,7 +41,7 @@ export default function Login() {
               Authorization: `Bearer ${res.data.tokens.access}`,
             },
           });
-          console.log("session res", sessionRes);
+          // console.log("session res", sessionRes);
       
           if(sessionRes.data.length){
             localStorage.setItem("session", sessionRes.data[0].id);

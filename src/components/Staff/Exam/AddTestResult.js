@@ -121,9 +121,25 @@ export default function AddExamResult() {
       if(res.status==201){
         addResults(res.data.data);
       }
-      console.log(res);
+      // console.log(res);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     } catch( e ){
-      console.log(e);
     }
   }
   useEffect(() => {

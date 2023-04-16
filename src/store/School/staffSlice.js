@@ -13,7 +13,6 @@ export const staffSlice = createSlice({
       state.noOfStaffMember = action.payload.length
     },
     removeStaffMember : (state, action) =>{
-      console.log(action.payload);
       const staffMembers = state.allStaff.filter(function rmvStaff(staff){
         return staff.user.id !== action.payload.user.id
       });

@@ -154,7 +154,6 @@ export default function Header() {
                 <span
                   className="cursor-pointer hidden sm:inline-flex text-black hover:text-white bg-transparent border-black border-4 hover:bg-black   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 rounded-r-full"
                   onClick={()=>{
-                    console.log("clicked");
                     localStorage.removeItem("UserType");
                     localStorage.removeItem("Payed");
                     localStorage.removeItem("token");

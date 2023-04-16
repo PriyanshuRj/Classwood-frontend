@@ -1,7 +1,6 @@
 import React from 'react'
 import {TfiBlackboard} from 'react-icons/tfi'
 export default function SingleResultCard({result, totalScore}) {
-    console.log("This is result", result)
   return (
     <div className="flex flex-col p-4 bg-white border rounded-xl">
       <div className="flex flex-row items-center justify-between pb-2 border-b-[1px]">

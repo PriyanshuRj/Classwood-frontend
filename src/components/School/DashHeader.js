@@ -18,7 +18,7 @@ export default function DashHeader({setLoading}) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("session res", sessionRes);
+    // console.log("session res", sessionRes);
 
     dispatch(setAllSession(sessionRes.data));
     if(sessionRes.data.length){

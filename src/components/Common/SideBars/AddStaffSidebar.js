@@ -66,7 +66,6 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
 
   const submit = async () => {
     if (!staffData) {
-      console.log("new staff adding");
       
       if (
         firstName.length === 0 ||
@@ -87,7 +86,6 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
         setLoading(true);
         try {
           const token = localStorage.getItem("token");
-          console.log(token);
           const formData = new FormData();
           formData.append("profile_pic", profileImage);
           formData.append("first_name", firstName);
@@ -111,7 +109,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
               session : localStorage.getItem("session")
             }
           });
-          console.log("This is the response : ", res);
+          // console.log("This is the response : ", res);
           if (res.status === 201) {
             dispatch(setSuccessToast("Staff added SUccessfully"));
           }
@@ -470,7 +468,6 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                     type="file"
                     className="hidden"
                     onChange={(e) => {
-                      console.log(e.target.files[0])
                      if(e.target.files[0].type.substring(0,5)==="image")  {
                       if(e.target.files[0].size < 1000000)setProfileImage(e.target.files[0]);
                       else dispatch(setWarningToast("Please select an image smaller than 1MB"))

@@ -7,7 +7,6 @@ export default function FeesRow({
 setSelectedTest,
 setPageState
 }) {
-  console.log(feesData);
   function viewResult() {
     setPageState("singleResult")
     setSelectedTest(feesData);

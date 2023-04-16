@@ -35,7 +35,7 @@ export default function ProfileCard(props) {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response",res);
+      // console.log("response",res);
       if(res.status==204){
         props.removeStudent(props.allData);
       }
@@ -46,7 +46,7 @@ export default function ProfileCard(props) {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response",res);
+      // console.log("response",res);
       if(res.status===204 ){
         dispatch(removeStaffMember(props.allData))
       }
@@ -106,7 +106,7 @@ const deleteFunction = {
             },
           }
         );
-        console.log("res : ", res);
+        // console.log("res : ", res);
         if (res.status === 201)
           dispatch(setSuccessToast("Attendance Marked Succesfully"));
         setAttendanceState(val ? 2 : 1);
@@ -132,7 +132,7 @@ const deleteFunction = {
             },
           }
         );
-        console.log("res : ", res);
+        // console.log("res : ", res);
         if (res.status === 201)
           dispatch(setSuccessToast("Attendance Marked Succesfully"));
         setAttendanceState(val ? 2 : 1);

@@ -7,7 +7,6 @@ import { getAllDatatForStudentUser } from './helper/dataFeatcher';
 export default function Subjects() {
   const dispatch = useDispatch();
   const studentData = useSelector((state) => state.studentUser.studentData);
-  console.log(studentData)
   useEffect(()=>{
     if(!studentData.first_name) getAllDatatForStudentUser(dispatch);
   },[])
