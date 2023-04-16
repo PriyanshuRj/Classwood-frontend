@@ -270,7 +270,6 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
                   </span>
                   <input
                     onChange={(e) => {
-                      console.log(mobileNO.length, e.target)
                       if(mobileNO.length < 10 || e.target.value.length < 10 )
                       setMobileNo(e.target.value)}
                     }
