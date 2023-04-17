@@ -8,6 +8,7 @@ import { getAllSchoolData } from "../helpers/dataFetcher";
 import { useNavigate } from "react-router-dom";
 import ViewSubjectEntry from "./ViewSubjectEntry";
 
+import { timeList } from "../../../helpers/inputLists";
 function sortTimeTable(a, b) {
   return a.start_time > b.start_time;
 }
@@ -25,6 +26,28 @@ export default function ViewTimetible({ setTimetableState }) {
 
   const [loading, setLoading] = useState(false);
   const [timetable, setTimetable] = useState([]);
+
+  function compareTime(a,b, type1,type2){
+    const aTime = a.split(":");
+    const bTime = b.split(":");
+    if(parseInt(aTime[0]) >  parseInt(bTime[0])) return true;
+    else if(parseInt(aTime[0]) ==  parseInt(bTime[0])){
+      if(parseInt(aTime[1]) >  parseInt(bTime[1])) return true;
+      if(parseInt(aTime[1]) ==  parseInt(bTime[1])) {
+      if(type1==="start" && type2==="start"){
+        return true;
+      }
+     
+      if(type1==="end" && type2==="end"){
+        return true;
+      }
+     
+      }
+    }
+    return false;
+    
+  }
+
   function sortTimetable(a, b) {
     return a.start_time < b.start_time;
   }
@@ -59,32 +82,30 @@ export default function ViewTimetible({ setTimetableState }) {
 
       },
     });
-    console.log(res);
     if (res.data.length) {
       const timearray = res.data.sort(sortTimetable);
-      var starttime = timearray[0].start_time;
-      var endtime = timearray[0].end_time;
-      var arr = [];
-      for (let i in timearray) {
-        if (timearray[i].start_time === starttime) arr.push(timearray[i]);
-        if (starttime !== timearray[i].start_time) {
+      
+      for(var i = 0;i<timeList.length - 1;i++){
+        var starttime = timeList[i];
+        var endtime = timeList[i+1];
+        var arr = [];
+        for (let i in timearray) {
+         
+          if (compareTime(timearray[i].start_time, starttime, "start", "start")  && compareTime(endtime ,timearray[i].start_time, "start", "end")) arr.push(timearray[i]);
+          if (compareTime(timearray[i].end_time, starttime, "end", "start")  && compareTime(endtime ,timearray[i].end_time, "end", "end")) arr.push(timearray[i]);
+        }
+        if(arr.length){
+ 
           timetable.push({
             start_time: starttime,
             end_time: endtime,
             periods: filterTimetable(arr),
-          });
-          starttime = timearray[i].start_time;
-          endtime = timearray[i].end_time;
-          arr = [];
+          })
         }
+        
       }
-      timetable.push({
-        start_time: starttime,
-        end_time: endtime,
-        periods: filterTimetable(arr),
-      });
+    
       setTimetable(timetable.concat(commonRes.data).sort(sortTimeTable));
-      console.log("The result", commonRes.data, timetable);
     }
     setLoading(false);
   }
@@ -177,6 +198,8 @@ export default function ViewTimetible({ setTimetableState }) {
                               key={index}
                               period={period}
                               index={index}
+                              start={timetableRow.start_time}
+                              end={timetableRow.end_time}
                             />
                           );
                         })

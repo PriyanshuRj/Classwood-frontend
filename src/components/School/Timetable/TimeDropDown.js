@@ -38,7 +38,7 @@ export default function TimeDropDown({inputList, labelTitle, DivWidth, selected,
                     className={({ active }) =>
                       classNames(
                         active ? 'text-white bg-indigo-600' : 'text-gray-900',
-                        'relative cursor-default select-none py-2 pl-3 pr-9'
+                        'relative cursor-default select-none py-2 pl-3 pr-4'
                       )
                     }
                     value={person}

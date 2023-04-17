@@ -8,7 +8,9 @@ import { setSession } from "../../store/genralUser";
 import { API_URL } from "../../helpers/URL";
 import SchoolProfile from "./SchoolProfile";
 import axios from "axios";
+import {IoMdAddCircleOutline} from 'react-icons/io';
 import { setAllSession } from "../../store/School/sessionSlice";
+import AddSession from "./AddSession";
 
 export default function DashHeader({setLoading}) {
   async function getSessions(){
@@ -25,7 +27,9 @@ export default function DashHeader({setLoading}) {
       localStorage.setItem("session", sessionRes.data[0].id);
     }
   }
+
   const [openProfile,setOpenProfile] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const session = useSelector((state) => state.user.session);
@@ -64,13 +68,19 @@ useEffect(()=>{
   const userData = useSelector((state) => state.user.userProfileData);
   return (
     <div className="flex items-center justify-between w-full p-10 py-6 bg-white  border-b-[0.5px] border-[#D9D9D9]">
+      {isOpen ? (
+            <AddSession
+              setOpen={setOpen}
+
+            />
+          ) : undefined}
       {openProfile ? <SchoolProfile data={userData} setOpenProfile={setOpenProfile} /> : undefined}
       <div className="flex flex-row items-center">
       <img  src={API_URL.substring(0,API_URL.length - 5) + userData.school_logo_url} className="w-14 h-14 mr-4 rounded-full border"/>
       <p className="text-2xl font-semibold sm:text-4xl"> {userData.school_name}</p>
       </div>
       <div className="flex flex-row items-center justify-center">
-      <div className="mr-8">
+      <div className="mr-8 flex flex-row items-center">
 
       <SessionDoropDown
       setLoading={setLoading}
@@ -79,6 +89,7 @@ useEffect(()=>{
         setSelected={setSession}
         dispatch={dispatch}
         />
+        <IoMdAddCircleOutline onClick={()=> setOpen(true)} className="cursor-pointer ml-2 h-6 w-6 text-green-600 "/>
                   </div>
                   <div className="h-10 w-10 mr-4">
 
