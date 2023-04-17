@@ -11,6 +11,8 @@ import { Rings } from 'react-loader-spinner';
 import FeesCardSection from '../../Common/FeesCardSection';
 import FeesRowSection from '../../Common/FeesRowSection';
 import Layout from "../Layout";
+
+import FeesSidebar from '../../Common/SideBars/FeesSidebar';
 const sections = ["12", "11", "10", "9","8", "7", "6","5","4","3","2","1","LKG", "UKG","Nursery", "Pre Nursery"]
 export default function ViewFees({setPageState, setSelectedTest}) {
     
@@ -45,29 +47,33 @@ export default function ViewFees({setPageState, setSelectedTest}) {
   }
   const [searchQuery, setSearchQuery] = useState("");
     
-    const [pastExams, setPastExams] = useState([]);
-    const [viewState, setViewState] = useState("grid");
-      const [loading, setLoading] = useState(false);
-      async function getPastFees() {
-        setLoading(true);
-          const token = localStorage.getItem("token");
-  
-          let res = await axios.get(API_URL + "list/fees/", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              
-            },
-            params : {
-              session : localStorage.getItem("session")
-            }
-          });
-          sortByClasses(res.data);
-          setLoading(false);
-      };
-    useEffect(()=>{
-        getPastFees();
-        console.log(pastExams)
-    },[])
+  const [pastExams, setPastExams] = useState([]);
+  const [viewState, setViewState] = useState("grid");
+  const [loading, setLoading] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
+  const [feesData, setFeesData] = useState({});
+  async function getPastFees() {
+    setLoading(true);
+      const token = localStorage.getItem("token");
+
+      let res = await axios.get(API_URL + "list/fees/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          
+        },
+        params : {
+          session : localStorage.getItem("session")
+        }
+      });
+      sortByClasses(res.data);
+      setLoading(false);
+  };
+
+
+  useEffect(()=>{
+      getPastFees();
+      console.log(pastExams)
+  },[])
   return (
     <Layout>
     {loading ? (
@@ -82,6 +88,7 @@ export default function ViewFees({setPageState, setSelectedTest}) {
         </div>
       ) : (
     <div className="px-4 md:px-10">
+      {openSidebar && <FeesSidebar data={feesData} setOpenSidebar={setOpenSidebar} />}
             <div className="flex flex-col justify-between items-center my-4 md:flex-row">
               <p className="my-4 mt-2 text-2xl font-semibold">All Past Exams</p>
               <Link
@@ -152,11 +159,13 @@ export default function ViewFees({setPageState, setSelectedTest}) {
               return (
                 <FeesCardSection
                   key={index}
+                  setOpenSidebar={setOpenSidebar}
+                  setFeesData={setFeesData}
                   classCumilativeName={classCumilativeName}
                   sectionData={pastExams.filter(filterTest)}
                   index={index}
                   setPageState={setPageState}
-                  setSelectedTest={setSelectedTest}
+               
                 />
               );
             })}
@@ -168,6 +177,8 @@ export default function ViewFees({setPageState, setSelectedTest}) {
               return (
                 <FeesRowSection
                 key={index}
+                setOpenSidebar={setOpenSidebar}
+                setFeesData={setFeesData}
                 classCumilativeName={classCumilativeName}
                 sectionData={pastExams.filter(filterTest)}
                 index={index}

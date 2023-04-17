@@ -6,14 +6,16 @@ import PendingFeesIcon from "../../../assets/icons/PendingFeesIcon";
 export default function FeesCard({
   feesData,
   index,
-  setSelectedTest,
-  setPageState
+  setOpenSidebar,
+  setFeesData
 }) {
   function viewResult() {
-    setPageState("singleResult")
-    setSelectedTest(feesData);
+    setFeesData(feesData);
+    setOpenSidebar(true);
   }
-  const TestPopupData = [
+ 
+ 
+  const FeesPopUpData = [
     {
       title: "View Result",
       function: viewResult,
@@ -29,9 +31,9 @@ export default function FeesCard({
             {feesData.className}
           </span>
         </div>
-        {/* <PopUpMenu
-          menuList={TestPopupData}
-        /> */}
+        <PopUpMenu
+          menuList={FeesPopUpData}
+        />
       </div>
       <div className="flex flex-row items-center justify-between mt-6 text-md">
         <span className="font-semibold text-gray-500 flex flex-row"> <span className="mr-2">

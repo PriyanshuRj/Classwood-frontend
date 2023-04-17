@@ -4,7 +4,9 @@ export default function FeesRowSection({
     classCumilativeName,
     sectionData,
     setSelectedTest,
-    setPageState
+    setPageState,
+    setOpenSidebar,
+    setFeesData
 }) {
 
     
@@ -20,10 +22,11 @@ export default function FeesRowSection({
             {classCumilativeName} Standard
           </span>
           <div className="border-2 rounded-md">
-          <div className="grid w-full grid-cols-3 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
+          <div className="grid w-full grid-cols-4 p-2 text-sm font-semibold text-gray-500 bg-slate-100">
                   <span>Fees</span>
                   <span>Total Fees</span>
                   <span>Paid Student</span>
+                  <span>Actions</span>
                 </div>
             {sectionData.filter(filterTabs).map((classData, index) => {
               return (
@@ -32,8 +35,9 @@ export default function FeesRowSection({
                 key={index}
                 feesData={classData}
                 index={index}
-                setSelectedTest={setSelectedTest}
-                setPageState={setPageState}
+                setFeesData={setFeesData}
+                setOpenSidebar={setOpenSidebar}
+           
                 />
               );
             })}
