@@ -58,7 +58,7 @@ export default function SessionDoropDown({inputList, selected, setSelected, disp
                           <span
                             className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
                           >
-                            {person.start_date && person.start_date.substring(0,4)}
+                            {person.start_date ? person.start_date.substring(0,4) + " - " + (parseInt(person.start_date.substring(0,4)) +1) : "Year"}
                           </span>
                         </div>
 

@@ -23,6 +23,7 @@ export default function DashHeader({setLoading}) {
     // console.log("session res", sessionRes);
 
     dispatch(setAllSession(sessionRes.data));
+    console.log(sessionRes.data)
     if(sessionRes.data.length){
       localStorage.setItem("session", sessionRes.data[0].id);
     }
