@@ -55,24 +55,6 @@ export default function Main() {
     }
   }
 
-  async function AddIndividualStudentFees(){
-    try{
-      axios.push(API_URL + "list/fees/", {
-        
-
-      }, {
-        headers : {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        params :{
-          session : localStorage.getItem("session")
-        }
-      }
-      )
-    } catch(e){
-      dispatch(setWarningToast("Error occured while uploading Fees"))
-    }
-  }
   return (
     <Layout>
       {loading ? <div className="w-full h-screen flex justify-center items-center">
@@ -101,6 +83,7 @@ export default function Main() {
            feesValue={feesValue}
            selectedClass={selectedClass}
            setSelectedClass={setSelectedClass}
+           submitFees={addFees}
          />
        )}
      </div>

@@ -12,6 +12,8 @@ import {
   updateTitle,
   updateValue,
 } from "../../../store/School/feesSlice";
+import {setFeesStudents} from "../../../store/School/feesSlice";
+
 import { setWarningToast } from "../../../store/genralUser";
 export default function FeesDistribution({
   setPageState,
@@ -19,6 +21,7 @@ export default function FeesDistribution({
   selectedClass,
   setSelectedClass,
   setFeesValue,
+  submitFees
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,15 +29,36 @@ export default function FeesDistribution({
   function addNewFeefiled() {
     dispatch(addFees());
   }
-  const session = useSelector((state) => state.user.session);
+  const concessions = useSelector((state) => state.fees.concession);
 
+  const session = useSelector((state) => state.user.session);
+  useEffect(() => {
+    getStudents();
+  }, []);
+
+  async function getStudents() {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+
+    let res = await axios.get(API_URL + "staff/student/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        
+      },
+      params: {
+        classroom: selectedClass.id,
+      },
+    });
+    
+    dispatch(setFeesStudents(res.data.map(student => ({...student, concession: concessions[0]}))));
+
+    setLoading(false);
+  }
   const classrooms = useSelector((state) => state.classroom.allClasses);
   const fees = useSelector((state) => state.fees.allFees);
   console.log(fees);
- 
 
   const [loading, setLoading] = useState(false);
-
 
   useEffect(() => {
     if (classrooms.length === 0)
@@ -75,7 +99,7 @@ export default function FeesDistribution({
                 Create Fee Structure
               </p>
             </div>
-            <div className="flex flex-row justify-between my-8 items-center">
+            {/* <div className="flex flex-row justify-between my-8 items-center">
               <div className="flex flex-row items-center justify-center">
                 <span className="flex items-center justify-center w-6 h-6 text-gray-200 bg-gray-700 border-2 border-gray-700 rounded-full text-md">
                   1
@@ -105,7 +129,7 @@ export default function FeesDistribution({
                   Student List
                 </span>
               </div>
-            </div>
+            </div> */}
             <div className="flex flex-row px-4">
               <div className="w-full mx-4">
                 <ClassDropDown
@@ -183,10 +207,11 @@ export default function FeesDistribution({
               </div>
           </div>
           <div
-            onClick={() => onNextClick()}
+            onClick={() => submitFees()}
             className="mb-8 text-center flex cursor-pointer items-center justify-center px-4 py-2 mx-8 mt-8 font-medium text-white bg-indigo-600 rounded-md"
           >
-            Next Page
+            Add Fees
+            {/* Next Page */}
           </div>
         </div>
       )}

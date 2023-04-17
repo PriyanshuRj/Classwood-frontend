@@ -32,7 +32,10 @@ export default function ViewSubjectEntry({period, index, start, end}) {
                         {period.subject ? period.subject : "No Subject"}
                       </span>
                       <span className="text-sm text-gray-500 break-word">
-                        {period.start_time ? period.start_time + " - " + period.end_time : "Free Break"}
+                        {period.subject ? <>
+                          { compareTime(period.start_time, start) ? period.start_time : start } {" - "}  {compareTime( end,period.end_time) ? period.end_time : end }
+                        </> : "Break"}
+                      
                       </span>
   
                   </div>
