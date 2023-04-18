@@ -29,6 +29,9 @@ export default function PastResults() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params : {
+            session : localStorage.getItem("session")
+          }
         });
         setPastExams(res.data);
         console.log("these are notices : ", res.data);

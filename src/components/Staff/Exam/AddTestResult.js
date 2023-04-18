@@ -35,6 +35,7 @@ export default function AddExamResult() {
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
       },
     });
     setClassSubjects(classroomSubjects.data);
@@ -52,6 +53,7 @@ export default function AddExamResult() {
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
       },
     });
     dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));

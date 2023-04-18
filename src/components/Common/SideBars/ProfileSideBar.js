@@ -22,6 +22,9 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
     let res = await axios.get(API_URL + "list/staffAttendance/", {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+      params : {
+        session : localStorage.getItem("session")
       }
     });
     // console.log("Attendence", res)

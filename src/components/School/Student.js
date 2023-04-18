@@ -32,6 +32,7 @@ export default function Student() {
         },
         params: {
           classroom: localStorage.getItem("classId"),
+          session : localStorage.getItem("session")
         },
       });
       setStudents(res.data);
@@ -40,6 +41,9 @@ export default function Student() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params : {
+          session : localStorage.getItem("session")
+        }
       });
       setStudents(res.data);
     }

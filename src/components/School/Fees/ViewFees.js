@@ -61,10 +61,12 @@ export default function ViewFees({setPageState, setSelectedTest}) {
           Authorization: `Bearer ${token}`,
           
         },
+        
         params : {
           session : localStorage.getItem("session")
         }
       });
+      console.log(res)
       sortByClasses(res.data);
       setLoading(false);
   };
@@ -150,7 +152,7 @@ export default function ViewFees({setPageState, setSelectedTest}) {
             </div>
             {pastExams.filter(filterTest).length == 0 ? (
               <div className="flex items-center justify-center w-full h-96">
-                <span>No Test Found </span>
+                <span>No Fees Found </span>
               </div>
             ) : viewState === "grid" ? (
   

@@ -82,6 +82,7 @@ export default function ViewTimetible({ setTimetableState }) {
 
       },
     });
+    console.log(res.data, selectedClass, localStorage.getItem("session"))
     if (res.data.length) {
       const timearray = res.data.sort(sortTimetable);
       
@@ -186,10 +187,9 @@ export default function ViewTimetible({ setTimetableState }) {
                       key={index}
                       className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x"
                     >
-                      <div className="py-2 text-gray-500 text-md">
+                      <div className="py-2 text-gray-500 text-md ">
                         {" "}
-                        {timetableRow.start_time} {" - "}{" "}
-                        {timetableRow.end_time}{" "}
+                        {timetableRow.start_time}
                       </div>
                       {timetableRow.periods ? (
                         timetableRow.periods.map((period, index) => {

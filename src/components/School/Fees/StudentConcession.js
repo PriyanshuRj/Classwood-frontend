@@ -28,6 +28,7 @@ export default function StudentConcession({ setPageState, feesValue, addFees, cl
       },
       params: {
         classroom: classroom.id,
+        session : localStorage.getItem("session")
       },
     });
     

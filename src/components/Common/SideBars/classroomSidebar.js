@@ -35,7 +35,7 @@ export default function ClassroomSideBar({
       },
       params: {
         classroom: localStorage.getItem("classId"),
-        session : session.id
+        session : localStorage.getItem("session")
       },
     });
     setClassSubject(classroomSubjects.data);

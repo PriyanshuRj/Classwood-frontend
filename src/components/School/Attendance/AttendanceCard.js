@@ -21,6 +21,7 @@ export default function AttendanceCard({ classData }) {
         },
         params: {
           classroom: classData.id,
+          session : localStorage.getItem("session")
         },
       });
       // console.log("Res", res.data)

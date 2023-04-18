@@ -163,7 +163,7 @@ export default function AddStudent({ setOpenAddProfile, classroom, subjects, stu
             formData.append("classroom", classroom.id);
 
             formData.append("admission_no", admissionNo);
-
+            formData.append("session", localStorage.getItem("session"));
             const res = await axios.post(
               API_URL + "staff/student/",
               formData,

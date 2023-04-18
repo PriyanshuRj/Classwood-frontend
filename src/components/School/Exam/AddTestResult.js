@@ -34,6 +34,7 @@ export default function AddExamResult() {
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
       },
     });
     setClassSubjects(classroomSubjects.data);
@@ -53,6 +54,7 @@ export default function AddExamResult() {
         },
         params: {
           classroom: selectedClass.id,
+          session : localStorage.getItem("session")
         },
       });
       dispatch(setTestStudent(res.data.map(student => ({...student, marks: "", totalMarks : "", percentage :"", marksheet : null}))));
@@ -76,6 +78,7 @@ export default function AddExamResult() {
         formData.append("student",student.user.id);
         formData.append("score", parseInt(student.marks));
         formData.append("exam",exam.id);
+        formData.append("session", localStorage.getItem("session"));
         // formData.append("marksheet", student.marksheet);
         const res = await axios.post(API_URL + "staff/result/",formData,
         {headers: {
@@ -102,7 +105,8 @@ export default function AddExamResult() {
         date_of_exam : examDate,
         classroom : selectedClass.id,
         subject : setectedSubject.id,
-        tag : examName
+        tag : examName,
+        session : localStorage.getItem("session")
       }, {
         headers: {
           Authorization: `Bearer ${token}`,

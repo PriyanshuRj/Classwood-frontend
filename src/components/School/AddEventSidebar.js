@@ -48,6 +48,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
       formData.append("title", title);
       formData.append("description", content);
       formData.append("date", day.toISOString().substring(0, 10));
+      formData.append("session", localStorage.getItem("session"));
       if(noticeImage){
 
         const Attachments = Array.from(noticeImage)

@@ -34,7 +34,7 @@ export default function EventPannel({setOpenAddEventModal}) {
         Authorization: `Bearer ${token}`,
       },
       params: {
-        session: session.id,
+        session: localStorage.getItem("session"),
     },
     });
     dispatch(setEvents(res.data));

@@ -29,6 +29,7 @@ export default function AddSubject({ setOpen, classroom }) {
         formData.append("school", staff[0].school);
         formData.append("teacher", subjectTeacher.user.id);
         formData.append("classroom", classroom.id);
+        formData.append("session", localStorage.getItem("session"));
         let resp = await axios.post(API_URL + "staff/subject/", formData, {
           headers: {
             Authorization: `Bearer ${token}`,

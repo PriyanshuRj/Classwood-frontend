@@ -44,7 +44,7 @@ export default function AddTimetable() {
     try{
       setLoading(true);
       const token = localStorage.getItem("token");
-      console.log("Time Table Rows", timetableRows);
+
       
       const res = await axios.post(API_URL + "staff/timeTable/", {
         timetable : timetableRows,
@@ -68,6 +68,7 @@ export default function AddTimetable() {
     setLoading(false);
   }
   async function fetchSubjects() {
+    console.log("called")
     setLoading(true);
     const token = localStorage.getItem("token");
     const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
@@ -76,8 +77,10 @@ export default function AddTimetable() {
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
       },
     });
+    console.log(classroomSubjects)
     setClassSubjects(classroomSubjects.data);
     dispatch(refreshTimetableRow())
  

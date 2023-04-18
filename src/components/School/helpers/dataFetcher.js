@@ -82,6 +82,9 @@ export async function getLatestClassroom(dispatch, navigate,setLoading){
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params : {
+        session : localStorage.getItem("session")
+      }
     });
     dispatch(addAllClassroom(resClassroom.data));
 

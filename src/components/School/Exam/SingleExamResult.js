@@ -26,7 +26,8 @@ const [searchQuery, setSearchQuery] = useState("");
             Authorization: `Bearer ${token}`,
           },
           params: {
-            exam : selectedTest.id
+            exam : selectedTest.id,
+            session : localStorage.getItem("session")
           }
         });
         setPastExams(res.data);

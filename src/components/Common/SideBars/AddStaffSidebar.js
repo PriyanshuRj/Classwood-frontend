@@ -101,6 +101,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("adhar", adharNumber);
           formData.append("ifsc_code", ifscCode);
           formData.append("is_teaching_staff", isClassTeacher);
+          formData.append("session", localStorage.getItem("session"));
           const res = await axios.post(API_URL + "list/staff/", formData, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -158,7 +159,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("ifsc_code", ifscCode);
           formData.append("is_teaching_staff", isClassTeacher);
           formData.append("staff_id", staffId);
-
+          formData.append("session", localStorage.getItem("session"));
           const res = await axios.put(
             API_URL + "list/staff/" + staffData.user.id + "/",
             formData,

@@ -99,6 +99,7 @@ const deleteFunction = {
             student: props.studentId,
             classroom: localStorage.getItem("classId"),
             school: props.school,
+            session : localStorage.getItem("session")
           },
           {
             headers: {
@@ -125,6 +126,7 @@ const deleteFunction = {
             present: val,
             staff: props.allData.user.id,
             school: props.allData.school,
+            session : localStorage.getItem("session")
           },
           {
             headers: {

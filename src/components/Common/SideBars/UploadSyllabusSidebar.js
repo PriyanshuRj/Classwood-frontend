@@ -35,6 +35,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
       },
     });
     setClassSubjects(classroomSubjects.data);
@@ -55,6 +56,7 @@ export default function UploadSyllabusSidebar({setOpenUpload}) {
         formData.append("attachments", subjectImage);
         formData.append("subject", setectedSubject.id);
         formData.append("tag",  selectedClass.class_teacher );
+        formData.append("session", localStorage.getItem("session"));
         // formData.append("unit", units);
         let res = await axios.post(API_URL + "staff/syllabus/", formData, {
           headers: {

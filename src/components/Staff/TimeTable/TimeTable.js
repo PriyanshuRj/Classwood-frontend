@@ -46,12 +46,18 @@ export default function TimeTable({ setTimetableState }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params : {
+          session : localStorage.getItem("session")
+        }
      
       });
       const commonRes = await axios.get(API_URL + "staff/commontime", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params : {
+          session : localStorage.getItem("session")
+        }
      
       });
   

@@ -19,6 +19,9 @@ export default function NoticeFullPageView() {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params : {
+        session : localStorage.getItem("session")
+      }
     });
     console.log("these are notices : ", res.data);
   }

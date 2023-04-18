@@ -5,6 +5,7 @@ import ProfilePopUpMenu from "../UI/ProfilePopUpMenu";
 import { useNavigate } from "react-router-dom";
 import SessionDoropDown from "../Common/SessionDropdown";
 import { setSession } from "../../store/genralUser";
+
 import { API_URL } from "../../helpers/URL";
 import SchoolProfile from "./SchoolProfile";
 import axios from "axios";
@@ -42,12 +43,15 @@ export default function DashHeader({setLoading}) {
 
   }
   useEffect(()=>{
+    if(!sessionList.length)
     getSessions()
 
   },[])
 useEffect(()=>{
-  if(sessionList.length)
-  dispatch(setSession(sessionList[0]))
+  if(sessionList.length){
+    console.log("clae")
+    dispatch(setSession(sessionList[0]))
+  }
 },[sessionList])
   const viewProfile=()=>{
     setOpenProfile(true);

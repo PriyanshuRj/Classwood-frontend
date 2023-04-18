@@ -28,6 +28,9 @@ export default function PastResults({setPageState, setSelectedTest}) {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params : {
+            session : localStorage.getItem("session")
+          }
         });
         setPastExams(res.data);
         setLoading(false);

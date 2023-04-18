@@ -21,6 +21,9 @@ export default function EventFullPageView() {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params : {
+        session : localStorage.getItem("session")
+      }
     });
     console.log("these are events : ", res.data);
   }

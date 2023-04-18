@@ -24,6 +24,7 @@ if(title.length==0 || content.length===0){
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", content);;
+      formData.append("session", localStorage.getItem("session"));
       if(noticeImage){
 
         const Attachments = Array.from(noticeImage)

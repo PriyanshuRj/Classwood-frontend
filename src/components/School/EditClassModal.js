@@ -31,7 +31,8 @@ export default function EditClassroom({ setOpen,classroom }) {
         sub_class_teacher: subClassTeacher.user.id,
         class_name : classroom.class_name,
         school : classroom.school,
-        section_name : classroom.section_name
+        section_name : classroom.section_name,
+        session :  localStorage.getItem("session")
       },
       {
         headers: {

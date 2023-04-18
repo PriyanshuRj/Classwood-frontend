@@ -47,6 +47,7 @@ export default function FeesDistribution({
       },
       params: {
         classroom: selectedClass.id,
+        session : localStorage.getItem("session")
       },
     });
     

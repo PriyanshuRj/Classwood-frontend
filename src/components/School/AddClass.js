@@ -62,6 +62,7 @@ export default function AddClass() {
           class_teacher: classTeacher.user.id,
           sub_class_teacher: subClassTeacher.user.id,
           school: staff[0].school,
+          session : localStorage.getItem("session")
         },
         {
           headers: {
@@ -94,6 +95,7 @@ export default function AddClass() {
               school: staff[0].school,
               teacher: subject.teacher.user.id,
               classroom: res.data.data.id,
+              session : localStorage.getItem("session")
             },
             {
               headers: {
@@ -107,7 +109,7 @@ export default function AddClass() {
           formData.append("school", staff[0].school);
           formData.append("classroom", res.data.data.id);
           formData.append("csv_file", CSVFile);
-          
+          formData.append("session", localStorage.getItem("session"))
             const studentRes = await axios.post(
               API_URL + "staff/student/",
               formData,

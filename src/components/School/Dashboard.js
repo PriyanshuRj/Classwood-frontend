@@ -90,6 +90,9 @@ export default function StudentDashboard() {
     const res = await axios.get(API_URL + "list/thoughtDay/",{
       headers : {
         Authorization: `Bearer ${token}`,
+      },
+      params : {
+        session : localStorage.getItem("session")
       }
     });
     setThought(res.data[res.data.length - 1].content)
@@ -214,13 +217,13 @@ export default function StudentDashboard() {
             
             <div className="flex flex-row mt-10 ">
               {/* Fees Management */}
-            <Link to="/school/fees" className="w-3/5 mb-8 flex flex-col shadow-md rounded-xl py-4 px-6">
+            <Link to="/school/fees" className="w-3/5 mb-8 flex flex-col shadow-md md:shadow-lg rounded-xl py-4 px-6 min-h-[23.5rem] max-h-[23.5rem]">
               <span className="font-semibold text-xl flex border-b pb-2">Fee Management</span>
-              <div className="  flex flex-row ">
+              <div className="  flex flex-row justify-center">
 
             
-              <div className="w-full ">
-                <div className="flex flex-col items-center justify-center w-full h-full p-4">
+              <div className=" ">
+                <div className="flex flex-col items-center justify-center w-full p-4">
            
                   <PieChart
                     data={[{ title: "Paid", value: 0, color: "#2DD4BF" }]}
@@ -267,12 +270,12 @@ export default function StudentDashboard() {
             </div>
             </Link>
                   {/* Attendence Management */}
-                  <div className="mx-4 w-2/5 shadow-md rounded-xl p-4 h-fit">
+                  <div className="mx-4 w-2/5 shadow-md flex flex-col rounded-xl p-4 h-fit min-h-[23.5rem] md:shadow-lg">
                   <span className="font-semibold text-xl flex border-b pb-2">Attendence Management</span>
-                  <div className="flex flex-col pt-4">
+                  <div className="flex flex-col pt-4 h-full  justify-center">
                     <div className="flex flex-row justify-between items-center">
 
-                    <div className="mb-5 flex flex-col">
+                    <div className="mb-5 flex flex-col ">
                       <span className="text-gray-500 ">
                         Present Student
                       </span>
@@ -283,7 +286,7 @@ export default function StudentDashboard() {
                     <AiOutlineBarChart className="w-6 h-6 text-[#2dd480]"/>
                     </div>
                     <div className="flex flex-row justify-between items-center">
-                    <div className="">
+                    <div className="mb-5 flex flex-col">
 
                       <span className="text-gray-500 flex flex-col">
                         Present Teaching Staff
@@ -296,7 +299,7 @@ export default function StudentDashboard() {
 
                     </div>
                     <div className="flex flex-row justify-between items-center">
-                    <div className="">
+                    <div className="mb-5 flex flex-col">
 
                       <span className="text-gray-500 flex flex-col">
                         Present Non Teaching Staff
