@@ -39,7 +39,7 @@ export default function SingleRow({
     );
   }
   return (
-    <div className="grid grid-cols-4 gap-8 mb-4">
+    <div key={rowIndex} className="grid grid-cols-4 gap-8 mb-4">
 <SubjectDropDown
               //   id={index}
               inputList={allSubjects}

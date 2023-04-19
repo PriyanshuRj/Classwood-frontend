@@ -80,7 +80,7 @@ export default function AddTimetable() {
         session : localStorage.getItem("session")
       },
     });
-    console.log(classroomSubjects)
+    console.log(classroomSubjects, selectedClass.id)
     setClassSubjects(classroomSubjects.data);
     dispatch(refreshTimetableRow())
  
@@ -98,6 +98,7 @@ export default function AddTimetable() {
   }, [classrooms]);
 
   useEffect(() => {
+    if(selectedClass.id)
     fetchSubjects();
   }, [selectedClass]);
   const addRow = ()=>{
@@ -155,6 +156,7 @@ export default function AddTimetable() {
 
             {tabs.map((tab,index)=>{
               return (<div
+              key={index}
               onClick={()=> setTabState(index)}
               className={`border-r cursor-pointer ${ tabState===index? "bg-indigo-500 text-white font-medium" :   "hover:bg-indigo-100"} duration-200 ease-in-out py-2`}>
                 {tab}

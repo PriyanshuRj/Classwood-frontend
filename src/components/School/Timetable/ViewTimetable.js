@@ -9,9 +9,6 @@ import { useNavigate } from "react-router-dom";
 import ViewSubjectEntry from "./ViewSubjectEntry";
 
 import { timeList } from "../../../helpers/inputLists";
-function sortTimeTable(a, b) {
-  return a.start_time > b.start_time;
-}
 
 export default function ViewTimetible({ setTimetableState }) {
   const dispatch = useDispatch();
@@ -27,36 +24,46 @@ export default function ViewTimetible({ setTimetableState }) {
   const [loading, setLoading] = useState(false);
   const [timetable, setTimetable] = useState([]);
 
-  function compareTime(a,b, type1,type2){
+  function compareTime(a, b, type1, type2) {
     const aTime = a.split(":");
     const bTime = b.split(":");
-    if(parseInt(aTime[0]) >  parseInt(bTime[0])) return true;
-    else if(parseInt(aTime[0]) ==  parseInt(bTime[0])){
-      if(parseInt(aTime[1]) >  parseInt(bTime[1])) return true;
-      if(parseInt(aTime[1]) ==  parseInt(bTime[1])) {
-      if(type1==="start" && type2==="start"){
-        return true;
-      }
-     
-      if(type1==="end" && type2==="end"){
-        return true;
-      }
-     
+    if (parseInt(aTime[0]) > parseInt(bTime[0])) return true;
+    else if (parseInt(aTime[0]) == parseInt(bTime[0])) {
+      if (parseInt(aTime[1]) > parseInt(bTime[1])) return true;
+      if (parseInt(aTime[1]) == parseInt(bTime[1])) {
+        if (type1 === "start" && type2 === "start") {
+          return true;
+        }
+
+        if (type1 === "end" && type2 === "end") {
+          return true;
+        }
       }
     }
     return false;
-    
+  }
+  function sortTimeTable(a, b) {
+    return compareTime(a.start_time, b.start_time) ? 1 : -1;
   }
 
-  function sortTimetable(a, b) {
-    return a.start_time < b.start_time;
-  }
   function filterTimetable(arr) {
     let finalPeriodArray = [{}, {}, {}, {}, {}, {}];
     for (let i in arr) {
       finalPeriodArray[parseInt(arr[i].day)] = arr[i];
     }
     return finalPeriodArray;
+  }
+  function removeExtraEntry(timetable){
+    for (var i in timetable){
+      if(i>0 && timetable[i].start_time===timetable[i-1].start_time ){
+        timetable[i].period_start_time = "";
+      }
+      else {
+        timetable[i].period_start_time = timetable[i].start_time;
+      }
+      console.log(i);
+    }
+    return timetable;
   }
   async function getTimeTable() {
     setLoading(true);
@@ -69,7 +76,7 @@ export default function ViewTimetible({ setTimetableState }) {
       },
       params: {
         classroom: selectedClass.id,
-        session : localStorage.getItem("session")
+        session: localStorage.getItem("session"),
       },
     });
     const commonRes = await axios.get(API_URL + "staff/commontime", {
@@ -78,40 +85,46 @@ export default function ViewTimetible({ setTimetableState }) {
       },
       params: {
         classroom: selectedClass.id,
-        session : localStorage.getItem("session")
-
+        session: localStorage.getItem("session"),
       },
     });
-    console.log(res.data, selectedClass, localStorage.getItem("session"))
+    console.log(res.data, selectedClass, localStorage.getItem("session"));
+   
     if (res.data.length) {
-      const timearray = res.data.sort(sortTimetable);
-      
-      for(var i = 0;i<timeList.length - 1;i++){
+      const timearray = res.data.sort(sortTimeTable);
+
+      for (var i = 0; i < timeList.length - 1; i++) {
         var starttime = timeList[i];
-        var endtime = timeList[i+1];
+        var endtime = timeList[i + 1];
         var arr = [];
         for (let i in timearray) {
-         
-          if (compareTime(timearray[i].start_time, starttime, "start", "start")  && compareTime(endtime ,timearray[i].start_time, "start", "end")) arr.push(timearray[i]);
-          if (compareTime(timearray[i].end_time, starttime, "end", "start")  && compareTime(endtime ,timearray[i].end_time, "end", "end")) arr.push(timearray[i]);
+          if (
+            compareTime(timearray[i].start_time, starttime, "start", "start") &&
+            compareTime(endtime, timearray[i].start_time, "start", "end")
+          )
+            arr.push(timearray[i]);
+          if (
+            compareTime(timearray[i].end_time, starttime, "end", "start") &&
+            compareTime(endtime, timearray[i].end_time, "end", "end")
+          )
+            arr.push(timearray[i]);
         }
-        if(arr.length){
- 
+        if (arr.length) {
           timetable.push({
             start_time: starttime,
             end_time: endtime,
             periods: filterTimetable(arr),
-          })
+          });
         }
-        
       }
-    
-      setTimetable(timetable.concat(commonRes.data).sort(sortTimeTable));
+      
+      setTimetable(removeExtraEntry(timetable.concat(commonRes.data).sort(sortTimeTable)));
     }
     setLoading(false);
   }
   useEffect(() => {
     setTimetable([]);
+    if(selectedClass.id)
     getTimeTable();
   }, [selectedClass]);
   useEffect(() => {
@@ -185,11 +198,11 @@ export default function ViewTimetible({ setTimetableState }) {
                   return (
                     <div
                       key={index}
-                      className="grid grid-cols-7 gap-4 border-b-2 border-dashed divide-x"
+                      className={`grid grid-cols-7 gap-4 ${!index || timetableRow.period_start_time===""? undefined : "border-t-2 border-dashed" }  divide-x`}
                     >
                       <div className="py-2 text-gray-500 text-md ">
                         {" "}
-                        {timetableRow.start_time}
+                        {timetableRow.period_start_time}
                       </div>
                       {timetableRow.periods ? (
                         timetableRow.periods.map((period, index) => {
@@ -198,8 +211,10 @@ export default function ViewTimetible({ setTimetableState }) {
                               key={index}
                               period={period}
                               index={index}
+                          
                               start={timetableRow.start_time}
                               end={timetableRow.end_time}
+                              selectedClass={selectedClass}
                             />
                           );
                         })
@@ -209,6 +224,10 @@ export default function ViewTimetible({ setTimetableState }) {
                             <div className="mx-2 my-2 rounded-lg  bg-[#FEF3C7] shadow-xl border-l-4 py-4  px-3 border-[#F59E0B] flex flex-col justify-start items-start">
                               <span className="text-md text-font-semibold">
                                 {timetableRow.subject}
+                              </span>
+                              <span className="text-sm text-gray-500">
+                                {timetableRow.start_time} -{" "}
+                                {timetableRow.end_time}
                               </span>
                             </div>
                           </div>
