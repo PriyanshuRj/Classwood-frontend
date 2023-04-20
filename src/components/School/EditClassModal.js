@@ -26,7 +26,7 @@ export default function EditClassroom({ setOpen,classroom }) {
     },[])
   const updateClassroom =async ()=>{
       const token = localStorage.getItem("token");
-      const res = await axios.put(API_URL + "list/classroom/" + classroom.id + "/",{
+      const res = await axios.patch(API_URL + "list/classroom/" + classroom.id + "/",{
         class_teacher: classTeacher.user.id,
         sub_class_teacher: subClassTeacher.user.id,
         class_name : classroom.class_name,

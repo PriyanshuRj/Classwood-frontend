@@ -28,18 +28,25 @@ export default function ClassroomSideBar({
 
   async function fetchSubjects() {
     setLoading(true);
-    const token = localStorage.getItem("token");
-    const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        classroom: localStorage.getItem("classId"),
-        session : localStorage.getItem("session")
-      },
-    });
-    setClassSubject(classroomSubjects.data);
-    setLoading(false);
+    try{
+      const token = localStorage.getItem("token");
+      const classroomSubjects = await axios.get(API_URL + "staff/subject/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          classroom: localStorage.getItem("classId"),
+          session : localStorage.getItem("session")
+        },
+      });
+      setClassSubject(classroomSubjects.data);
+    } catch(e){
+      console.log(e.message);
+    }
+    finally{
+      setLoading(false);
+    }
+    
   }
   async function getClassTeacher() {
     setLoading(true);

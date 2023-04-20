@@ -101,6 +101,9 @@ export default function AddClass() {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
+              params : {
+                session : localStorage.getItem("session")
+              }
             }
           );
           if(SubjectResponse.status=== 201){
@@ -119,7 +122,7 @@ export default function AddClass() {
                 },
               }
             );
-            // console.log("Student Response", studentRes);
+            console.log("Student Response", studentRes);
             if(studentRes.status===201){
               dispatch(setSuccessToast("classroom Created successfully"));
               getLatestClassroom(dispatch, navigate, setLoading);

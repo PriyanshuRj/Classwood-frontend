@@ -71,6 +71,11 @@ const deleteFunction = {
   function : DeleteProfile,
   
 }
+function findNoOfPresent(str){
+  let count = 0;
+  for( let i = 0;i< str.length;i++) if(str[i]==="2") count++;
+  return count
+}
   useEffect(() => {
     const date = new Date();
     setToday(date.getDate());
@@ -199,8 +204,8 @@ const deleteFunction = {
         <span>{props.StclassName}</span>
       </div>
       <div className="flex flex-col items-end">
-        <span>Grade</span>
-        <span>{props.grade}</span>
+        <span>Attendance</span>
+        <span>{findNoOfPresent(props.allData.month_attendance)}</span>
       </div>
     </div> : 
 

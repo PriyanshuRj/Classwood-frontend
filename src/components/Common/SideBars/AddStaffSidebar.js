@@ -160,7 +160,7 @@ export default function AddStaff({ setOpenAddProfile, staffData }) {
           formData.append("is_teaching_staff", isClassTeacher);
           formData.append("staff_id", staffId);
           formData.append("session", localStorage.getItem("session"));
-          const res = await axios.put(
+          const res = await axios.patch(
             API_URL + "list/staff/" + staffData.user.id + "/",
             formData,
             {

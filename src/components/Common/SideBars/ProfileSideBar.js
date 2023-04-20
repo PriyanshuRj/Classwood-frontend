@@ -168,13 +168,14 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
             <span>{findNoOfAbsents(data.month_attendance)}</span>
           </div>
         </div>
-        <div className="flex flex-row items-center mt-4">
+        {profileType==="student" ? undefined :  <div className="flex flex-row items-center mt-4">
           <AiOutlineBank className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">
             <span className="mb-1 font-semibold text-gray-800 text-md">Bank Account</span>
             <span>{profileType==="student" ? data.parent_account_no : data.account_no} </span>
           </div>
-        </div>
+        </div> }
+       
       <div className="flex flex-row items-center mt-4">
           <BsFillPersonFill className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">

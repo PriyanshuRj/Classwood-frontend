@@ -89,7 +89,7 @@ export default function Classroom() {
       if (classData.class_name === "11" || classData.class_name === "12")
         return true;
     } else if (tabState === 3) {
-      if (classData.class_name >= "1" && classData.class_name <= "5")
+      if (parseInt(classData.class_name) >= 1 && parseInt(classData.class_name)<= 5)
         return true;
     } else if (tabState === 4) {
       if (classData.class_name >= "6" && classData.class_name <= "10")
