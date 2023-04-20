@@ -51,18 +51,17 @@ export default function EditSingleModal({ setOpen, selectedClass, period }) {
     
     const token = localStorage.getItem("token");
     try {
+      console.log(startTime.hour + ":" + startTime.minute + ":00")
       if(period){
-        const res = await axios.patch(API_URL + "staff/timeTable/" + period.id,{
-            start_time : startTime,
-            end_time : endTime,
+        const res = await axios.patch(API_URL + "staff/timeTable/" + period.id + "/",{
+            start_time : startTime.hour + ":" + startTime.minute + ":00",
+            end_time : endTime.hour + ":" +  endTime.minute  + ":00",
             subject : setectedSubject.id
+    
         },{
             headers: {
                 Authorization: `Bearer ${token}`,
-              },
-              params: {
-                session : localStorage.getItem("session")
-              },
+              }
         });
         console.log("Res", res);
       }

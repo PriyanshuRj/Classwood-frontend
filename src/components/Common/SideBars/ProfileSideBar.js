@@ -90,7 +90,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
         <div className="flex flex-col w-full p-4 bg-[#F8FAFC] rounded-lg">
           <MdOutlineSchool className="w-6 h-6 mb-2 text-indigo-800" />
           <span className="mb-2 font-semibold text-md">{profileType==="student" ? "Student Of" : "Class Assigned"}</span>
-          <span>{profileType==="student" ? data.classroom : "10 - C"}</span>
+          <span>{profileType==="student" ? data.classroom : "No Class"}</span>
         </div>
         <div className="flex flex-col w-full p-4 bg-[#F8FAFC] rounded-lg">
           <BsBriefcase className="w-6 h-6 mb-2 text-indigo-800" />

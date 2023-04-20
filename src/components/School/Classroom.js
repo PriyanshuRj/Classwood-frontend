@@ -86,17 +86,20 @@ export default function Classroom() {
       if (classData.class_name === "12" || classData.class_name === "11")
         return true;
     } else if (tabState === 2) {
-      if (classData.class_name === "10" || classData.class_name === "9")
+      if (classData.class_name === "11" || classData.class_name === "12")
         return true;
     } else if (tabState === 3) {
-      if (classData.class_name >= "6" && classData.class_name <= "8")
+      if (classData.class_name >= "1" && classData.class_name <= "5")
         return true;
     } else if (tabState === 4) {
-      if (classData.class_name >= "6" && classData.class_name <= "8")
+      if (classData.class_name >= "6" && classData.class_name <= "10")
         return true;
     } else if (tabState === 5) {
       console.log(classData.class_name )
-      if (classData.class_name <= "5" && classData.class_name <= "1")
+      if (classData.class_name ==="LKG" || 
+      classData.class_name ==="UKG" || 
+      classData.class_name ==="Nursery" || 
+      classData.class_name ==="Pre Nursery")
         return true;
     }
   }
