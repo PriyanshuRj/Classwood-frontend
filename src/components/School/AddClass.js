@@ -11,7 +11,7 @@ import OverviewPage from "./AddClassPages/OverviewPage";
 import { setSuccessToast, setWarningToast } from "../../store/genralUser";
 import { getAllSchoolData, getLatestClassroom } from "./helpers/dataFetcher";
 import { API_URL } from "../../helpers/URL";
-
+import { Rings } from "react-loader-spinner";
 export default function AddClass() {
   
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ export default function AddClass() {
   const addClass = async () => {
     try {
       const token = localStorage.getItem("token");
-     
+      setLoading(true);
       const res = await axios.post(
         API_URL + "list/classroom/",
         {
@@ -140,10 +140,23 @@ export default function AddClass() {
     } catch (e) {
       console.warn("Error :::::::", e);
     }
+    finally{
+      setLoading(false);
+    }
   };
   return (
     <Layout>
-      {staff.length ? (
+      {loading ? 
+       <div className="flex items-center justify-center w-full h-screen">
+       <Rings
+         height="220"
+         width="220"
+         // radius="9"
+         color="rgb(30 64 175)"
+         ariaLabel="loading"
+       />{" "}
+     </div>
+      : staff.length ? (
         pageState === 1 ? (
           <ClassDetailPage
             staff={staff}
