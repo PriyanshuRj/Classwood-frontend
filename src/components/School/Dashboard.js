@@ -61,7 +61,7 @@ export default function StudentDashboard() {
     if(res.status===201) dispatch(setSuccessToast("Thought Added Successfully"));
   }
   async function getPastFees() {
-    setLoading(true);
+    // setLoading(true);
       const token = localStorage.getItem("token");
 
       let res = await axios.get(API_URL + "list/fees/", {
@@ -81,7 +81,7 @@ export default function StudentDashboard() {
       }
       console.log("fees", fees);
       setTotalFees(fees);
-      setLoading(false);
+      // setLoading(false);
   };
 
   async function getThougthOfTheDay(){

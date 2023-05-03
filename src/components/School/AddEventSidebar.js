@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import { Rings } from "react-loader-spinner";
 import Layout from "./Layout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../../helpers/URL";
 import { setWarningToast, setSuccessToast } from "../../store/genralUser";
 import { RxCross1 } from "react-icons/rx";
@@ -26,6 +26,7 @@ const monthNames = [
 export default function AddEventSidebar({setOpenAddEventeModal}) {
   
   const dispatch = useDispatch();
+  const events = useSelector((state) => state.user.events);
   const [noticeImage, addNoticeImage] = useState();
   const [title, setTitle] = useState("");
   const [eventTime, setEventTime] = useState("");
@@ -99,7 +100,7 @@ export default function AddEventSidebar({setOpenAddEventeModal}) {
             Event Time
           </label>
          
-        <Calendar seletctedDate={selectedDate} selectDate={selectDate} setDate={setDate} />
+        <Calendar pastMakred={events} seletctedDate={selectedDate} selectDate={selectDate} setDate={setDate} />
         </div>
         {day !=="" ?  <span className="ml-6 text-lg mt-4 mb-4 font-semibold">
           Event Date : {day.getDate() + " " +  monthNames[day.getMonth()] + " " + day.getFullYear() }

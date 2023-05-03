@@ -52,7 +52,13 @@ export default function SchoolProfile({data, setOpenProfile}) {
             <span>{data.school_phone}</span>
           </div>
         </div>
-        
+        <div className="flex flex-row items-center mt-2">
+          <AiOutlinePhone className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
+          <div className="flex flex-col items-start justify-center">
+            <span className="mb-1 font-semibold text-gray-800 text-md">School Head</span>
+            <span>{data.school_head}</span>
+          </div>
+        </div>
         </div>
 
         <div className="flex flex-row items-center mt-4">

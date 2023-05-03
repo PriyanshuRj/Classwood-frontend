@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import AttendencePopup from '../UI/AttendencePopUp';
 const AttendenceCalendar = ({attendence, user, profileType}) => {
-  console.log("This is data", JSON.parse(attendence));
-
+  const [attendenceMonth,selectAttendenceMonth] = useState(JSON.parse(attendence)[0]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const month = selectedDate.getMonth();
   const year = selectedDate.getFullYear();
@@ -18,7 +17,15 @@ const AttendenceCalendar = ({attendence, user, profileType}) => {
   for (let i = 0; i < firstDayOfMonth; i++) {
     days.unshift(null);
   }
+  function selectMonth(month){
+    for(let ATmonth in JSON.parse(attendence)){
+      if (month== JSON.parse(attendence)[ATmonth].month && year == JSON.parse(attendence)[ATmonth].year) selectAttendenceMonth(JSON.parse(attendence)[ATmonth])
+    }
+  }
+  useEffect(()=>{
+    selectMonth(month);
 
+  },[])
   const weeks = [];
 
   while (days.length > 0) {
@@ -27,10 +34,13 @@ const AttendenceCalendar = ({attendence, user, profileType}) => {
 
   const handlePrevMonth = () => {
     setSelectedDate(new Date(year, month - 1));
+    selectMonth(month -1);
   };
 
   const handleNextMonth = () => {
     setSelectedDate(new Date(year, month + 1));
+    selectMonth(month +1);
+
   };
 
   return (
@@ -60,9 +70,22 @@ const AttendenceCalendar = ({attendence, user, profileType}) => {
           {weeks.map((week, i) => (
             <div className="flex " key={i}>
               {week.map((day, j) => {
-                
+                let todayAttendence = {};
+                if(day){
+                  let date = year + "-" + month + "-" + day;
+                  if(month<10){
+                    date = date = year + "-0" + month + "-" + day;
+                    if(day<10) date = year + "-0" + month + "-0" + day;
+
+                  }
+                  if(day<10) date = year + "-" + month + "-0" + day;
+                 
+                  todayAttendence = attendenceMonth.data.filter(attendence=>{
+                    return attendence.date == date;
+                  })
+                }
                 return (
-               <AttendencePopup user={user} type={profileType} day={day} year={year} month={month} j={j} />
+               <AttendencePopup todaysAttendence={todayAttendence} user={user} type={profileType} day={day} year={year} month={month} j={j} />
               )})}
             </div>
           ))}

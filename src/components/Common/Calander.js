@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
-const Calendar = ({seletctedDate, selectDate, setDate}) => {
+
+const Calendar = ({seletctedDate, selectDate, setDate, pastMakred}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const month = selectedDate.getMonth();
   const year = selectedDate.getFullYear();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const days = [];
-
+  var pastdates = [];
+  for (let i in pastMakred){
+    const date = new Date(pastMakred[i].date);
+    pastdates.push(date);
+  }
+  console.log(pastdates)
+  // console.log("this",makedEventDates)
   for (let i = 1; i <= daysInMonth; i++) {
     days.push(i);
   }
@@ -58,13 +65,24 @@ const Calendar = ({seletctedDate, selectDate, setDate}) => {
           {weeks.map((week, i) => (
             <div className="flex " key={i}>
               {week.map((day, j) => {
-                
+                const todayDate = new Date(year, month, day);
+                console.log(todayDate,pastdates)
+                function compareDates (date1){
+                  return date1.getFullYear()===todayDate.getFullYear() && date1.getMonth()===todayDate.getMonth() && date1.getDate() === todayDate.getDate() ? true : false;
+                }
+                console.log(pastdates.filter(compareDates))
                 return (
-                <div onClick={()=> {
-                    setDate(new Date(year, month, day))
-                    selectDate(day)}} className={`w-14 h-14 rounded-full flex justify-center items-center text-center ${seletctedDate===day ? 'bg-[#EEF2FF] border border-[#818CF8] text-gray-700' : undefined} ${day === null ? 'opacity-0' : ''}`} key={j}>
-                  {day}
-                </div>
+                  <>
+                  
+                    <div onClick={()=> {
+                      setDate(new Date(year, month, day))
+                      
+                      selectDate(day)}} className={`w-14 h-14 rounded-full flex justify-center items-center text-center ${seletctedDate===day || pastdates.filter(compareDates).length ? 'bg-[#EEF2FF] border border-[#818CF8] text-gray-700' : undefined} ${day === null ? 'opacity-0' : ''}`} key={j}>
+                      {day}
+                    </div>
+                  
+               
+                      </>
               )})}
             </div>
           ))}

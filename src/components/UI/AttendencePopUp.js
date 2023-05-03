@@ -10,8 +10,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
-export default function AttendencePopup({day,year,month,j,type, user}) {
-    const dispatch = useDispatch();
+export default function AttendencePopup({day,year,month,j,type, user, todaysAttendence}) {
+  console.log(todaysAttendence)
+  const dispatch = useDispatch();
     const menuList = [
         {
           title: "Mark Present",
@@ -30,12 +31,14 @@ export default function AttendencePopup({day,year,month,j,type, user}) {
             month = '0' + month;
             if (day < 10) 
             day = '0' + day;
-            console.log(user)
+            console.log(user, localStorage.getItem("classId"), localStorage.getItem("session"))
             const token = localStorage.getItem("token");
             const res = await axios.post(API_URL + (type == "student" ?  "staff/studentAttendence/" : "list/staffAttendance/"),{
                 present : false,
                 student : user,
                 staff : user,
+                classroom: localStorage.getItem("classId"),
+            
                 date: year + "-" + month + "-" + day,
                 session : localStorage.getItem("session")
             }, {
@@ -48,7 +51,6 @@ export default function AttendencePopup({day,year,month,j,type, user}) {
         catch(e){
             dispatch(setWarningToast("Error in marking Attendence"));
         }
-        console.log(day,year,month)
     }
     async function markPresent(){
         console.log(day)
@@ -58,10 +60,9 @@ export default function AttendencePopup({day,year,month,j,type, user}) {
     <div>
       <Menu.Button className="inline-flex justify-center w-full text-sm font-semibold text-gray-900 ">
       <div onClick={()=> {
-                    // setDate(new Date(year, month, day))
-                    // selectDate(day)
+                   
                 }
-                    } className={`w-14 h-14 rounded-full flex justify-center items-center text-center ${day ? 'bg-[#EEF2FF] border border-[#818CF8] text-gray-700' : undefined} ${day === null ? 'opacity-0' : ''}`} key={j}>
+                    } className={`w-14 h-14 rounded-full flex justify-center items-center text-center ${todaysAttendence.present ==1 ? 'bg-[#c5e99d] border border-[#2ed32e] text-gray-700' : todaysAttendence.present ==2 ? 'bg-[#e99d9d] border border-[#d32e2e] text-gray-700' :  undefined} ${day === null ? 'opacity-0' : ''}`} key={j}>
                   {day}
                 </div>
       </Menu.Button>

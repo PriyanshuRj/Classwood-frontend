@@ -79,7 +79,7 @@ export default function AddExamResult() {
         formData.append("score", parseInt(student.marks));
         formData.append("exam",exam.id);
         formData.append("session", localStorage.getItem("session"));
-        // formData.append("marksheet", student.marksheet);
+        formData.append("attachment", student.marksheet);
         const res = await axios.post(API_URL + "staff/result/",formData,
         {headers: {
           Authorization: `Bearer ${token}`,
