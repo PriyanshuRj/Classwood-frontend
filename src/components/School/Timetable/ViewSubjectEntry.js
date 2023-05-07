@@ -9,7 +9,8 @@ export default function ViewSubjectEntry({
   start,
   end,
   selectedClass,
-  getTimeTable
+  getTimeTable,
+
 }) {
   const [open, setOpen] = useState(false);
 
@@ -42,6 +43,7 @@ export default function ViewSubjectEntry({
           setOpen={setOpen}
           selectedClass={selectedClass}
           getTimeTable={getTimeTable}
+          day={index}
         />
       )}
       <div

@@ -61,7 +61,6 @@ export default function ViewTimetible({ setTimetableState }) {
       else {
         timetable[i].period_start_time = timetable[i].start_time;
       }
-      console.log(i);
     }
     return timetable;
   }
@@ -88,7 +87,6 @@ export default function ViewTimetible({ setTimetableState }) {
         session: localStorage.getItem("session"),
       },
     });
-    console.log(res.data, selectedClass, localStorage.getItem("session"));
    
     if (res.data.length) {
       const timearray = res.data.sort(sortTimeTable);
@@ -205,12 +203,13 @@ export default function ViewTimetible({ setTimetableState }) {
                         {timetableRow.period_start_time}
                       </div>
                       {timetableRow.periods ? (
-                        timetableRow.periods.map((period, index) => {
+                        timetableRow.periods.map((period, indexPeriod) => {
                           return (
                             <ViewSubjectEntry
-                              key={index}
+                              key={indexPeriod}
                               period={period}
-                              index={index}
+                              index={indexPeriod}
+                       
                               getTimeTable={getTimeTable}
                               start={timetableRow.start_time}
                               end={timetableRow.end_time}

@@ -13,7 +13,8 @@ export default function EditSingleModal({
   period,
   startPeriodTime,
   endPeriodTime,
-  getTimeTable
+  getTimeTable,
+  day
 }) {
   const dispatch = useDispatch();
   const [setectedSubject, setSelectedSubject] = useState({
@@ -40,7 +41,6 @@ export default function EditSingleModal({
       const end = endPeriodTime.split(":");
       setStartTime({ hour: start[0], minute: start[1] });
       setEndTime({ hour: end[0], minute: end[1] });
-      console.log(endPeriodTime, startPeriodTime);
     }
   }, []);
   function setTime(value, type, HorM) {
@@ -58,7 +58,6 @@ export default function EditSingleModal({
 
     const token = localStorage.getItem("token");
     try {
-      console.log(startTime.hour + ":" + startTime.minute + ":00");
       if (period.subject) {
         const res = await axios.patch(
           API_URL + "staff/timeTable/" + period.id + "/",
@@ -79,6 +78,8 @@ export default function EditSingleModal({
           dispatch(setSuccessToast("TimeTable updated Successfully"));
         }
       } else {
+        console.log("here")
+        console.log(setectedSubject.id, selectedClass.id);
         const res = await axios.post(
           API_URL + "staff/timeTable/",
           {
@@ -86,6 +87,7 @@ export default function EditSingleModal({
             end_time: endTime.hour + ":" + endTime.minute + ":00",
             subject: setectedSubject.id,
             classroom : selectedClass.id,
+            day : day,
             session : localStorage.getItem("session")
           },
           {
@@ -95,7 +97,7 @@ export default function EditSingleModal({
           }
         );
         console.log("Res", res);
-        if(res.status==200){
+        if(res.status==201){
           getTimeTable();
           dispatch(setSuccessToast("TimeTable updated Successfully"));
         }
