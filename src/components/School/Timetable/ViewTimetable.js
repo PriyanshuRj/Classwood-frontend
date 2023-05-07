@@ -211,7 +211,7 @@ export default function ViewTimetible({ setTimetableState }) {
                               key={index}
                               period={period}
                               index={index}
-                          
+                              getTimeTable={getTimeTable}
                               start={timetableRow.start_time}
                               end={timetableRow.end_time}
                               selectedClass={selectedClass}
