@@ -1,17 +1,18 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState} from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../helpers/URL';
 import { Menu, Transition } from "@headlessui/react";
 import { useDispatch } from 'react-redux';
 import VirticalDotsIcon from "../../assets/icons/VerticalDots";
-import { setWarningToast } from '../../store/genralUser';
+import { setSuccessToast, setWarningToast } from '../../store/genralUser';
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
-export default function AttendencePopup({day,year,month,j,type, user, todaysAttendence}) {
-  console.log(todaysAttendence)
+export default function AttendencePopup({day,year,month,j,type, user, todaysAttendence, classroom_id}) {
+  // console.log(todaysAttendence)
+  const [currentAttendenceState, setCurrentAttendenceState] = useState(0);
   const dispatch = useDispatch();
     const menuList = [
         {
@@ -31,21 +32,27 @@ export default function AttendencePopup({day,year,month,j,type, user, todaysAtte
             month = '0' + month;
             if (day < 10) 
             day = '0' + day;
-            console.log(user, localStorage.getItem("classId"), localStorage.getItem("session"))
             const token = localStorage.getItem("token");
-            const res = await axios.post(API_URL + (type == "student" ?  "staff/studentAttendence/" : "list/staffAttendance/"),{
-                present : false,
-                student : user,
-                staff : user,
-                classroom: localStorage.getItem("classId"),
-            
-                date: year + "-" + month + "-" + day,
-                session : localStorage.getItem("session")
+            console.log(user, localStorage.getItem("classId"), localStorage.getItem("session"))
+            const res = await axios.post(API_URL + (type == "student" ?  "staff/studentAttendance/" : "list/staffAttendance/"),{
+              date: year + "-" + month + "-" + day,
+              present: "false",
+              student: user,
+              staff: user,
+              classroom: classroom_id,
+              session: localStorage.getItem("session")
             }, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
               })
+              if(res.status==201){
+                dispatch(setSuccessToast("Attendence Marked Successfully"));
+                setCurrentAttendenceState(1);
+              }
+              if(res.status==200){
+                dispatch(setWarningToast("Attendence Marked already"))
+              }
             console.log(res);
         }
         catch(e){
@@ -53,16 +60,44 @@ export default function AttendencePopup({day,year,month,j,type, user, todaysAtte
         }
     }
     async function markPresent(){
-        console.log(day)
+      try{
+        month +=1;
+        if (month < 10) 
+        month = '0' + month;
+        if (day < 10) 
+        day = '0' + day;
+        const token = localStorage.getItem("token");
+        const res = await axios.post(API_URL + (type == "student" ?  "staff/studentAttendance/" : "list/staffAttendance/"),{
+          date: year + "-" + month + "-" + day,
+          present: "true",
+          student: user,
+          staff: user,
+
+          classroom: classroom_id,
+          session: localStorage.getItem("session")
+        }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          if(res.status==201){
+            setCurrentAttendenceState(2)
+            dispatch(setSuccessToast("Attendence Marked Successfully"));
+          }
+          if(res.status==200){
+            dispatch(setWarningToast("Attendence Marked already"))
+          }
+        console.log(res);
+    }
+    catch(e){
+        dispatch(setWarningToast("Error in marking Attendence"));
+    }
     }
   return (
     <Menu as="div" className="relative inline-block text-left">
     <div>
       <Menu.Button className="inline-flex justify-center w-full text-sm font-semibold text-gray-900 ">
-      <div onClick={()=> {
-                   
-                }
-                    } className={`w-14 h-14 rounded-full flex justify-center items-center text-center ${todaysAttendence.present ==1 ? 'bg-[#c5e99d] border border-[#2ed32e] text-gray-700' : todaysAttendence.present ==2 ? 'bg-[#e99d9d] border border-[#d32e2e] text-gray-700' :  undefined} ${day === null ? 'opacity-0' : ''}`} key={j}>
+      <div className={`m-1 w-12 h-12 rounded-full flex justify-center items-center text-center ${todaysAttendence[0] && (todaysAttendence[0].present ==2 || currentAttendenceState==2) ? 'bg-[#c5e99d] border border-[#2ed32e] text-gray-700' :todaysAttendence[0] && (todaysAttendence[0].present ==1 ||  currentAttendenceState==1) ? 'bg-[#e99d9d] border border-[#d32e2e] text-gray-700' :  undefined} ${day === null ? 'opacity-0' : ''}`} key={j}>
                   {day}
                 </div>
       </Menu.Button>

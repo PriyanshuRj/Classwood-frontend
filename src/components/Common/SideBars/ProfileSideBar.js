@@ -11,7 +11,6 @@ import { API_URL } from "../../../helpers/URL";
 import axios from "axios";
 import AttendenceCalendar from "../AttendenceCalander";
 export default function ProfileSideBar({setOpenProfile, data, setProfileData, setOpenAddProfile, profileType}) {
-  console.log("this is data", data)
   const [password, setPassword] = useState("");
   function findNoOfAbsents(str){
     let count = 0;
@@ -155,7 +154,7 @@ export default function ProfileSideBar({setOpenProfile, data, setProfileData, se
       </div>
       <div className="flex flex-col mx-4 mt-4">
         <p className="mb-4 text-xl font-semibold text-gray-800">{profileType !== "student" ? "Professional Details" : "Admission Details"}</p>
-        <AttendenceCalendar user={data.user.id} profileType={profileType}  attendence={data.year_attendance}/>
+        <AttendenceCalendar user={data.user.id} profileType={profileType} classroom_id={data.classroom_id}  attendence={data.year_attendance}/>
         <div className="flex flex-row items-center mt-2">
           <AiOutlineCalendar className="w-8 h-8 mb-2 mr-4 text-indigo-700" />
           <div className="flex flex-col items-start justify-center">

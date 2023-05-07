@@ -1,6 +1,4 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { BiDotsVerticalRounded } from "react-icons/bi";
-import { Menu, Transition } from "@headlessui/react";
 import { GoPrimitiveDot } from "react-icons/go";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -85,7 +83,6 @@ function findNoOfPresent(str){
     if (props.type === "student")
       setAttendanceState(JSON.parse(props.attendance)[today - 1]);
     else setAttendanceState(JSON.parse(props.allData.month_attendance)[today - 1]);
-    console.log("called")
   }, [today,props.tabState]);
 
 
@@ -100,7 +97,7 @@ function findNoOfPresent(str){
           API_URL + "staff/studentAttendance/",
           {
             date: formatDate(date),
-            present: val,
+            present: val.toString(),
             student: props.studentId,
             classroom: localStorage.getItem("classId"),
             school: props.school,
@@ -117,20 +114,18 @@ function findNoOfPresent(str){
           dispatch(setSuccessToast("Attendance Marked Succesfully"));
         setAttendanceState(val ? 2 : 1);
         if (
-          res.status === 200 &&
-          res.data.non_field_errors[0] ===
-            "The fields student, date must make a unique set."
+          res.status === 200 
         )dispatch
           (setWarningToast("Attendance marked for the day"));
       }
       else {
+        console.log(val.toString())
         const res = await axios.post(
           API_URL + "list/staffAttendance/",
           {
             date: formatDate(date),
-            present: val,
+            present: val.toString(),
             staff: props.allData.user.id,
-            school: props.allData.school,
             session : localStorage.getItem("session")
           },
           {
@@ -144,11 +139,9 @@ function findNoOfPresent(str){
           dispatch(setSuccessToast("Attendance Marked Succesfully"));
         setAttendanceState(val ? 2 : 1);
         if (
-          res.status === 200 &&
-          res.data.non_field_errors[0] ===
-            "The fields student, date must make a unique set."
-        )dispatch
-          (setWarningToast("Attendance marked for the day"));
+          res.status === 200
+        )dispatch(setWarningToast("Attendance marked for the day"));
+          console.log(res)
       }
      
     } catch (e) {

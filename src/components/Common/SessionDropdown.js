@@ -20,7 +20,6 @@ export default function SessionDoropDown({inputList, selected , setLoading}) {
   async function fetchNewSession(value){
     localStorage.setItem("session", value.id);
     dispatch(setSession(value));
-    console.log(value)
     getAllSchoolData(dispatch, navigate, setLoading , value);
   }
   return (
@@ -60,12 +59,13 @@ export default function SessionDoropDown({inputList, selected , setLoading}) {
                   >
                     {({ selected, active }) => (
                       <>
-                        <div className="flex items-center">
+                        <div className="flex justify-center flex-col">
                           <span
                             className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
                           >
                             {person.start_date ? person.start_date.substring(0,4) + " - " + (parseInt(person.start_date.substring(0,4)) +1) : "Year"}
                           </span>
+                          <span className='ml-3 text-sm text-gray-400'>{person.start_date}</span>
                         </div>
 
                         {selected ? (

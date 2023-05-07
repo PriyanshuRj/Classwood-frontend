@@ -24,7 +24,6 @@ export default function DashHeader({setLoading}) {
     // console.log("session res", sessionRes);
 
     dispatch(setAllSession(sessionRes.data));
-    console.log(sessionRes.data)
     if(sessionRes.data.length){
       localStorage.setItem("session", sessionRes.data[0].id);
     }
@@ -49,7 +48,6 @@ export default function DashHeader({setLoading}) {
   },[])
 useEffect(()=>{
   if(sessionList.length){
-    console.log("clae")
     dispatch(setSession(sessionList[0]))
   }
 },[sessionList])
