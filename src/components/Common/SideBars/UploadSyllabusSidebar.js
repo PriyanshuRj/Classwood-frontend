@@ -7,7 +7,7 @@ import SubjectDropDown from "../../School/helpers/SubjectDropDown";
 import { setWarningToast, setSuccessToast } from "../../../store/genralUser";
 import { CgAdd } from "react-icons/cg";
 import {IoMdRemoveCircleOutline} from 'react-icons/io';
-
+import { addAllSyllabus } from "../../../store/School/syllabusSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Rings } from "react-loader-spinner";
@@ -29,6 +29,19 @@ export default function UploadSyllabusSidebar({ setOpenUpload }) {
   const [subjectImage, setSubjectImage] = useState(null);
   const [units, setUnits] = useState("");
   const subjectChapters = useSelector((state) => state.syllabus.subjectChapters);
+
+  async function fetchAllSylabus(){
+    const token = localStorage.getItem("token");
+    const syllabusRes = await axios.get(API_URL + "staff/syllabus/",{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        session: localStorage.getItem("session"),
+    },
+    })
+    dispatch(addAllSyllabus(syllabusRes.data))
+  }
   useEffect(() => {
     fetchSubjects();
   }, [selectedClass]);
@@ -55,28 +68,23 @@ export default function UploadSyllabusSidebar({ setOpenUpload }) {
       if (setectedSubject.name === "No Subject Selected") {
         dispatch(setWarningToast("Please select a subject"));
       }
-      if (!subjectImage)
-        dispatch(setWarningToast("Please select a syllabus file"));
+     
       else {
         
         const token = localStorage.getItem("token");
-        const formData = new FormData();
-        formData.append("classroom", selectedClass.id);
-        formData.append("attachments", subjectImage);
-        formData.append("subject", setectedSubject.id);
-        formData.append("tag", selectedClass.class_teacher);
-        formData.append("book", book);
-        formData.append('chapters',subjectChapters);
-        formData.append("session", localStorage.getItem("session"));
-        // formData.append("unit", units);
-        console.log("post request",setectedSubject.id , selectedClass.id)
-        let res = await axios.post(API_URL + "staff/syllabus/", formData, {
+
+        let res = await axios.post(API_URL + "staff/syllabus/", {
+          classroom : selectedClass.id,
+          subject : setectedSubject.id,
+          tag : selectedClass.class_teacher,
+          book : book,
+          chapters : subjectChapters,
+          session : localStorage.getItem("session")
+
+        }, {
           headers: {
             Authorization: `Bearer ${token}`,
-          },
-          params: {
-            session: localStorage.getItem("session"),
-          },
+          }
         });
         console.log(res);
         if (res.status == 200) {
@@ -84,8 +92,10 @@ export default function UploadSyllabusSidebar({ setOpenUpload }) {
         }
         if (res.status === 201) {
           dispatch(setSuccessToast("Syllabus Added successfully"));
+          fetchAllSylabus();
         }
       }
+
     } catch (error) {
       console.warn(error);
     }
@@ -203,7 +213,7 @@ export default function UploadSyllabusSidebar({ setOpenUpload }) {
         <CgAdd className="mr-2" /> Add new Subject
       </span>
 
-
+{/* 
               <div className="flex items-center justify-center w-full mt-8">
                 <label
                   htmlFor="dropzone-file"
@@ -255,7 +265,7 @@ export default function UploadSyllabusSidebar({ setOpenUpload }) {
                     }}
                   />
                 </label>
-              </div>
+              </div> */}
             </div>
             <button
               onClick={() => createSyllabus()}
